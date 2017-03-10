@@ -1,0 +1,15 @@
+C:\Users\Denis\Desktop\school-master-denis-7-3\Billing.Seed\bin\Debug\Billing.Seed.exe.config
+C:\Users\Denis\Desktop\school-master-denis-7-3\Billing.Seed\bin\Debug\Billing.Seed.exe
+C:\Users\Denis\Desktop\school-master-denis-7-3\Billing.Seed\bin\Debug\Billing.Seed.pdb
+C:\Users\Denis\Desktop\school-master-denis-7-3\Billing.Seed\bin\Debug\Billing.Database.dll
+C:\Users\Denis\Desktop\school-master-denis-7-3\Billing.Seed\bin\Debug\Billing.Repository.dll
+C:\Users\Denis\Desktop\school-master-denis-7-3\Billing.Seed\bin\Debug\EntityFramework.dll
+C:\Users\Denis\Desktop\school-master-denis-7-3\Billing.Seed\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Denis\Desktop\school-master-denis-7-3\Billing.Seed\bin\Debug\Billing.Database.pdb
+C:\Users\Denis\Desktop\school-master-denis-7-3\Billing.Seed\bin\Debug\Billing.Repository.pdb
+C:\Users\Denis\Desktop\school-master-denis-7-3\Billing.Seed\bin\Debug\EntityFramework.xml
+C:\Users\Denis\Desktop\school-master-denis-7-3\Billing.Seed\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Denis\Desktop\school-master-denis-7-3\Billing.Seed\obj\Debug\Billing.Seed.csprojResolveAssemblyReference.cache
+C:\Users\Denis\Desktop\school-master-denis-7-3\Billing.Seed\obj\Debug\Billing.Seed.exe
+C:\Users\Denis\Desktop\school-master-denis-7-3\Billing.Seed\obj\Debug\Billing.Seed.pdb
+C:\Users\Denis\Desktop\school-master-denis-7-3\Billing.Seed\bin\Debug\Microsoft.AI.Agent.Intercept.dll
