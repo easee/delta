@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Billing.Database
 {
+    //TEST
     public class Invoice : Basic
     {
         public Invoice()
