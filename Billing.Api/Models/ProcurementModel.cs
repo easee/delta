@@ -5,6 +5,7 @@ using System.Web;
 
 namespace Billing.Api.Models
 {
+    
     public class ProcurementsModel
     {
         public int Id { get; set; }
@@ -13,7 +14,13 @@ namespace Billing.Api.Models
         public int Quantity { get; set; }
         public double Price { get; set; }
 
+        //IN GIGI's DOCUMENT 
+        public double Total { get; set; }
+
         public string Supplier { get; set; }
+        public int SupplierId { get; set; }
+
+        public int ProductId { get; set; }
         public string Product { get; set; }
 
     }
