@@ -191,7 +191,20 @@ namespace Billing.Api.Models
                 Id = shipper.Id,
                 Name = shipper.Name,
                 Address = shipper.Address,
+                Town=shipper.Town.Name,
+                TownId=shipper.Town.Id,
                 Invoices = shipper.Invoices.Select(x => x.InvoiceNo).ToList()
+            };
+        }
+
+        public Shipper Create(ShipperModel model)
+        {
+            return new Shipper()
+            {
+                Id=model.Id,
+                Name=model.Name,
+                Address=model.Address,
+                Town=_unitOfWork.Towns.Get(model.TownId)
             };
         }
 
@@ -228,13 +241,38 @@ namespace Billing.Api.Models
                 Id = invoice.Id,
                 InvoiceNo = invoice.InvoiceNo,
                 Date = invoice.Date,
+                ShippedOn= invoice.ShippedOn,
+                Status=invoice.Status,
+                Vat=invoice.Vat,
+                SubTotal=invoice.SubTotal,
+                Total=invoice.Total,
+                VatAmount=invoice.VatAmount,
+                ShipperId = invoice.Shipper.Id,
+                CustomerId = invoice.Customer.Id,
+                AgentId= invoice.Agent.Id,
                 Shipper = invoice.Shipper.Name,
                 Customer = invoice.Customer.Name,
-                Agent = invoice.Agent.Name,
-                Total = invoice.Total,
+                Agent = invoice.Agent.Name,              
                 Shipping = invoice.Shipping
             };
         }
+
+        public Invoice Create(InvoiceModel model)
+        {
+            return new Invoice()
+            {
+                Id=model.Id,
+                InvoiceNo = model.InvoiceNo,
+                Date=model.Date,
+                ShippedOn = model.ShippedOn,
+                Shipping = model.Shipping,
+                Customer = _unitOfWork.Customers.Get(model.CustomerId),
+                Agent = _unitOfWork.Agents.Get(model.AgentId),
+                Shipper = _unitOfWork.Shippers.Get(model.ShipperId)
+            };
+        }
+
+
 
     }
 }
