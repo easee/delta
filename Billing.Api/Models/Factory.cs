@@ -42,6 +42,16 @@ namespace Billing.Api.Models
             };
         }
 
+        public Category Create(CategoryModel category) {
+
+            return new Category
+            {
+                Id = category.Id,
+                Name = category.Name
+            };
+        }
+
+
         //All together
         public ProductModel Create(Product product)
         {
@@ -121,10 +131,24 @@ namespace Billing.Api.Models
                 Quantity = procurements.Quantity,
                 Price = procurements.Price,
                 Product = procurements.Product.Name,
-                Supplier = procurements.Supplier.Name
+                ProductId = procurements.Product.Id,
+                Supplier = procurements.Supplier.Name,
+                SupplierId = procurements.Supplier.Id     
             };
         }
 
+        public Procurement Create(ProcurementsModel model) {
+
+            return new Procurement() {
+                Id = model.Id,
+                Document = model.Document,
+                Date = model.Date,
+                Quantity = model.Quantity,
+                Price = model.Price,
+                Product = _unitOfWork.Products.Get(model.ProductId),
+                Supplier = _unitOfWork.Suppliers.Get(model.SupplierId)
+            };
+        }
         //Josip
         public ShipperModel Create(Shipper shipper)
         {
