@@ -6,7 +6,7 @@ using System.Web;
 namespace Billing.Api.Models
 {
     
-    public class ProcurementsModel
+    public class ProcurementModel
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }

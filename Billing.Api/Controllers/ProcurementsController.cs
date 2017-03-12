@@ -44,10 +44,10 @@ namespace Billing.Api.Controllers
             if (procurement == null) return NotFound();
             return Ok(Factory.Create(procurement));
         }
-                                //ALLERT: NAME OF PROCUREMENT MODEL IN SOLUTION IS "PROCUREMENTMOODEL", BUT IN DEFENITION 
-                                //"PROCUREMENTSMODEL", I HAVEN'T CHANGED 'CAUSE OF POSSIBLE MERGE ERROR AND CONFLICT->ANUR
+        //Denis: Renamed ProcurementModel name according to conventions.
+        //Previous name and alert set by Anur. 
         [Route("")]
-        public IHttpActionResult Post(ProcurementsModel model) {
+        public IHttpActionResult Post(ProcurementModel model) {
             try
             {
                 Procurement procurement = Factory.Create(model);
@@ -63,7 +63,7 @@ namespace Billing.Api.Controllers
         }
 
        [Route("{id}")]
-       public IHttpActionResult Put(int id, ProcurementsModel model)
+       public IHttpActionResult Put(int id, ProcurementModel model)
         {
             try
             {
@@ -95,10 +95,6 @@ namespace Billing.Api.Controllers
 
 
         }
-
-
-
-
 
     }
 }

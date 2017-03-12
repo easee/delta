@@ -1,6 +1,7 @@
 ﻿using Billing.Api.Models;
 using Billing.Database;
 using Billing.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -32,5 +33,52 @@ namespace Billing.Api.Controllers
             if (town == null) return NotFound();
             return Ok(Factory.Create(town));
         }
+
+
+        [Route("")]
+        public IHttpActionResult Post([FromBody]Town town)
+        {
+            try
+            {
+                UnitOfWork.Towns.Insert(town);
+                UnitOfWork.Commit();
+                return Ok(town);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Route("{id}")]
+        public IHttpActionResult Put([FromUri] int id, [FromBody]Town town)//FromUri i FromBody možemo i ne moramo pisati, podrazumijeva se.
+        {
+            try
+            {
+                UnitOfWork.Towns.Update(town, id);
+                UnitOfWork.Commit();
+                return Ok(town);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Route("{id}")]
+        public IHttpActionResult Delete(int id)
+        {
+            try
+            {
+                UnitOfWork.Towns.Delete(id);
+                UnitOfWork.Commit();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }
