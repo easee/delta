@@ -31,6 +31,15 @@ namespace Billing.Api.Models
             };
         }
 
+        public Agent Create(AgentModel model)
+        {
+            return new Agent()
+            {
+                Id = model.Id,
+                Name = model.Name
+            };
+        }
+
         //All together
         public CategoryModel Create(Category category)
         {
@@ -92,9 +101,7 @@ namespace Billing.Api.Models
             };
         }
 
-
-
-        //Denis
+        //Creating Model
         public TownModel Create(Town town)
         {
             return new TownModel()
@@ -105,40 +112,66 @@ namespace Billing.Api.Models
                 Customers = town.Customers.Select(x => x.Name).ToList(),
                 Agents = town.Agents.Select(x => x.Name).ToList()
             };
-
         }
 
-        //Denis
+        //Model to Entity
+        public Town Create(TownModel model)
+        {
+            return new Town()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Zip = model.Zip
+            };
+        }
+ 
         public ItemModel Create(Item item)
         {
             return new ItemModel()
             {
                 Id = item.Id,
-                Quantity = item.Quantity,
+                Invoice = item.Invoice.InvoiceNo,
+                InvoiceId = item.Invoice.Id,
+                Product = item.Product.Name,
+                Unit = item.Product.Unit,
+                ProductId = item.Product.Id,
                 Price = item.Price,
+                Quantity = item.Quantity,
                 SubTotal = item.SubTotal
             };
         }
 
-        //Anur
-        public ProcurementsModel Create(Procurement procurements)
+        public Item Create(ItemModel model)
         {
-            return new ProcurementsModel()
+            return new Item()
             {
-                Id = procurements.Id,
-                Document = procurements.Document,
-                Date = procurements.Date,
-                Quantity = procurements.Quantity,
-                Price = procurements.Price,
-                Product = procurements.Product.Name,
-                ProductId = procurements.Product.Id,
-                Supplier = procurements.Supplier.Name,
-                SupplierId = procurements.Supplier.Id     
+                Id = model.Id,
+                Invoice = _unitOfWork.Invoices.Get(model.InvoiceId),
+                Product = _unitOfWork.Products.Get(model.ProductId),
+                Price = model.Price,
+                Quantity = model.Quantity
             };
         }
 
-        public Procurement Create(ProcurementsModel model) {
+        //Anur
+        public ProcurementModel Create(Procurement procurement)
+        {
+            return new ProcurementModel()
+            {
+                Id = procurement.Id,
+                Document = procurement.Document,
+                Date = procurement.Date,
+                Quantity = procurement.Quantity,
+                Price = procurement.Price,
+                Product = procurement.Product.Name,
+                ProductId = procurement.Product.Id,
+                Supplier = procurement.Supplier.Name,
+                SupplierId = procurement.Supplier.Id     
+            };
+        }
 
+        public Procurement Create(ProcurementModel model)
+        {
             return new Procurement() {
                 Id = model.Id,
                 Document = model.Document,
@@ -149,6 +182,7 @@ namespace Billing.Api.Models
                 Supplier = _unitOfWork.Suppliers.Get(model.SupplierId)
             };
         }
+
         //Josip
         public ShipperModel Create(Shipper shipper)
         {
