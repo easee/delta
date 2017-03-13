@@ -8,7 +8,7 @@ namespace Billing.Database
         {
             Items = new List<Item>();
             Procurements = new List<Procurement>();
-            Stock = new Stock();
+            
         }
 
         public int Id { get; set; }
