@@ -70,9 +70,32 @@ namespace Billing.Api.Models
                 Name = product.Name,
                 Price = product.Price,
                 Category = product.Category.Name,
+                CategoryId = product.Category.Id,
                 Unit = product.Unit,
-                Stock = (product.Stock == null) ? 0 : (int)(product.Stock.Input - product.Stock.Output)
+                Input = product.Stock.Input,
+                Output = product.Stock.Output,
+                Inventory = product.Stock.Inventory
             };
+        }
+
+        public Product Create(ProductModel model)
+        {
+            Stock stock = _unitOfWork.Stocks.Get(model.Id);
+            if (stock != null)
+            {
+                stock.Input = model.Input;
+                stock.Output = model.Output;
+            }
+            return new Product()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Price = model.Price,
+                Unit = model.Unit,
+                Category = _unitOfWork.Categories.Get(model.CategoryId),
+                Stock = (stock != null) ? stock : new Stock()
+            };
+
         }
 
         //Denis

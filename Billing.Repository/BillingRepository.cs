@@ -38,8 +38,10 @@ namespace Billing.Repository
 
         public void Delete(int id)
         {
+            //Entity oldEntity = Get(id);
+            //dbSet.Remove(oldEntity);
             Entity oldEntity = Get(id);
-            dbSet.Remove(oldEntity);
+            if (oldEntity != null) dbSet.Remove(oldEntity);
         }
 
         public bool Commit()
