@@ -64,6 +64,7 @@ namespace Billing.Api.Models
         //All together
         public ProductModel Create(Product product)
         {
+
             return new ProductModel()
             {
                 Id = product.Id,
@@ -72,9 +73,9 @@ namespace Billing.Api.Models
                 Category = product.Category.Name,
                 CategoryId = product.Category.Id,
                 Unit = product.Unit,
-                Input = product.Stock.Input,
-                Output = product.Stock.Output,
-                Inventory = product.Stock.Inventory
+                Input = (product.Stock != null) ? product.Stock.Input : 0,
+                Output = (product.Stock != null) ? product.Stock.Output : 0,
+                Inventory = (product.Stock != null) ? product.Stock.Inventory : 0
             };
         }
 
@@ -93,7 +94,7 @@ namespace Billing.Api.Models
                 Price = model.Price,
                 Unit = model.Unit,
                 Category = _unitOfWork.Categories.Get(model.CategoryId),
-                Stock = (stock != null) ? stock : new Stock()
+                Stock = (stock != null) ? stock : null
             };
 
         }

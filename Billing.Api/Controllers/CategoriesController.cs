@@ -19,9 +19,17 @@ namespace Billing.Api.Controllers
         [Route("{id:int}")]
         public IHttpActionResult Get(int id)
         {
-            Category category = UnitOfWork.Categories.Get(id);
-            if (category == null) return NotFound();
-            return Ok(Factory.Create(category));
+            try
+            {
+                Category category = UnitOfWork.Categories.Get(id);
+                if (category == null) return NotFound();
+                return Ok(Factory.Create(category));
+            }  //Ovdje ne trebamo else jer je u jednoj liniji
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
         [Route("")]
@@ -69,16 +77,6 @@ namespace Billing.Api.Controllers
             {
                 return BadRequest(ex.Message);
             }
-
-
-
-
-
         }
-       
-
-
-
-
     }
 }
