@@ -21,32 +21,54 @@ namespace Billing.Api.Controllers
         [Route("{name}")]
         public IHttpActionResult Get(string name)
         {
-            return Ok(UnitOfWork.Products.Get().Where(x => x.Name.Contains(name)).ToList()
+            try
+            {
+                return Ok(UnitOfWork.Products.Get().Where(x => x.Name.Contains(name)).ToList()
                                   .Select(a => Factory.Create(a)).ToList());
+            }
+
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
-        [Route("class/{clId:int}")]
-        public IHttpActionResult Get(int clId)
-        {
-            return Ok(UnitOfWork.Products.Get().Where(x => x.Category.Id == clId).ToList()
-                                  .Select(a => Factory.Create(a)).ToList());
-        }
+        //[Route("class/{clId:int}")]
+        //public IHttpActionResult Get(int clId)
+        //{
+        //    try
+        //    {
+        //        return Ok(UnitOfWork.Products.Get().Where(x => x.Category.Id == clId).ToList()
+        //                          .Select(a => Factory.Create(a)).ToList());
+        //    }
+
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
 
 
         [Route("{id:int}")]
-        public IHttpActionResult GetById(int id)
+        public IHttpActionResult Get(int id)
         {
-            Product product = UnitOfWork.Products.Get(id);
-            if (product == null) return NotFound();
-            return Ok(Factory.Create(product));
+            try
+            {
+                Product product = UnitOfWork.Products.Get(id);
+                if (product == null) return NotFound();
+                return Ok(Factory.Create(product));
+            }
+
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
-
-
 
         [Route("")]
         public IHttpActionResult Post(ProductModel model)
         {
-
             try
             {
                 Product product = Factory.Create(model);
@@ -56,7 +78,6 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
-
                 return BadRequest(ex.Message);
             }
         }
@@ -82,6 +103,7 @@ namespace Billing.Api.Controllers
         {
             try
             {
+                if (UnitOfWork.Products.Get(id) == null) return NotFound();
                 UnitOfWork.Products.Delete(id);
                 UnitOfWork.Commit();
                 return Ok();
@@ -90,8 +112,6 @@ namespace Billing.Api.Controllers
             {
                 return BadRequest(ex.Message);
             }
-
-
         }
     }
 }
