@@ -8,20 +8,21 @@ using System.Web.Http.Hosting;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Controllers;
+using System.Collections.Generic;
 
 namespace Billing.Tests
 {
     [TestClass]
-    public class TestCategoriesController
+    public class TestAgentController
     {
-        CategoriesController controller = new CategoriesController();
+        AgentsController controller = new AgentsController();
         HttpConfiguration config = new HttpConfiguration();
-        HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "api/categories");
+        HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "api/agents");
 
         void GetReady()
         {
             var route = config.Routes.MapHttpRoute("default", "api/{controller}/{id}");
-            var routeData = new HttpRouteData(route, new HttpRouteValueDictionary { { "controller", "categories" } });
+            var routeData = new HttpRouteData(route, new HttpRouteValueDictionary { { "controller", "agents" } });
 
             controller.ControllerContext = new HttpControllerContext(config, routeData, request);
             controller.Request = request;
@@ -29,7 +30,7 @@ namespace Billing.Tests
         }
 
         [TestMethod]
-        public void GetAllCategories()
+        public void GetAllAgents()
         {
             TestHelper.InitDatabase(); GetReady();
             var actRes = controller.Get();
@@ -39,7 +40,7 @@ namespace Billing.Tests
         }
 
         [TestMethod]
-        public void GetCategoryById()
+        public void GetAgentById()
         {
             GetReady();
             var actRes = controller.Get(1);
@@ -49,7 +50,7 @@ namespace Billing.Tests
         }
 
         [TestMethod]
-        public void GetCategoryByWrongId()
+        public void GetAgentByWrongId()
         {
             GetReady();
             var actRes = controller.Get(999);
@@ -59,20 +60,20 @@ namespace Billing.Tests
         }
 
         [TestMethod]
-        public void PostCategoryGood()
+        public void PostAgentGood()
         {
             GetReady();
-            var actRes = controller.Post(new CategoryModel() { Name = "Brand new category" });
+            var actRes = controller.Post(new AgentModel() { Name = "Anur" });
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsTrue(response.IsSuccessStatusCode);
         }
 
         [TestMethod]
-        public void ChangeCategoryName()
+        public void ChangeAgentName()
         {
             GetReady();
-            var actRes = controller.Put(1, new CategoryModel() { Id = 1, Name = "New name for old category" });
+            var actRes = controller.Put(1, new AgentModel() { Id = 1, Name = "New name for old agent" });
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsTrue(response.IsSuccessStatusCode);
@@ -95,7 +96,7 @@ namespace Billing.Tests
             var actRes = controller.Delete(2);
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
-            Assert.IsTrue(response.IsSuccessStatusCode);
+            Assert.IsNull(response.Content);
         }
     }
 }

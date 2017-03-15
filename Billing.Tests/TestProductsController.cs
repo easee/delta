@@ -17,9 +17,9 @@ namespace Billing.Tests
         HttpConfiguration config = new HttpConfiguration();
         HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "api/products");
 
-        void GetReady()
+        void GetReady(string currentRoute = "api/{controller}/{id}")
         {
-            var route = config.Routes.MapHttpRoute("default", "api/{controller}/{id}");
+            var route = config.Routes.MapHttpRoute("default",currentRoute);
             var routeData = new HttpRouteData(route, new HttpRouteValueDictionary { { "controller", "products" } });
 
             controller.ControllerContext = new HttpControllerContext(config, routeData, request);
@@ -101,20 +101,30 @@ namespace Billing.Tests
         public void DeleteByWrongId()
         {
             GetReady();
-            var actRes = controller.Delete(999);
+            var actRes = controller.Delete(99);
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsFalse(response.IsSuccessStatusCode);
         }
 
         [TestMethod]
-        public void DeleteById()
+        public void DeleteSingle()
         {
             GetReady();
-            var actRes = controller.Delete(5);
+            var actRes = controller.Delete(2);
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsTrue(response.IsSuccessStatusCode);
+        }
+
+        [TestMethod]
+        public void DeleteWidow()
+        {
+            GetReady();
+            var actRes = controller.Delete(1);
+            var response = actRes.ExecuteAsync(CancellationToken.None).Result;
+
+            Assert.IsFalse(response.IsSuccessStatusCode);
         }
     }
 }
