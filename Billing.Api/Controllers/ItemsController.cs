@@ -34,10 +34,11 @@ namespace Billing.Api.Controllers
         }
 
         [Route("")]
-        public IHttpActionResult Post([FromBody]Item item)
+        public IHttpActionResult Post([FromBody]ItemModel model)
         {
             try
             {
+                Item item = Factory.Create(model);
                 UnitOfWork.Items.Insert(item);
                 UnitOfWork.Commit();
                 return Ok(item);
@@ -49,10 +50,11 @@ namespace Billing.Api.Controllers
         }
 
         [Route("{id}")]
-        public IHttpActionResult Put([FromUri] int id, [FromBody]Item item)//FromUri i FromBody možemo i ne moramo pisati, podrazumijeva se.
+        public IHttpActionResult Put([FromUri] int id, [FromBody]ItemModel model)//FromUri i FromBody možemo i ne moramo pisati, podrazumijeva se.
         {
             try
             {
+                Item item = Factory.Create(model);
                 UnitOfWork.Items.Update(item, id);
                 UnitOfWork.Commit();
                 return Ok(item);

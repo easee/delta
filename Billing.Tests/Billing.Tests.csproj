@@ -73,6 +73,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestCustomersController.cs" />
     <Compile Include="TestHelper.cs" />
+    <Compile Include="TestItemsConstroler.cs" />
     <Compile Include="TestProductsController.cs" />
     <Compile Include="TestShippersController.cs" />
   </ItemGroup>
@@ -84,7 +85,11 @@
     <None Include="OrderedTests\Categories.orderedtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+          
+    <None Include="OrderedTests\Items.orderedtest">
+
     <None Include="OrderedTests\Customers.orderedtest">
+
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="OrderedTests\Products.orderedtest">
