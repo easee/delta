@@ -85,10 +85,10 @@
     <None Include="OrderedTests\Categories.orderedtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="OrderedTests\Items.orderedtest">
-   <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="OrderedTests\Customers.orderedtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="OrderedTests\Items.orderedtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="OrderedTests\Products.orderedtest">

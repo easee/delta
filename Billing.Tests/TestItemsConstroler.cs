@@ -58,74 +58,71 @@ namespace Billing.Tests
         public void GetItemByWrongId()
         {
             GetReady();
-            var actRes = controller.Get(999);
+            var actRes = controller.Get(99);
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsNull(response.Content);
         }
 
-        [TestMethod] //Get items by Invoice (1) is Not Null
+        [TestMethod] //Get items by Invoice (1) is Not Null - PASSED
         public void GetItemsByInvoice()
         {
             GetReady();
-            var actRes = controller.Get(1);
+            var actRes = controller.GetByInvoice(1);
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsNotNull(response.Content);
         }
 
-        //[TestMethod] // Get items by Invoice (99) is Null
-        //public void GetItemsByInvoiceWrong()
+        [TestMethod] // Get items by Invoice (99) is Null - PASSED
+        public void GetItemsByInvoiceWrong()
+        {
+            GetReady();
+            var actRes = controller.GetByInvoice(99);
+            var response = actRes.ExecuteAsync(CancellationToken.None).Result;
+
+            Assert.IsNull(response.Content);
+        }
+
+        [TestMethod] //Get items by Product 1 is Not Null - PASSED
+        public void GetItemsByProduct()
+        {
+            GetReady();
+            var actRes = controller.GetByProduct(1);
+            var response = actRes.ExecuteAsync(CancellationToken.None).Result;
+
+            Assert.IsNotNull(response.Content);
+        }
+
+        [TestMethod] //Get items by Product (99) is Null - PASSED
+        public void GetItemsByProductWrong()
+        {
+            GetReady();
+            var actRes = controller.GetByProduct(99);
+            var response = actRes.ExecuteAsync(CancellationToken.None).Result;
+
+            Assert.IsNull(response.Content);
+        }
+
+        [TestMethod] //Insert item for Product 1 is True - PASSED
+        public void PostItemGoodProduct()
+        {
+            GetReady();
+            var actRes = controller.Post(new ItemModel() { Quantity = 1, Price = 100, InvoiceId = 1, ProductId = 1 });
+            var response = actRes.ExecuteAsync(CancellationToken.None).Result;
+
+            Assert.IsTrue(response.IsSuccessStatusCode);
+        }
+
+        //[TestMethod] //Insert item for Product 99 is False - NOT PASSED
+        //public void PostItemBadProduct()
         //{
         //    GetReady();
-        //    var actRes = controller.Get(99);
-        //    var response = actRes.ExecuteAsync(CancellationToken.None).Result;
-
-        //    Assert.IsNull(response.Content);
-        //}
-
-        //[TestMethod] //Get items by Product 1 is Not Null
-        //public void GetItemsByProduct()
-        //{
-        //    GetReady();
-        //    var actRes = controller.Get(1);
-        //    var response = actRes.ExecuteAsync(CancellationToken.None).Result;
-
-        //    Assert.IsNotNull(response.Content);
-        //}
-
-        //[TestMethod] //Get items by Product (99) is Null
-        //public void GetItemsByProductWrong()
-        //{
-        //    GetReady();
-        //    var actRes = controller.Get(99);
-        //    var response = actRes.ExecuteAsync(CancellationToken.None).Result;
-
-        //    Assert.IsNull(response.Content);
-        //}
-
-        //[TestMethod] //Insert item for Product 1 is True
-        //public void PostItemGood()
-        //{
-        //    GetReady();
-        //    var actRes = controller.Post(new ItemModel() { Quantity = 1, Price = 100 });
-        //    var response = actRes.ExecuteAsync(CancellationToken.None).Result;
-
-        //    Assert.IsTrue(response.IsSuccessStatusCode);
-        //}
-
-        //[TestMethod] //Insert item for Product 99 is False
-        //public void PostItemBad()
-        //{
-        //    GetReady();
-        //    var actRes = controller.Post(new ItemModel() { Quantity = 3, Price = 100 });
+        //    var actRes = controller.Post(new ItemModel() { Quantity = 1, Price = 100, ProductId = 99 });
         //    var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
         //    Assert.IsFalse(response.IsSuccessStatusCode);
         //}
-
-
-
 
         //[TestMethod] //Change Item's data Is True
         //public void ChangeItemData()
@@ -158,24 +155,24 @@ namespace Billing.Tests
         //}
 
 
-        //[TestMethod] //Delete item with Id = 1 Is True
-        //public void DeleteSingle()//Or we can call it DeleteItem
-        //{
-        //    GetReady();
-        //    var actRes = controller.Delete(2);
-        //    var response = actRes.ExecuteAsync(CancellationToken.None).Result;
+        [TestMethod] //Delete item with Id = 1 Is True - PASSED
+        public void DeleteById() //Or we can call it DeleteSingle
+        {
+            GetReady();
+            var actRes = controller.Delete(2);
+            var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
-        //    Assert.IsTrue(response.IsSuccessStatusCode);
-        //}
+            Assert.IsTrue(response.IsSuccessStatusCode);
+        }
 
-        //[TestMethod] //Delete item with Id = 99 Is False
-        //public void DeleteByWrongId()
-        //{
-        //    GetReady();
-        //    var actRes = controller.Delete(99);
-        //    var response = actRes.ExecuteAsync(CancellationToken.None).Result;
+        [TestMethod] //Delete item with Id = 99 Is False - PASSED
+        public void DeleteByWrongId()
+        {
+            GetReady();
+            var actRes = controller.Delete(99);
+            var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
-        //    Assert.IsFalse(response.IsSuccessStatusCode);
-        //}
+            Assert.IsFalse(response.IsSuccessStatusCode);
+        }
     }
 }
