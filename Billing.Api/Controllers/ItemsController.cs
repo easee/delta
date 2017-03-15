@@ -79,5 +79,21 @@ namespace Billing.Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [Route("invoice/{id:int}")]
+        public IHttpActionResult GetByInvoice(int id)
+        {
+            try
+            {
+                if (UnitOfWork.Invoices.Get(id) == null) return NotFound();
+                return Ok(UnitOfWork.Items.Get().Where(a => a.Invoice.Id == id).ToList().Select(x => Factory.Create(x)).ToList());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
     }
 }
