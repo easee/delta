@@ -69,7 +69,9 @@ namespace Billing.Api.Controllers
         public IHttpActionResult Delete(int id)
         {
             try
-            {
+            {    //Gigi added following 2 lines
+                Item entity = UnitOfWork.Items.Get(id);
+                if (entity == null) return NotFound();
                 UnitOfWork.Items.Delete(id);
                 UnitOfWork.Commit();
                 return Ok();
@@ -87,6 +89,20 @@ namespace Billing.Api.Controllers
             {
                 if (UnitOfWork.Invoices.Get(id) == null) return NotFound();
                 return Ok(UnitOfWork.Items.Get().Where(a => a.Invoice.Id == id).ToList().Select(x => Factory.Create(x)).ToList());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Route("product/{id:int}")]
+        public IHttpActionResult GetByProduct(int id)
+        {
+            try
+            {
+                if (UnitOfWork.Products.Get(id) == null) return NotFound();
+                return Ok(UnitOfWork.Items.Get().Where(a => a.Product.Id == id).ToList().Select(x => Factory.Create(x)).ToList());
             }
             catch (Exception ex)
             {
