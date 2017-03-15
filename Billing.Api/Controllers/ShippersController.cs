@@ -23,15 +23,29 @@ namespace Billing.Api.Controllers
         [Route("{name}")]
         public IHttpActionResult Get(string name)
         {
-            return Ok(UnitOfWork.Shippers.Get().Where(x => x.Name.Contains(name)).ToList().Select(a => Factory.Create(a)).ToList());
+            try
+            {
+                return Ok(UnitOfWork.Shippers.Get().Where(x => x.Name.Contains(name)).ToList().Select(a => Factory.Create(a)).ToList());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("{id:int}")]
         public IHttpActionResult Get(int id)
         {
-            Shipper shipper = UnitOfWork.Shippers.Get(id);
-            if (shipper == null) return NotFound();
-            return Ok(Factory.Create(shipper));
+            try
+            {
+                Shipper shipper = UnitOfWork.Shippers.Get(id);
+                if (shipper == null) return NotFound();
+                return Ok(Factory.Create(shipper));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [Route("")]
         public IHttpActionResult Post([FromBody] ShipperModel model)
@@ -50,10 +64,11 @@ namespace Billing.Api.Controllers
         }
 
         [Route("{id}")]
-        public IHttpActionResult Put([FromUri] int id, [FromBody]Shipper shipper)//FromUri i FromBody možemo i ne moramo pisati, podrazumijeva se.
+        public IHttpActionResult Put([FromUri] int id, [FromBody]ShipperModel model)//FromUri i FromBody možemo i ne moramo pisati, podrazumijeva se.
         {
             try
             {
+                Shipper shipper = Factory.Create(model);
                 UnitOfWork.Shippers.Update(shipper,id);
                 UnitOfWork.Commit();
                 return Ok(shipper);

@@ -1,1 +1,1 @@
-<Playlist Version="1.0"><Add Test="c:\git\billing\billing.tests\orderedtests\categories.orderedtest" /></Playlist>
+<Playlist Version="1.0"><Add Test="c:\git\billing\billing.tests\orderedtests\categories.orderedtest" /><Add Test="c:\school-master\billing.tests\orderedtests\categories.orderedtest" /></Playlist>
