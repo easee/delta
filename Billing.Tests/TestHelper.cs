@@ -1,4 +1,6 @@
 ﻿using Billing.Database;
+using Billing.Repository;
+using System;
 
 namespace Billing.Tests
 {
@@ -10,25 +12,89 @@ namespace Billing.Tests
             {
                 context.Database.Delete();
                 context.Database.Create();
-
-                Category category = context.Categories.Add(new Category() { Name = "Test category number one" });
-                context.SaveChanges();
-
-                Product product1 = context.Products.Add(new Product() { Name = "Test product number one", Unit = "pcs", Price = 100, Category = category });
-                Product product2 = context.Products.Add(new Product() { Name = "Test product number two", Unit = "pcs", Price = 100, Category = category });
-                Product product3 = context.Products.Add(new Product() { Name = "Test product number three", Unit = "pcs", Price = 100, Category = category });
-                Product product4 = context.Products.Add(new Product() { Name = "Test product number four", Unit = "pcs", Price = 100, Category = category });
-                Product product5 = context.Products.Add(new Product() { Name = "Test product number five", Unit = "pcs", Price = 100, Category = category });
-                context.SaveChanges();
-
-
-                context.Stocks.Add(new Stock() { Id = product1.Id, Input = 120, Output = 66 });
-                context.Stocks.Add(new Stock() { Id = product2.Id, Input = 120, Output = 66 });
-                context.Stocks.Add(new Stock() { Id = product3.Id, Input = 120, Output = 66 });
-                context.Stocks.Add(new Stock() { Id = product4.Id, Input = 120, Output = 66 });
-                context.Categories.Add(new Category() { Name = "Test category number two" });
-                context.SaveChanges();
             }
+
+            UnitOfWork unit = new UnitOfWork();
+
+            unit.Towns.Insert(new Town() { Zip = "71000", Name = "Sarajevo", Region = Region.Sarajevo });
+            unit.Towns.Insert(new Town() { Zip = "72000", Name = "Zenica", Region = Region.Zenica });
+            unit.Towns.Insert(new Town() { Zip = "75000", Name = "Tuzla", Region = Region.Tuzla });
+            unit.Commit();
+
+            unit.Agents.Insert(new Agent() { Name = "Antonio" });
+            unit.Agents.Insert(new Agent() { Name = "Julia" });
+            unit.Commit();
+
+            unit.Customers.Insert(new Customer() { Name = "Imtec", Address = "Titova 2", Town = unit.Towns.Get(1) });
+            unit.Customers.Insert(new Customer() { Name = "Delta", Address = "Sarajevska 4", Town = unit.Towns.Get(3) });
+            unit.Suppliers.Insert(new Supplier() { Name = "Disti", Address = "Kranjceviceva 1", Town = unit.Towns.Get(1) });
+            unit.Suppliers.Insert(new Supplier() { Name = "Dell", Address = "Bulevar 122", Town = unit.Towns.Get(3) });
+            unit.Shippers.Insert(new Shipper() { Name = "Posta", Address = "Radnicka 22", Town = unit.Towns.Get(1) });
+            unit.Shippers.Insert(new Shipper() { Name = "DHL", Address = "Mostarska 14", Town = unit.Towns.Get(2) });
+            unit.Commit();
+
+            unit.Categories.Insert(new Category() { Name = "Desktop" });
+            unit.Categories.Insert(new Category() { Name = "Laptop" });
+            unit.Commit();
+
+            unit.Products.Insert(new Product() { Name = "Racunar Dell 2866", Unit = "pcs", Price = 700, Category = unit.Categories.Get(1) });
+            unit.Products.Insert(new Product() { Name = "Laptop Dell 2866", Unit = "pcs", Price = 699, Category = unit.Categories.Get(1) });
+            unit.Commit();
+
+            unit.Stocks.Insert(new Stock() { Id = 1, Input = 4, Output = 2 });
+            unit.Stocks.Insert(new Stock() { Id = 2, Input = 3, Output = 1 });
+            unit.Commit();
+
+            unit.Invoices.Insert(new Invoice()
+            {
+                InvoiceNo = "100/17",
+                Date = new DateTime(2017, 1, 10),
+                ShippedOn = new DateTime(2017, 1, 18),
+                Vat = 17,
+                Shipping = 95,
+                Agent = unit.Agents.Get(1),
+                Customer = unit.Customers.Get(1),
+                Shipper = unit.Shippers.Get(1),
+                Status = 0
+            });
+            unit.Invoices.Insert(new Invoice()
+            {
+                InvoiceNo = "101/17",
+                Date = new DateTime(2017, 2, 18),
+                ShippedOn = new DateTime(2017, 2, 28),
+                Vat = 17,
+                Shipping = 59,
+                Agent = unit.Agents.Get(1),
+                Customer = unit.Customers.Get(1),
+                Shipper = unit.Shippers.Get(1),
+                Status = 0
+            });
+            unit.Commit();
+
+            unit.Items.Insert(new Item() { Invoice = unit.Invoices.Get(1), Product = unit.Products.Get(1), Price = 700, Quantity = 1 });
+            unit.Items.Insert(new Item() { Invoice = unit.Invoices.Get(1), Product = unit.Products.Get(1), Price = 699, Quantity = 1 });
+            unit.Items.Insert(new Item() { Invoice = unit.Invoices.Get(1), Product = unit.Products.Get(1), Price = 700, Quantity = 1 });
+            unit.Commit();
+
+            unit.Procurements.Insert(new Procurement()
+            {
+                Document = "55/17",
+                Date = new DateTime(2017, 1, 5),
+                Product = unit.Products.Get(1),
+                Supplier = unit.Suppliers.Get(1),
+                Quantity = 2,
+                Price = 700
+            });
+            unit.Procurements.Insert(new Procurement()
+            {
+                Document = "2055-2",
+                Date = new DateTime(2017, 1, 11),
+                Product = unit.Products.Get(1),
+                Supplier = unit.Suppliers.Get(1),
+                Quantity = 2,
+                Price = 699
+            });
+            unit.Commit();
         }
     }
 }

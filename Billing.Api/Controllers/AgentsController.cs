@@ -35,13 +35,14 @@ namespace Billing.Api.Controllers
         }
 
         [Route("")]
-        public IHttpActionResult Post([FromBody]Agent agent)
+        public IHttpActionResult Post([FromBody]AgentModel model)
         {
             try
             {
+                Agent agent = Factory.Create(model);
                 UnitOfWork.Agents.Insert(agent);
                 UnitOfWork.Commit();
-                return Ok(agent);
+                return Ok(Factory.Create(agent));
             }
             catch (Exception ex)
             {
@@ -50,10 +51,11 @@ namespace Billing.Api.Controllers
         }
 
         [Route("{id}")]
-        public IHttpActionResult Put([FromUri] int id, [FromBody]Agent agent)//FromUri i FromBody možemo i ne moramo pisati, podrazumijeva se.
+        public IHttpActionResult Put([FromUri] int id, [FromBody]AgentModel model)//FromUri i FromBody možemo i ne moramo pisati, podrazumijeva se.
         {
             try
             {
+                Agent agent = Factory.Create(model);
                 UnitOfWork.Agents.Update(agent, id);
                 UnitOfWork.Commit();
                 return Ok(agent);
