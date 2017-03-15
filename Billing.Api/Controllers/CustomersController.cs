@@ -50,10 +50,11 @@ namespace Billing.Api.Controllers
         }
 
         [Route("{id}")]
-        public IHttpActionResult Put([FromUri] int id, [FromBody]Customer customer)//FromUri i FromBody možemo i ne moramo pisati, podrazumijeva se.
+        public IHttpActionResult Put([FromUri] int id, [FromBody]CustomerModel model)//FromUri i FromBody možemo i ne moramo pisati, podrazumijeva se.
         {
             try
             {
+                Customer customer = Factory.Create(model);
                 UnitOfWork.Customers.Update(customer, id);
                 UnitOfWork.Commit();
                 return Ok(customer);
