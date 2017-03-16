@@ -43,7 +43,6 @@ namespace Billing.Repository
         }
         public IBillingRepository<Stock> Stocks { get { return _stocks ?? (_stocks = new BillingRepository<Stock>(_context)); } }
         public IBillingRepository<Category> Categories { get { return _categories ?? (_categories = new BillingRepository<Category>(_context)); } }
-        public IBillingRepository<Customer> Customers { get { return _customers ?? (_customers = new BillingRepository<Customer>(_context)); } }
         public InvoicesRepository Invoices { get { return _invoices ?? (_invoices = new InvoicesRepository(_context)); } }
         public IBillingRepository<Item> Items { get { return _items ?? (_items = new BillingRepository<Item>(_context)); } }
         public ProcurementsRepository Procurements { get { return _procurements ?? (_procurements = new ProcurementsRepository(_context)); } }

@@ -82,30 +82,31 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="OrderedTests\Agents.orderedtest">
-       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="OrderedTests\Categories.orderedtest">
-       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="OrderedTests\Procurements.orderedtest">
-       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="OrderedTests\Customers.orderedtest">
-       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="OrderedTests\Invoices.orderedtest">
-       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="OrderedTests\Items.orderedtest">
-       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="OrderedTests\Products.orderedtest">
-       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="OrderedTests\Shippers.orderedtest">
-       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="OrderedTests\packages.config" />
+    <None Include="packages.config" />
     <None Include="Test.runsettings" />
   </ItemGroup>
   <ItemGroup>
