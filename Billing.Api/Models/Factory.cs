@@ -110,7 +110,9 @@ namespace Billing.Api.Models
                 Id = supplier.Id,
                 Name = supplier.Name,
                 Address = supplier.Address,
-                Town = supplier.Town.Name
+                Town = supplier.Town.Name,
+                TownId = supplier.Town.Id
+
             };
 
         }
@@ -122,7 +124,8 @@ namespace Billing.Api.Models
             {
                 Id = model.Id,
                 Name = model.Name,
-                Address = model.Address
+                Address = model.Address,
+                Town = _unitOfWork.Towns.Get(model.TownId)
                 //Fali nam ovdje i iz kojeg grada je Supplier
             };
         }

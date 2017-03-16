@@ -13,9 +13,6 @@ using Billing.Api.Models;
 
 namespace Billing.Tests
 {
-    /// <summary>
-    /// Summary description for TestItemsConstroler
-    /// </summary>
     [TestClass]
     public class TestItemsConstroler
     {
@@ -26,7 +23,7 @@ namespace Billing.Tests
         void GetReady(string currentRoute = "api/{controller}/{id}" )
         {
             var route = config.Routes.MapHttpRoute("default", currentRoute);
-            var routeData = new HttpRouteData(route, new HttpRouteValueDictionary { { "controller", "products" } });
+            var routeData = new HttpRouteData(route, new HttpRouteValueDictionary { { "controller", "items" } });
 
             controller.ControllerContext = new HttpControllerContext(config, routeData, request);
             controller.Request = request;
@@ -105,7 +102,7 @@ namespace Billing.Tests
         }
 
         [TestMethod] //Insert item for Product 1 is True - PASSED
-        public void PostItemGoodProduct()
+        public void PostItemGoodProduct() 
         {
             GetReady();
             var actRes = controller.Post(new ItemModel() { Quantity = 1, Price = 100, InvoiceId = 1, ProductId = 1 });

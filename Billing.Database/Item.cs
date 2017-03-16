@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Billing.Database
 {
@@ -10,7 +11,9 @@ namespace Billing.Database
         [NotMapped]
         public double SubTotal { get { return (Quantity * Price); } }
 
+        [Required]
         public virtual Invoice Invoice { get; set; }
+        [Required]
         public virtual Product Product { get; set; }
     }
 }

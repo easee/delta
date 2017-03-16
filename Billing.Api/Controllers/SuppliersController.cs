@@ -55,10 +55,11 @@ namespace Billing.Api.Controllers
         }
 
         [Route("{id}")]
-        public IHttpActionResult Put([FromUri] int id, [FromBody]Supplier supplier)//FromUri i FromBody možemo i ne moramo pisati, podrazumijeva se.
+        public IHttpActionResult Put([FromUri] int id, [FromBody]SupplierModel model)//FromUri i FromBody možemo i ne moramo pisati, podrazumijeva se.
         {
             try
             {
+                Supplier supplier = Factory.Create(model);
                 UnitOfWork.Suppliers.Update(supplier, id);
                 UnitOfWork.Commit();
                 return Ok(supplier);
@@ -74,6 +75,8 @@ namespace Billing.Api.Controllers
         {
             try
             {
+                Supplier entity = UnitOfWork.Suppliers.Get(id);
+                if (entity == null) return NotFound();
                 UnitOfWork.Suppliers.Delete(id);
                 UnitOfWork.Commit();
                 return Ok();
