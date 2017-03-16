@@ -117,10 +117,8 @@ namespace Billing.Api.Controllers
                 List<int> itemId = new List<int>();
                 items = UnitOfWork.Items.Get().Where(a => a.Invoice.Id == id).ToList();
                 foreach(var item in items)
-                {
-                    ItemModel model = new ItemModel();
-                    itemId.Add(model.Id);
-                }
+                    itemId.Add(item.Id);
+                
                 foreach (int d in itemId)
                     UnitOfWork.Items.Delete(d);
 
