@@ -57,6 +57,9 @@
     <Compile Include="CustomersRepository.cs" />
     <Compile Include="IBillingRepository.cs" />
     <Compile Include="InvoicesRepository.cs" />
+    <Compile Include="ItemsRepository.cs" />
+    <Compile Include="ProcurementsRepository.cs" />
+    <Compile Include="ProductsRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShippersRepository.cs" />
     <Compile Include="UnitOfWork.cs" />
