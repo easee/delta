@@ -1,4 +1,5 @@
-﻿using Billing.Api.Models;
+﻿using Billing.Api.Helpers;
+using Billing.Api.Models;
 using Billing.Database;
 using Billing.Repository;
 using System;
@@ -50,6 +51,8 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
+                Helper.Log(ex.Message, "ERROR");
+
                 return BadRequest(ex.Message);
             }
         }
@@ -65,6 +68,8 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
+                Helper.Log(ex.Message, "ERROR");
+
                 return BadRequest(ex.Message);
             }
         }
@@ -80,6 +85,8 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
+                Helper.Log(ex.Message, "ERROR");
+
                 return BadRequest(ex.Message);
             }
         }
