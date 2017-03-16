@@ -1,6 +1,8 @@
 ﻿using Billing.Database;
 using Billing.Repository;
+using Billing.Seed;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -283,12 +285,15 @@ namespace Billing.Api.Models
 
         public Invoice Create(InvoiceModel model)
         {
+          
             return new Invoice()
-            {
-                Id=model.Id,
+            { 
+                Id =model.Id,
                 InvoiceNo = model.InvoiceNo,
                 Date=model.Date,
                 ShippedOn = model.ShippedOn,
+                Status=model.Status,
+                Vat=model.Vat,
                 Shipping = model.Shipping,
                 Customer = _unitOfWork.Customers.Get(model.CustomerId),
                 Agent = _unitOfWork.Agents.Get(model.AgentId),

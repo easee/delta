@@ -14,7 +14,7 @@ namespace Billing.Repository
         private IBillingRepository<Agent> _agents;
         private IBillingRepository<Category> _categories;
         private CustomersRepository _customers;
-        private IBillingRepository<Invoice> _invoices;
+        private InvoicesRepository _invoices;
         private IBillingRepository<Item> _items;
         private IBillingRepository<Procurement> _procurements;
         private IBillingRepository<Product> _products;
@@ -46,7 +46,7 @@ namespace Billing.Repository
         public IBillingRepository<Stock> Stocks { get { return _stocks ?? (_stocks = new BillingRepository<Stock>(_context)); } }
         public IBillingRepository<Category> Categories { get { return _categories ?? (_categories = new BillingRepository<Category>(_context)); } }
         public CustomersRepository Customers { get { return _customers ?? (_customers = new CustomersRepository(_context)); } }
-        public IBillingRepository<Invoice> Invoices { get { return _invoices ?? (_invoices = new BillingRepository<Invoice>(_context)); } }
+        public InvoicesRepository Invoices { get { return _invoices ?? (_invoices = new InvoicesRepository(_context)); } }
         public IBillingRepository<Item> Items { get { return _items ?? (_items = new BillingRepository<Item>(_context)); } }
         public IBillingRepository<Procurement> Procurements { get { return _procurements ?? (_procurements = new BillingRepository<Procurement>(_context)); } }
         public IBillingRepository<Product> Products { get { return _products ?? (_products = new BillingRepository<Product>(_context)); } }

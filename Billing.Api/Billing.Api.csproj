@@ -173,6 +173,10 @@
       <Project>{38924049-fdb6-4a8d-a68c-2ffdb898229d}</Project>
       <Name>Billing.Repository</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Billing.Seed\Billing.Seed.csproj">
+      <Project>{7C3E34CD-C83E-4DBC-A1B6-FDFE03F606A1}</Project>
+      <Name>Billing.Seed</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -7,6 +7,10 @@ namespace Billing.Api.Models
 {
     public class InvoiceModel
     {
+        public InvoiceModel()
+        {
+            Items = new List<ItemModel>();
+        }
         public int Id { get; set; }
         public string InvoiceNo { get; set; }
         public DateTime Date { get; set; }
@@ -23,5 +27,6 @@ namespace Billing.Api.Models
         public int CustomerId { get; set; }
         public string Customer { get; set; }
         public double Shipping { get; set; }
+        public List<ItemModel> Items { get; set; }
     }
 }
