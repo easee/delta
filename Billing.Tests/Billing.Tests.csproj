@@ -74,6 +74,7 @@
     <Compile Include="TestCustomersController.cs" />
     <Compile Include="TestHelper.cs" />
     <Compile Include="TestInvoicesController.cs" />
+    <Compile Include="TestItemsConstroler.cs" />
     <Compile Include="TestProductsController.cs" />
     <Compile Include="TestShippersController.cs" />
   </ItemGroup>
@@ -89,6 +90,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="OrderedTests\Invoices.orderedtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="OrderedTests\Items.orderedtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="OrderedTests\Products.orderedtest">
