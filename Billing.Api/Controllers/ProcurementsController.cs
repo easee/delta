@@ -29,13 +29,19 @@ namespace Billing.Api.Controllers
                                   .Select(a => Factory.Create(a)).ToList());
         }
 
-        //THIS PART WAS IN GIGI's PROJECT, UNCOMMENT IF NEEDED ->ANUR
-        /*[Route("doc/{doc}")]
-        public IHttpActionResult Get(string doc)
+        [Route("doc/{doc}")]
+        public IHttpActionResult GetByDoc(string doc)
         {
             return Ok(UnitOfWork.Procurements.Get().Where(x => x.Document == doc).ToList().Select(x => Factory.Create(x)).ToList());
         }
-        */
+
+        [Route("product/{id}")]
+        public IHttpActionResult GetByProduct(int id)
+        {
+            return Ok(UnitOfWork.Procurements.Get().Where(x => x.Product.Id == id).ToList().Select(x => Factory.Create(x)).ToList());
+        }
+
+
 
         [Route("{id:int}")]
         public IHttpActionResult Get(int id)
@@ -84,6 +90,7 @@ namespace Billing.Api.Controllers
         public IHttpActionResult Delete(int id) {
             try
             {
+                if (UnitOfWork.Procurements.Get(id) == null) return NotFound();
                 UnitOfWork.Procurements.Delete(id);
                 UnitOfWork.Commit();
                 return Ok();   
