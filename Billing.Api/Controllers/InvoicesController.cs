@@ -21,15 +21,57 @@ namespace Billing.Api.Controllers
         [Route("{id:int}")]
         public IHttpActionResult Get(int id)
         {
-            Invoice invoice = UnitOfWork.Invoices.Get(id);
-            if (invoice == null) return NotFound();
-            return Ok(Factory.Create(invoice));
+            try
+            {
+                Invoice invoice = UnitOfWork.Invoices.Get(id);
+                if (invoice == null) return NotFound();
+                return Ok(Factory.Create(invoice));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Route("customer/{id:int}")]
+        public IHttpActionResult GetByCustomerId(int id)
+        {
+            try
+            {
+                if (UnitOfWork.Customers.Get(id) == null) return NotFound();
+                return Ok(UnitOfWork.Invoices.Get().Where(a => a.Customer.Id==id).ToList().Select(x => Factory.Create(x)).ToList());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Route("agent/{id:int}")]
+        public IHttpActionResult GetByAgentId(int id)
+        {
+            try
+            {
+                if (UnitOfWork.Agents.Get(id) == null) return NotFound();
+                return Ok(UnitOfWork.Invoices.Get().Where(a => a.Agent.Id == id).ToList().Select(x => Factory.Create(x)).ToList());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("number/{invoiceNo}")]
         public IHttpActionResult Get(string invoiceNo)
         {
-            return Ok(UnitOfWork.Invoices.Get().Where(x => x.InvoiceNo.Equals(invoiceNo)).ToList().Select(a => Factory.Create(a)).ToList());
+            try
+            {
+                return Ok(UnitOfWork.Invoices.Get().Where(x => x.InvoiceNo.Equals(invoiceNo)).ToList().Select(a => Factory.Create(a)).ToList());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("")]
@@ -39,7 +81,7 @@ namespace Billing.Api.Controllers
             {
                 Invoice invoice= Factory.Create(model);
                 UnitOfWork.Invoices.Insert(invoice);
-                UnitOfWork.Commit();
+                UnitOfWork.Invoices.Commit();
                 return Ok(Factory.Create(invoice));
             }
             catch (Exception ex)
@@ -49,13 +91,14 @@ namespace Billing.Api.Controllers
         }
 
         [Route("{id}")]
-        public IHttpActionResult Put([FromUri] int id, [FromBody]Invoice invoice)//FromUri i FromBody možemo i ne moramo pisati, podrazumijeva se.
+        public IHttpActionResult Put([FromUri] int id, InvoiceModel model)//FromUri i FromBody možemo i ne moramo pisati, podrazumijeva se.
         {
             try
             {
+                Invoice invoice = Factory.Create(model);
                 UnitOfWork.Invoices.Update(invoice, id);
-                UnitOfWork.Commit();
-                return Ok(invoice);
+                UnitOfWork.Invoices.Commit();
+                return Ok(Factory.Create(invoice));
             }
             catch (Exception ex)
             {
@@ -68,6 +111,17 @@ namespace Billing.Api.Controllers
         {
             try
             {
+                
+                if (UnitOfWork.Invoices.Get(id) == null) return NotFound();
+                List<Item> items = new List<Item>();
+                List<int> itemId = new List<int>();
+                items = UnitOfWork.Items.Get().Where(a => a.Invoice.Id == id).ToList();
+                foreach(var item in items)
+                    itemId.Add(item.Id);
+                
+                foreach (int d in itemId)
+                    UnitOfWork.Items.Delete(d);
+
                 UnitOfWork.Invoices.Delete(id);
                 UnitOfWork.Commit();
                 return Ok();

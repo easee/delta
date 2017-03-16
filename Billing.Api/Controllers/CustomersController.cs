@@ -21,16 +21,29 @@ namespace Billing.Api.Controllers
         [Route("{id:int}")]
         public IHttpActionResult Get(int id)
         {
-            Customer customer = UnitOfWork.Customers.Get(id);
-            if (customer == null) return NotFound();
-            return Ok(Factory.Create(customer));
+            try
+            {
+                Customer customer = UnitOfWork.Customers.Get(id);
+                if (customer == null) return NotFound();
+                return Ok(Factory.Create(customer));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("{name}")]
         public IHttpActionResult Get(string name)
         {
-            return Ok(UnitOfWork.Customers.Get().Where(x => x.Name.Contains(name)).ToList().Select(a => Factory.Create(a)).ToList());
-
+            try
+            {
+                return Ok(UnitOfWork.Customers.Get().Where(x => x.Name.Contains(name)).ToList().Select(a => Factory.Create(a)).ToList());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [Route("")]
@@ -50,10 +63,11 @@ namespace Billing.Api.Controllers
         }
 
         [Route("{id}")]
-        public IHttpActionResult Put([FromUri] int id, [FromBody]Customer customer)//FromUri i FromBody možemo i ne moramo pisati, podrazumijeva se.
+        public IHttpActionResult Put([FromUri] int id, [FromBody]CustomerModel model)//FromUri i FromBody možemo i ne moramo pisati, podrazumijeva se.
         {
             try
             {
+                Customer customer = Factory.Create(model);
                 UnitOfWork.Customers.Update(customer, id);
                 UnitOfWork.Commit();
                 return Ok(customer);

@@ -13,12 +13,12 @@ namespace Billing.Repository
 
         private IBillingRepository<Agent> _agents;
         private IBillingRepository<Category> _categories;
-        private IBillingRepository<Customer> _customers;
         private InvoicesRepository _invoices;
         private IBillingRepository<Item> _items;
         private ProcurementsRepository _procurements;
         private ProductsRepository _products;
-        private IBillingRepository<Shipper> _shippers;
+        private CustomersRepository _customers;
+        private ShippersRepository _shippers;
         private IBillingRepository<Supplier> _suppliers;
         private IBillingRepository<Town> _towns;
         private IBillingRepository<Stock> _stocks;
@@ -40,9 +40,7 @@ namespace Billing.Repository
             //    }
             //    return _agents;
             //}
-
         }
-
         public IBillingRepository<Stock> Stocks { get { return _stocks ?? (_stocks = new BillingRepository<Stock>(_context)); } }
         public IBillingRepository<Category> Categories { get { return _categories ?? (_categories = new BillingRepository<Category>(_context)); } }
         public IBillingRepository<Customer> Customers { get { return _customers ?? (_customers = new BillingRepository<Customer>(_context)); } }
@@ -50,10 +48,10 @@ namespace Billing.Repository
         public IBillingRepository<Item> Items { get { return _items ?? (_items = new BillingRepository<Item>(_context)); } }
         public ProcurementsRepository Procurements { get { return _procurements ?? (_procurements = new ProcurementsRepository(_context)); } }
         public ProductsRepository Products { get { return _products ?? (_products = new ProductsRepository(_context)); } }
-        public IBillingRepository<Shipper> Shippers { get { return _shippers ?? (_shippers = new BillingRepository<Shipper>(_context)); } }
+        public CustomersRepository Customers { get { return _customers ?? (_customers = new CustomersRepository(_context)); } }
+        public ShippersRepository Shippers { get { return _shippers ?? (_shippers = new ShippersRepository(_context)); } }
         public IBillingRepository<Supplier> Suppliers { get { return _suppliers ?? (_suppliers = new BillingRepository<Supplier>(_context)); } }
         public IBillingRepository<Town> Towns { get { return _towns ?? (_towns = new BillingRepository<Town>(_context)); } }
-
         public void Commit()
         {
             _context.SaveChanges(); //UnitOfWork nam omogućava da imamo ovaj jedan commit. 
