@@ -1,69 +1,130 @@
 ﻿using System;
-using System.Text;
-using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Billing.Api.Controllers;
+using System.Threading;
+using Billing.Api.Models;
+using System.Web.Http.Routing;
+using System.Web.Http.Hosting;
+using System.Net.Http;
+using System.Web.Http;
+using System.Web.Http.Controllers;
+using System.Collections.Generic;
 
 namespace Billing.Tests
 {
-    /// <summary>
-    /// Summary description for TestSuppliersController
-    /// </summary>
     [TestClass]
     public class TestSuppliersController
     {
-        public TestSuppliersController()
+        SuppliersController controller = new SuppliersController();
+        HttpConfiguration config = new HttpConfiguration();
+        HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "api/suppliers");
+
+        void GetReady()
         {
-            //
-            // TODO: Add constructor logic here
-            //
+            var route = config.Routes.MapHttpRoute("default", "api/{controller}/{id}");
+            var routeData = new HttpRouteData(route, new HttpRouteValueDictionary { { "controller", "suppliers" } });
+
+            controller.ControllerContext = new HttpControllerContext(config, routeData, request);
+            controller.Request = request;
+            controller.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = config;
         }
-
-        private TestContext testContextInstance;
-
-        /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
-        ///</summary>
-        public TestContext TestContext
-        {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
-
-        #region Additional test attributes
-        //
-        // You can use the following additional attributes as you write your tests:
-        //
-        // Use ClassInitialize to run code before running the first test in the class
-        // [ClassInitialize()]
-        // public static void MyClassInitialize(TestContext testContext) { }
-        //
-        // Use ClassCleanup to run code after all tests in a class have run
-        // [ClassCleanup()]
-        // public static void MyClassCleanup() { }
-        //
-        // Use TestInitialize to run code before running each test 
-        // [TestInitialize()]
-        // public void MyTestInitialize() { }
-        //
-        // Use TestCleanup to run code after each test has run
-        // [TestCleanup()]
-        // public void MyTestCleanup() { }
-        //
-        #endregion
 
         [TestMethod]
-        public void TestMethod1()
+        public void GetAllSuppliers()
         {
-            //
-            // TODO: Add test logic here
-            //
+            TestHelper.InitDatabase(); GetReady();
+            var actRes = controller.Get();
+            var response = actRes.ExecuteAsync(CancellationToken.None).Result;
+
+            Assert.IsNotNull(response.Content);
         }
+
+        [TestMethod] //PASSED
+        public void GetSupplierById()
+        {
+            GetReady();
+            var actRes = controller.Get(1);
+            var response = actRes.ExecuteAsync(CancellationToken.None).Result;
+
+            Assert.IsNotNull(response.Content);
+        }
+
+        [TestMethod] //PASSED
+        public void GetSupplierByWrongId()
+        {
+            GetReady();
+            var actRes = controller.Get(999);
+            var response = actRes.ExecuteAsync(CancellationToken.None).Result;
+
+            Assert.IsNull(response.Content);
+        }
+
+        [TestMethod] //PASSED
+        public void GetSupplierByName()
+        {
+            var route = config.Routes.MapHttpRoute("default", "api/{controller}/name/{id}");
+            var routeData = new HttpRouteData(route, new HttpRouteValueDictionary { { "controller", "suppliers" } });
+
+            controller.ControllerContext = new HttpControllerContext(config, routeData, request);
+            controller.Request = request;
+            controller.Request.Properties[HttpPropertyKeys.HttpConfigurationKey] = config;
+            var actRes = controller.Get("Dell");
+            var response = actRes.ExecuteAsync(CancellationToken.None).Result;
+
+            Assert.IsNotNull(response.Content);
+        }
+
+
+        [TestMethod] //PASSED
+        public void PostSupplierGood()
+        {
+            GetReady();
+            var actRes = controller.Post(new SupplierModel() { Name = "Dobavljac", Address = "Junacka 1", TownId = 1});
+            var response = actRes.ExecuteAsync(CancellationToken.None).Result;
+
+            Assert.IsTrue(response.IsSuccessStatusCode);
+        }
+
+        [TestMethod] //PASSED
+        public void ChangeSupplierName()
+        {
+            GetReady();
+            var actRes = controller.Put(1, new SupplierModel() { Id = 1, Name = "New NAME for Supplier"});
+            var response = actRes.ExecuteAsync(CancellationToken.None).Result;
+
+            Assert.IsTrue(response.IsSuccessStatusCode);
+        }
+
+        [TestMethod] //PASSED
+        public void ChangeSupplierTown()
+        {
+            GetReady();
+            var actRes = controller.Put(1, new SupplierModel() { Id = 1, Town = "Mostarski"});
+            var response = actRes.ExecuteAsync(CancellationToken.None).Result;
+
+            Assert.IsTrue(response.IsSuccessStatusCode);
+        }
+
+        [TestMethod]
+        public void DeleteById()
+        {
+            GetReady();
+            var actRes = controller.Delete(2);
+            var response = actRes.ExecuteAsync(CancellationToken.None).Result;
+
+            Assert.IsNull(response.Content);
+        }
+
+        [TestMethod]
+        public void DeleteByWrongId()
+        {
+            GetReady();
+            var actRes = controller.Delete(99);
+            var response = actRes.ExecuteAsync(CancellationToken.None).Result;
+
+            Assert.IsFalse(response.IsSuccessStatusCode);
+        }
+
+
     }
 }

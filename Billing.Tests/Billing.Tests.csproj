@@ -78,6 +78,7 @@
     <Compile Include="TestItemsConstroler.cs" />
     <Compile Include="TestProductsController.cs" />
     <Compile Include="TestShippersController.cs" />
+    <Compile Include="TestSuppliersController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -106,6 +107,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="OrderedTests\packages.config" />
+    <None Include="OrderedTests\Suppliers.orderedtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Test.runsettings" />
   </ItemGroup>
