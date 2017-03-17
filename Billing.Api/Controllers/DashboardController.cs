@@ -7,16 +7,17 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace Billing.Api.Controllers
-{
-    public class DashboardController : BaseController
-    {
-        public IHttpActionResult Get() {
+//namespace Billing.Api.Controllers
+//{
+//    public class DashboardController : BaseController
+//    {
+//        public IHttpActionResult Get()
+//        {
+//            int currentMonth = DateTime.Today.Month;
+//            DashboardModel result = new DashboardModel((int)Status.Delivered, (int)Region.Zenica);
+//            return Ok(result);
+//        }
 
-            DashboardModel result = new DashboardModel(8);
-            return Ok(result);
-        }
 
-
-    }
-}
+//    }
+//}

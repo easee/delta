@@ -20,7 +20,7 @@ namespace Billing.Tests
         HttpConfiguration config = new HttpConfiguration();
         HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "api/items");
 
-        void GetReady(string currentRoute = "api/{controller}/{id}" )
+        void GetReady(string currentRoute = "api/{controller}/{id}")
         {
             var route = config.Routes.MapHttpRoute("default", currentRoute);
             var routeData = new HttpRouteData(route, new HttpRouteValueDictionary { { "controller", "items" } });
@@ -102,7 +102,7 @@ namespace Billing.Tests
         }
 
         [TestMethod] //Insert item for Product 1 is True - PASSED
-        public void PostItemGoodProduct() 
+        public void PostItemGoodProduct()
         {
             GetReady();
             var actRes = controller.Post(new ItemModel() { Quantity = 1, Price = 100, InvoiceId = 1, ProductId = 1 });
@@ -111,45 +111,45 @@ namespace Billing.Tests
             Assert.IsTrue(response.IsSuccessStatusCode);
         }
 
-        //[TestMethod] //Insert item for Product 99 is False - NOT PASSED
-        //public void PostItemBadProduct()
-        //{
-        //    GetReady();
-        //    var actRes = controller.Post(new ItemModel() { Quantity = 1, Price = 100, ProductId = 99 });
-        //    var response = actRes.ExecuteAsync(CancellationToken.None).Result;
+        [TestMethod] //Insert item for Product 99 is False - PASSED
+        public void PostItemBadProduct()
+        {
+            GetReady();
+            var actRes = controller.Post(new ItemModel() { Quantity = 1, Price = 100, ProductId = 99, InvoiceId = 1 });
+            var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
-        //    Assert.IsFalse(response.IsSuccessStatusCode);
-        //}
+            Assert.IsFalse(response.IsSuccessStatusCode);
+        }
 
-        //[TestMethod] //Change Item's data Is True
-        //public void ChangeItemData()
-        //{
-        //    GetReady();
-        //    var actRes = controller.Put(1, new ItemModel() { Id = 1, Quantity = 5, Price = 100 });
-        //    var response = actRes.ExecuteAsync(CancellationToken.None).Result;
+        [TestMethod] //Change Item's data Is True - PASSED
+        public void ChangeItemData()
+        {
+            GetReady();
+            var actRes = controller.Put(1, new ItemModel() { Id = 1, Quantity = 5, Price = 100, InvoiceId = 2, ProductId = 1 });
+            var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
-        //    Assert.IsTrue(response.IsSuccessStatusCode);
-        //}
+            Assert.IsTrue(response.IsSuccessStatusCode);
+        }
 
-        //[TestMethod]//Change item's product to 2 Is True
-        //public void ChangItemProduct()
-        //{
-        //    GetReady();
-        //    var actRes = controller.Put(1, new ItemModel() { Id = 1, Quantity = 500, Price = 100 });
-        //    var response = actRes.ExecuteAsync(CancellationToken.None).Result;
+        [TestMethod]//Change item's product to 2 Is True - PASSED
+        public void ChangeItemProduct()
+        {
+            GetReady();
+            var actRes = controller.Put(1, new ItemModel() { Id = 1, Quantity = 500, Price = 100, InvoiceId = 1, ProductId = 2 });
+            var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
-        //    Assert.IsTrue(response.IsSuccessStatusCode);
-        //}
+            Assert.IsTrue(response.IsSuccessStatusCode);
+        }
 
-        //[TestMethod]//Change Item's Product to 99 Is False
-        //public void ChangItemProductWrong()
-        //{
-        //    GetReady();
-        //    var actRes = controller.Put(1, new ItemModel() { Id = 1, Quantity = 500, Price = 100 });
-        //    var response = actRes.ExecuteAsync(CancellationToken.None).Result;
+        [TestMethod]//Change Item's Product to 99 Is False - PASSED
+        public void ChangeItemProductWrong()
+        {
+            GetReady();
+            var actRes = controller.Put(1, new ItemModel() { Id = 1, Quantity = 500, Price = 100, InvoiceId = 1, ProductId = 99 });
+            var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
-        //    Assert.IsFalse(response.IsSuccessStatusCode);
-        //}
+            Assert.IsFalse(response.IsSuccessStatusCode);
+        }
 
 
         [TestMethod] //Delete item with Id = 1 Is True - PASSED

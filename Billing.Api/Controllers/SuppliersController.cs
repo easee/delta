@@ -51,7 +51,7 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
-                Helper.Log(ex.Message, "ERROR");
+                //Helper.Log(ex.Message, "ERROR");
 
                 return BadRequest(ex.Message);
             }
@@ -69,7 +69,7 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
-                Helper.Log(ex.Message, "ERROR");
+                //Helper.Log(ex.Message, "ERROR");
 
                 return BadRequest(ex.Message);
             }
@@ -88,7 +88,7 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
-                Helper.Log(ex.Message, "ERROR");
+                //Helper.Log(ex.Message, "ERROR");
 
                 return BadRequest(ex.Message);
             }
