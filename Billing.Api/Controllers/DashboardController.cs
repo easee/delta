@@ -1,4 +1,5 @@
 ﻿using Billing.Api.Models;
+using Billing.Api.Reports;
 using Billing.Database;
 using System;
 using System.Collections.Generic;
@@ -7,17 +8,20 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-//namespace Billing.Api.Controllers
-//{
-//    public class DashboardController : BaseController
-//    {
-//        public IHttpActionResult Get()
-//        {
-//            int currentMonth = DateTime.Today.Month;
-//            DashboardModel result = new DashboardModel((int)Status.Delivered, (int)Region.Zenica);
-//            return Ok(result);
-//        }
-
-
-//    }
-//}
+namespace Billing.Api.Controllers
+{
+    public class DashboardController : BaseController
+    {
+        public IHttpActionResult Get()
+        {
+            try
+            {
+                return Ok(DashboardReport.Report(UnitOfWork));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+    }
+}

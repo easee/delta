@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Billing.Database
@@ -9,7 +10,7 @@ namespace Billing.Database
         public int Quantity { get; set; }
         public double Price { get; set; }
         [NotMapped]
-        public double SubTotal { get { return (Quantity * Price); } }
+        public double SubTotal { get { return Math.Round(Quantity * Price, 2); } }//Zaokružujemo na 2 decimale
 
         [Required]
         public virtual Invoice Invoice { get; set; }

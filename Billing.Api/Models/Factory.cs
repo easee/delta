@@ -110,7 +110,7 @@ namespace Billing.Api.Models
                 Id = supplier.Id,
                 Name = supplier.Name,
                 Address = supplier.Address,
-                Town = supplier.Town.Name,
+                Town = supplier.Town.Zip + " " + supplier.Town.Name, //Kod ispisa grada odmah ispiši Zip i Naziv zajedno
                 TownId = supplier.Town.Id
 
             };
@@ -126,7 +126,6 @@ namespace Billing.Api.Models
                 Name = model.Name,
                 Address = model.Address,
                 Town = _unitOfWork.Towns.Get(model.TownId)
-                //Fali nam ovdje i iz kojeg grada je Supplier
             };
         }
 
@@ -138,6 +137,7 @@ namespace Billing.Api.Models
                 Id = town.Id,
                 Name = town.Name,
                 Region = town.Region.ToString(),
+                Zip = town.Zip,
                 Customers = town.Customers.Select(x => x.Name).ToList(),
                 Agents = town.Agents.Select(x => x.Name).ToList()
             };
