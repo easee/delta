@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Billing.Database
 {
@@ -13,6 +14,7 @@ namespace Billing.Database
         public string Name { get; set; }
         public string Address { get; set; }
 
+        [Required]
         public virtual Town Town { get; set; }
         public virtual List<Invoice> Invoices { get; set; }
     }
