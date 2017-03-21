@@ -8,6 +8,7 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
+    [BillingAuthorization]
     [RoutePrefix("api/categories")]
     public class CategoriesController : BaseController
     {

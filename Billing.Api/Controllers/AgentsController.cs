@@ -11,6 +11,7 @@ using WebMatrix.WebData;
 //Najnoviji test
 namespace Billing.Api.Controllers
 {
+    [BillingAuthorization]
     [RoutePrefix("api/agents")]
     public class AgentsController : BaseController
     {
