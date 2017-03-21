@@ -9,6 +9,7 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
+    [BillingAuthorization]
     [RoutePrefix("api/suppliers")]
     public class SuppliersController : BaseController
     {

@@ -10,6 +10,7 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
+    [BillingAuthorization]
     [RoutePrefix("api/invoices")]
     public class InvoicesController : BaseController
     {
