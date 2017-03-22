@@ -8,6 +8,8 @@ namespace Billing.Database
     //TEST
     public class Invoice : Basic
     {
+        public object Category;
+
         public Invoice()
         {
             Items = new List<Item>();
