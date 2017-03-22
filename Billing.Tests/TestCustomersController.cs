@@ -83,7 +83,7 @@ namespace Billing.Tests
         public void ChangeCustomerName()
         {
             GetReady();
-            var actRes = controller.Put(1, new CustomerModel() { Id = 1, Name = "New name for old customer" });
+            var actRes = controller.Put(1, new CustomerModel() { Id = 1, Name="Network", Address = "Aleja lipa 33", TownId = 1 });
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsTrue(response.IsSuccessStatusCode);
@@ -93,7 +93,7 @@ namespace Billing.Tests
         public void ChangeCustomerTown()
         {
             GetReady();
-            var actRes = controller.Put(1, new CustomerModel() { Id = 1, Town = "New York"});
+            var actRes = controller.Put(1, new CustomerModel() { Id = 1, Name = "Network", Address = "Aleja lipa 33", TownId = 2 });
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsTrue(response.IsSuccessStatusCode);
