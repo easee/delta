@@ -1,89 +1,88 @@
-﻿using Billing.Api.Models;
+﻿using Billing.Api.Helpers;
+using Billing.Api.Models;
 using Billing.Database;
 using Billing.Repository;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Web;
 
 namespace Billing.Api.Reports
 {
-    public static class DashboardReport
+    public class DashboardReport
     {
-        public static DashboardModel Report(UnitOfWork UnitOfWork)
+        private BillingIdentity identity = new BillingIdentity();
+        private ReportFactory Factory = new ReportFactory();
+        private UnitOfWork _unitOfWork;
+        public DashboardReport(UnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
+        public DashboardModel Report()
         {
             int currentMonth = Convert.ToInt32(ConfigurationManager.AppSettings["currentMonth"]);
-            DashboardModel result = new DashboardModel((int)Status.Delivered, (int)Region.Zenica);
+            DashboardModel result = new DashboardModel(Helper.StatusCount, Helper.RegionCount);
 
-            result.RegionsMonth = UnitOfWork.Invoices.Get()
+            result.Title = "Dashboard for " + identity.CurrentUser;
+
+            result.RegionsMonth = _unitOfWork.Invoices.Get()
                     .Where(x => x.Date.Month == currentMonth).ToList()
                     .GroupBy(x => x.Customer.Town.Region)
-                    .Select(x => new MonthlySales()
-                    { Label = x.Key.ToString(), Sales = x.Sum(y => (y.Total)) }).ToList();
+                    .OrderBy(x => x.Key)
+                    .Select(x => Factory.Create(x.Key, x.Sum(y => y.SubTotal))).ToList();
 
-            var listAnnual = UnitOfWork.Invoices.Get().ToList()
+            List<InputItem> query;
+
+            query = _unitOfWork.Invoices.Get()
+                    .OrderBy(x => x.Customer.Town.Region).ToList()
                     .GroupBy(x => new { x.Customer.Town.Region, x.Date.Month })
-                    .Select(x => new {
-                        label = x.Key.Region.ToString(),
-                        month = x.Key.Month,
-                        sales = x.Sum(y => (y.Total))
-                    }).ToList();
+                    .Select(x => new InputItem { Label = x.Key.Region.ToString(), Index = x.Key.Month, Value = x.Sum(y => y.SubTotal) })
+                    .ToList();
+            result.RegionsYear = Factory.Create(query);
 
-            AnnualSales currentYear = new AnnualSales();
-            foreach (var item in listAnnual)
-            {
-                if (item.label != currentYear.Label)
-                {
-                    if (currentYear.Label != null)
-                        result.RegionsYear.Add(currentYear);
-                    currentYear = new AnnualSales();
-                    currentYear.Label = item.label;
-                }
-                currentYear.Sales[item.month - 1] = item.sales;
-            }
-            if (currentYear.Label != null) result.RegionsYear.Add(currentYear);
+            query = _unitOfWork.Items.Get()
+                    .OrderBy(x => x.Product.Category.Id).ToList()
+                    .GroupBy(x => new { x.Product.Category.Name, x.Invoice.Date.Month })
+                    .Select(x => new InputItem { Label = x.Key.Name, Index = x.Key.Month, Value = x.Sum(y => y.SubTotal) })
+                    .ToList();
+            result.CategoriesYear = Factory.Create(query);
 
-            var listCategories = UnitOfWork.Items.Get()
-                                .OrderBy(x => x.Product.Category.Id).ToList()
-                                .GroupBy(x => new { x.Product.Category.Name, x.Invoice.Date.Month })
-                                .Select(x => new {
-                                    category = x.Key.Name,
-                                    month = x.Key.Month,
-                                    sales = x.Sum(y => y.SubTotal)
-                                }).ToList();
-            currentYear = new AnnualSales();
-            foreach (var item in listCategories)
-            {
-                if (item.category != currentYear.Label)
-                {
-                    if (currentYear.Label != null) result.CategoriesYear.Add(currentYear);
-                    currentYear = new AnnualSales();
-                    currentYear.Label = item.category;
-                }
-                currentYear.Sales[item.month - 1] = item.sales;
-            }
-            if (currentYear.Label != null) result.CategoriesYear.Add(currentYear);
+            query = _unitOfWork.Invoices.Get()
+                    .OrderBy(x => x.Agent.Id).ToList()
+                    .GroupBy(x => new { agent = x.Agent.Name, region = x.Customer.Town.Region })
+                    .Select(x => new InputItem { Label = x.Key.agent, Index = (int)x.Key.region, Value = x.Sum(y => (y.SubTotal)) })
+                    .ToList();
+            result.AgentsSales = Factory.Create(query, Helper.RegionCount);
 
-            var listAgents = UnitOfWork.Invoices.Get()
-                            .OrderBy(x => new { agent = x.Agent.Id }).ToList()
-                            .GroupBy(x => new { agent = x.Agent.Name, region = x.Customer.Town.Region })
-                            .Select(x => new { label = x.Key.agent, region = (int)x.Key.region, sales = x.Sum(y => (y.Total)) })
-                            .ToList();
+            result.Top5Products = _unitOfWork.Items.Get().OrderBy(x => x.Product.Id).ToList()
+                                  .GroupBy(x => x.Product.Name)
+                                  .Select(x => new ProductSales()
+                                  { Product = x.Key, Quantity = x.Sum(y => y.Quantity), Revenue = x.Sum(y => y.SubTotal) })
+                                  .OrderByDescending(x => x.Revenue).Take(5)
+                                  .ToList();
 
-            AgentsSales currentAgent = new AgentsSales((int)Region.Zenica);
-            foreach (var item in listAgents)
-            {
-                if (item.label != currentAgent.Agent)
-                {
-                    if (currentAgent.Agent != null) result.AgentsSales.Add(currentAgent);
-                    currentAgent = new AgentsSales((int)Region.Zenica);
-                    currentAgent.Agent = item.label;
-                }
-                currentAgent.Sales[item.region - 1] = item.sales;
-            }
-            if (currentAgent.Agent != null) result.AgentsSales.Add(currentAgent);
+            result.Invoices = _unitOfWork.Invoices.Get().OrderBy(x => x.Status).ToList()
+                              .GroupBy(x => x.Status.ToString())
+                              .Select(x => new InvoiceStatus() { Status = x.Key, Count = x.Count() })
+                              .ToList();
 
+            var custList = _unitOfWork.Invoices.Get()
+                           .OrderBy(x => x.Customer.Id).ToList()
+                           .GroupBy(x => new { x.Customer.Name, x.Status })
+                           .Select(x => new InputItem()
+                           {
+                               Label = x.Key.Name,
+                               Index = (int)x.Key.Status,
+                               Value = x.Sum(y => y.Total)
+                           })
+                           .ToList();
+            result.Customers = Factory.Customers(custList);
+
+            result.BurningItems = _unitOfWork.Products.Get().ToList()
+                                  .Select(x => new BurningModel() { Id = x.Id, Name = x.Name, Stock = (int)x.Stock.Inventory, Sold = (int)x.Stock.Output })
+                                  .OrderByDescending(x => x.Sold).Take(5)
+                                  .ToList();
             return result;
         }
     }

@@ -36,11 +36,11 @@ namespace Billing.Api.Controllers
             if (Thread.CurrentPrincipal.Identity.IsAuthenticated)
             {
                 WebSecurity.Logout();
-                return Ok($"User {identity.currentUser} logged out");
+                return Ok($"User {identity.CurrentUser} logged out");
             }
             else
             {
-                return Ok("No user is logged in!!!");
+                return Ok("No one is logged in. Login to use application.");
             }
 
         }

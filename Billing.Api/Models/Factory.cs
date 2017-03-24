@@ -304,8 +304,15 @@ namespace Billing.Api.Models
             };
         }
 
-
-
+        public TokenModel Create(AuthToken authToken)
+        {
+            return new Models.TokenModel()
+            {
+                Token = authToken.Token,
+                Expiration = authToken.Expiration
+            };
+        }
+        
     }
 }
 

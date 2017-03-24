@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
+using System.Web.Security;
 using WebMatrix.WebData;
 
 namespace Billing.Api.Helpers
@@ -31,11 +32,13 @@ namespace Billing.Api.Helpers
 
                     if (!(string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password)))
                     {
-                        if (!WebSecurity.Initialized) WebSecurity.InitializeDatabaseConnection("Billing", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+                        if (!WebSecurity.Initialized)
+                            WebSecurity.InitializeDatabaseConnection("Billing", "UserProfile", "UserId", "UserName", autoCreateTables: true);
 
                         if (WebSecurity.Login(username, password))
                         {
-                            Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(username), null);
+                            string[] roles = Roles.GetRolesForUser(username);
+                            Thread.CurrentPrincipal = new GenericPrincipal(new GenericIdentity(username), roles);
                             return;
                         }
                     }
