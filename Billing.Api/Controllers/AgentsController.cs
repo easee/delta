@@ -8,10 +8,9 @@ using System.Linq;
 using System.Web.Http;
 using WebMatrix.WebData;
 
-//Najnoviji test
 namespace Billing.Api.Controllers
 {
-    [BillingAuthorization]
+    [TokenAuthorization("user")]
     [RoutePrefix("api/agents")]
     public class AgentsController : BaseController
     {

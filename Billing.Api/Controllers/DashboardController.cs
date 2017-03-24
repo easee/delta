@@ -10,21 +10,21 @@ using System.Net.Http;
 using System.Web.Http;
 
 namespace Billing.Api.Controllers
-{   
-    [BillingAuthorization]
+{
+    [TokenAuthorization("admin")]
     public class DashboardController : BaseController
     {
-        //public IHttpActionResult Get()
+        public IHttpActionResult Get()
 
-        //{
-        //    try
-        //    {
-        //        return Ok(Reports.DashboardReport.Report());
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
+        {
+            try
+            {
+                return Ok(Reports.Dashboard.Report());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
