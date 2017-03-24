@@ -1,23 +1,28 @@
 ﻿using Billing.Api.Helpers;
 using Billing.Api.Models;
 using Billing.Database;
+using Billing.Repository;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    [BillingAuthorization]
     [RoutePrefix("api/customers")]
     public class CustomersController : BaseController
     {
         [Route("")]
         public IHttpActionResult Get()
         {
+            BillingIdentity identity = new BillingIdentity();
+            string username = identity.CurrentUser;
             return Ok(UnitOfWork.Customers.Get().ToList().Select(x => Factory.Create(x)).ToList());
+        }
+
+        [Route("{name}")]
+        public IHttpActionResult Get(string name)
+        {
+            return Ok(UnitOfWork.Customers.Get().Where(x => x.Name.Contains(name)).ToList().Select(a => Factory.Create(a)).ToList());
         }
 
         [Route("{id:int}")]
@@ -26,32 +31,23 @@ namespace Billing.Api.Controllers
             try
             {
                 Customer customer = UnitOfWork.Customers.Get(id);
-                if (customer == null) return NotFound();
-                return Ok(Factory.Create(customer));
+                if (customer == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(Factory.Create(customer));
+                }
             }
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [Route("{name}")]
-        public IHttpActionResult Get(string name)
-        {
-            try
-            {
-                return Ok(UnitOfWork.Customers.Get().Where(x => x.Name.Contains(name)).ToList().Select(a => Factory.Create(a)).ToList());
-            }
-            catch (Exception ex)
-            {
-                //Helper.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }
 
         [Route("")]
-        public IHttpActionResult Post([FromBody] CustomerModel model)
+        public IHttpActionResult Post(CustomerModel model)
         {
             try
             {
@@ -62,26 +58,22 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
-
                 return BadRequest(ex.Message);
             }
         }
 
         [Route("{id}")]
-        public IHttpActionResult Put([FromUri] int id, [FromBody]CustomerModel model)//FromUri i FromBody možemo i ne moramo pisati, podrazumijeva se.
+        public IHttpActionResult Put(int id, CustomerModel model)
         {
             try
             {
                 Customer customer = Factory.Create(model);
                 UnitOfWork.Customers.Update(customer, id);
                 UnitOfWork.Commit();
-                return Ok(customer);
+                return Ok(Factory.Create(customer));
             }
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
-
                 return BadRequest(ex.Message);
             }
         }
@@ -91,14 +83,14 @@ namespace Billing.Api.Controllers
         {
             try
             {
+                Customer entity = UnitOfWork.Customers.Get(id);
+                if (entity == null) return NotFound();
                 UnitOfWork.Customers.Delete(id);
                 UnitOfWork.Commit();
                 return Ok();
             }
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
-
                 return BadRequest(ex.Message);
             }
         }

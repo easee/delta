@@ -16,6 +16,9 @@ namespace Billing.Database
         public BillingContext() : base("name=Billing") { }//Znači da naslijeđuje konstruktor od bazne klase.
 
         //Članovi konteksta će biti oni entiteti za koje planiramo da budu dio baze podataka
+        //ApiUsers i Tokens smo dodali kad smo počeli koristiti Authentikaciju
+        public DbSet<ApiUser> ApiUsers { get; set; }
+        public DbSet<AuthToken> Tokens { get; set; }
         public DbSet<Agent> Agents { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Customer> Customers { get; set; }

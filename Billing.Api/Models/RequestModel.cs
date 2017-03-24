@@ -7,6 +7,6 @@ namespace Billing.Api.Controllers
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         // filter Id: Category, Product, Customer, Agent...
-        public int Id { get; set; }
+        public int Id { get; set; }             
     }
 }

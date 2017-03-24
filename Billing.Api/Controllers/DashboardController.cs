@@ -14,16 +14,17 @@ namespace Billing.Api.Controllers
     [BillingAuthorization]
     public class DashboardController : BaseController
     {
-        public IHttpActionResult Get()
-        {
-            try
-            {
-                return Ok(DashboardReport.Report(UnitOfWork));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        //public IHttpActionResult Get()
+
+        //{
+        //    try
+        //    {
+        //        return Ok(Reports.DashboardReport.Report());
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
     }
 }

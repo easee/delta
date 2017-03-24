@@ -54,6 +54,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Agent.cs" />
+    <Compile Include="ApiUser.cs" />
+    <Compile Include="AuthToken.cs" />
     <Compile Include="Basic.cs" />
     <Compile Include="BillingContext.cs" />
     <Compile Include="Category.cs" />
