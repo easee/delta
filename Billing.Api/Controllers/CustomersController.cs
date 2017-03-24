@@ -8,6 +8,8 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
+    [BillingAuthorization]
+    [TokenAuthorization("admin")]
     [RoutePrefix("api/customers")]
     public class CustomersController : BaseController
     {
