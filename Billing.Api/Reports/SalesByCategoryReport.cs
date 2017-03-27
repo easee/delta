@@ -32,7 +32,6 @@ namespace Billing.Api.Reports
                     CategoryName = item.CategoryName,
                     CategoryTotal = Math.Round(item.CategoryTotal, 2),
                     CategoryPercent = Math.Round(100 * item.CategoryTotal / result.GrandTotal, 2)
-
                 });
             }
 
