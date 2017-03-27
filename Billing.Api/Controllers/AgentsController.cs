@@ -2,6 +2,7 @@
 using Billing.Api.Models;
 using Billing.Database;
 using Billing.Repository;
+using Billing.Seed;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,24 +11,25 @@ using WebMatrix.WebData;
 
 namespace Billing.Api.Controllers
 {
-    [TokenAuthorization("user")]
+    //[TokenAuthorization("admin,user")]
     [RoutePrefix("api/agents")]
     public class AgentsController : BaseController
     {
+        //[TokenAuthorization("user")]
         [Route("")]
         public IHttpActionResult Get()
         {
             return Ok(UnitOfWork.Agents.Get().ToList().Select(x => Factory.Create(x)).ToList());
         }
 
-        //------
+        //[TokenAuthorization("user")]
         [Route("{name}")]
         public IHttpActionResult Get(string name)
         {
             return Ok(UnitOfWork.Agents.Get().Where(x => x.Name.Contains(name)).ToList()
                                   .Select(a => Factory.Create(a)).ToList());
         }
-
+        //[TokenAuthorization("user")]
         [Route("{id:int}")]
         public IHttpActionResult Get(int id)
         {
@@ -90,12 +92,22 @@ namespace Billing.Api.Controllers
         [HttpGet]
         public IHttpActionResult CreateProfiles()
         {
-            WebSecurity.InitializeDatabaseConnection("Billing", "UserProfile", "UserId", "UserName", autoCreateTables: true);
-            foreach (var agent in UnitOfWork.Agents.Get())
+            WebSecurity.InitializeDatabaseConnection
+                //("Billing", "UserProfile", "UserId", "Username", autoCreateTables: true); ovo je bilo ranije
+                ("Billing", "Agents", "Id", "Username", autoCreateTables: true);
+            foreach (var agent in UnitOfWork.Agents.Get().ToList())
+            {
+                if(string.IsNullOrWhiteSpace(agent.Username))
             {
                 string[] names = agent.Name.Split(' ');
-                WebSecurity.CreateUserAndAccount(names[0], "billing", false);
-            }
+                string username = names[0].ToLower();
+                agent.Username = username;
+                UnitOfWork.Agents.Update(agent, agent.Id);
+                UnitOfWork.Commit();
+                }
+            //WebSecurity.CreateUserAndAccount(names[0], "billing", false); - bilo ranije
+            WebSecurity.CreateAccount(agent.Username, "billing", false);
+        }
             return Ok("User profiles created");
         }
     }
