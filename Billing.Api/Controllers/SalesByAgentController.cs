@@ -11,20 +11,20 @@ using System.Web.Http;
 namespace Billing.Api.Controllers
 {
     [BillingAuthorization]
-    public class SalesByCustomerController : BaseController
+    public class SalesByAgentController : BaseController
     {
         public IHttpActionResult Post(RequestModel request)
         {
-            
-                try
-                {
-                    return Ok(Reports.SalesByCustomer.Report(request));
-                }
-                catch (Exception ex)
-                {
-                    return BadRequest(ex.Message);
-                }
-            
+
+            try
+            {
+                return Ok(Reports.SalesByAgent.Report(request));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
     }
 }

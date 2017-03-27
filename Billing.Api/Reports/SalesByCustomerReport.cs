@@ -1,44 +1,39 @@
 ﻿using Billing.Api.Controllers;
+using Billing.Api.Helpers;
 using Billing.Api.Models;
 using Billing.Database;
 using Billing.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace Billing.Api.Reports
 {
     public class SalesByCustomerReport
     {
-        public static SalesByCustomerModel Report(UnitOfWork UnitOfWork, RequestModel Request)
+        private BillingIdentity identity = new BillingIdentity();
+        private ReportFactory Factory = new ReportFactory();
+        private UnitOfWork _unitOfWork;
+        public SalesByCustomerReport(UnitOfWork unitOfWork)
         {
-            SalesByCustomerModel result = new SalesByCustomerModel();
+            _unitOfWork = unitOfWork;
+        }
 
-            result.StartDate = Request.StartDate;
-            result.EndDate = Request.EndDate;
-
-            var Invoices = UnitOfWork.Invoices.Get().Where(x => x.Date >= Request.StartDate && x.Date <= Request.EndDate).ToList();
-            result.GrandTotal = Invoices.Sum(x => x.Total);
-
-            result.Sales = new List<CustomerSalesModel>();
-            var customers = Invoices.OrderByDescending(x => x.Total)
-                             .GroupBy(x => new { name = x.Customer.Name })
-                             .Select(x => new { CustomerName = x.Key.name, CustomerTurnover = x.Sum(y => y.Total) })
-                             .ToList();
-
-            foreach (var item in customers)
+        public  SalesByCustomerModel Report(RequestModel Request)
+        {
+            List<Invoice> Invoices = _unitOfWork.Invoices.Get().Where(x => x.Date >= Request.StartDate && x.Date <= Request.EndDate).ToList();
+            SalesByCustomerModel result = new SalesByCustomerModel()
             {
-                result.Sales.Add(new CustomerSalesModel()
-                {
-                    CustomerName = item.CustomerName,
-                    CustomerTurnover = Math.Round(item.CustomerTurnover,2),
-                    CustomerPercent = Math.Round(100 * item.CustomerTurnover / result.GrandTotal, 2)
-                });
-               
-            }
+                StartDate = Request.StartDate,
+                EndDate = Request.EndDate,
+                GrandTotal = Invoices.Sum(x => x.Total)
+            };
 
-            return result;
+            result.Sales = Invoices.OrderByDescending(x => x.Total).ToList()
+                           .GroupBy(x => x.Customer.Name)
+                           .Select(x => Factory.Create(Invoices, x.Sum(y => y.SubTotal), x.Key)).ToList();
+          
+                return result;
         }
     }
 }
