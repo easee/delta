@@ -1,16 +1,13 @@
 ﻿using Billing.Api.Helpers;
 using Billing.Api.Models;
 using Billing.Database;
+using Billing.Repository;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    [BillingAuthorization]
     [RoutePrefix("api/invoices")]
     public class InvoicesController : BaseController
     {
@@ -20,101 +17,67 @@ namespace Billing.Api.Controllers
             return Ok(UnitOfWork.Invoices.Get().ToList().Select(x => Factory.Create(x)).ToList());
         }
 
+        [Route("customer/{id}")]
+        public IHttpActionResult GetByCustomer(int id)
+        {
+            return Ok(UnitOfWork.Invoices.Get().Where(x => x.Customer.Id == id).ToList().Select(x => Factory.Create(x)).ToList());
+        }
+
+        [Route("agent/{id}")]
+        public IHttpActionResult GetByAgent(int id)
+        {
+            return Ok(UnitOfWork.Invoices.Get().Where(x => x.Agent.Id == id).ToList().Select(x => Factory.Create(x)).ToList());
+        }
+
         [Route("{id:int}")]
         public IHttpActionResult Get(int id)
         {
             try
             {
                 Invoice invoice = UnitOfWork.Invoices.Get(id);
-                if (invoice == null) return NotFound();
-                return Ok(Factory.Create(invoice));
+                if (invoice == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    return Ok(Factory.Create(invoice));
+                }
             }
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [Route("customer/{id:int}")]
-        public IHttpActionResult GetByCustomerId(int id)
-        {
-            try
-            {
-                if (UnitOfWork.Customers.Get(id) == null) return NotFound();
-                return Ok(UnitOfWork.Invoices.Get().Where(a => a.Customer.Id==id).ToList().Select(x => Factory.Create(x)).ToList());
-            }
-            catch (Exception ex)
-            {
-                //Helper.Log(ex.Message, "ERROR");
-
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [Route("agent/{id:int}")]
-        public IHttpActionResult GetByAgentId(int id)
-        {
-            try
-            {
-                if (UnitOfWork.Agents.Get(id) == null) return NotFound();
-                return Ok(UnitOfWork.Invoices.Get().Where(a => a.Agent.Id == id).ToList().Select(x => Factory.Create(x)).ToList());
-            }
-            catch (Exception ex)
-            {
-                //Helper.Log(ex.Message, "ERROR");
-
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [Route("number/{invoiceNo}")]
-        public IHttpActionResult Get(string invoiceNo)
-        {
-            try
-            {
-                return Ok(UnitOfWork.Invoices.Get().Where(x => x.InvoiceNo.Equals(invoiceNo)).ToList().Select(a => Factory.Create(a)).ToList());
-            }
-            catch (Exception ex)
-            {
-                //Helper.Log(ex.Message, "ERROR");
-
                 return BadRequest(ex.Message);
             }
         }
 
         [Route("")]
-        public IHttpActionResult Post([FromBody] InvoiceModel model)
+        public IHttpActionResult Post(InvoiceModel model)
         {
             try
             {
-                Invoice invoice= Factory.Create(model);
+                Invoice invoice = Factory.Create(model);
                 UnitOfWork.Invoices.Insert(invoice);
-                UnitOfWork.Invoices.Commit();
+                UnitOfWork.Commit();
                 return Ok(Factory.Create(invoice));
             }
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
-
                 return BadRequest(ex.Message);
             }
         }
 
         [Route("{id}")]
-        public IHttpActionResult Put([FromUri] int id, InvoiceModel model)//FromUri i FromBody možemo i ne moramo pisati, podrazumijeva se.
+        public IHttpActionResult Put(int id, InvoiceModel model)
         {
             try
             {
                 Invoice invoice = Factory.Create(model);
                 UnitOfWork.Invoices.Update(invoice, id);
-                UnitOfWork.Invoices.Commit();
+                UnitOfWork.Commit();
                 return Ok(Factory.Create(invoice));
             }
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
-
                 return BadRequest(ex.Message);
             }
         }
@@ -124,25 +87,29 @@ namespace Billing.Api.Controllers
         {
             try
             {
-                
-                if (UnitOfWork.Invoices.Get(id) == null) return NotFound();
-                List<Item> items = new List<Item>();
-                List<int> itemId = new List<int>();
-                items = UnitOfWork.Items.Get().Where(a => a.Invoice.Id == id).ToList();
-                foreach(var item in items)
-                    itemId.Add(item.Id);
-                
-                foreach (int d in itemId)
-                    UnitOfWork.Items.Delete(d);
-
+                Invoice entity = UnitOfWork.Invoices.Get(id);
+                if (entity == null) return NotFound();
                 UnitOfWork.Invoices.Delete(id);
                 UnitOfWork.Commit();
                 return Ok();
             }
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
+                return BadRequest(ex.Message);
+            }
+        }
 
+        [Route("{id}/next/{cancel}")]
+        public IHttpActionResult GetNext(int id, bool cancel = false)
+        {
+            try
+            {
+                InvoiceHelper helper = new InvoiceHelper();
+                Invoice entity = helper.NextStep(UnitOfWork, id, cancel);
+                return Ok(Factory.Create(entity));
+            }
+            catch (Exception ex)
+            {
                 return BadRequest(ex.Message);
             }
         }

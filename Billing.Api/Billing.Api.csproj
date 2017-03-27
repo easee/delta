@@ -185,6 +185,7 @@
     <Compile Include="Helpers\BillingAuthorizationAttribute.cs" />
     <Compile Include="Helpers\BillingIdentity.cs" />
     <Compile Include="Helpers\Helper.cs" />
+    <Compile Include="Helpers\InvoiceHelper.cs" />
     <Compile Include="Helpers\TokenAuthorizationAttribute.cs" />
     <Compile Include="Models\AgentModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />
