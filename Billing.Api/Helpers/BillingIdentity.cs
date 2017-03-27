@@ -9,6 +9,11 @@ namespace Billing.Api.Helpers
             get
             {
                 return Thread.CurrentPrincipal.Identity.Name;
+
+                //var username = Thread.CurrentPrincipal.Identity.Name;
+                //UnitOfWork unit = new UnitOfWork();
+                //return unit.Agents.Get().FirstOrDefault(x => x.Username == username).Name;
+                
             }
         }
 

@@ -11,7 +11,7 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    [BillingAuthorization]
+    [TokenAuthorization("admin, user")]
     [RoutePrefix("api/procurements")]
     public class ProcurementsController : BaseController
     {

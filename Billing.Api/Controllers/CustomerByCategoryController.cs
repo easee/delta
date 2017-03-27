@@ -9,24 +9,21 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    public class SalesByCategoryController : BaseController
+    //[TokenAuthorization("admin, user")]
+    public class CustomerByCategoryController : BaseController
     {
-
-        
         public IHttpActionResult Post(RequestModel request)
         {
             {
                 try
                 {
-                    return Ok(SalesByCategoryReport.Report(UnitOfWork, request));
+                    return Ok(Reports.CustomersByCategory.Report(request));
                 }
                 catch (Exception ex)
                 {
                     return BadRequest(ex.Message);
                 }
             }
-
-
         }
     }
 }
