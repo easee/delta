@@ -11,6 +11,7 @@ namespace Billing.Repository
     {
         private readonly BillingContext _context = new BillingContext();
 
+        private IBillingRepository<Event> _history;
         private IBillingRepository<ApiUser>   _apiUsers;
         private IBillingRepository<AuthToken> _tokens;
         private IBillingRepository<Agent>     _agents;
@@ -45,7 +46,7 @@ namespace Billing.Repository
             //}
             #endregion
         }
-
+        public IBillingRepository<Event> History       { get { return _history ??      (_history =      new BillingRepository<Event>(_context)); } }
         public IBillingRepository<ApiUser> ApiUsers    { get { return _apiUsers ??     (_apiUsers =     new BillingRepository<ApiUser>(_context)); } }
         public IBillingRepository<AuthToken> Tokens    { get { return _tokens ??       (_tokens =       new BillingRepository<AuthToken>(_context)); } }
         public IBillingRepository<Stock> Stocks        { get { return _stocks ??       (_stocks =       new BillingRepository<Stock>(_context)); } }

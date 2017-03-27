@@ -63,7 +63,7 @@ namespace Billing.Tests
         public void GetInvoicesByCustomer()
         { 
             GetReady("api/{ controller}/customer/{id}");
-            var actRes = controller.GetByCustomerId(1);
+            var actRes = controller.GetByCustomer(1);
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsNotNull(response.Content);
@@ -73,7 +73,7 @@ namespace Billing.Tests
         public void GetInvoicesByCustomerBad()
         {
             GetReady("api/{ controller}/customer/{id}");
-            var actRes = controller.GetByCustomerId(99);
+            var actRes = controller.GetByCustomer(99);
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsNull(response.Content);
@@ -83,7 +83,7 @@ namespace Billing.Tests
         public void GetInvoicesByAgent()
         {
             GetReady("api/{ controller}/Agent/{id}");
-            var actRes = controller.GetByAgentId(1);
+            var actRes = controller.GetByAgent(1);
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsNotNull(response.Content);
@@ -93,7 +93,7 @@ namespace Billing.Tests
         public void GetInvoicesByAgentBad()
         {
             GetReady("api/{ controller}/Agent/{id}");
-            var actRes = controller.GetByAgentId(99);
+            var actRes = controller.GetByAgent(99);
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsNull(response.Content);

@@ -265,20 +265,20 @@ namespace Billing.Api.Models
         //Josip
         public InvoiceModel Create(Invoice invoice)
         {
-            return new InvoiceModel()
+            return new InvoiceModel() 
             {
                 Id = invoice.Id,
                 InvoiceNo = invoice.InvoiceNo,
                 Date = invoice.Date,
-                ShippedOn= invoice.ShippedOn,
-                Status=invoice.Status,
-                Vat=invoice.Vat,
-                SubTotal=invoice.SubTotal,
-                Total=invoice.Total,
-                VatAmount=invoice.VatAmount,
+                ShippedOn = (DateTime)invoice.ShippedOn,
+                Status = (int)invoice.Status,
+                Vat = invoice.Vat,
+                SubTotal = invoice.SubTotal,
+                Total = invoice.Total,
+                VatAmount = invoice.VatAmount,
                 ShipperId = invoice.Shipper.Id,
                 CustomerId = invoice.Customer.Id,
-                AgentId= invoice.Agent.Id,
+                AgentId = invoice.Agent.Id,
                 Shipper = invoice.Shipper.Name,
                 Customer = invoice.Customer.Name,
                 Agent = invoice.Agent.Name,              
@@ -293,10 +293,10 @@ namespace Billing.Api.Models
             { 
                 Id =model.Id,
                 InvoiceNo = model.InvoiceNo,
-                Date=model.Date,
+                Date = model.Date,
                 ShippedOn = model.ShippedOn,
-                Status=model.Status,
-                Vat=model.Vat,
+                Status = (Status)model.Status,
+                Vat = model.Vat,
                 Shipping = model.Shipping,
                 Customer = _unitOfWork.Customers.Get(model.CustomerId),
                 Agent = _unitOfWork.Agents.Get(model.AgentId),
