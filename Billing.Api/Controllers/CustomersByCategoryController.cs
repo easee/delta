@@ -10,7 +10,7 @@ using System.Web.Http;
 namespace Billing.Api.Controllers
 {
     //[TokenAuthorization("admin, user")]
-    public class CustomerByCategoryController : BaseController
+    public class CustomersByCategoryController : BaseController
     {
         public IHttpActionResult Post(RequestModel request)
         {
