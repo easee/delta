@@ -11,11 +11,10 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    [TokenAuthorization("admin")]
+    //[TokenAuthorization("user")] - dodati za own, da agent može vidjeti svoj
     public class DashboardController : BaseController
     {
         public IHttpActionResult Get()
-
         {
             try
             {
@@ -23,6 +22,7 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
+                LogHelper.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }

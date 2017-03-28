@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    [TokenAuthorization("user, admin")]
+    //[TokenAuthorization("user")]
     [RoutePrefix("api/categories")]
     public class CategoriesController : BaseController
     {
@@ -29,12 +29,12 @@ namespace Billing.Api.Controllers
             }  //Ovdje ne trebamo else jer je u jednoj liniji
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
+                LogHelper.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
             
         }
-
+        //[TokenAuthorization("admin")]
         [Route("")]
         public IHttpActionResult Post(CategoryModel model)
         {
@@ -48,11 +48,11 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
+                LogHelper.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }
-
+        //[TokenAuthorization("admin")]
         [Route("{id}")]
         public IHttpActionResult Put(int id, CategoryModel model) {
             try
@@ -64,11 +64,11 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
+                LogHelper.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }
-
+        //[TokenAuthorization("admin")]
         [Route("{id}")]
         public IHttpActionResult Delete(int id) {
             try
@@ -79,7 +79,7 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
+                LogHelper.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }
