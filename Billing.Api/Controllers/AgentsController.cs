@@ -6,30 +6,31 @@ using Billing.Seed;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Web.Http;
 using WebMatrix.WebData;
 
 namespace Billing.Api.Controllers
 {
-    //[TokenAuthorization("admin,user")]
+    //[TokenAuthorization("user")] - dodati RU own
     [RoutePrefix("api/agents")]
     public class AgentsController : BaseController
     {
-        //[TokenAuthorization("user")]
+        
         [Route("")]
         public IHttpActionResult Get()
         {
             return Ok(UnitOfWork.Agents.Get().ToList().Select(x => Factory.Create(x)).ToList());
         }
 
-        //[TokenAuthorization("user")]
+        
         [Route("{name}")]
         public IHttpActionResult Get(string name)
         {
             return Ok(UnitOfWork.Agents.Get().Where(x => x.Name.Contains(name)).ToList()
                                   .Select(a => Factory.Create(a)).ToList());
         }
-        //[TokenAuthorization("user")]
+        
         [Route("{id:int}")]
         public IHttpActionResult Get(int id)
         {
@@ -38,6 +39,7 @@ namespace Billing.Api.Controllers
             return Ok(Factory.Create(agent));
         }
 
+        //[TokenAuthorization("admin")]
         [Route("")]
         public IHttpActionResult Post([FromBody]AgentModel model)
         {
@@ -50,16 +52,18 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
+                LogHelper.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }
 
+        //[TokenAuthorization("user")] - dodati own
         [Route("{id}")]
         public IHttpActionResult Put([FromUri] int id, [FromBody]AgentModel model)//FromUri i FromBody možemo i ne moramo pisati, podrazumijeva se.
         {
             try
             {
+                
                 Agent agent = Factory.Create(model);
                 UnitOfWork.Agents.Update(agent, id);
                 UnitOfWork.Commit();
@@ -67,11 +71,12 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
+                LogHelper.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }
 
+        //[TokenAuthorization("admin")]
         [Route("{id}")]
         public IHttpActionResult Delete(int id)
         {
@@ -83,11 +88,12 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
+                LogHelper.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }
 
+        //[TokenAuthorization("admin")]
         [Route("profiles")]
         [HttpGet]
         public IHttpActionResult CreateProfiles()

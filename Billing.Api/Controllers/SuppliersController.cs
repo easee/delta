@@ -9,23 +9,16 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    [BillingAuthorization]
+    //[TokenAuthorization("user")]
     [RoutePrefix("api/suppliers")]
     public class SuppliersController : BaseController
     {
-        //public IBillingRepository<Supplier> suppliers = new BillingRepository<Supplier>(new BillingContext());
-        //Factory factory = new Factory();
-        //public IHttpActionResult Get()
-        //{   return Ok(agents.Get().ToList())
-
-
         [Route("")]
         public IHttpActionResult Get()
         {
             return Ok(UnitOfWork.Suppliers.Get().ToList().Select(x => Factory.Create(x)).ToList());
         }
-
-        //------
+        
         [Route("{name}")]
         public IHttpActionResult Get(string name)
         {
@@ -41,7 +34,8 @@ namespace Billing.Api.Controllers
             return Ok(Factory.Create(supplier));
         }
 
-
+        //[TokenAuthorization("admin")]
+        [Route("")]
         public IHttpActionResult Post([FromBody] SupplierModel model)
         {
             try
@@ -53,12 +47,12 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
-
+                LogHelper.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }
 
+        //[TokenAuthorization("admin")]
         [Route("{id}")]
         public IHttpActionResult Put([FromUri] int id, [FromBody]SupplierModel model)//FromUri i FromBody možemo i ne moramo pisati, podrazumijeva se.
         {
@@ -71,12 +65,12 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
-
+                LogHelper.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }
 
+        //[TokenAuthorization("admin")]
         [Route("{id}")]
         public IHttpActionResult Delete(int id)
         {
@@ -90,14 +84,9 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
-
+                LogHelper.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }
-
-
-
-
     }
 }
