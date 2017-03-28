@@ -1,5 +1,7 @@
-﻿using Billing.Api.Models;
+﻿using Billing.Api.Controllers;
+using Billing.Api.Models;
 using Billing.Database;
+using Billing.Repository;
 using Billing.Seed;
 using System;
 using System.Collections.Generic;
@@ -10,6 +12,7 @@ namespace Billing.Api.Reports
 {
     public class ReportFactory
     {
+      
         public MonthlySales Create(Region region, double sales)
         {
             return new MonthlySales()
@@ -110,6 +113,33 @@ namespace Billing.Api.Reports
             }
             if (current.Name != null) result.Add(current);
             return result.OrderByDescending(x => x.Debit).ToList();
+        }
+
+        public CategoryPurchaseModel Create(string Name,double SubTotal)
+        {
+            CategoryPurchaseModel category = new CategoryPurchaseModel()
+            {
+                CategoryName = Name,
+                CategoryTotal = SubTotal
+            };
+            return category;
+        }
+        public CustomerPurchaseModel Create(string Name,double SubTotal,List<Item> Items,int number,List<CategoryPurchaseModel> Catquery,RequestModel Request)
+        {
+            CustomerPurchaseModel customer = new CustomerPurchaseModel(number)
+            {
+                CustomerName=Name,
+                CustomerTurnover=SubTotal
+            };
+            int i = 0;
+            foreach (var cat in Catquery)
+            {
+                var query = Items.Where(x => x.Invoice.Customer.Name.Equals(customer.CustomerName) && x.Product.Category.Name.Equals(cat.CategoryName) && x.Invoice.Date >= Request.StartDate && x.Invoice.Date <= Request.EndDate).ToList();
+                customer.CategorySales[i] = query.Sum(x => x.SubTotal);
+                i++;
+            }
+
+            return customer;
         }
 
         public CustomerStatus Create(int Id, string Name, Status Status, double Amount)
