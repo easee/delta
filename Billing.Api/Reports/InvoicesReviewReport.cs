@@ -1,5 +1,6 @@
 ﻿using Billing.Api.Controllers;
 using Billing.Api.Helpers;
+using Billing.Api.Reports;
 using Billing.Api.Models;
 using Billing.Database;
 using Billing.Repository;
@@ -21,16 +22,21 @@ namespace Billing.Api.Reports
 
         public InvoicesReviewModel Report(RequestModel Request)
         {
-            List<Invoice> Invoices = _unitOfWork.Invoices.Get()
-                                    .Where(x => x.Date >= Request.StartDate && x.Date <= Request.EndDate/* && x.Customer.Id = Request.Id*/).ToList();
+            var Invoices = _unitOfWork.Invoices.Get()
+                                    .Where(x => x.Date >= Request.StartDate && x.Date <= Request.EndDate
+                                                                            && x.Customer.Id == Request.Id).ToList();
+            Customer Customer = _unitOfWork.Customers.Get(Request.Id);
+            double GrandTotal = Math.Round(Invoices.Sum(x => x.Total), 2);
             InvoicesReviewModel result = new InvoicesReviewModel()
             {
                 CustomerId = Request.Id,
-                //CustomerName = 
+                CustomerName = Customer.Name,
                 StartDate = Request.StartDate,
                 EndDate = Request.EndDate,
                 GrandTotal = Invoices.Sum(x => x.SubTotal)
             };
+            result.InvoiceInfo = Invoices.Select(x => Factory.Create(x.Id, x.InvoiceNo, x.Date, x.ShippedOn.Value, x.Total, x.Status)).ToList();
+            
             return result;
         }
     }
