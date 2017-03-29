@@ -93,7 +93,20 @@ namespace Billing.Api.Reports
             return region;
         }
 
-        public List<CustomerStatus> Customers(List<InputItem> list)
+        public ProductsByCategory Create(string Name,int Id,int Input,int Output,int Stock)
+        {
+            ProductsByCategory products = new ProductsByCategory()
+            {
+                ProductId = Id,
+                ProductName = Name,
+                Input = Input,
+                Output = Output,
+                Stock = Stock
+            };
+            return products;
+        }
+
+       public List<CustomerStatus> Customers(List<InputItem> list)
         {
             List<CustomerStatus> result = new List<CustomerStatus>();
             CustomerStatus current = new CustomerStatus();
@@ -112,6 +125,20 @@ namespace Billing.Api.Reports
             return result.OrderByDescending(x => x.Debit).ToList();
         }
 
+        public InvoiceProductReport Create(int Id, string Name, string Unit,double Price,int Quantity, double SubTotal)
+        {
+        
+            InvoiceProductReport products = new InvoiceProductReport()
+            {
+                ProductId = Id,
+                ProductName = Name,
+                ProductUnit = Unit,
+                Price = Price,
+                Quantity = Quantity,
+                Subtotal = SubTotal
+            };
+            return products;
+        }
         public CustomerStatus Create(int Id, string Name, Status Status, double Amount)
         {
             return new CustomerStatus()
