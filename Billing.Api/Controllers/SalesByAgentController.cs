@@ -10,18 +10,18 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    [BillingAuthorization]
+    //[TokenAuthorization("user")]
     public class SalesByAgentController : BaseController
     {
         public IHttpActionResult Post(RequestModel request)
         {
-
             try
             {
                 return Ok(Reports.SalesByAgent.Report(request));
             }
             catch (Exception ex)
             {
+                LogHelper.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
 

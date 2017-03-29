@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    [BillingAuthorization]
+    //[TokenAuthorization("user")] - CRU za own
     [RoutePrefix("api/items")]
     public class ItemsController : BaseController
     {
@@ -47,8 +47,7 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
-
+                LogHelper.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }
@@ -65,8 +64,7 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
-
+                LogHelper.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }
@@ -84,8 +82,7 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
-
+                LogHelper.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }
@@ -100,8 +97,7 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
-
+                LogHelper.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }
@@ -116,8 +112,7 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
-
+                LogHelper.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }

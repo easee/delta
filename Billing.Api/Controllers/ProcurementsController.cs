@@ -11,7 +11,7 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    [BillingAuthorization]
+    //[TokenAuthorization("user")]
     [RoutePrefix("api/procurements")]
     public class ProcurementsController : BaseController
     {
@@ -42,8 +42,7 @@ namespace Billing.Api.Controllers
         {
             return Ok(UnitOfWork.Procurements.Get().Where(x => x.Product.Id == id).ToList().Select(x => Factory.Create(x)).ToList());
         }
-
-
+        
 
         [Route("{id:int}")]
         public IHttpActionResult Get(int id)
@@ -52,8 +51,8 @@ namespace Billing.Api.Controllers
             if (procurement == null) return NotFound();
             return Ok(Factory.Create(procurement));
         }
-        //Denis: Renamed ProcurementModel name according to conventions.
-        //Previous name and alert set by Anur. 
+
+        //[TokenAuthorization("admin")]
         [Route("")]
         public IHttpActionResult Post(ProcurementModel model) {
             try
@@ -65,14 +64,14 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
-
+                LogHelper.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }
 
-       [Route("{id}")]
-       public IHttpActionResult Put(int id, ProcurementModel model)
+        //[TokenAuthorization("admin")]
+        [Route("{id}")]
+        public IHttpActionResult Put(int id, ProcurementModel model)
         {
             try
             {
@@ -84,12 +83,11 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
-
+                LogHelper.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }
-
+        //[TokenAuthorization("admin")]
         [Route("{id}")]
         public IHttpActionResult Delete(int id) {
             try
@@ -101,8 +99,7 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
-
+                LogHelper.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
 

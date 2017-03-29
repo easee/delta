@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    [BillingAuthorization]
+    //[TokenAuthorization("user")]
     [RoutePrefix("api/products")]
     public class ProductsController : BaseController
     {
@@ -19,7 +19,6 @@ namespace Billing.Api.Controllers
             return Ok(UnitOfWork.Products.Get().ToList().Select(x => Factory.Create(x)).ToList());
         }
 
-        //------
         [Route("{name}")]
         public IHttpActionResult Get(string name)
         {
@@ -31,28 +30,11 @@ namespace Billing.Api.Controllers
 
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
-
+                LogHelper.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
             
         }
-
-        //[Route("class/{clId:int}")]
-        //public IHttpActionResult Get(int clId)
-        //{
-        //    try
-        //    {
-        //        return Ok(UnitOfWork.Products.Get().Where(x => x.Category.Id == clId).ToList()
-        //                          .Select(a => Factory.Create(a)).ToList());
-        //    }
-
-        //    catch (Exception ex)
-        //    {
-        //        return BadRequest(ex.Message);
-        //    }
-        //}
-
 
         [Route("{id:int}")]
         public IHttpActionResult Get(int id)
@@ -66,12 +48,12 @@ namespace Billing.Api.Controllers
 
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
-
+                LogHelper.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }
 
+        //[TokenAuthorization("admin")]
         [Route("")]
         public IHttpActionResult Post(ProductModel model)
         {
@@ -84,12 +66,12 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
-
+                LogHelper.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }
 
+        //[TokenAuthorization("admin")]
         [Route("{id}")]
         public IHttpActionResult Put(int id, ProductModel model)
         {
@@ -102,12 +84,12 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
-
+                LogHelper.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }
 
+        //[TokenAuthorization("admin")]
         [Route("{id:int}")]
         public IHttpActionResult Delete(int id)
         {
@@ -121,8 +103,7 @@ namespace Billing.Api.Controllers
             }
             catch (Exception ex)
             {
-                //Helper.Log(ex.Message, "ERROR");
-
+                LogHelper.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }
