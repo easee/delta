@@ -21,15 +21,19 @@ namespace Billing.Api.Controllers
         [Route("customer/{id}")]
         public IHttpActionResult GetByCustomer(int id)
         {
-            return Ok(UnitOfWork.Invoices.Get().Where(x => x.Customer.Id == id).ToList().Select(x => Factory.Create(x)).ToList());
+            var customers = UnitOfWork.Invoices.Get().Where(x => x.Customer.Id == id).ToList().Select(x => Factory.Create(x)).ToList();
+            if (customers.Count != 0) return Ok(customers);
+            return NotFound();
         }
 
         [Route("agent/{id}")]
         public IHttpActionResult GetByAgent(int id)
         {
-            return Ok(UnitOfWork.Invoices.Get().Where(x => x.Agent.Id == id).ToList().Select(x => Factory.Create(x)).ToList());
-        }
 
+            var agents = UnitOfWork.Invoices.Get().Where(x => x.Agent.Id == id).ToList().Select(x => Factory.Create(x)).ToList();
+            if (agents.Count != 0) return Ok(agents);
+            return NotFound();
+        }
         [Route("{id:int}")]
         public IHttpActionResult Get(int id)
         {

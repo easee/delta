@@ -7,8 +7,8 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    [RoutePrefix("api/invoicesreport")]
-    public class InvoiceReportController : BaseController
+    [RoutePrefix("api/invoicereport")]
+    public class InvoicesReportController : BaseController
     {
         [Route("{id:int}")]
         public IHttpActionResult Get(int id)

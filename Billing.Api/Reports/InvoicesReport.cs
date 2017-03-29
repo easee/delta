@@ -9,13 +9,13 @@ using System.Web;
 
 namespace Billing.Api.Reports
 {
-    public class InvoiceReport
+    public class InvoicesReport
     {
 
         private BillingIdentity identity = new BillingIdentity();
         private ReportFactory Factory = new ReportFactory();
         private UnitOfWork _unitOfWork;
-        public InvoiceReport(UnitOfWork unitOfWork)
+        public InvoicesReport(UnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
