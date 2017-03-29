@@ -219,8 +219,7 @@ namespace Billing.Api.Reports
             };
             return product;
         }
-        public CustomerPurchaseModel Create(string Name,double SubTotal,List<Item> Items,int number,List<CategoryPurchaseModel> Catquery,RequestModel Request)
-
+        
         public CustomerPurchaseModel Create(string Name, double SubTotal, List<Item> Items, int number, List<CategoryPurchaseModel> Catquery, RequestModel Request)
 
         {
