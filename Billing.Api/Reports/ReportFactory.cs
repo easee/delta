@@ -1,4 +1,5 @@
 ﻿using Billing.Api.Controllers;
+using Billing.Api.Helpers;
 using Billing.Api.Models;
 using Billing.Database;
 using Billing.Repository;
@@ -62,6 +63,33 @@ namespace Billing.Api.Reports
             region.Agents = q3.ToList();
             return region;
         }
+        public CrossRegion CreateRegion(double SubTotal, string Name)
+        {
+            CrossRegion region = new CrossRegion()
+            {
+               RegionName=Name,
+               RegionTotal=SubTotal
+            };
+            return region;
+        }
+
+        public CrossAgent CreateAgent(double SubTotal, string Name,List<Invoice> Invoices,int number,List<CrossRegion> Regions,RequestModel Request)
+        {
+            CrossAgent agent = new CrossAgent(number)
+            {
+              AgentName=Name,
+              AgentTurnover=SubTotal  
+            };
+            int i = 0;
+            foreach (var reg in Regions)
+            {
+                var query = Invoices.Where
+                    (x => x.Agent.Name.Equals(agent.AgentName) && x.Customer.Town.Region.ToString().Equals(reg.RegionName) && x.Date >= Request.StartDate && x.Date <= Request.EndDate).ToList();
+                agent.RegionSales[i] = query.Sum(x => x.SubTotal);
+                i++;
+            }
+            return agent;
+        }
         public CustomerSalesModel Create(List<Invoice> Invoices, double Sales, string Name)
         {
 
@@ -115,6 +143,19 @@ namespace Billing.Api.Reports
             return result.OrderByDescending(x => x.Debit).ToList();
         }
 
+
+        public CategoriesSalesModel CreateCategory(string Name,double SubTotal,double grandTotal)
+        {
+            CategoriesSalesModel category = new CategoriesSalesModel()
+            {
+
+                CategoryName = Name,
+                CategoryTotal = Math.Round(SubTotal, 2),
+                CategoryPercent = Math.Round(100 * SubTotal / grandTotal, 2)
+            };
+            return category;
+        }
+
         public CategoryPurchaseModel Create(string Name,double SubTotal)
         {
             CategoryPurchaseModel category = new CategoryPurchaseModel()
@@ -141,7 +182,6 @@ namespace Billing.Api.Reports
 
             return customer;
         }
-
         public CustomerStatus Create(int Id, string Name, Status Status, double Amount)
         {
             return new CustomerStatus()

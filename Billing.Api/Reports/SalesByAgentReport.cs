@@ -34,7 +34,7 @@ namespace Billing.Api.Reports
                 StartDate = Request.StartDate,
                 EndDate = Request.EndDate,
                 AgentTotal = AgentTotal,
-                PercentTotal = Math.Round(100 *InvoicesOfAgent.Sum(x => x.Total) / grandTotal, 2)               
+                //PercentTotal = Math.Round(100 *InvoicesOfAgent.Sum(x => x.Total) / grandTotal, 2)               
             };
            
             result.Sales = InvoicesOfAgent.OrderBy(x => x.Customer.Id).ToList()
