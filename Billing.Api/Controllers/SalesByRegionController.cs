@@ -10,7 +10,8 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    //[TokenAuthorization("user")] - dodati own
+    //[TokenAuthorization("user")]
+    //dodati own
     public class SalesByRegionController : BaseController
     {
         public IHttpActionResult Post(RequestModel request)

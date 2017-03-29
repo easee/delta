@@ -11,7 +11,8 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    //[TokenAuthorization("user")] - dodati za own, da agent može vidjeti svoj
+    //[TokenAuthorization("user")] 
+    //dodati za own, da agent može vidjeti svoj
     public class DashboardController : BaseController
     {
         public IHttpActionResult Get()

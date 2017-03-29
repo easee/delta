@@ -4,6 +4,7 @@ using Billing.Database;
 using Billing.Repository;
 using System;
 using System.Linq;
+using System.Threading;
 using System.Web.Http;
 
 namespace Billing.Api.Controllers
@@ -76,10 +77,18 @@ namespace Billing.Api.Controllers
         {
             try
             {
-                Invoice invoice = Factory.Create(model);
-                UnitOfWork.Invoices.Update(invoice, id);
-                UnitOfWork.Commit();
-                return Ok(Factory.Create(invoice));
+                Agent current = UnitOfWork.Agents.Get(id);
+                if (Thread.CurrentPrincipal.Identity.Name == current.Username || Thread.CurrentPrincipal.IsInRole("admin"))
+                {
+                    Invoice invoice = Factory.Create(model);
+                    UnitOfWork.Invoices.Update(invoice, id);
+                    UnitOfWork.Commit();
+                    return Ok(Factory.Create(invoice));
+                }
+                else
+                {
+                    return Unauthorized();
+                }
             }
             catch (Exception ex)
             {

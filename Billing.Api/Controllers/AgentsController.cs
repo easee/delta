@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
+using System.Threading;
 using System.Web.Http;
 using WebMatrix.WebData;
 
@@ -57,17 +58,25 @@ namespace Billing.Api.Controllers
             }
         }
 
-        //[TokenAuthorization("user")] - dodati own
+        //[TokenAuthorization("user")]
         [Route("{id}")]
         public IHttpActionResult Put([FromUri] int id, [FromBody]AgentModel model)//FromUri i FromBody možemo i ne moramo pisati, podrazumijeva se.
         {
             try
             {
-                
-                Agent agent = Factory.Create(model);
-                UnitOfWork.Agents.Update(agent, id);
-                UnitOfWork.Commit();
-                return Ok(agent);
+                Agent current = UnitOfWork.Agents.Get(id);
+                //If any of two following values is true it will return true and allow access
+                if (Thread.CurrentPrincipal.Identity.Name == current.Username || Thread.CurrentPrincipal.IsInRole("admin"))
+                {
+                    Agent agent = Factory.Create(model);
+                    UnitOfWork.Agents.Update(agent, id);
+                    UnitOfWork.Commit();
+                    return Ok(agent);
+                }
+                else
+                {
+                    return Unauthorized();
+                }
             }
             catch (Exception ex)
             {
@@ -99,7 +108,6 @@ namespace Billing.Api.Controllers
         public IHttpActionResult CreateProfiles()
         {
             WebSecurity.InitializeDatabaseConnection
-                //("Billing", "UserProfile", "UserId", "Username", autoCreateTables: true); ovo je bilo ranije
                 ("Billing", "Agents", "Id", "Username", autoCreateTables: true);
             foreach (var agent in UnitOfWork.Agents.Get().ToList())
             {
