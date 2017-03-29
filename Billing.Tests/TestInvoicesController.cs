@@ -338,7 +338,7 @@ namespace Billing.Tests
         public void DeleteById()
         {
             GetReady();
-            var actRes = controller.Delete(1);
+            var actRes = controller.Delete(2);
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsTrue(response.IsSuccessStatusCode);

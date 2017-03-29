@@ -89,7 +89,7 @@ namespace Billing.Tests
         public void ChangeSupplierName()
         {
             GetReady();
-            var actRes = controller.Put(1, new SupplierModel() { Id = 1, Name = "New NAME for Supplier"});
+            var actRes = controller.Put(1, new SupplierModel() { Id = 1, Name = "Networks doo", Address = "Aleja lipa 33", TownId = 1 });
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsTrue(response.IsSuccessStatusCode);
@@ -99,7 +99,7 @@ namespace Billing.Tests
         public void ChangeSupplierTown()
         {
             GetReady();
-            var actRes = controller.Put(1, new SupplierModel() { Id = 1, Town = "Mostarski"});
+            var actRes = controller.Put(1, new SupplierModel() { Id = 1, Name="BH Pošta",Address="Obala Kulina Bana 8",TownId=2});
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsTrue(response.IsSuccessStatusCode);

@@ -170,6 +170,19 @@ namespace Billing.Api.Reports
             };
             return products;
         }
+        public InvoiceReviewProducts Create(int Id, string Name, double Price, int Quantity, double SubTotal)
+        {
+
+            InvoiceReviewProducts products = new InvoiceReviewProducts()
+            {
+                ProductId = Id,
+                ProductName = Name,
+                Price = Price,
+                Quantity = Quantity,
+                Subtotal = SubTotal
+            };
+            return products;
+        }
 
         public CategoriesSalesModel CreateCategory(string Name, double SubTotal, double grandTotal)
 
@@ -223,7 +236,6 @@ namespace Billing.Api.Reports
 
             return invoice;
         }
-
         public CustomerStatus Create(int Id, string Name, Status Status, double Amount)
         {
             return new CustomerStatus()
