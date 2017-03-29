@@ -173,6 +173,7 @@ namespace Billing.Api.Reports
 
         public CategoriesSalesModel CreateCategory(string Name, double SubTotal, double grandTotal)
 
+
         {
             CategoriesSalesModel category = new CategoriesSalesModel()
             {
@@ -193,7 +194,22 @@ namespace Billing.Api.Reports
             };
             return category;
         }
+
+        public SalesByProduct Create(string Name,double Price, double Percent, double TotalPercent)
+        {
+            SalesByProduct product = new SalesByProduct()
+            {
+                ProductName = Name,
+                ProductTotal = Price,
+                ProductPercent = Math.Round(100 * Price / Percent, 2),
+                TotalPercent = Math.Round(100*Price/TotalPercent,2)
+            };
+            return product;
+        }
+        public CustomerPurchaseModel Create(string Name,double SubTotal,List<Item> Items,int number,List<CategoryPurchaseModel> Catquery,RequestModel Request)
+
         public CustomerPurchaseModel Create(string Name, double SubTotal, List<Item> Items, int number, List<CategoryPurchaseModel> Catquery, RequestModel Request)
+
         {
             CustomerPurchaseModel customer = new CustomerPurchaseModel(number)
             {

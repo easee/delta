@@ -188,6 +188,7 @@
     <Compile Include="Controllers\SalesByAgentController.cs" />
     <Compile Include="Controllers\SalesByCategoryController.cs" />
     <Compile Include="Controllers\SalesByCustomerController.cs" />
+    <Compile Include="Controllers\SalesByProductController.cs" />
     <Compile Include="Controllers\SalesByRegionController.cs" />
     <Compile Include="Controllers\ShippersController.cs" />
     <Compile Include="Controllers\SignatureController.cs" />
@@ -220,6 +221,7 @@
     <Compile Include="Models\SalesByAgentModel.cs" />
     <Compile Include="Models\SalesByCategoryModel.cs" />
     <Compile Include="Models\SalesByCustomerModel.cs" />
+    <Compile Include="Models\SalesByProductModel.cs" />
     <Compile Include="Models\SalesByRegionModel.cs" />
     <Compile Include="Models\ShipperModel.cs" />
     <Compile Include="Models\SupplierModel.cs" />
@@ -237,6 +239,7 @@
     <Compile Include="Reports\SalesByAgentReport.cs" />
     <Compile Include="Reports\SalesByCategoryReport.cs" />
     <Compile Include="Reports\SalesByCustomerReport.cs" />
+    <Compile Include="Reports\SalesByProductReport.cs" />
     <Compile Include="Reports\SalesByRegionReport.cs" />
     <Compile Include="Reports\SetOfReports.cs" />
   </ItemGroup>
