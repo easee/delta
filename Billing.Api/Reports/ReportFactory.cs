@@ -207,6 +207,19 @@ namespace Billing.Api.Reports
 
             return customer;
 
+
+        public InvoiceInfoModel Create(int Id, string InvoiceNo, DateTime Date, DateTime ShippedOn, double Total, Status Status)
+        {
+            InvoiceInfoModel invoice = new InvoiceInfoModel();
+            invoice.InvoiceId = Id;
+            invoice.InvoiceNo = InvoiceNo;
+            invoice.InvoiceDate = Date;
+            invoice.ShippedOn = ShippedOn;
+            invoice.InvoiceTotal = Total;
+            invoice.InvoiceStatus = Status.ToString();
+
+            return invoice;
+        }
         }
         public CustomerStatus Create(int Id, string Name, Status Status, double Amount)
         {

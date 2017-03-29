@@ -14,7 +14,7 @@ namespace Billing.Api.Controllers
         {
             try
             {
-                return Ok(Reports.InvoiceReview.Report(request));
+                return Ok(Reports.InvoicesReview.Report(request));
             }
             catch (Exception ex)
             {

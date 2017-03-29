@@ -19,12 +19,10 @@ namespace Billing.Api.Reports
         private SalesByRegionReport _salesByRegion;
         private SalesByCustomerReport _salesByCustomer;
         private SalesByAgentReport _salesByAgent;
-
         private ProductsByCategoryReport _productsByCategory;
         private InvoiceReport _invoices;
-
-
         private CustomersByCategoryReport _customersByCategory;
+        private InvoicesReviewReport _invoicesReview;
         private CrossAgentRegionReport _crossAgentRegion;
         private SalesByCategoryReport _salesByCategory;
         private InvoicesReviewReport _invoiceReview;
@@ -35,13 +33,10 @@ namespace Billing.Api.Reports
         public SalesByAgentReport SalesByAgent { get { return _salesByAgent ?? (_salesByAgent = new SalesByAgentReport(_unitOfWork)); } }
         public ProductsByCategoryReport ProductsByCategory { get { return _productsByCategory ?? (_productsByCategory = new ProductsByCategoryReport(_unitOfWork)); } }
         public InvoiceReport Invoice { get { return _invoices ?? (_invoices = new InvoiceReport(_unitOfWork)); } }
-
         public CustomersByCategoryReport CustomersByCategory { get { return _customersByCategory ?? (_customersByCategory = new CustomersByCategoryReport(_unitOfWork)); } }
         public CrossAgentRegionReport CrossAgentRegion { get { return _crossAgentRegion ?? (_crossAgentRegion = new CrossAgentRegionReport(_unitOfWork)); } }
         public SalesByCategoryReport SalesByCategory { get { return _salesByCategory ?? (_salesByCategory = new SalesByCategoryReport(_unitOfWork)); } }
-
-
-
+        public InvoicesReviewReport InvoicesReview { get { return _invoicesReview ?? (_invoicesReview = new InvoicesReviewReport(_unitOfWork)); } }
         public InvoicesReviewReport InvoiceReview { get { return _invoiceReview ?? (_invoiceReview = new InvoicesReviewReport(_unitOfWork)); } }
     }
 }
