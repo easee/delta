@@ -56,9 +56,9 @@ namespace Billing.Api.Reports
             {
                 AgentId = x.Key.id,
                 AgentName = x.Key.name,
-                AgentTotal = x.Sum(y => y.Total),
-                RegionPercent = 100 * x.Sum(y => y.Total) / Sales,
-                TotalPercent = 100 * x.Sum(y => y.Total) / GrandTotal
+                AgentTotal = x.Sum(y => y.SubTotal),
+                RegionPercent = Math.Round(100 * x.Sum(y => y.SubTotal) / Sales,2),
+                TotalPercent = Math.Round(100 * x.Sum(y => y.SubTotal) / GrandTotal,2)
             });
             region.Agents = q3.ToList();
             return region;
@@ -107,7 +107,7 @@ namespace Billing.Api.Reports
         public RegionSalesAgentModel Create(List<Invoice> InvoicesOfAgent, string Region, double Sales, double AgentTotal, List<Invoice> Invoices)
         {
             var query = Invoices.GroupBy(x => x.Customer.Town.Region.ToString())
-                               .Select(x => new { RegionName = x.Key, RegionTotal = x.Sum(y => y.Total) })
+                               .Select(x => new { RegionName = x.Key, RegionTotal = x.Sum(y => y.SubTotal) })
                                .ToList();
             double total = 0;
             foreach (var item in query)
@@ -137,7 +137,7 @@ namespace Billing.Api.Reports
             return products;
         }
 
-       public List<CustomerStatus> Customers(List<InputItem> list)
+        public List<CustomerStatus> Customers(List<InputItem> list)
         {
             List<CustomerStatus> result = new List<CustomerStatus>();
             CustomerStatus current = new CustomerStatus();
@@ -154,10 +154,11 @@ namespace Billing.Api.Reports
             }
             if (current.Name != null) result.Add(current);
             return result.OrderByDescending(x => x.Debit).ToList();
-    
-        public InvoiceProductReport Create(int Id, string Name, string Unit,double Price,int Quantity, double SubTotal)
+        }
+
+        public InvoiceProductReport Create(int Id, string Name, string Unit, double Price, int Quantity, double SubTotal)
         {
-        
+
             InvoiceProductReport products = new InvoiceProductReport()
             {
                 ProductId = Id,
@@ -168,6 +169,7 @@ namespace Billing.Api.Reports
                 Subtotal = SubTotal
             };
             return products;
+        }
 
         public CategoriesSalesModel CreateCategory(string Name,double SubTotal,double grandTotal)
         {
@@ -190,12 +192,12 @@ namespace Billing.Api.Reports
             };
             return category;
         }
-        public CustomerPurchaseModel Create(string Name,double SubTotal,List<Item> Items,int number,List<CategoryPurchaseModel> Catquery,RequestModel Request)
+        public CustomerPurchaseModel Create(string Name, double SubTotal, List<Item> Items, int number, List<CategoryPurchaseModel> Catquery, RequestModel Request)
         {
             CustomerPurchaseModel customer = new CustomerPurchaseModel(number)
             {
-                CustomerName=Name,
-                CustomerTurnover=SubTotal
+                CustomerName = Name,
+                CustomerTurnover = SubTotal
             };
             int i = 0;
             foreach (var cat in Catquery)
@@ -206,6 +208,7 @@ namespace Billing.Api.Reports
             }
 
             return customer;
+        }
 
 
         public InvoiceInfoModel Create(int Id, string InvoiceNo, DateTime Date, DateTime ShippedOn, double Total, Status Status)
@@ -220,7 +223,7 @@ namespace Billing.Api.Reports
 
             return invoice;
         }
-        }
+        
         public CustomerStatus Create(int Id, string Name, Status Status, double Amount)
         {
             return new CustomerStatus()

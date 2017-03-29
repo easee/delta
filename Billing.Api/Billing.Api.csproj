@@ -174,7 +174,6 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\CrossAgentRegionController.cs" />
-    <Compile Include="Controllers\CustomerByCategoryController.cs" />
     <Compile Include="Controllers\CustomersByCategoryController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
@@ -211,11 +210,8 @@
     <Compile Include="Models\DashboardModel.cs" />
     <Compile Include="Models\Factory.cs" />
     <Compile Include="Models\InvoiceModel.cs" />
-
     <Compile Include="Models\InvoiceReportModel.cs" />
-
     <Compile Include="Models\InvoicesReviewModel.cs" />
-
     <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\ProcurementModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
@@ -234,12 +230,9 @@
     <Compile Include="Reports\CrossAgentRegionReport.cs" />
     <Compile Include="Reports\CustomersByCategoryReport.cs" />
     <Compile Include="Reports\DashboardReport.cs" />
-
     <Compile Include="Reports\InvoiceReport.cs" />
     <Compile Include="Reports\ProductsByCategoryReport.cs" />
-
     <Compile Include="Reports\InvoicesReviewReport.cs" />
-
     <Compile Include="Reports\ReportFactory.cs" />
     <Compile Include="Reports\SalesByAgentReport.cs" />
     <Compile Include="Reports\SalesByCategoryReport.cs" />
