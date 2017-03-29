@@ -34,21 +34,12 @@ namespace Billing.Api.Reports
                 CategoryName = Category.Name,
                 StartDate = Request.StartDate,
                 EndDate = Request.EndDate,
-                CategoryTotal = Math.Round(grandTotal, 2),
+                CategoryTotal = Math.Round(categoryTotal, 2),
                 PercentTotal = Math.Round(100 * categoryTotal / grandTotal, 2)
             };
 
-            result.Products = _unitOfWork.Products.Get().Where(x => x.Category.Id == Request.Id).ToList()
-                                        .Select(x => Factory.Create(x.Name,x.Price, categoryTotal,grandTotal))
+            result.Products =Items.Where(x=>x.Product.Category.Id==Request.Id).GroupBy(x=>x.Product.Name).Select(x => Factory.Create(x.Key,x.Sum(y=>y.SubTotal), categoryTotal,grandTotal))
                                         .ToList();
-
-
-
-
-
-
-
-
 
             return result;
         }
