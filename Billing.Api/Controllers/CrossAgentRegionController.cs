@@ -9,20 +9,23 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    //[TokenAuthorization("user")]
-    public class SalesByCategoryController : BaseController
+    public class CrossAgentRegionController : BaseController
     {
+        //[BillingAuthorization] DODATI NAKNADNO
         public IHttpActionResult Post(RequestModel request)
         {
+            {
                 try
                 {
-                    return Ok(Reports.SalesByCategory.Report(request));
+                    return Ok(Reports.CrossAgentRegion.Report(request));
                 }
                 catch (Exception ex)
                 {
-                    LogHelper.Log(ex.Message, "ERROR");
                     return BadRequest(ex.Message);
                 }
+            }
+
+
         }
     }
 }

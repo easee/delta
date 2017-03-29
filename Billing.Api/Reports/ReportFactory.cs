@@ -1,4 +1,5 @@
 ﻿using Billing.Api.Controllers;
+using Billing.Api.Helpers;
 using Billing.Api.Models;
 using Billing.Database;
 using Billing.Repository;
@@ -62,6 +63,33 @@ namespace Billing.Api.Reports
             region.Agents = q3.ToList();
             return region;
         }
+        public CrossRegion CreateRegion(double SubTotal, string Name)
+        {
+            CrossRegion region = new CrossRegion()
+            {
+               RegionName=Name,
+               RegionTotal=SubTotal
+            };
+            return region;
+        }
+
+        public CrossAgent CreateAgent(double SubTotal, string Name,List<Invoice> Invoices,int number,List<CrossRegion> Regions,RequestModel Request)
+        {
+            CrossAgent agent = new CrossAgent(number)
+            {
+              AgentName=Name,
+              AgentTurnover=SubTotal  
+            };
+            int i = 0;
+            foreach (var reg in Regions)
+            {
+                var query = Invoices.Where
+                    (x => x.Agent.Name.Equals(agent.AgentName) && x.Customer.Town.Region.ToString().Equals(reg.RegionName) && x.Date >= Request.StartDate && x.Date <= Request.EndDate).ToList();
+                agent.RegionSales[i] = query.Sum(x => x.SubTotal);
+                i++;
+            }
+            return agent;
+        }
         public CustomerSalesModel Create(List<Invoice> Invoices, double Sales, string Name)
         {
 
@@ -96,7 +124,20 @@ namespace Billing.Api.Reports
             return region;
         }
 
-        public List<CustomerStatus> Customers(List<InputItem> list)
+        public ProductsByCategory Create(string Name,int Id,int Input,int Output,int Stock)
+        {
+            ProductsByCategory products = new ProductsByCategory()
+            {
+                ProductId = Id,
+                ProductName = Name,
+                Input = Input,
+                Output = Output,
+                Stock = Stock
+            };
+            return products;
+        }
+
+       public List<CustomerStatus> Customers(List<InputItem> list)
         {
             List<CustomerStatus> result = new List<CustomerStatus>();
             CustomerStatus current = new CustomerStatus();
@@ -113,6 +154,31 @@ namespace Billing.Api.Reports
             }
             if (current.Name != null) result.Add(current);
             return result.OrderByDescending(x => x.Debit).ToList();
+    
+        public InvoiceProductReport Create(int Id, string Name, string Unit,double Price,int Quantity, double SubTotal)
+        {
+        
+            InvoiceProductReport products = new InvoiceProductReport()
+            {
+                ProductId = Id,
+                ProductName = Name,
+                ProductUnit = Unit,
+                Price = Price,
+                Quantity = Quantity,
+                Subtotal = SubTotal
+            };
+            return products;
+
+        public CategoriesSalesModel CreateCategory(string Name,double SubTotal,double grandTotal)
+        {
+            CategoriesSalesModel category = new CategoriesSalesModel()
+            {
+
+                CategoryName = Name,
+                CategoryTotal = Math.Round(SubTotal, 2),
+                CategoryPercent = Math.Round(100 * SubTotal / grandTotal, 2)
+            };
+            return category;
         }
 
         public CategoryPurchaseModel Create(string Name,double SubTotal)
@@ -140,7 +206,7 @@ namespace Billing.Api.Reports
             }
 
             return customer;
-        }
+
 
         public InvoiceInfoModel Create(int Id, string InvoiceNo, DateTime Date, DateTime ShippedOn, double Total, Status Status)
         {
@@ -154,7 +220,7 @@ namespace Billing.Api.Reports
 
             return invoice;
         }
-
+        }
         public CustomerStatus Create(int Id, string Name, Status Status, double Amount)
         {
             return new CustomerStatus()

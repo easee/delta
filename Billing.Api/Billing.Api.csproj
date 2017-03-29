@@ -173,14 +173,18 @@
     <Compile Include="Controllers\AgentsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Controllers\CrossAgentRegionController.cs" />
+    <Compile Include="Controllers\CustomerByCategoryController.cs" />
     <Compile Include="Controllers\CustomersByCategoryController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\InvoiceReportController.cs" />
     <Compile Include="Controllers\InvoicesController.cs" />
     <Compile Include="Controllers\InvoicesReviewController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProcurementsController.cs" />
+    <Compile Include="Controllers\ProductsByCategoryController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\SalesByAgentController.cs" />
     <Compile Include="Controllers\SalesByCategoryController.cs" />
@@ -201,15 +205,21 @@
     <Compile Include="Helpers\TokenAuthorizationAttribute.cs" />
     <Compile Include="Models\AgentModel.cs" />
     <Compile Include="Models\CategoryModel.cs" />
+    <Compile Include="Models\CrossAgentRegionModel.cs" />
     <Compile Include="Models\CustomerModel.cs" />
     <Compile Include="Models\CustomersByCategoryModel.cs" />
     <Compile Include="Models\DashboardModel.cs" />
     <Compile Include="Models\Factory.cs" />
     <Compile Include="Models\InvoiceModel.cs" />
+
+    <Compile Include="Models\InvoiceReportModel.cs" />
+
     <Compile Include="Models\InvoicesReviewModel.cs" />
+
     <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\ProcurementModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Models\ProductsByCategoryModel.cs" />
     <Compile Include="Models\RequestModel.cs" />
     <Compile Include="Models\SalesByAgentModel.cs" />
     <Compile Include="Models\SalesByCategoryModel.cs" />
@@ -221,9 +231,15 @@
     <Compile Include="Models\TokenRequestModel.cs" />
     <Compile Include="Models\TownModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\CrossAgentRegionReport.cs" />
     <Compile Include="Reports\CustomersByCategoryReport.cs" />
     <Compile Include="Reports\DashboardReport.cs" />
+
+    <Compile Include="Reports\InvoiceReport.cs" />
+    <Compile Include="Reports\ProductsByCategoryReport.cs" />
+
     <Compile Include="Reports\InvoicesReviewReport.cs" />
+
     <Compile Include="Reports\ReportFactory.cs" />
     <Compile Include="Reports\SalesByAgentReport.cs" />
     <Compile Include="Reports\SalesByCategoryReport.cs" />
