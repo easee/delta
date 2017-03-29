@@ -13,7 +13,7 @@ namespace Billing.Api.Reports
 {
     public class ReportFactory
     {
-      
+
         public MonthlySales Create(Region region, double sales)
         {
             return new MonthlySales()
@@ -67,18 +67,18 @@ namespace Billing.Api.Reports
         {
             CrossRegion region = new CrossRegion()
             {
-               RegionName=Name,
-               RegionTotal=SubTotal
+                RegionName = Name,
+                RegionTotal = SubTotal
             };
             return region;
         }
 
-        public CrossAgent CreateAgent(double SubTotal, string Name,List<Invoice> Invoices,int number,List<CrossRegion> Regions,RequestModel Request)
+        public CrossAgent CreateAgent(double SubTotal, string Name, List<Invoice> Invoices, int number, List<CrossRegion> Regions, RequestModel Request)
         {
             CrossAgent agent = new CrossAgent(number)
             {
-              AgentName=Name,
-              AgentTurnover=SubTotal  
+                AgentName = Name,
+                AgentTurnover = SubTotal
             };
             int i = 0;
             foreach (var reg in Regions)
@@ -101,7 +101,7 @@ namespace Billing.Api.Reports
                 CustomerPercent = Math.Round(100 * Sales / GrandTotal, 2)
             };
 
-              return customer;
+            return customer;
         }
 
         public RegionSalesAgentModel Create(List<Invoice> InvoicesOfAgent, string Region, double Sales, double AgentTotal, List<Invoice> Invoices)
@@ -117,14 +117,14 @@ namespace Billing.Api.Reports
             RegionSalesAgentModel region = new RegionSalesAgentModel()
             {
                 RegionName = Region,
-                RegionTotal = Math.Round(Sales,2),
+                RegionTotal = Math.Round(Sales, 2),
                 RegionPercent = Math.Round(100 * Sales / total, 2),
                 TotalPercent = Math.Round(100 * Sales / AgentTotal, 2)
             };
             return region;
         }
 
-        public ProductsByCategory Create(string Name,int Id,int Input,int Output,int Stock)
+        public ProductsByCategory Create(string Name, int Id, int Input, int Output, int Stock)
         {
             ProductsByCategory products = new ProductsByCategory()
             {
@@ -171,7 +171,8 @@ namespace Billing.Api.Reports
             return products;
         }
 
-        public CategoriesSalesModel CreateCategory(string Name,double SubTotal,double grandTotal)
+        public CategoriesSalesModel CreateCategory(string Name, double SubTotal, double grandTotal)
+
         {
             CategoriesSalesModel category = new CategoriesSalesModel()
             {
@@ -183,7 +184,7 @@ namespace Billing.Api.Reports
             return category;
         }
 
-        public CategoryPurchaseModel Create(string Name,double SubTotal)
+        public CategoryPurchaseModel Create(string Name, double SubTotal)
         {
             CategoryPurchaseModel category = new CategoryPurchaseModel()
             {
@@ -210,7 +211,6 @@ namespace Billing.Api.Reports
             return customer;
         }
 
-
         public InvoiceInfoModel Create(int Id, string InvoiceNo, DateTime Date, DateTime ShippedOn, double Total, Status Status)
         {
             InvoiceInfoModel invoice = new InvoiceInfoModel();
@@ -223,7 +223,7 @@ namespace Billing.Api.Reports
 
             return invoice;
         }
-        
+
         public CustomerStatus Create(int Id, string Name, Status Status, double Amount)
         {
             return new CustomerStatus()
