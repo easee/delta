@@ -26,7 +26,7 @@ namespace Billing.Api.Reports
             {
                 StartDate = Request.StartDate,
                 EndDate = Request.EndDate,
-                GrandTotal = Invoices.Sum(x => x.Total)
+                GrandTotal = Invoices.Sum(x => x.SubTotal)
             };
 
             result.Sales = Invoices.OrderByDescending(x => x.Total).ToList()

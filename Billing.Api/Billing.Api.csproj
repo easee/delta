@@ -178,11 +178,13 @@
     <Compile Include="Controllers\CustomersByCategoryController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\InvoiceReportController.cs" />
     <Compile Include="Controllers\InvoicesController.cs" />
     <Compile Include="Controllers\InvoicesReviewController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProcurementsController.cs" />
+    <Compile Include="Controllers\ProductsByCategoryController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\SalesByAgentController.cs" />
     <Compile Include="Controllers\SalesByCategoryController.cs" />
@@ -209,10 +211,15 @@
     <Compile Include="Models\DashboardModel.cs" />
     <Compile Include="Models\Factory.cs" />
     <Compile Include="Models\InvoiceModel.cs" />
+
+    <Compile Include="Models\InvoiceReportModel.cs" />
+
     <Compile Include="Models\InvoicesReviewModel.cs" />
+
     <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\ProcurementModel.cs" />
     <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Models\ProductsByCategoryModel.cs" />
     <Compile Include="Models\RequestModel.cs" />
     <Compile Include="Models\SalesByAgentModel.cs" />
     <Compile Include="Models\SalesByCategoryModel.cs" />
@@ -227,7 +234,12 @@
     <Compile Include="Reports\CrossAgentRegionReport.cs" />
     <Compile Include="Reports\CustomersByCategoryReport.cs" />
     <Compile Include="Reports\DashboardReport.cs" />
+
+    <Compile Include="Reports\InvoiceReport.cs" />
+    <Compile Include="Reports\ProductsByCategoryReport.cs" />
+
     <Compile Include="Reports\InvoicesReviewReport.cs" />
+
     <Compile Include="Reports\ReportFactory.cs" />
     <Compile Include="Reports\SalesByAgentReport.cs" />
     <Compile Include="Reports\SalesByCategoryReport.cs" />
