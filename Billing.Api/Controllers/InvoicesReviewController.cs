@@ -1,7 +1,4 @@
-﻿using Billing.Api.Helpers;
-using Billing.Api.Models;
-using Billing.Api.Reports;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -10,18 +7,17 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    //[TokenAuthorization("user")] - dodati own
-    public class SalesByRegionController : BaseController
+    //[TokenAuthorization("user")]
+    public class InvoicesReviewController : BaseController
     {
         public IHttpActionResult Post(RequestModel request)
         {
             try
             {
-                return Ok(Reports.SalesByRegion.Report(request));
+                return Ok(Reports.InvoiceReview.Report(request));
             }
             catch (Exception ex)
             {
-                LogHelper.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
         }

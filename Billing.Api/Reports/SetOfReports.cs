@@ -22,7 +22,7 @@ namespace Billing.Api.Reports
         private CustomersByCategoryReport _customersByCategory;
         private CrossAgentRegionReport _crossAgentRegion;
         private SalesByCategoryReport _salesByCategory;
-
+        private InvoicesReviewReport _invoiceReview;
         public DashboardReport Dashboard { get { return _dashboard ?? (_dashboard = new DashboardReport(_unitOfWork)); } }
         public SalesByRegionReport SalesByRegion { get { return _salesByRegion ?? (_salesByRegion = new SalesByRegionReport(_unitOfWork)); } }
         public SalesByCustomerReport SalesByCustomer { get { return _salesByCustomer ?? (_salesByCustomer = new SalesByCustomerReport(_unitOfWork)); } }
@@ -32,6 +32,8 @@ namespace Billing.Api.Reports
         public SalesByCategoryReport SalesByCategory { get { return _salesByCategory ?? (_salesByCategory = new SalesByCategoryReport(_unitOfWork)); } }
 
 
+
+        public InvoicesReviewReport InvoiceReview { get { return _invoiceReview ?? (_invoiceReview = new InvoicesReviewReport(_unitOfWork)); } }
 
     }
 }

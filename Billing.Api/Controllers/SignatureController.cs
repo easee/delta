@@ -12,7 +12,6 @@ namespace Billing.Api.Controllers
     public class SignatureController : BaseController
     {
         public string Get()
-
         {
             ApiUser apiUser = UnitOfWork.ApiUsers.Get().FirstOrDefault();
             return Helper.Signature(apiUser.Secret, apiUser.AppId);
