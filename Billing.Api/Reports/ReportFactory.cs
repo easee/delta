@@ -56,9 +56,9 @@ namespace Billing.Api.Reports
             {
                 AgentId = x.Key.id,
                 AgentName = x.Key.name,
-                AgentTotal = x.Sum(y => y.Total),
-                RegionPercent = 100 * x.Sum(y => y.Total) / Sales,
-                TotalPercent = 100 * x.Sum(y => y.Total) / GrandTotal
+                AgentTotal = x.Sum(y => y.SubTotal),
+                RegionPercent = Math.Round(100 * x.Sum(y => y.SubTotal) / Sales,2),
+                TotalPercent = Math.Round(100 * x.Sum(y => y.SubTotal) / GrandTotal,2)
             });
             region.Agents = q3.ToList();
             return region;
@@ -107,7 +107,7 @@ namespace Billing.Api.Reports
         public RegionSalesAgentModel Create(List<Invoice> InvoicesOfAgent, string Region, double Sales, double AgentTotal, List<Invoice> Invoices)
         {
             var query = Invoices.GroupBy(x => x.Customer.Town.Region.ToString())
-                               .Select(x => new { RegionName = x.Key, RegionTotal = x.Sum(y => y.Total) })
+                               .Select(x => new { RegionName = x.Key, RegionTotal = x.Sum(y => y.SubTotal) })
                                .ToList();
             double total = 0;
             foreach (var item in query)
@@ -154,8 +154,8 @@ namespace Billing.Api.Reports
             }
             if (current.Name != null) result.Add(current);
             return result.OrderByDescending(x => x.Debit).ToList();
-
         }
+
         public InvoiceProductReport Create(int Id, string Name, string Unit, double Price, int Quantity, double SubTotal)
         {
 
@@ -170,7 +170,9 @@ namespace Billing.Api.Reports
             };
             return products;
         }
+
         public CategoriesSalesModel CreateCategory(string Name, double SubTotal, double grandTotal)
+
         {
             CategoriesSalesModel category = new CategoriesSalesModel()
             {
@@ -208,6 +210,7 @@ namespace Billing.Api.Reports
 
             return customer;
         }
+
         public InvoiceInfoModel Create(int Id, string InvoiceNo, DateTime Date, DateTime ShippedOn, double Total, Status Status)
         {
             InvoiceInfoModel invoice = new InvoiceInfoModel();
@@ -220,6 +223,7 @@ namespace Billing.Api.Reports
 
             return invoice;
         }
+
         public CustomerStatus Create(int Id, string Name, Status Status, double Amount)
         {
             return new CustomerStatus()
