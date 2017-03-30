@@ -1,0 +1,24 @@
+<div style="border:solid 1px blue" ng-show="showCustomer">
+    <div>Id: <b>{{ customer.id }}</b></div>
+    <div>Name: <input type="text" ng-model="customer.name"></div>
+    <div>Address: <input type="text" ng-model="customer.address"></div>
+    <div>Town: <input type="text" ng-model="customer.town"></div>
+    <div><button ng-click="save()">SAVE</button></div>
+</div>
+<div>Filter: <input type="search" ng-model="select">
+    | Sort by: <select ng-model="sort">
+        <option value="id">Id</option>
+        <option value="+name">Name asc</option>
+        <option value="-name">Name dsc</option>
+        <option value="town">Town</option>
+    </select>
+</div>
+<hr>
+<div class="row" ng-repeat="item in customers | filter:select | orderBy:sort ">
+    <div class="col-md-3">{{ item.id }}</div>
+    <div class="col-md-3">{{ item.name }}</div>
+    <div class="col-md-3">{{ item.town }}</div>
+    <div class="col-md-3">
+        <a href="" ng-click="getCustomer(item)">GET</a></div>
+</div>
+<button ng-click="new()">NEW CUSTOMER</button>
