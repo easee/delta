@@ -11,7 +11,7 @@ namespace Billing.Api.Controllers
 {
     public class CrossAgentRegionController : BaseController
     {
-        //[BillingAuthorization] DODATI NAKNADNO
+        //[Authorization("user")]
         public IHttpActionResult Post(RequestModel request)
         {
             {

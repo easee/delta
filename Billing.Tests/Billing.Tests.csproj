@@ -68,7 +68,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ReportTests\TestDashboardController.cs" />
+    <Compile Include="TestDashboardController.cs" />
     <Compile Include="TestAgentController.cs" />
     <Compile Include="TestCategoriesController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -130,6 +130,9 @@
       <Project>{38924049-fdb6-4a8d-a68c-2ffdb898229d}</Project>
       <Name>Billing.Repository</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ReportTests\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
