@@ -38,8 +38,10 @@ namespace Billing.Api.Reports
                 PercentTotal = Math.Round(100 * categoryTotal / grandTotal, 2)
             };
 
-            result.Products =Items.Where(x=>x.Product.Category.Id==Request.Id).GroupBy(x=>x.Product.Name).Select(x => Factory.Create(x.Key,x.Sum(y=>y.SubTotal), categoryTotal,grandTotal))
-                                        .ToList();
+            result.Products = Items.Where(x => x.Product.Category.Id == Request.Id)
+                                   .GroupBy(x => x.Product.Name)
+                                   .Select(x => Factory.Create(x.Key, x.Sum(y => y.SubTotal), categoryTotal, grandTotal))
+                                   .ToList();
 
             return result;
         }

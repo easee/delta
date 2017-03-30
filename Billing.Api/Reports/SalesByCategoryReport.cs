@@ -27,11 +27,12 @@ namespace Billing.Api.Reports
             result.EndDate = Request.EndDate;
 
             var Items = _unitOfWork.Items.Get().Where(x => x.Invoice.Date >= Request.StartDate && x.Invoice.Date <= Request.EndDate).ToList();
-            result.GrandTotal = Math.Round(Items.Sum(x => x.Invoice.Total),2);
-            double GrandTotal= Items.Sum(x => x.Invoice.Total);
+            result.GrandTotal = Math.Round(Items.Sum(x => x.SubTotal),2);
+            double GrandTotal= Items.Sum(x => x.Invoice.SubTotal);
      
-            result.Categories = Items.GroupBy(x =>x.Product.Category.Name)
-                              .Select(x => Factory.CreateCategory(x.Key,x.Sum(y => y.Invoice.SubTotal),GrandTotal)).ToList();
+            result.Categories = Items.OrderBy(x => x.Product.Category.Id) 
+                                     .GroupBy(x =>x.Product.Category.Name)
+                                     .Select(x => Factory.CreateCategory(x.Key,x.Sum(y => y.SubTotal),GrandTotal)).ToList();
             return result;
 
         }

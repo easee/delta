@@ -124,15 +124,16 @@ namespace Billing.Api.Reports
             return region;
         }
 
-        public ProductsByCategory Create(string Name, int Id, int Input, int Output, int Stock)
+        public ProductsByCategory Create(string Name, int Id, Stock Stock)
         {
+           
             ProductsByCategory products = new ProductsByCategory()
             {
                 ProductId = Id,
                 ProductName = Name,
-                Input = Input,
-                Output = Output,
-                Stock = Stock
+                Input = (Stock!=null) ? (int) Stock.Input : 0,
+                Output = (Stock != null) ? (int)Stock.Output : 0,
+                Stock = (Stock != null) ? (int)Stock.Id : 0,
             };
             return products;
         }
