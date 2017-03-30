@@ -80,7 +80,13 @@ namespace Billing.Api.Reports
             result.Customers = Factory.Customers(custList);
 
             result.BurningItems = _unitOfWork.Products.Get().ToList()
-                                  .Select(x => new BurningModel() { Id = x.Id, Name = x.Name, Stock = (int)x.Stock.Inventory, Sold = (int)x.Stock.Output })
+                                  .Select(x => new BurningModel()
+                                  {
+                                      Id = x.Id,
+                                      Name = x.Name,
+                                      Stock = (x.Stock != null) ? (int)x.Stock.Inventory : 0,
+                                      Sold = (x.Stock != null) ? (int)x.Stock.Output : 0
+                                  })
                                   .OrderByDescending(x => x.Sold).Take(5)
                                   .ToList();
             return result;
