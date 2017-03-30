@@ -31,8 +31,9 @@ namespace Billing.Api.Reports
             };
 
             products.ProductsCategory = _unitOfWork.Products.Get().Where(x => x.Category.Id == id).ToList()
-                                        .Select(x => Factory.Create(x.Name, x.Id, (int)x.Stock.Input, (int)x.Stock.Output, x.Stock.Id))
-                                        .ToList();
+                                                             .OrderBy(x => x.Name)
+                                                             .Select(x => Factory.Create(x.Name, x.Id, x.Stock))
+                                                             .ToList();
             return products;
         }
     }
