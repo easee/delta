@@ -9,7 +9,8 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    //[TokenAuthorization("user")] - CRU za own
+    [TokenAuthorization("user")]
+    //CRU za own
     [RoutePrefix("api/invoices")]
     public class InvoicesController : BaseController
     {
@@ -95,7 +96,7 @@ namespace Billing.Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        //[TokenAuthorization("admin")]
+        [TokenAuthorization("admin")]
         [Route("{id}")]
         public IHttpActionResult Delete(int id)
         {

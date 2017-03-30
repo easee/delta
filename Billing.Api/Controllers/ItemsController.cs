@@ -9,7 +9,8 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    //[TokenAuthorization("user")] - CRU za own
+    [TokenAuthorization("user")] 
+    //CRU za own
     [RoutePrefix("api/items")]
     public class ItemsController : BaseController
     {
@@ -19,7 +20,6 @@ namespace Billing.Api.Controllers
             return Ok(UnitOfWork.Items.Get().ToList().Select(x => Factory.Create(x)).ToList());
         }
 
-        //------
         [Route("{name}")]
         public IHttpActionResult Get(string name)
         {
@@ -69,6 +69,7 @@ namespace Billing.Api.Controllers
             }
         }
 
+        [TokenAuthorization("admin")]
         [Route("{id}")]
         public IHttpActionResult Delete(int id)
         {

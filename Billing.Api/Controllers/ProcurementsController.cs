@@ -11,7 +11,7 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    //[TokenAuthorization("user")]
+    [TokenAuthorization("user")]
     [RoutePrefix("api/procurements")]
     public class ProcurementsController : BaseController
     {
@@ -22,8 +22,7 @@ namespace Billing.Api.Controllers
         {
             return Ok(UnitOfWork.Procurements.Get().ToList().Select(x => Factory.Create(x)).ToList());
         }
-
-        //------
+        
         [Route("{name}")]
         public IHttpActionResult Get(string name)
         {
@@ -52,7 +51,7 @@ namespace Billing.Api.Controllers
             return Ok(Factory.Create(procurement));
         }
 
-        //[TokenAuthorization("admin")]
+        [TokenAuthorization("admin")]
         [Route("")]
         public IHttpActionResult Post(ProcurementModel model) {
             try
@@ -69,7 +68,7 @@ namespace Billing.Api.Controllers
             }
         }
 
-        //[TokenAuthorization("admin")]
+        [TokenAuthorization("admin")]
         [Route("{id}")]
         public IHttpActionResult Put(int id, ProcurementModel model)
         {
@@ -87,7 +86,8 @@ namespace Billing.Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        //[TokenAuthorization("admin")]
+
+        [TokenAuthorization("admin")]
         [Route("{id}")]
         public IHttpActionResult Delete(int id) {
             try

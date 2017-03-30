@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    //[TokenAuthorization("user")]
+    [TokenAuthorization("user")]
     [RoutePrefix("api/suppliers")]
     public class SuppliersController : BaseController
     {
@@ -34,7 +34,7 @@ namespace Billing.Api.Controllers
             return Ok(Factory.Create(supplier));
         }
 
-        //[TokenAuthorization("admin")]
+        [TokenAuthorization("admin")]
         [Route("")]
         public IHttpActionResult Post([FromBody] SupplierModel model)
         {
@@ -52,7 +52,7 @@ namespace Billing.Api.Controllers
             }
         }
 
-        //[TokenAuthorization("admin")]
+        [TokenAuthorization("admin")]
         [Route("{id}")]
         public IHttpActionResult Put([FromUri] int id, [FromBody]SupplierModel model)//FromUri i FromBody možemo i ne moramo pisati, podrazumijeva se.
         {
@@ -70,7 +70,7 @@ namespace Billing.Api.Controllers
             }
         }
 
-        //[TokenAuthorization("admin")]
+        [TokenAuthorization("admin")]
         [Route("{id}")]
         public IHttpActionResult Delete(int id)
         {
