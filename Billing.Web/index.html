@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="Billing">
+
+  <head>
+      <link rel="stylesheet" href="styles/bootstrap.css">
+      <script src="library/angular.min.js"></script>
+      <script src="library/angular-route.min.js"></script>
+      <script src="scripts/app.js"></script>
+      <script src="scripts/controllers/AgentsCtrl.js"></script>
+      <script src="scripts/controllers/CustomersCtrl.js"></script>
+      <script src="scripts/services/DataService.js"></script>
+  </head>
+
+  <body>
+  <header>
+      <div class="container">
+          <div><h2>Billing Application</h2></div>
+          <div><a href="#/agents">Agents</a> | <a href="#/customers">Customers</a></div>
+          <div>{{ message }}</div>
+          <hr>
+      </div>
+  </header>
+
+  <div class="container"><div ng-view></div></div>
+
+  </body>
+</html>
+
+
+
+
+
