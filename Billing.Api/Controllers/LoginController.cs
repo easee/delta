@@ -40,11 +40,11 @@ namespace Billing.Api.Controllers
         [HttpGet]
         public IHttpActionResult Logout()
         {
-            if (!WebSecurity.Initialized) WebSecurity.InitializeDatabaseConnection("Billing", "UserProfile", "UserId", "UserName", autoCreateTables: true);
+            if (!WebSecurity.Initialized) WebSecurity.InitializeDatabaseConnection("Billing", "Agents", "Id", "UserName", autoCreateTables: true);
             if (Thread.CurrentPrincipal.Identity.IsAuthenticated)
             {
                 WebSecurity.Logout();
-                return Ok($"User {identity.CurrentUser} logged out");
+                return Ok($"User {identity.CurrentUser} logged out!");
             }
             else
             {

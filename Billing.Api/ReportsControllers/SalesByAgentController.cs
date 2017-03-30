@@ -10,7 +10,7 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    //[TokenAuthorization("user")]
+    [TokenAuthorization("user")]
     public class SalesByAgentController : BaseController
     {
         public IHttpActionResult Post(RequestModel request)
@@ -24,7 +24,6 @@ namespace Billing.Api.Controllers
                 LogHelper.Log(ex.Message, "ERROR");
                 return BadRequest(ex.Message);
             }
-
         }
     }
 }
