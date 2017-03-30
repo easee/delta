@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    //[TokenAuthorization("user")]
+    [TokenAuthorization("user")]
     [RoutePrefix("api/products")]
     public class ProductsController : BaseController
     {
@@ -53,7 +53,7 @@ namespace Billing.Api.Controllers
             }
         }
 
-        //[TokenAuthorization("admin")]
+        [TokenAuthorization("admin")]
         [Route("")]
         public IHttpActionResult Post(ProductModel model)
         {
@@ -71,7 +71,7 @@ namespace Billing.Api.Controllers
             }
         }
 
-        //[TokenAuthorization("admin")]
+        [TokenAuthorization("admin")]
         [Route("{id}")]
         public IHttpActionResult Put(int id, ProductModel model)
         {
@@ -89,7 +89,7 @@ namespace Billing.Api.Controllers
             }
         }
 
-        //[TokenAuthorization("admin")]
+        [TokenAuthorization("admin")]
         [Route("{id:int}")]
         public IHttpActionResult Delete(int id)
         {

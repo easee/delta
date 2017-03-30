@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    //[TokenAuthorization("user")]
+    [TokenAuthorization("user")]
     [RoutePrefix("api/categories")]
     public class CategoriesController : BaseController
     {
@@ -34,7 +34,7 @@ namespace Billing.Api.Controllers
             }
             
         }
-        //[TokenAuthorization("admin")]
+        [TokenAuthorization("admin")]
         [Route("")]
         public IHttpActionResult Post(CategoryModel model)
         {
@@ -52,7 +52,7 @@ namespace Billing.Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        //[TokenAuthorization("admin")]
+        [TokenAuthorization("admin")]
         [Route("{id}")]
         public IHttpActionResult Put(int id, CategoryModel model) {
             try
@@ -68,7 +68,7 @@ namespace Billing.Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        //[TokenAuthorization("admin")]
+        [TokenAuthorization("admin")]
         [Route("{id}")]
         public IHttpActionResult Delete(int id) {
             try

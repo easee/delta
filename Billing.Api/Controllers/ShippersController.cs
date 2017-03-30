@@ -11,7 +11,7 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    //[TokenAuthorization("user")]
+    [TokenAuthorization("user")]
     [RoutePrefix("api/shippers")]
     public class ShippersController : BaseController
     {
@@ -51,7 +51,7 @@ namespace Billing.Api.Controllers
             }
         }
 
-        //[TokenAuthorization("admin")]
+        [TokenAuthorization("admin")]
         [Route("")]
         public IHttpActionResult Post([FromBody] ShipperModel model)
         {
@@ -69,7 +69,7 @@ namespace Billing.Api.Controllers
             }
         }
 
-        //[TokenAuthorization("admin")]
+        [TokenAuthorization("admin")]
         [Route("{id}")]
         public IHttpActionResult Put([FromUri] int id, [FromBody]ShipperModel model)//FromUri i FromBody možemo i ne moramo pisati, podrazumijeva se.
         {
@@ -87,7 +87,7 @@ namespace Billing.Api.Controllers
             }
         }
 
-        //[TokenAuthorization("admin")]
+        [TokenAuthorization("admin")]
         [Route("{id}")]
         public IHttpActionResult Delete(int id)
         {

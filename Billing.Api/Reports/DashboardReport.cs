@@ -9,6 +9,7 @@ using System.Linq;
 
 namespace Billing.Api.Reports
 {
+    [TokenAuthorization("user")]
     public class DashboardReport
     {
         private BillingIdentity identity = new BillingIdentity();

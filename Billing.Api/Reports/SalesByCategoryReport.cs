@@ -28,7 +28,7 @@ namespace Billing.Api.Reports
 
             var Items = _unitOfWork.Items.Get().Where(x => x.Invoice.Date >= Request.StartDate && x.Invoice.Date <= Request.EndDate).ToList();
             result.GrandTotal = Math.Round(Items.Sum(x => x.SubTotal),2);
-            double GrandTotal= Items.Sum(x => x.Invoice.SubTotal);
+            double GrandTotal= Items.Sum(x => x.SubTotal);
      
             result.Categories = Items.OrderBy(x => x.Product.Category.Id) 
                                      .GroupBy(x =>x.Product.Category.Name)

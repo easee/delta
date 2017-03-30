@@ -68,7 +68,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="TestDashboardController.cs" />
+    <Compile Include="ReportTests\TestDashboardController.cs" />
     <Compile Include="TestAgentController.cs" />
     <Compile Include="TestCategoriesController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -131,9 +131,7 @@
       <Name>Billing.Repository</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ReportTests\" />
-  </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
