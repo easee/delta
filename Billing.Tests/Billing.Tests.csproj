@@ -68,6 +68,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ReportTests\TestDashboardController.cs" />
     <Compile Include="TestAgentController.cs" />
     <Compile Include="TestCategoriesController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -90,6 +91,9 @@
     </None>
     <None Include="OrderedTests\Items.orderedtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="OrderedTests\Reports.orderedtest">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="OrderedTests\Procurements.orderedtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
