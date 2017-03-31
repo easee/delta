@@ -1,8 +1,0 @@
-2017-03-30 09:28:41,389 | ERROR | Object reference not set to an instance of an object.: http://localhost:9000/api/dashboard
-2017-03-30 09:44:19,396 | ERROR | Object reference not set to an instance of an object.: http://localhost:9000/api/dashboard
-2017-03-30 09:51:26,406 | ERROR | Object reference not set to an instance of an object.: http://localhost:9000/api/dashboard
-2017-03-30 18:29:43,405 | ERROR | Object reference not set to an instance of an object.: http://localhost:9000/api/invoicesreview
-2017-03-30 18:31:05,601 | ERROR | Object reference not set to an instance of an object.: http://localhost:9000/api/invoicesreview
-2017-03-30 19:22:52,571 | ERROR | Non-static method requires a target.: http://localhost:9000/api/invoicesreview/2
-2017-03-30 19:24:11,408 | ERROR | Non-static method requires a target.: http://localhost:9000/api/invoicesreview/
-2017-03-30 19:42:00,230 | ERROR | Object reference not set to an instance of an object.: http://localhost:9000/api/salesbyagent
