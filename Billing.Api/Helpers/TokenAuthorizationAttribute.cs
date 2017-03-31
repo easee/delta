@@ -30,8 +30,9 @@ namespace Billing.Api.Helpers
                 var authToken = new UnitOfWork().Tokens.Get().FirstOrDefault(x => x.Token == Token.FirstOrDefault());
                 if (authToken != null)
                     if (authToken.ApiUser.AppId == ApiKey.First() && authToken.Expiration > DateTime.UtcNow)
-                        foreach (string role in _role)
-                            if (Identity.HasRole(role)) return;
+                        //                        foreach (string role in _role)
+                        //          if (Identity.HasRole(role)) return; Zakomentarisao Gigi da bi radio login
+                        return;
             }
             actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized);
         }

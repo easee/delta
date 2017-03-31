@@ -3,6 +3,8 @@
     var app = angular.module("Billing");
 
     var CustomersCtrl = function($scope, $http) {
+        $http.defaults.headers.common.Token = "MjI1ODgz2017-03-31T07:04:19";
+        $http.defaults.headers.common.ApiKey = "MjI1ODgz";
 
         $scope.showCustomer = false;
         ListCustomers();
@@ -49,7 +51,7 @@
 
         function ListCustomers(){
             var promise = $http.get("http://localhost:9000/api/customers");
-            $scope.message = "Please wait...";
+            $scope.message = "Please wait for customers...";
             promise.then(function(response){
                 $scope.customers = response.data;
                 $scope.message = " ";

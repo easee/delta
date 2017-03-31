@@ -4,8 +4,6 @@
 
     var DataService = function($http, $rootScope) {
         var source = "http://localhost:9000/api/";
-        $http.defaults.headers.common.Token = "12345678901234567890";
-        $http.defaults.headers.common.ApiKey = "R2lnaVNjaG9vbA==";
 
         return {
             promise: function(dataSet) {
