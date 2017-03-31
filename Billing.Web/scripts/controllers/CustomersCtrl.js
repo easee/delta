@@ -3,7 +3,7 @@
     var app = angular.module("Billing");
 
     var CustomersCtrl = function($scope, $http) {
-        $http.defaults.headers.common.Token = "MjI1ODgz2017-03-31T07:04:19";
+        $http.defaults.headers.common.Token = "12345678901234567890";
         $http.defaults.headers.common.ApiKey = "MjI1ODgz";
 
         $scope.showCustomer = false;
