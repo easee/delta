@@ -15,10 +15,9 @@
         };
 
         $scope.save = function(){
-            console.log($scope.customer);
             var promise = $http({
                 method: "put",
-                url: "http://localhost:9000/api/customers/" + $scope.agent.id,
+                url: "http://localhost:9000/api/customers/" + $scope.customer.id,
                 data: $scope.customer
             });
 
@@ -37,13 +36,14 @@
             var promise = $http({
                 method: "post",
                 url: "http://localhost:9000/api/customers",
-                data: $scope.agent
+                data: $scope.customer
             });
+            
             $scope.message = "Please wait...";
             promise.then(function(response){
                 $scope.customer = response.data;
                 $scope.message = " ";
-                ListAgents();
+                ListCustomers();
             }, function(reason){
                 $scope.message = "No data for that request";
             });

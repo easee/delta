@@ -29,6 +29,7 @@ namespace Billing.Api.Models
             {
                 Id = agent.Id,
                 Name = agent.Name,
+                Username = agent.Username,
                 Towns = agent.Towns.Where(x => x.Customers.Count != 0).Select(x => x.Name).ToList()
             };
         }
@@ -38,7 +39,8 @@ namespace Billing.Api.Models
             return new Agent()
             {
                 Id = model.Id,
-                Name = model.Name
+                Name = model.Name,
+                Username = model.Username
             };
         }
 

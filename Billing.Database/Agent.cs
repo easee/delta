@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Billing.Database
 {
@@ -11,6 +12,7 @@ namespace Billing.Database
         }
 
         public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
         public string Username { get; set; }//Proširili smo za ovo polje
 

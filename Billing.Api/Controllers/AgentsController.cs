@@ -13,7 +13,7 @@ using WebMatrix.WebData;
 
 namespace Billing.Api.Controllers
 {
-    [TokenAuthorization("user")]
+    //[TokenAuthorization("user")]
     //dodati Read own
     [RoutePrefix("api/agents")]
     public class AgentsController : BaseController
@@ -41,7 +41,7 @@ namespace Billing.Api.Controllers
             return Ok(Factory.Create(agent));
         }
 
-        [TokenAuthorization("admin")]
+        //[TokenAuthorization("admin")]
         [Route("")]
         public IHttpActionResult Post([FromBody]AgentModel model)
         {
@@ -59,7 +59,7 @@ namespace Billing.Api.Controllers
             }
         }
 
-        [TokenAuthorization("user")]
+        //[TokenAuthorization("user")]
         [Route("{id}")]
         public IHttpActionResult Put([FromUri] int id, [FromBody]AgentModel model)//FromUri i FromBody možemo i ne moramo pisati, podrazumijeva se.
         {
@@ -72,7 +72,7 @@ namespace Billing.Api.Controllers
                     Agent agent = Factory.Create(model);
                     UnitOfWork.Agents.Update(agent, id);
                     UnitOfWork.Commit();
-                    return Ok(agent);
+                    return Ok(Factory.Create(agent));
                 }
                 else
                 {
@@ -86,7 +86,7 @@ namespace Billing.Api.Controllers
             }
         }
 
-        [TokenAuthorization("admin")]
+        //[TokenAuthorization("admin")]
         [Route("{id}")]
         public IHttpActionResult Delete(int id)
         {
@@ -103,7 +103,7 @@ namespace Billing.Api.Controllers
             }
         }
 
-        [TokenAuthorization("admin")]
+        //[TokenAuthorization("admin")]
         [Route("profiles")]
         [HttpGet]
         public IHttpActionResult CreateProfiles()
