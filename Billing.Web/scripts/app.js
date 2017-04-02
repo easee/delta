@@ -1,5 +1,4 @@
 (function(){
-
     authenticated = false;
     var app = angular.module("Billing", ["ngRoute"]);
 

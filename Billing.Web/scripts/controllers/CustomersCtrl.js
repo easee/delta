@@ -28,11 +28,11 @@
                 ListCustomers();
             }, function(reason){
                 $scope.message = "No data for that request";
-            });
-        };
+                });
+            };
 
-        $scope.new = function(){
-            $scope.customer.id = 0;
+            $scope.new = function(){
+                $scope.customer.id = 0;
             var promise = $http({
                 method: "post",
                 url: "http://localhost:9000/api/customers",
@@ -49,7 +49,7 @@
             });
         };
 
-        function ListCustomers(){
+            function ListCustomers(){
             var promise = $http.get("http://localhost:9000/api/customers");
             $scope.message = "Please wait for customers...";
             promise.then(function(response){
@@ -62,5 +62,6 @@
     };
 
     app.controller("CustomersCtrl", CustomersCtrl);
+    cons
 
 }());

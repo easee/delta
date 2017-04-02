@@ -5,9 +5,6 @@
     <div>Name: <input type="text" ng-model="agent.name"></div>
     <div><button class="btn btn-primary pull-right" ng-click="save()">SAVE</button></div>
 </div>
-
-
-
     <div>
         <div>Filter: <input type="search" placeholder="Search as you type" ng-model="select"> 
         | Sort by:  <select ng-model="sort">
@@ -26,7 +23,7 @@
                   </tr>
                 </thead>
                     <tr ng-repeat="item in agents | filter:select | orderBy:sort">
-                        
+                    
                       <td>{{item.id}}</td>
                       <td>{{item.name}}</td>
                       <td>{{item.username}}</td>

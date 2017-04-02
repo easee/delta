@@ -39,7 +39,7 @@
                 data: $scope.agent
             });
                 
-                $scope.message = "Please wait...";
+            $scope.message = "Please wait...";
             promise.then(function(response){
                 $scope.agent = response.data;
                 $scope.message = " ";
