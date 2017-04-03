@@ -4,7 +4,7 @@
 
     var AgentsCtrl = function($scope, $http) {
         $http.defaults.headers.common.Token = "12345678901234567890";
-        $http.defaults.headers.common.ApiKey = "MjI1ODgz";
+        $http.defaults.headers.common.ApiKey = "RGVsdGEtQmlsbGluZw==";
         
         $scope.showAgent = false;
         ListAgents();

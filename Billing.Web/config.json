@@ -1,7 +1,7 @@
 {
   "source": "http://localhost:9000//",
   "regions": [ "Banja Luka", "Bihac", "Doboj", "Mostar", "Sarajevo", "Trebinje", "Tuzla", "Zenica" ],
-  "signature": "gC0xdV8gLD2cU0lzeDxFGZoZhxd78iz+6KojPZR5Wh4=",
-  "apiKey": "R2lnaVNjaG9vbA==",
+  "signature": "CaByDlSnGLx0gOtlDClK6L94Jb/cwJoJAdUDlhtNpnI=",
+  "apiKey": "RGVsdGEtQmlsbGluZw==",
   "debugMode": true
 }

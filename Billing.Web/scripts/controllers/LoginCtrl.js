@@ -6,14 +6,14 @@
 
         $scope.login = function() {
             $http.defaults.headers.common.Authorization = "Basic " + LoginService.encode($scope.user.name + ":" + $scope.user.pass);
-            $http.defaults.headers.common.Signature = "QWAYp3JR1nuseK9a20pCoO7ar8koY2butDzXnCKdvAo=";
-            $http.defaults.headers.common.ApiKey = "MjI1ODgz";
+            $http.defaults.headers.common.Signature = "CaByDlSnGLx0gOtlDClK6L94Jb/cwJoJAdUDlhtNpnI=";
+            $http.defaults.headers.common.ApiKey = "RGVsdGEtQmlsbGluZw==";
             var promise = $http({
                 method: "post",
                 url: "http://localhost:9000/api/login",
                 data: {
-                    "apiKey": "MjI1ODgz",
-                    "signature": "QWAYp3JR1nuseK9a20pCoO7ar8koY2butDzXnCKdvAo="
+                    "apiKey": "RGVsdGEtQmlsbGluZw==",
+                    "signature": "CaByDlSnGLx0gOtlDClK6L94Jb/cwJoJAdUDlhtNpnI="
                 }});
             promise.then(
                 function(response) {

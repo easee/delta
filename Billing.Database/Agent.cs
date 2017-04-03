@@ -12,7 +12,6 @@ namespace Billing.Database
         }
 
         public int Id { get; set; }
-        [Required]
         public string Name { get; set; }
         public string Username { get; set; }//Proširili smo za ovo polje
 

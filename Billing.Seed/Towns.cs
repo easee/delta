@@ -18,7 +18,7 @@ namespace Billing.Seed
                 {
                     Zip = Help.getString(row, 0),
                     Name = Help.getString(row, 1),
-                    Region = (Region)Help.getInteger(row, 2)
+                    Region = (Database.Region)Help.getInteger(row, 2)
                 };
                 N++;
                 towns.Insert(town);
