@@ -21,6 +21,7 @@ namespace Billing.Api.Reports
         }
         public CrossAgentRegionReportModel Report(RequestModel Request)
         {
+            if(Request.EndDate<=Request.StartDate) throw new Exception("Incorrect Date");
             List<Invoice> Invoices = _unitOfWork.Invoices.Get().Where(x => x.Date >= Request.StartDate && x.Date <= Request.EndDate).ToList();
             double grandTotal = Invoices.Sum(x => x.SubTotal);
 

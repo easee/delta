@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="Billing.Tests.ReportTests.SalesByRegionReportTest.SalesByRegionContent" /><Add Test="Billing.Tests.ReportTests.SalesByRegionReportTest.SalesByRegionGoodDate" /><Add Test="Billing.Tests.ReportTests.SalesByRegionReportTest.SalesByRegionBadDate" /></Playlist>
