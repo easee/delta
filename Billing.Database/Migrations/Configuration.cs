@@ -10,17 +10,23 @@ namespace Billing.Database.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
+            ContextKey = "Billing.BillingContext";
         }
 
         protected override void Seed(Billing.Database.BillingContext context)
         {
-            //context.Products.Add(new Product() { Name = "Laptop", Price = 1000, Unit = "pcs" });
-            //context.Towns.Add(new Town() { Zip = "71000", Name = "Sarajevo", Region = Region.Sarajevo });
-            //context.SaveChanges();
+            //  This method will be called after migrating to the latest version.
 
-            //Town town = context.Towns.Find(1);
-            //context.Customers.Add(new Customer() { Name = "Mistral", Address=new Address() { Road = "Milana Preloga", House = "12/3" }, Town = town });
-            //context.SaveChanges();
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            //  to avoid creating duplicate seed data. E.g.
+            //
+            //    context.People.AddOrUpdate(
+            //      p => p.FullName,
+            //      new Person { FullName = "Andrew Peters" },
+            //      new Person { FullName = "Brice Lambson" },
+            //      new Person { FullName = "Rowan Miller" }
+            //    );
+            //
         }
     }
 }

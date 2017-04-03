@@ -17,5 +17,6 @@ namespace Billing.Database
         [Required]
         public virtual Town Town { get; set; }
         public virtual List<Invoice> Invoices { get; set; }
+ 
     }
 }
