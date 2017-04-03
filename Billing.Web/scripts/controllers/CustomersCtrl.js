@@ -15,10 +15,9 @@
         };
 
         $scope.save = function(){
-            console.log($scope.customer);
             var promise = $http({
                 method: "put",
-                url: "http://localhost:9000/api/customers/" + $scope.agent.id,
+                url: "http://localhost:9000/api/customers/" + $scope.customer.id,
                 data: $scope.customer
             });
 
@@ -29,27 +28,28 @@
                 ListCustomers();
             }, function(reason){
                 $scope.message = "No data for that request";
-            });
-        };
+                });
+            };
 
-        $scope.new = function(){
-            $scope.customer.id = 0;
+            $scope.new = function(){
+                $scope.customer.id = 0;
             var promise = $http({
                 method: "post",
                 url: "http://localhost:9000/api/customers",
-                data: $scope.agent
+                data: $scope.customer
             });
+            
             $scope.message = "Please wait...";
             promise.then(function(response){
                 $scope.customer = response.data;
                 $scope.message = " ";
-                ListAgents();
+                ListCustomers();
             }, function(reason){
                 $scope.message = "No data for that request";
             });
         };
 
-        function ListCustomers(){
+            function ListCustomers(){
             var promise = $http.get("http://localhost:9000/api/customers");
             $scope.message = "Please wait for customers...";
             promise.then(function(response){
@@ -62,5 +62,6 @@
     };
 
     app.controller("CustomersCtrl", CustomersCtrl);
+    cons
 
 }());

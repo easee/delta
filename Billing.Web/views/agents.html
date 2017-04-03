@@ -1,10 +1,39 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" class="rel">
 <div style="border:solid 1px blue" ng-show="showAgent">
+    
     <div>Id: <b>{{ agent.id }}</b></div>
     <div>Name: <input type="text" ng-model="agent.name"></div>
-    <div><button ng-click="save()">SAVE</button></div>
+    <div><button class="btn btn-primary pull-right" ng-click="save()">SAVE</button></div>
 </div>
-
-<div ng-repeat="item in agents">
-    {{ item.id }}:: {{ item.name }} <button ng-click="getAgent(item)">GET</button>
+    <div>
+        <div>Filter: <input type="search" placeholder="Search as you type" ng-model="select"> 
+        | Sort by:  <select ng-model="sort">
+            <option value="id">Id</option>
+            <option value="+name">Name asc</option>
+            <option value="-name">Name dsc</option>
+        </select>
+        </div>
+            <table class="table table-striped table-bordered table-list">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th><i class="fa fa-address-card" aria-hidden="true"></i> Name</th>
+                    <th><i class="fa fa-user" aria-hidden="true"></i> Username</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                    <tr ng-repeat="item in agents | filter:select | orderBy:sort">
+                    
+                      <td>{{item.id}}</td>
+                      <td>{{item.name}}</td>
+                      <td>{{item.username}}</td>
+                      <td> <a href="" ng-click="getAgent(item)">GET</a></td>
+                    </tr>
+            </table>
+            <div class="alert alert-info" ng-show="(agents | filter:select).length == 0">
+              <strong>Hello Talent!</strong> No results for your search. Watch your fingers. </div>
+            <div class="col col-xs-12 text-right">
+                    <button type="button" class="btn btn-sm btn-primary btn-create" ng-click="new()"><i class="fa fa-plus" aria-hidden="true"> </i>  AGENT</button>
+        </div>
 </div>
-<button ng-click="new()">NEW AGENT</button>
+            
