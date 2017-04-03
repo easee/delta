@@ -68,7 +68,9 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ReportTests\TestCrossAgent.cs" />
     <Compile Include="ReportTests\TestDashboardController.cs" />
+    <Compile Include="ReportTests\TestSalesbyRegion.cs" />
     <Compile Include="TestAgentController.cs" />
     <Compile Include="TestCategoriesController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -89,6 +91,9 @@
     <None Include="OrderedTests\Categories.orderedtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="OrderedTests\CrossAgentRegion.orderedtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="OrderedTests\Items.orderedtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -105,6 +110,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="OrderedTests\Products.orderedtest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="OrderedTests\SalesbyRegion.orderedtest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="OrderedTests\Shippers.orderedtest">

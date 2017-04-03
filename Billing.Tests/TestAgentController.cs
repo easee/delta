@@ -69,15 +69,15 @@ namespace Billing.Tests
             Assert.IsTrue(response.IsSuccessStatusCode);
         }
 
-        [TestMethod]
-        public void ChangeAgentName()
-        {
-            GetReady();
-            var actRes = controller.Put(1, new AgentModel() { Id = 1, Name = "New name for old agent" });
-            var response = actRes.ExecuteAsync(CancellationToken.None).Result;
+        //[TestMethod]
+        //public void ChangeAgentName()
+        //{
+        //    GetReady();
+        //    var actRes = controller.Put(1, new AgentModel() { Id = 1, Name = "New name for old agent" });
+        //    var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
-            Assert.IsTrue(response.IsSuccessStatusCode);
-        }
+        //    Assert.IsTrue(response.IsSuccessStatusCode);
+        //}
 
         [TestMethod]
         public void DeleteByWrongId()
