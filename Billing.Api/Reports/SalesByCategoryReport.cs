@@ -9,15 +9,9 @@ using System.Web;
 
 namespace Billing.Api.Reports
 {
-    public class SalesByCategoryReport
+    public class SalesByCategoryReport : BaseReport
     {
-        private BillingIdentity identity = new BillingIdentity();
-        private ReportFactory Factory = new ReportFactory();
-        private UnitOfWork _unitOfWork;
-        public SalesByCategoryReport(UnitOfWork unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
-        }
+        public SalesByCategoryReport(UnitOfWork unitOfWork) : base(unitOfWork) { }
 
         public SalesByCategoryModel Report (RequestModel Request)
         {
@@ -26,7 +20,7 @@ namespace Billing.Api.Reports
             result.StartDate = Request.StartDate;
             result.EndDate = Request.EndDate;
 
-            var Items = _unitOfWork.Items.Get().Where(x => x.Invoice.Date >= Request.StartDate && x.Invoice.Date <= Request.EndDate).ToList();
+            var Items = UnitOfWork.Items.Get().Where(x => x.Invoice.Date >= Request.StartDate && x.Invoice.Date <= Request.EndDate).ToList();
             result.GrandTotal = Math.Round(Items.Sum(x => x.SubTotal),2);
             double GrandTotal= Items.Sum(x => x.SubTotal);
      

@@ -11,7 +11,7 @@ namespace Billing.Api.Helpers
 {
     public class TokenAuthorizationAttribute : AuthorizationFilterAttribute
     {
-        private BillingIdentity Identity = new BillingIdentity();
+        private BillingIdentity Identity = new BillingIdentity(new UnitOfWork());
         private string[] _role;
         public TokenAuthorizationAttribute(string role)
         {

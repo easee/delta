@@ -10,22 +10,16 @@ using System.Linq;
 
 namespace Billing.Api.Reports
 {
-    public class InvoicesReviewReport
+    public class InvoicesReviewReport : BaseReport
     {
-        private BillingIdentity identity = new BillingIdentity();
-        private ReportFactory Factory = new ReportFactory();
-        private UnitOfWork _unitOfWork;
-        public InvoicesReviewReport(UnitOfWork unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
-        }
+        public InvoicesReviewReport(UnitOfWork unitOfWork) : base(unitOfWork) { }
 
         public InvoicesReviewModel Report(RequestModel Request)
         {
-            var Invoices = _unitOfWork.Invoices.Get()
+            var Invoices = UnitOfWork.Invoices.Get()
                                     .Where(x => x.Date >= Request.StartDate && x.Date <= Request.EndDate
                                                                             && x.Customer.Id == Request.Id).ToList();
-            Customer Customer = _unitOfWork.Customers.Get(Request.Id);
+            Customer Customer = UnitOfWork.Customers.Get(Request.Id);
             double GrandTotal = Math.Round(Invoices.Sum(x => x.Total), 2);
             InvoicesReviewModel result = new InvoicesReviewModel()
             {

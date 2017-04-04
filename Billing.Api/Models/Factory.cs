@@ -1,4 +1,5 @@
 ﻿using Billing.Database;
+using Billing.Api.Helpers;
 using Billing.Repository;
 using Billing.Seed;
 using System;
@@ -306,12 +307,13 @@ namespace Billing.Api.Models
             };
         }
 
-        public TokenModel Create(AuthToken authToken)
+        public TokenModel Create(AuthToken authToken, CurrentUserModel user)
         {
             return new Models.TokenModel()
             {
                 Token = authToken.Token,
-                Expiration = authToken.Expiration
+                Expiration = authToken.Expiration,
+                CurrentUser = user
             };
         }
         

@@ -173,6 +173,7 @@
     <Compile Include="Controllers\AgentsController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
+    <Compile Include="Models\CurrentUserModel.cs" />
     <Compile Include="ReportsControllers\CrossAgentRegionController.cs" />
     <Compile Include="ReportsControllers\CustomersByCategoryController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
@@ -231,6 +232,7 @@
     <Compile Include="Models\TokenRequestModel.cs" />
     <Compile Include="Models\TownModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\BaseReport.cs" />
     <Compile Include="Reports\CrossAgentRegionReport.cs" />
     <Compile Include="Reports\CustomersByCategoryReport.cs" />
     <Compile Include="Reports\DashboardReport.cs" />

@@ -12,7 +12,7 @@ namespace Billing.Api.Reports
     [TokenAuthorization("user")]
     public class DashboardReport
     {
-        private BillingIdentity identity = new BillingIdentity();
+        private BillingIdentity identity = new BillingIdentity(new UnitOfWork());
         private ReportFactory Factory = new ReportFactory();
         private UnitOfWork _unitOfWork;
         public DashboardReport(UnitOfWork unitOfWork)
