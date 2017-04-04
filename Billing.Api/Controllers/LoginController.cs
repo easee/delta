@@ -25,7 +25,8 @@ namespace Billing.Api.Controllers
             if (apiUser == null) return NotFound();
             if (Helper.Signature(apiUser.Secret, apiUser.AppId) != request.Signature) return BadRequest("Bad application signature");
 
-            var rawTokenInfo = apiUser.AppId + DateTime.UtcNow.ToString("s");
+            string rawTokenInfo = DateTime.Now.Ticks.ToString() + apiUser.AppId;
+            byte[] rawTokenByte = Encoding.UTF8.GetBytes(rawTokenInfo);
             var authToken = new AuthToken()
             {
                 Token = rawTokenInfo,
