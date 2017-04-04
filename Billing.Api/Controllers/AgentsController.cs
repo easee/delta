@@ -13,7 +13,7 @@ using WebMatrix.WebData;
 
 namespace Billing.Api.Controllers
 {
-    [TokenAuthorization("user")]
+    //[TokenAuthorization("user")]
     //dodati Read own
     [RoutePrefix("api/agents")]
     public class AgentsController : BaseController

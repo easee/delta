@@ -5,14 +5,18 @@
     <div>Name: <input type="text" ng-model="agent.name"></div>
     <div><button class="btn btn-primary pull-right" ng-click="save()">SAVE</button></div>
 </div>
-    <div>
-        <div>Filter: <input type="search" placeholder="Search as you type" ng-model="select"> 
-        | Sort by:  <select ng-model="sort">
-            <option value="id">Id</option>
-            <option value="+name">Name asc</option>
-            <option value="-name">Name dsc</option>
-        </select>
-        </div>
+    <div>        
+            <div class="form-group pull-left">
+                <input type="search" class="search form-control" placeholder="Search as you type" ng-model="select">
+            </div>
+                <div class="col-xs-2 pull-left">      
+                            <select class="form-control" ng-model="sort">
+                            <option value="id">Id</option>
+                            <option value="+name">Name asc</option>
+                            <option value="-name">Name dsc</option>
+                            </select>
+                </div>
+        
             <table class="table table-striped table-bordered table-list">
                 <thead>
                   <tr>
