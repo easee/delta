@@ -59,6 +59,7 @@
     <Compile Include="Basic.cs" />
     <Compile Include="BillingContext.cs" />
     <Compile Include="Category.cs" />
+    <Compile Include="CurrentUser.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="Event.cs" />
     <Compile Include="Invoice.cs" />

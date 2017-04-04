@@ -15,11 +15,12 @@ namespace Billing.Api.Helpers
     {
         public override void OnAuthorization(HttpActionContext actionContext)
         {
-            if (Thread.CurrentPrincipal.Identity.IsAuthenticated) return;
+            //if (Thread.CurrentPrincipal.Identity.IsAuthenticated) return;
 
             var authHeader = actionContext.Request.Headers.Authorization;
             if (authHeader != null)
-            { //Ovaj filter radi na dobavljanju credentials-a:
+            //Ovaj filter radi na dobavljanju credentials-a:
+            {
                 if (authHeader.Scheme.ToLower() == "basic" && !string.IsNullOrWhiteSpace(authHeader.Parameter))
                 {
                     var rawCredentials = authHeader.Parameter;

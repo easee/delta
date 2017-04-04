@@ -10,21 +10,15 @@ using System.Web;
 
 namespace Billing.Api.Reports
 {
-    public class SalesByProductReport
+    public class SalesByProductReport : BaseReport
     {
-        private BillingIdentity identity = new BillingIdentity();
-        private ReportFactory Factory = new ReportFactory();
-        private UnitOfWork _unitOfWork;
-        public SalesByProductReport(UnitOfWork unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
-        }
+        public SalesByProductReport(UnitOfWork unitOfWork) : base(unitOfWork) { }
 
         public SalesByProductModel Report(RequestModel Request)
         {
-            var Items = _unitOfWork.Items.Get().Where(x => x.Invoice.Date >= Request.StartDate && x.Invoice.Date <= Request.EndDate).ToList();
-            var ItemsOfProduct = _unitOfWork.Items.Get().Where(x => x.Invoice.Date >= Request.StartDate && x.Invoice.Date <= Request.EndDate && x.Product.Category.Id == Request.Id).ToList();
-            Category Category = _unitOfWork.Categories.Get(Request.Id);
+            var Items = UnitOfWork.Items.Get().Where(x => x.Invoice.Date >= Request.StartDate && x.Invoice.Date <= Request.EndDate).ToList();
+            var ItemsOfProduct = UnitOfWork.Items.Get().Where(x => x.Invoice.Date >= Request.StartDate && x.Invoice.Date <= Request.EndDate && x.Product.Category.Id == Request.Id).ToList();
+            Category Category = UnitOfWork.Categories.Get(Request.Id);
             double grandTotal = Items.Sum(x => x.SubTotal);
             double categoryTotal = ItemsOfProduct.Sum(x => x.SubTotal);
 

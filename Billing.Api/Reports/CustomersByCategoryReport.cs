@@ -10,18 +10,12 @@ using System.Web;
 
 namespace Billing.Api.Reports
 {
-    public class CustomersByCategoryReport
+    public class CustomersByCategoryReport : BaseReport
     {
-        private BillingIdentity identity = new BillingIdentity();
-        private ReportFactory Factory = new ReportFactory();
-        private UnitOfWork _unitOfWork;
-        public CustomersByCategoryReport(UnitOfWork unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
-        }
+        public CustomersByCategoryReport(UnitOfWork unitOfWork) : base(unitOfWork) { }
         public CustomerByCategoryModel Report(RequestModel Request)
         {
-            List<Item> Items = _unitOfWork.Items.Get().Where(x => x.Invoice.Date >= Request.StartDate && x.Invoice.Date <= Request.EndDate).ToList();
+            List<Item> Items = UnitOfWork.Items.Get().Where(x => x.Invoice.Date >= Request.StartDate && x.Invoice.Date <= Request.EndDate).ToList();
 
             CustomerByCategoryModel result = new CustomerByCategoryModel()
             {

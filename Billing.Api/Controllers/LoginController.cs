@@ -1,6 +1,7 @@
 ﻿using Billing.Api.Helpers;
 using Billing.Api.Models;
 using Billing.Database;
+using Billing.Repository;
 using System;
 using System.Linq;
 using System.Security.Principal;
@@ -14,7 +15,7 @@ namespace Billing.Api.Controllers
     [BillingAuthorization]
     public class LoginController : BaseController
     {
-        private BillingIdentity identity = new BillingIdentity();
+        private BillingIdentity identity = new BillingIdentity(new UnitOfWork());
 
         [Route("api/login")]
         [HttpPost]
@@ -24,16 +25,20 @@ namespace Billing.Api.Controllers
             if (apiUser == null) return NotFound();
             if (Helper.Signature(apiUser.Secret, apiUser.AppId) != request.Signature) return BadRequest("Bad application signature");
 
-            var rawTokenInfo = apiUser.AppId + DateTime.UtcNow.ToString("s");
+            string rawTokenInfo = DateTime.Now.Ticks.ToString() + apiUser.AppId;
+            byte[] rawTokenByte = Encoding.UTF8.GetBytes(rawTokenInfo);
             var authToken = new AuthToken()
             {
                 Token = rawTokenInfo,
                 Expiration = DateTime.Now.AddMinutes(20),
                 ApiUser = apiUser
             };
+            CurrentUserModel Identity = new BillingIdentity(UnitOfWork).CurrentUser;
+            CurrentUser.Id = Identity.Id;
+
             UnitOfWork.Tokens.Insert(authToken);
             UnitOfWork.Commit();
-            return Ok(Factory.Create(authToken));
+            return Ok(Factory.Create(authToken,Identity));
         }
 
         [Route("api/logout")]

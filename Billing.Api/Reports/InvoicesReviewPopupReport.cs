@@ -9,19 +9,13 @@ using System.Web;
 
 namespace Billing.Api.Reports
 {
-    public class InvoicesReviewPopupReport
+    public class InvoicesReviewPopupReport : BaseReport
     {
 
-        private BillingIdentity identity = new BillingIdentity();
-        private ReportFactory Factory = new ReportFactory();
-        private UnitOfWork _unitOfWork;
-        public InvoicesReviewPopupReport(UnitOfWork unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
-        }
+        public InvoicesReviewPopupReport(UnitOfWork unitOfWork) : base(unitOfWork) { }
         public InvoiceReviewPopupModel Report(int id)
         {
-            Invoice Invoice = _unitOfWork.Invoices.Get(id);
+            Invoice Invoice = UnitOfWork.Invoices.Get(id);
             InvoiceReviewPopupModel result = new InvoiceReviewPopupModel
             {
                 InvoiceNo = Invoice.InvoiceNo,
@@ -35,7 +29,7 @@ namespace Billing.Api.Reports
                 ShippedOn = Invoice.ShippedOn.Value
             };
 
-            result.Products = _unitOfWork.Items.Get().Where(x => x.Invoice.Id == id).ToList()
+            result.Products = UnitOfWork.Items.Get().Where(x => x.Invoice.Id == id).ToList()
                                         .Select(x => Factory.Create(x.Product.Id, x.Product.Name, x.Price, x.Quantity, x.SubTotal))
                                         .ToList();
             return result;

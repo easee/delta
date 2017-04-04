@@ -9,19 +9,13 @@ using System.Web;
 
 namespace Billing.Api.Reports
 {
-    public class InvoicesReport
+    public class InvoicesReport : BaseReport
     {
 
-        private BillingIdentity identity = new BillingIdentity();
-        private ReportFactory Factory = new ReportFactory();
-        private UnitOfWork _unitOfWork;
-        public InvoicesReport(UnitOfWork unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
-        }
+        public InvoicesReport(UnitOfWork unitOfWork) : base(unitOfWork) { }
         public InvoiceReportModel Report(int id)
         {
-            Invoice Invoice = _unitOfWork.Invoices.Get(id);
+            Invoice Invoice = UnitOfWork.Invoices.Get(id);
             if (Invoice == null) throw new Exception("Invoice not found");
                       
             InvoiceReportModel result = new InvoiceReportModel()
@@ -54,7 +48,7 @@ namespace Billing.Api.Reports
             }
 
 
-            result.Products = _unitOfWork.Items.Get().Where(x => x.Invoice.Id == id).ToList()
+            result.Products = UnitOfWork.Items.Get().Where(x => x.Invoice.Id == id).ToList()
                                         .Select(x => Factory.Create( x.Product.Id, x.Product.Name,x.Product.Unit,x.Price,x.Quantity,x.SubTotal))
                                         .ToList();
             

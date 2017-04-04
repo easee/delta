@@ -11,22 +11,16 @@ using System.Web;
 
 namespace Billing.Api.Reports
 {
-    public class SalesByAgentReport
+    public class SalesByAgentReport : BaseReport
     {
-        private BillingIdentity identity = new BillingIdentity();
-        private ReportFactory Factory = new ReportFactory();
-        private UnitOfWork _unitOfWork;
-        public SalesByAgentReport(UnitOfWork unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
-        }
+        public SalesByAgentReport(UnitOfWork unitOfWork) : base(unitOfWork) { }
 
         public SalesByAgentModel Report(RequestModel Request)
         {
-            List<Invoice> Invoices = _unitOfWork.Invoices.Get().Where(x => x.Date >= Request.StartDate && x.Date <= Request.EndDate).ToList();
-            List<Invoice> InvoicesOfAgent = _unitOfWork.Invoices.Get().Where(x => x.Date >= Request.StartDate && x.Date <= Request.EndDate && x.Agent.Id == Request.Id).ToList();
+            List<Invoice> Invoices = UnitOfWork.Invoices.Get().Where(x => x.Date >= Request.StartDate && x.Date <= Request.EndDate).ToList();
+            List<Invoice> InvoicesOfAgent = UnitOfWork.Invoices.Get().Where(x => x.Date >= Request.StartDate && x.Date <= Request.EndDate && x.Agent.Id == Request.Id).ToList();
             double grandTotal = Math.Round(Invoices.Sum(x => x.SubTotal), 2);
-            Agent agent = _unitOfWork.Agents.Get(Request.Id);
+            Agent agent = UnitOfWork.Agents.Get(Request.Id);
             double AgentTotal = Math.Round(InvoicesOfAgent.Sum(x => x.SubTotal), 2);
             SalesByAgentModel result = new SalesByAgentModel()
             {

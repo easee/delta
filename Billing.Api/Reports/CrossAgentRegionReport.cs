@@ -10,19 +10,14 @@ using System.Web;
 
 namespace Billing.Api.Reports
 {
-    public class CrossAgentRegionReport
+    public class CrossAgentRegionReport : BaseReport
     {
-        private BillingIdentity identity = new BillingIdentity();
-        private ReportFactory Factory = new ReportFactory();
-        private UnitOfWork _unitOfWork;
-        public CrossAgentRegionReport(UnitOfWork unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
-        }
+
+        public CrossAgentRegionReport(UnitOfWork unitOfWork) : base(unitOfWork) { }
         public CrossAgentRegionReportModel Report(RequestModel Request)
         {
             if(Request.EndDate<=Request.StartDate) throw new Exception("Incorrect Date");
-            List<Invoice> Invoices = _unitOfWork.Invoices.Get().Where(x => x.Date >= Request.StartDate && x.Date <= Request.EndDate).ToList();
+            List<Invoice> Invoices = UnitOfWork.Invoices.Get().Where(x => x.Date >= Request.StartDate && x.Date <= Request.EndDate).ToList();
             double grandTotal = Invoices.Sum(x => x.SubTotal);
 
             //List<Invoice> AgentInvoices = Invoices.Where(x => x.Agent.Id == Request.Id).ToList();

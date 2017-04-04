@@ -7,7 +7,7 @@ namespace Billing.Database
         public Basic()
         {
             Deleted = false;
-            CreatedBy = 0;
+            CreatedBy = CurrentUser.Id;
             CreatedOn = DateTime.Now;
         }
 
