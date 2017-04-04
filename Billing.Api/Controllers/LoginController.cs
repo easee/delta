@@ -29,7 +29,7 @@ namespace Billing.Api.Controllers
             byte[] rawTokenByte = Encoding.UTF8.GetBytes(rawTokenInfo);
             var authToken = new AuthToken()
             {
-                Token = rawTokenInfo,
+                Token = Convert.ToBase64String(rawTokenByte),
                 Expiration = DateTime.Now.AddMinutes(20),
                 ApiUser = apiUser
             };
