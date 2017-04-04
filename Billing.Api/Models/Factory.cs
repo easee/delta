@@ -279,10 +279,10 @@ namespace Billing.Api.Models
                 SubTotal = invoice.SubTotal,
                 Total = invoice.Total,
                 VatAmount = invoice.VatAmount,
-                ShipperId = invoice.Shipper.Id,
+                ShipperId = (invoice.Shipper==null)?0:invoice.Shipper.Id, //Ako dobijemo Shipper objekat kao null, stavimo nulu
                 CustomerId = invoice.Customer.Id,
                 AgentId = invoice.Agent.Id,
-                Shipper = invoice.Shipper.Name,
+                Shipper = (invoice.Shipper==null)?"":invoice.Shipper.Name,
                 Customer = invoice.Customer.Name,
                 Agent = invoice.Agent.Name,              
                 Shipping = invoice.Shipping
