@@ -28,10 +28,11 @@
                     </button>
                     <a class="navbar-brand" href="#"><i class="fa fa-rocket fa-4"></i> Delta Billing</a>
                 </div><!-- navbar-header-->
-                <td> <a href="" ng-click="logout()">Log out</a></td>
+                <td>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav">
                                 <li class="active" ><button class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle-2"> <span class="fa fa-align-justify" aria-hidden="true"></span></button></li>
+                                <div><h4>Billing Application <span ng-show="currentUser">- {{ currentUser }} [<a href="#/logout">Logout</a>]</span></h4></div>
                             </ul>
                 </div><!-- bs-example-navbar-collapse-1 -->
     </nav>

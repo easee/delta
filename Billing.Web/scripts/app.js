@@ -27,6 +27,8 @@
             .when("/login", {
                 templateUrl: "views/login.html",
                 controller: "LoginCtrl" })
+            .when("/logout", {
+                controller: "LogoutCtrl" })
             .otherwise({ redirectTo: "/agents" });
     }).run(function($rootScope, $location){
         $rootScope.$on("$routeChangeStart", function(event, next, current){
