@@ -1,5 +1,19 @@
 (function(){
-    authenticated = false;
+    
+    credentials = {
+        token: "",
+        expiration: "",
+        currentUser: {
+            id: 0,
+            name: "",
+            role: ""
+        }
+    };
+    
+    function authenticated() {
+        return (credentials.currentUser.id != 0)
+    } 
+    
     var app = angular.module("Billing", ["ngRoute"]);
 
     app.config(function($routeProvider){
@@ -16,11 +30,12 @@
             .otherwise({ redirectTo: "/agents" });
     }).run(function($rootScope, $location){
         $rootScope.$on("$routeChangeStart", function(event, next, current){
-            if(!authenticated){
+            if(!authenticated()){
                 if(next.templateUrl != "views/login.html"){
                     $location.path("/login");
                 }
             }
         })
+        $rootScope.authenticated = authenticated;
     });
 }());
