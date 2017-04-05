@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    [TokenAuthorization("user")]
+    //[TokenAuthorization("user")]
     [RoutePrefix("api/customers")]
     public class CustomersController : BaseController
     {
@@ -80,7 +80,7 @@ namespace Billing.Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [TokenAuthorization("admin")]
+        //[TokenAuthorization("admin")]
         [Route("{id}")]
         public IHttpActionResult Delete(int id)
         {

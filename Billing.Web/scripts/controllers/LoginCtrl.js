@@ -33,15 +33,21 @@
         };
     };
     app.controller("LoginCtrl", LoginCtrl);
-
-    var LogoutCtrl = function($http) {
-
+    
+    //Logout handling
+    var LogoutCtrl = function($http, $location) {
+        console.log("Logout");
+        $scope.logout = function(){
         var request = $http({
             method: "get",
             url: BillingConfig.source + "logout"
-        });
+        });   
+        
+        
         request.then(
             function (response) {
+                //currentUser = null,
+                //window.location.reload();
                 authenticated = false;
                 credentials = null;
                 $location.path("/login");
@@ -49,7 +55,9 @@
             function (reason) {
                 return false;
             });
-    }
+        };
+    };
+        
     app.controller("LogoutCtrl", LogoutCtrl);
-
+    
 }());
