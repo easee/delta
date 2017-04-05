@@ -27,6 +27,7 @@ namespace Billing.Api.Helpers
                 {
                     Id = agent.Id,
                     Name = agent.Name,
+                    Username = agent.Username,
                     Role = GetRoles()
                 };
             }

@@ -26,14 +26,37 @@
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"  id="menu-toggle">
                       <span class="fa fa-align-justify" aria-hidden="true"></span>
                     </button>
-                    <a class="navbar-brand" href="#"><i class="fa fa-rocket fa-4"></i> Delta Billing</a>
+                    <a class="navbar-brand" href="#"><i class="fa fa-rocket fa-4"></i> Delta</a>
                 </div><!-- navbar-header-->
                 <td>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav">
                                 <li class="active" ><button class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle-2"> <span class="fa fa-align-justify" aria-hidden="true"></span></button></li>
-                                <div><h4>Billing Application <span ng-show="currentUser">- {{ currentUser }} [<a href="#/logout">Logout</a>]</span></h4></div>
+<!--                            
+                                
+<!-- User profil dropdown start -->
+                <li class="profile dropdown pull-right" ng-show="currentUser">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+						<strong>{{ currentUser }}</strong>
+						<span><i class="fa fa-chevron-down"></i></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li>
+							<a class="clearfix" href="#">
+								<img src="images/marlon.jpg" alt="User Avatar">
+								<div class="detail">
+                                    <strong>{{ username }}</strong>
+								</div>
+							</a>
+						</li>
+						<li><a tabindex="-1" href="profile.html" class="main-link"><i class="fa fa-edit fa-lg"></i> Edit profile</a></li>
+						<li class="divider"></li>
+						<li><a tabindex="-1" class="main-link logoutConfirm_open" href="#/logout"><i class="fa fa-lock fa-lg"></i> Log out</a></li>
+					</ul>
+				</li>
+<!-- User profil dropdown end  -->
                             </ul>
+                    
                 </div><!-- bs-example-navbar-collapse-1 -->
     </nav>
     <div id="wrapper">
