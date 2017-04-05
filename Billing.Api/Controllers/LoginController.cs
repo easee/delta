@@ -12,11 +12,11 @@ using WebMatrix.WebData;
 
 namespace Billing.Api.Controllers
 {
-    [BillingAuthorization]
+    
     public class LoginController : BaseController
     {
         private BillingIdentity identity = new BillingIdentity(new UnitOfWork());
-
+        [BillingAuthorization]
         [Route("api/login")]
         [HttpPost]
         public IHttpActionResult Login(TokenRequestModel request)
