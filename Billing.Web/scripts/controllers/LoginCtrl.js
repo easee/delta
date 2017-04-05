@@ -23,6 +23,7 @@
                     credentials = response.data,
                     console.log(credentials),
                     $rootScope.currentUser = credentials.currentUser.name;
+                    $rootScope.username = credentials.currentUser.username;
                     $location.path("/agents");
                 },
                 function(reason){
