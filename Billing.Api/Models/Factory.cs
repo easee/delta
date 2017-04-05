@@ -309,7 +309,7 @@ namespace Billing.Api.Models
 
         public TokenModel Create(AuthToken authToken, CurrentUserModel user)
         {
-            return new Models.TokenModel()
+            return new TokenModel()
             {
                 Token = authToken.Token,
                 Expiration = authToken.Expiration,

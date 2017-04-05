@@ -38,7 +38,7 @@ namespace Billing.Api.Controllers
 
             UnitOfWork.Tokens.Insert(authToken);
             UnitOfWork.Commit();
-            return Ok(Factory.Create(authToken,Identity));
+            return Ok(Factory.Create(authToken, Identity));
         }
 
         [Route("api/logout")]
@@ -49,7 +49,7 @@ namespace Billing.Api.Controllers
             if (Thread.CurrentPrincipal.Identity.IsAuthenticated)
             {
                 WebSecurity.Logout();
-                return Ok($"User {identity.CurrentUser} logged out!");
+                return Ok($"User {identity.CurrentUser.Name} logged out!");
             }
             else
             {

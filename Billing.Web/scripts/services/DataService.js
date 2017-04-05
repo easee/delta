@@ -3,7 +3,9 @@
     var app = angular.module("Billing");
 
     var DataService = function($http, $rootScope) {
-        var source = "http://localhost:9000/api/";
+        var source = BillingConfig.source;
+        $http.defaults.headers.common.Token = credentials.token;
+        $http.defaults.headers.common.ApiKey = BillingConfig.apiKey;
 
         return {
             promise: function(dataSet) {

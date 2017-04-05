@@ -3,26 +3,30 @@
     var app = angular.module("Billing");
 
     var LoginCtrl = function($scope, $rootScope, $http, $location, LoginService) {
+        
+        $http.get("config.json").then(function(response){
+            BillingConfig = response.data;
+            $scope.debug = BillingConfig.debugMode;
+        });
 
         $scope.login = function() {
             $http.defaults.headers.common.Authorization = "Basic " + LoginService.encode($scope.user.name + ":" + $scope.user.pass);
-            $http.defaults.headers.common.Signature = "CaByDlSnGLx0gOtlDClK6L94Jb/cwJoJAdUDlhtNpnI=";
-            $http.defaults.headers.common.ApiKey = "RGVsdGEtQmlsbGluZw==";
             var promise = $http({
                 method: "post",
-                url: "http://localhost:9000/api/login",
+                url: BillingConfig.source + "login",
                 data: {
-                    "apiKey": "RGVsdGEtQmlsbGluZw==",
-                    "signature": "CaByDlSnGLx0gOtlDClK6L94Jb/cwJoJAdUDlhtNpnI="
+                    "apiKey": BillingConfig.apiKey,
+                    "signature": BillingConfig.signature
                 }});
             promise.then(
                 function(response) {
-                    authenticated = true;
-                    currentUser = response.data.name;
+                    credentials = response.data,
+                    console.log(credentials),
+                    $rootScope.currentUser = credentials.currentUser.name;
                     $location.path("/agents");
                 },
                 function(reason){
-                    authntication = false;
+                    authenticated = false;
                     currentUser = "";
                     $location.path("/login");
                 });
@@ -34,12 +38,13 @@
 
         var request = $http({
             method: "get",
-            url: source + "logout"
+            url: BillingConfig.source + "logout"
         });
         request.then(
             function (response) {
                 authenticated = false;
-                return true;
+                credentials = null;
+                $location.path("/login");
             },
             function (reason) {
                 return false;

@@ -15,10 +15,10 @@ namespace Billing.Api.Controllers
         [Route("")]
         public IHttpActionResult Get()
         {
-            BillingIdentity identity = new BillingIdentity(new UnitOfWork());
-            int Id = identity.CurrentUser.Id;
-            Agent Agent = UnitOfWork.Agents.Get().FirstOrDefault(x => x.Id == Id);
-            string username = Agent.Username;
+            //BillingIdentity identity = new BillingIdentity(new UnitOfWork());
+            //int Id = identity.CurrentUser.Id;
+            //Agent Agent = UnitOfWork.Agents.Get().FirstOrDefault(x => x.Id == Id);
+            //string username = Agent.Username;
             return Ok(UnitOfWork.Customers.Get().ToList().Select(x => Factory.Create(x)).ToList());
         }
 
