@@ -14,32 +14,43 @@ namespace Billing.Api.Reports
     public class ReportFactory
     {
 
-        public MonthlySales Create(Region region, double sales)
+        public List<DashboardModel.Customer> Create(List<InputItem> list)
         {
-            return new MonthlySales()
-            {
-                Label = region.ToString(),
-                Sales = sales
-            };
-        }
-
-        public List<AnnualSales> Create(List<InputItem> list, int Length = 12)
-        {
-            List<AnnualSales> result = new List<AnnualSales>();
-            AnnualSales current = new AnnualSales(Length);
+            List<DashboardModel.Customer> result = new List<DashboardModel.Customer>();
+            DashboardModel.Customer current = new DashboardModel.Customer { Name = "", Credit = 0, Debit = 0 };
             foreach (var item in list)
             {
-                if (item.Label != current.Label)
+                if (item.Label != current.Name)
                 {
-                    if (current.Label != null) result.Add(current);
-                    current = new AnnualSales(Length);
-                    current.Label = item.Label;
+                    if (current.Name != "") result.Add(current);
+                    current = new DashboardModel.Customer { Name = item.Label, Credit = 0, Debit = 0 };
                 }
-                current.Sales[item.Index - 1] = item.Value;
+                current.Debit += Math.Round(item.Value, 2);
+                if (item.Index == 1) current.Credit += Math.Round(item.Value, 2);
             }
-            if (current.Label != null) result.Add(current);
-            return result;
+            if (current.Name != "") result.Add(current);
+            return result.OrderByDescending(x => x.Debit).Take(10).ToList();
         }
+
+        public List<DashboardModel.Burning> Create(List<BurningItem> burning)
+        {
+            List<DashboardModel.Burning> result = new List<DashboardModel.Burning>();
+
+            DashboardModel.Burning current = new DashboardModel.Burning { Name = "", Ordered = 0, Stock = 0, Sold = 0 };
+            foreach (var item in burning)
+            {
+                if (item.Product != current.Name)
+                {
+                    if (current.Name != "") if (current.Ordered > current.Stock || current.Stock < 0) result.Add(current);
+                    current = new DashboardModel.Burning { Name = item.Product, Ordered = 0, Stock = item.Stock, Sold = 0 };
+                }
+                if (item.Status < Status.InvoicePaid) current.Ordered += item.Quantity; else current.Sold += item.Quantity;
+            }
+            if (current.Name != "") if (current.Ordered > current.Stock || current.Stock < 0) result.Add(current);
+
+            return result.OrderByDescending(x => x.Difference).ToList();
+        }
+
 
         public RegionSalesModel Create(List<Invoice> Invoices, string Region, double Sales)
         {
@@ -138,24 +149,7 @@ namespace Billing.Api.Reports
             return products;
         }
 
-        public List<CustomerStatus> Customers(List<InputItem> list)
-        {
-            List<CustomerStatus> result = new List<CustomerStatus>();
-            CustomerStatus current = new CustomerStatus();
-            foreach (var item in list)
-            {
-                if (item.Label != current.Name)
-                {
-                    if (current.Name != null) result.Add(current);
-                    current = new CustomerStatus();
-                    current.Name = item.Label;
-                }
-                current.Debit += item.Value;
-                if (item.Index > 3) current.Credit += item.Value;
-            }
-            if (current.Name != null) result.Add(current);
-            return result.OrderByDescending(x => x.Debit).ToList();
-        }
+       
 
         public InvoiceProductReport Create(int Id, string Name, string Unit, double Price, int Quantity, double SubTotal)
         {
@@ -252,14 +246,6 @@ namespace Billing.Api.Reports
 
             return invoice;
         }
-        public CustomerStatus Create(int Id, string Name, Status Status, double Amount)
-        {
-            return new CustomerStatus()
-            {
-                Id = Id,
-                Name = Name,
-
-            };
-        }
+      
     }
 }

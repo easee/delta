@@ -9,5 +9,6 @@ namespace Billing.Api.Models
     {
         public string ApiKey { get; set; }      // RGVsdGEtQmlsbGluZw==
         public string Signature { get; set; }   // CaByDlSnGLx0gOtlDClK6L94Jb/cwJoJAdUDlhtNpnI=
+        public string Remember { get; set; }
     }
 }

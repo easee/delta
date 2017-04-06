@@ -1,64 +1,92 @@
 (function() {
 
-    var app = angular.module("Billing");
-
-    var LoginCtrl = function($scope, $rootScope, $http, $location, LoginService) {
-        
-        $http.get("config.json").then(function(response){
-            BillingConfig = response.data;
-            $scope.debug = BillingConfig.debugMode;
-        });
-
-        $scope.login = function() {
-            $http.defaults.headers.common.Authorization = "Basic " + LoginService.encode($scope.user.name + ":" + $scope.user.pass);
-            var promise = $http({
-                method: "post",
-                url: BillingConfig.source + "login",
-                data: {
-                    "apiKey": BillingConfig.apiKey,
-                    "signature": BillingConfig.signature
-                }});
-            promise.then(
-                function(response) {
-                    credentials = response.data,
-                    console.log(credentials),
-                    $rootScope.currentUser = credentials.currentUser.name;
-                    $rootScope.username = credentials.currentUser.username;
-                    $location.path("/agents");
-                },
-                function(reason){
-                    authenticated = false;
-                    currentUser = "";
-                    $location.path("/login");
+    app.controller("LoginCtrl", ['$scope', '$rootScope', '$http', '$location', 'LoginService', 'localStorageService',
+        function($scope, $rootScope, $http, $location, LoginService, localStorageService) {
+            $http.get("config.json").then(
+                function(response){
+                    BillingConfig = response.data;
+                    $scope.debug = BillingConfig.debugMode;
+                    var remToken = localStorageService.get('MistralBilling');
+                    if(remToken != null){
+                        var promise = $http({
+                            method: "post",
+                            url: BillingConfig.source + "remember",
+                            data: {
+                                "apiKey": BillingConfig.apiKey,
+                                "signature": BillingConfig.signature,
+                                "remember": remToken
+                            }
+                        });
+                        promise.then(
+                            function(response){
+                                credentials = response.data;
+                                var expireDate = (new Date());
+                                expireDate.setDate(expireDate.getDate() + 30);
+                                localStorageService.set('MistralBilling', credentials.remember, { 'expired': expireDate });
+                                $rootScope.currentUser = credentials.currentUser.name;
+                                $location.path(redirectTo);
+                            },
+                            function(reason){
+                                console.log(reason);
+                            })
+                    }
+                },  function(reason){
+                    console.log(reason);
                 });
-        };
-    };
-    app.controller("LoginCtrl", LoginCtrl);
-    
-    //Logout handling
-    var LogoutCtrl = function($http, $location) {
-        console.log("Logout");
-        $scope.logout = function(){
+
+            $scope.loginAs = function(username){
+                $scope.user = { name : username, pass : "billing", remember: true };
+                $scope.login();
+            };
+
+            $scope.login = function() {
+                var userData = LoginService.encode($scope.user.name + ":" + $scope.user.pass);
+                $http.defaults.headers.common.Authorization = "Basic " + userData;
+                var promise = $http({
+                    method: "post",
+                    url: BillingConfig.source + "login",
+                    data: {
+                        "apiKey": BillingConfig.apiKey,
+                        "signature": BillingConfig.signature,
+                        "remember": $scope.user.remember
+                    }
+                });
+                promise.then(
+                    function(response) {
+                        credentials = response.data;
+                        if ($scope.user.remember){
+                            var expireDate = (new Date());
+                            expireDate.setDate(expireDate.getDate() + 30);
+                            localStorageService.set('MistralBilling', credentials.remember, { 'expired': expireDate });
+                        }
+                        $rootScope.currentUser = credentials.currentUser.name;
+                        $rootScope.username = credentials.currentUser.username;
+                        console.log(credentials);
+                        $location.path(redirectTo);
+                    },
+                    function(reason){
+                        credentials.currentUser.id = 0;
+                        $location.path("/login");
+                    });
+            };
+        }
+    ]);
+
+    app.controller("LogoutCtrl", ['$http', 'localStorageService', function($http, localStorageService) {
+
         var request = $http({
             method: "get",
-            url: BillingConfig.source + "logout"
-        });   
-        
-        
+            url: BillingConfig.source + "logout",
+            async: false
+        });
         request.then(
             function (response) {
-                //currentUser = null,
-                //window.location.reload();
-                authenticated = false;
-                credentials = null;
-                $location.path("/login");
+                localStorageService.clearAll("MistralBilling");
+                window.location.reload();
+                return true;
             },
             function (reason) {
                 return false;
             });
-        };
-    };
-        
-    app.controller("LogoutCtrl", LogoutCtrl);
-    
+    }]);
 }());

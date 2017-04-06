@@ -15,11 +15,11 @@ namespace Billing.Api.Controllers
     //dodati za own, da agent može vidjeti svoj
     public class DashboardController : BaseController
     {
-        public IHttpActionResult Get()
+        public IHttpActionResult Get(int id = 0)
         {
             try
             {
-                return Ok(Reports.Dashboard.Report());
+                return Ok(Reports.Dashboard.Report(id));
             }
             catch (Exception ex)
             {

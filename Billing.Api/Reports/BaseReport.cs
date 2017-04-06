@@ -11,16 +11,11 @@ namespace Billing.Api.Reports
     {
         private UnitOfWork _unitOfWork;
         private ReportFactory _factory;
-        private BillingIdentity _identity;
+      
 
         public BaseReport(UnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-        }
-
-        protected BillingIdentity Identity
-        {
-            get { return _identity ?? (_identity = new BillingIdentity(UnitOfWork)); }
         }
 
         protected ReportFactory Factory

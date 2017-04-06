@@ -1,5 +1,7 @@
 (function(){
     
+    app = angular.module("Billing", ["ngRoute", "LocalStorageModule"]);
+    
     credentials = {
         token: "",
         expiration: "",
@@ -14,8 +16,8 @@
         return (credentials.currentUser.id != 0)
     } 
     
-    var app = angular.module("Billing", ["ngRoute"]);
-
+    redirectTo = '/';
+    
     app.config(function($routeProvider){
         $routeProvider
             .when("/agents", {
@@ -28,12 +30,14 @@
                 templateUrl: "views/login.html",
                 controller: "LoginCtrl" })
             .when("/logout", {
+                template: "",
                 controller: "LogoutCtrl" })
             .otherwise({ redirectTo: "/agents" });
     }).run(function($rootScope, $location){
         $rootScope.$on("$routeChangeStart", function(event, next, current){
             if(!authenticated()){
                 if(next.templateUrl != "views/login.html"){
+                    redirectTo = $location.path();
                     $location.path("/login");
                 }
             }
