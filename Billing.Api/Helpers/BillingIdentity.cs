@@ -1,48 +1,27 @@
 ﻿using Billing.Api.Models;
 using Billing.Database;
-using Billing.Repository;
-using System.Linq;
-using System.Threading;
 using System.Web.Security;
 
 namespace Billing.Api.Helpers
 {
-    public class BillingIdentity
+    public static class BillingIdentity
     {
-        private UnitOfWork _unitOfWork;
+        public static Agent Agent;
 
-        public BillingIdentity(UnitOfWork unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
-        }
-
-        public CurrentUserModel CurrentUser
+        public static CurrentUserModel CurrentUser
         {
             get
             {
-                string username = Thread.CurrentPrincipal.Identity.Name;
-                if (string.IsNullOrEmpty(username)) username = "marlon";
-                Agent agent = _unitOfWork.Agents.Get().FirstOrDefault(x => x.Username == username);
-                return new CurrentUserModel()
+                Billing.Database.CurrentUser.Id = Agent.Id;
+                CurrentUserModel model = new CurrentUserModel()
                 {
-                    Id = agent.Id,
-                    Name = agent.Name,
-                    Username = agent.Username,
-                    Role = GetRoles()
+                    Id = Agent.Id,
+                    Name = Agent.Name,
+                    Username = Agent.Username,
+                    Roles = Roles.GetRolesForUser(Agent.Username)
                 };
+                return model;
             }
-        }
-
-        public string GetRoles()
-        {
-            string Roles = HasRole("user") ? "user" : "";
-            Roles += HasRole("admin") ? ",admin" : "";
-            return Roles;
-        }
-
-        public bool HasRole(string role)
-        {
-            return Thread.CurrentPrincipal.IsInRole(role);
         }
     }
 }

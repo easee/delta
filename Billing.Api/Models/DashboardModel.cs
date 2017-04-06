@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Billing.Database;
+using System.Collections.Generic;
 
 namespace Billing.Api.Models
 {
@@ -9,77 +10,85 @@ namespace Billing.Api.Models
         public double Value { get; set; }
     }
 
-    public class ProductSales
+    public class BurningItem
     {
+        public int ProductId { get; set; }
         public string Product { get; set; }
-        public int Quantity { get; set; }
-        public double Revenue { get; set; }
-    }
-
-    public class MonthlySales
-    {
-        public string Label { get; set; }
-        public double Sales { get; set; }
-    }
-
-    public class AnnualSales
-    {
-        public AnnualSales(int Length = 12)
-        {
-            Sales = new double[Length];
-        }
-        public string Label { get; set; }
-        public double[] Sales { get; set; }
-    }
-
-    public class BurningModel
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
         public int Stock { get; set; }
-        public int Ordered { get; set; }
-        public int Sold { get; set; }
-    }
-
-    public class CustomerStatus
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public double Credit { get; set; }
-        public double Debit { get; set; }
-    }
-
-    public class InvoiceStatus
-    {
-        public string Status { get; set; }
-        public int Count { get; set; }
+        public Status Status { get; set; }
+        public int Quantity { get; set; }
     }
 
     public class DashboardModel
     {
-        public DashboardModel(int StatusCount, int RegionCount)
+        public DashboardModel()
         {
-            RegionsMonth = new List<MonthlySales>();
-            RegionsYear = new List<AnnualSales>();
-            CategoriesMonth = new List<MonthlySales>();
-            CategoriesYear = new List<AnnualSales>();
-            AgentsSales = new List<AnnualSales>(RegionCount);
-            Top5Products = new List<ProductSales>();
-            Invoices = new List<InvoiceStatus>();
-            BurningItems = new List<BurningModel>();
-            Customers = new List<CustomerStatus>();
+            Regions = new List<Monthly>();
+            Categories = new List<Monthly>();
+            Agents = new List<Monthly>();
+            Sales = new Dictionary<Months, double>();
+            Top5 = new List<Product>();
+            Hots = new List<Burning>();
+            Invoices = new List<Invoice>();
+            Customers = new List<Customer>();
+            foreach (Months mon in Months.GetValues(typeof(Months))) Sales[mon] = 0;
+        }
+
+        public class Monthly
+        {
+            public string Label { get; set; }
+            public double Sales { get; set; }
+        }
+
+        public class Annual
+        {
+            public double Regions { get; set; }
+            public double Agents { get; set; }
+            public double Categories { get; set; }
+        }
+
+        public class Product
+        {
+            public string Name { get; set; }
+            public int Quantity { get; set; }
+            public double Revenue { get; set; }
+        }
+
+        public class Burning
+        {
+            public string Name { get; set; }
+            public int Stock { get; set; }
+            public int Ordered { get; set; }
+            public int Sold { get; set; }
+            public int Difference { get { return (Ordered - Stock); } }
+        }
+
+        public class Invoice
+        {
+            public string Status { get; set; }
+            public int Count { get; set; }
+        }
+
+        public class Customer
+        {
+            public string Name { get; set; }
+            public double Credit { get; set; }
+            public double Debit { get; set; }
         }
 
         public string Title { get; set; }
-        public List<MonthlySales> RegionsMonth { get; set; }
-        public List<AnnualSales> RegionsYear { get; set; }
-        public List<MonthlySales> CategoriesMonth { get; set; }
-        public List<AnnualSales> CategoriesYear { get; set; }
-        public List<AnnualSales> AgentsSales { get; set; }
-
-        public List<ProductSales> Top5Products { get; set; }
-        public List<InvoiceStatus> Invoices { get; set; }
-        public List<BurningModel> BurningItems { get; set; }
-        public List<CustomerStatus> Customers { get; set; }
+        public string Agent { get; set; }
+        public int CategoriesCount { get; set; }
+        public int ProductsCount { get; set; }
+        public int CustomersCount { get; set; }
+        public int AgentsCount { get; set; }
+        public List<Monthly> Regions { get; set; }
+        public List<Monthly> Categories { get; set; }
+        public List<Monthly> Agents { get; set; }
+        public Dictionary<Months, double> Sales { get; set; }
+        public List<Product> Top5 { get; set; }
+        public List<Burning> Hots { get; set; }
+        public List<Invoice> Invoices { get; set; }
+        public List<Customer> Customers { get; set; }
     }
 }

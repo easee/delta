@@ -307,16 +307,26 @@ namespace Billing.Api.Models
             };
         }
 
-        public TokenModel Create(AuthToken authToken, CurrentUserModel user)
+        public TokenModel Create(AuthToken authToken)
         {
             return new TokenModel()
             {
                 Token = authToken.Token,
                 Expiration = authToken.Expiration,
-                CurrentUser = user
+                Remember = authToken.Remember,
+                CurrentUser = BillingIdentity.CurrentUser
             };
         }
-        
+
+        public string Create()  // Remember token
+        {
+            string CharBase = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            string Remember = "";
+            Random rnd = new Random();
+            for (int i = 0; i < 24; i++) Remember += CharBase.Substring(rnd.Next(61), 1);
+            return Remember;
+        }
+
     }
 }
 

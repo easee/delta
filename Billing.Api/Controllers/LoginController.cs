@@ -15,7 +15,7 @@ namespace Billing.Api.Controllers
     
     public class LoginController : BaseController
     {
-        private BillingIdentity identity = new BillingIdentity(new UnitOfWork());
+      
         [BillingAuthorization]
         [Route("api/login")]
         [HttpPost]
@@ -25,31 +25,66 @@ namespace Billing.Api.Controllers
             if (apiUser == null) return NotFound();
             if (Helper.Signature(apiUser.Secret, apiUser.AppId) != request.Signature) return BadRequest("Bad application signature");
 
+            BillingIdentity.Agent = UnitOfWork.Agents.Get().FirstOrDefault(x => x.Username == Thread.CurrentPrincipal.Identity.Name);
+
             string rawTokenInfo = DateTime.Now.Ticks.ToString() + apiUser.AppId;
             byte[] rawTokenByte = Encoding.UTF8.GetBytes(rawTokenInfo);
             var authToken = new AuthToken()
             {
                 Token = Convert.ToBase64String(rawTokenByte),
                 Expiration = DateTime.Now.AddMinutes(20),
-                ApiUser = apiUser
+                //Remember = (request.Remember != null) ? Factory.Create() : null,
+                ApiUser = apiUser,
+                Agent = BillingIdentity.Agent
             };
-            CurrentUserModel Identity = new BillingIdentity(UnitOfWork).CurrentUser;
-            CurrentUser.Id = Identity.Id;
+           
 
             UnitOfWork.Tokens.Insert(authToken);
             UnitOfWork.Commit();
-            return Ok(Factory.Create(authToken, Identity));
+            return Ok(Factory.Create(authToken));
         }
 
+        [Route("api/remember")]
+        [HttpPost]
+        public IHttpActionResult Remember(TokenRequestModel request)
+        {
+            AuthToken token = UnitOfWork.Tokens.Get().FirstOrDefault(x => x.Remember == request.Remember);
+            if (token == null) return NotFound();
+
+            if (token.ApiUser.AppId != request.ApiKey) return NotFound();
+
+            ApiUser apiUser = UnitOfWork.ApiUsers.Get().FirstOrDefault(x => x.AppId == request.ApiKey);
+            if (apiUser == null) return NotFound();
+            if (Helper.Signature(apiUser.Secret, apiUser.AppId) != request.Signature) return BadRequest("Bad application signature");
+
+            BillingIdentity.Agent = token.Agent;
+
+            string rawTokenInfo = DateTime.Now.Ticks.ToString() + apiUser.AppId;
+            byte[] rawTokenByte = Encoding.UTF8.GetBytes(rawTokenInfo);
+            var authToken = new AuthToken()
+            {
+                Token = Convert.ToBase64String(rawTokenByte),
+                Expiration = DateTime.Now.AddMinutes(20),
+                Remember = (request.Remember != null) ? Factory.Create() : null,
+                ApiUser = apiUser,
+                Agent = token.Agent
+            };
+
+            UnitOfWork.Tokens.Delete(token.Id);
+            UnitOfWork.Tokens.Insert(authToken);
+            UnitOfWork.Commit();
+            return Ok(Factory.Create(authToken));
+        }
         [Route("api/logout")]
         [HttpGet]
         public IHttpActionResult Logout()
         {
+            string message = $"User {BillingIdentity.CurrentUser.Name} logged out";
             if (!WebSecurity.Initialized) WebSecurity.InitializeDatabaseConnection("Billing", "Agents", "Id", "UserName", autoCreateTables: true);
             if (Thread.CurrentPrincipal.Identity.IsAuthenticated)
             {
                 WebSecurity.Logout();
-                return Ok($"User {identity.CurrentUser.Username} logged out!");
+                return Ok("message");
             }
             else
             {

@@ -1,4 +1,5 @@
-﻿using Billing.Repository;
+﻿using Billing.Database;
+using Billing.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,28 +12,33 @@ namespace Billing.Api.Helpers
 {
     public class TokenAuthorizationAttribute : AuthorizationFilterAttribute
     {
-        private BillingIdentity Identity = new BillingIdentity(new UnitOfWork());
-        private string[] _role;
+        private IEnumerable<string> hValues;
+        private string[] _roles;
         public TokenAuthorizationAttribute(string role)
         {
-            _role = role.Split(',');
+            _roles = role.Split(',');
         }
 
         public override void OnAuthorization(HttpActionContext actionContext)
         {
-            IEnumerable<string> ApiKey = new List<string>();
-            IEnumerable<string> Token = new List<string>();
-            actionContext.Request.Headers.TryGetValues("ApiKey", out ApiKey);
-            actionContext.Request.Headers.TryGetValues("Token", out Token);
-
+            string ApiKey = null, Token = null;
+            if (actionContext.Request.Headers.TryGetValues("ApiKey", out hValues)) ApiKey = hValues.First();
+            if (actionContext.Request.Headers.TryGetValues("Token", out hValues)) Token = hValues.First();
             if (!(ApiKey == null || Token == null))
             {
-                var authToken = new UnitOfWork().Tokens.Get().FirstOrDefault(x => x.Token == Token.FirstOrDefault());
-                if (authToken != null)
-                    if (authToken.ApiUser.AppId == ApiKey.First() && authToken.Expiration > DateTime.UtcNow)
-                        //                        foreach (string role in _role)
-                        //          if (Identity.HasRole(role)) return; Zakomentarisao Gigi da bi radio login
-                        return;
+                using (UnitOfWork unitOfWork = new UnitOfWork())
+                {
+                    AuthToken token = unitOfWork.Tokens.Get().FirstOrDefault(x => x.Token == Token);
+                    if (token != null)
+                    {
+                        if (token.ApiUser.AppId == ApiKey && token.Expiration > DateTime.UtcNow)
+                        {
+                            BillingIdentity.Agent = token.Agent;
+                            foreach (string role in _roles)
+                                if (BillingIdentity.CurrentUser.Roles.Any(role.Contains)) return;
+                        }
+                    }
+                }
             }
             actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.Unauthorized);
         }

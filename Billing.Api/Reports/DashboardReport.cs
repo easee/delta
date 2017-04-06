@@ -3,93 +3,69 @@ using Billing.Api.Models;
 using Billing.Database;
 using Billing.Repository;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 
 namespace Billing.Api.Reports
 {
-    [TokenAuthorization("user")]
-    public class DashboardReport
+    public class DashboardReport : BaseReport
     {
-        private BillingIdentity identity = new BillingIdentity(new UnitOfWork());
-        private ReportFactory Factory = new ReportFactory();
-        private UnitOfWork _unitOfWork;
-        public DashboardReport(UnitOfWork unitOfWork)
+        public DashboardReport(UnitOfWork unitOfWork) : base(unitOfWork) { }
+
+        public DashboardModel Report(int month = 0)
         {
-            _unitOfWork = unitOfWork;
-        }
+            if (month == 0) month = DateTime.Today.Month;
+            int year = DateTime.Today.Year;
+            DashboardModel result = new DashboardModel();
 
-        public DashboardModel Report()
-        {
-            int currentMonth = Convert.ToInt32(ConfigurationManager.AppSettings["currentMonth"]);
-            DashboardModel result = new DashboardModel(Helper.StatusCount, Helper.RegionCount);
+            result.Title = string.Format($"Sales Review for {month}/{year}");
+            result.Agent = BillingIdentity.CurrentUser.Name;
+            result.AgentsCount = UnitOfWork.Agents.Get().Count();
+            result.CategoriesCount = UnitOfWork.Categories.Get().Count();
+            result.CustomersCount = UnitOfWork.Customers.Get().Count();
+            result.ProductsCount = UnitOfWork.Products.Get().Count();
 
-            result.Title = "Dashboard for " + identity.CurrentUser;
 
-            result.RegionsMonth = _unitOfWork.Invoices.Get()
-                    .Where(x => x.Date.Month == currentMonth).ToList()
-                    .GroupBy(x => x.Customer.Town.Region)
-                    .OrderBy(x => x.Key)
-                    .Select(x => Factory.Create(x.Key, x.Sum(y => y.SubTotal))).ToList();
+            var invoices = UnitOfWork.Invoices.Get().Where(x => x.Status > Status.Canceled).ToList();
 
-            List<InputItem> query;
+            var items = invoices.GroupBy(x => (Months)x.Date.Month)
+                                .Select(x => new { month = x.Key, value = x.Sum(y => y.SubTotal) })
+                                .ToList();
+            foreach (var item in items) result.Sales[item.month] = item.value;
 
-            query = _unitOfWork.Invoices.Get()
-                    .OrderBy(x => x.Customer.Town.Region).ToList()
-                    .GroupBy(x => new { x.Customer.Town.Region, x.Date.Month })
-                    .Select(x => new InputItem { Label = x.Key.Region.ToString(), Index = x.Key.Month, Value = x.Sum(y => y.SubTotal) })
-                    .ToList();
-            result.RegionsYear = Factory.Create(query);
+            var query = invoices.GroupBy(x => new { x.Customer.Name, x.Status })
+                       .Select(x => new InputItem() { Label = x.Key.Name, Index = (x.Key.Status < Status.InvoicePaid) ? 0 : 1, Value = x.Sum(y => y.Total) })
+                       .ToList();
+            result.Customers = Factory.Create(query);
 
-            query = _unitOfWork.Items.Get()
-                    .OrderBy(x => x.Product.Category.Id).ToList()
-                    .GroupBy(x => new { x.Product.Category.Name, x.Invoice.Date.Month })
-                    .Select(x => new InputItem { Label = x.Key.Name, Index = x.Key.Month, Value = x.Sum(y => y.SubTotal) })
-                    .ToList();
-            result.CategoriesYear = Factory.Create(query);
+            var burning = UnitOfWork.Items.Get().Where(x => x.Invoice.Status > Status.Canceled)
+                         .OrderBy(x => x.Product.Id).ToList()
+                         .Select(x => new BurningItem { ProductId = x.Product.Id, Product = x.Product.Name, Stock = (int)x.Product.Stock.Inventory, Status = x.Invoice.Status, Quantity = x.Quantity })
+                         .ToList();
+            result.Hots = Factory.Create(burning);
 
-            query = _unitOfWork.Invoices.Get()
-                    .OrderBy(x => x.Agent.Id).ToList()
-                    .GroupBy(x => new { agent = x.Agent.Name, region = x.Customer.Town.Region })
-                    .Select(x => new InputItem { Label = x.Key.agent, Index = (int)x.Key.region, Value = x.Sum(y => (y.SubTotal)) })
-                    .ToList();
-            result.AgentsSales = Factory.Create(query, Helper.RegionCount);
+            invoices = invoices.Where(x => x.Date.Month == month).ToList();
+            result.Agents = invoices.GroupBy(x => x.Agent.Name)
+                                    .Select(x => new DashboardModel.Monthly() { Label = x.Key, Sales = x.Sum(y => y.SubTotal) })
+                                    .ToList();
+            result.Regions = invoices.GroupBy(x => x.Customer.Town.Region.ToString())
+                                     .Select(x => new DashboardModel.Monthly() { Label = x.Key, Sales = x.Sum(y => y.SubTotal) })
+                                     .ToList();
+            result.Categories = invoices.SelectMany(x => x.Items)
+                                        .GroupBy(x => x.Product.Category.Name)
+                                        .Select(x => new DashboardModel.Monthly() { Label = x.Key, Sales = x.Sum(y => y.SubTotal) })
+                                        .ToList();
 
-            result.Top5Products = _unitOfWork.Items.Get().OrderBy(x => x.Product.Id).ToList()
+            result.Top5 = UnitOfWork.Items.Get().OrderBy(x => x.Product.Id).ToList()
                                   .GroupBy(x => x.Product.Name)
-                                  .Select(x => new ProductSales()
-                                  { Product = x.Key, Quantity = x.Sum(y => y.Quantity), Revenue = x.Sum(y => y.SubTotal) })
+                                  .Select(x => new DashboardModel.Product { Name = x.Key, Quantity = x.Sum(y => y.Quantity), Revenue = x.Sum(y => y.SubTotal) })
                                   .OrderByDescending(x => x.Revenue).Take(5)
                                   .ToList();
 
-            result.Invoices = _unitOfWork.Invoices.Get().OrderBy(x => x.Status).ToList()
+            result.Invoices = UnitOfWork.Invoices.Get().OrderBy(x => x.Status).ToList()
                               .GroupBy(x => x.Status.ToString())
-                              .Select(x => new InvoiceStatus() { Status = x.Key, Count = x.Count() })
+                              .Select(x => new DashboardModel.Invoice { Status = x.Key, Count = x.Count() })
                               .ToList();
 
-            var custList = _unitOfWork.Invoices.Get()
-                           .OrderBy(x => x.Customer.Id).ToList()
-                           .GroupBy(x => new { x.Customer.Name, x.Status })
-                           .Select(x => new InputItem()
-                           {
-                               Label = x.Key.Name,
-                               Index = (int)x.Key.Status,
-                               Value = x.Sum(y => y.Total)
-                           })
-                           .ToList();
-            result.Customers = Factory.Customers(custList);
-
-            result.BurningItems = _unitOfWork.Products.Get().ToList()
-                                  .Select(x => new BurningModel()
-                                  {
-                                      Id = x.Id,
-                                      Name = x.Name,
-                                      Stock = (x.Stock != null) ? (int)x.Stock.Inventory : 0,
-                                      Sold = (x.Stock != null) ? (int)x.Stock.Output : 0
-                                  })
-                                  .OrderByDescending(x => x.Sold).Take(5)
-                                  .ToList();
             return result;
         }
     }
