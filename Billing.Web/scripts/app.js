@@ -26,6 +26,11 @@
             .when("/customers", {
                 templateUrl: "views/customers.html",
                 controller: "CustomersCtrl" })
+            /*Dodao categories*/
+            .when("/categories", {
+            templateUrl: "views/categories.html",
+            controller:"CategoriesCtrl"})
+            /*--------------*/
             .when("/shippers", {
                 templateUrl: "views/shippers.html",
                 controller: "ShippersCtrl" })
