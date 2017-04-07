@@ -27,7 +27,7 @@
                     <th><i class="fa fa-user-circle-o" aria-hidden="true"></i> Name</th>
                     <th><i class="fa fa-address-book" aria-hidden="true"></i> Address</th>
                     <th><i class="fa fa-map-marker" aria-hidden="true"></i> Town</th>
-                    <th>INFO</th>
+                    <th>EDIT</th>
                     <th>DELETE</th>
                   </tr>
                 </thead>
@@ -37,7 +37,7 @@
                       <td>{{item.name}}</td>
                       <td>{{item.address}}</td>
                       <td>{{item.town}}</td>
-                      <td> <a href="" ng-click="getCustomer(item)">GET</a></td>
+                      <td> <a href="" ng-click="getCustomer(item)"><button type="submit" class="btn btn-primary" type="submit"><i class="fa fa-pencil-square-o" aria-hidden="true" </i></button></a></td>
                       <td> <a href="" ng-click="delete(item)"><button type="submit" class="btn btn-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true" </i></button></a></td>
                     </tr>
             </table>
