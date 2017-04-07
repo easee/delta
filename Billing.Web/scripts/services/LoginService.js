@@ -1,8 +1,7 @@
 (function() {
 
-    var app = angular.module("Billing");
+    angular.module("Billing").service("LoginService", [ '$http', '$location', function($http, $location) {
 
-    var LoginService = function(){
         this.encode = function(input){
             var keyStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
 
@@ -81,7 +80,6 @@
 
             return output;
         }
-    };
+    }]);
 
-    app.service("LoginService", LoginService);
 }());
