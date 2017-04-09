@@ -1,51 +1,146 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" class="rel">
 <div>
-<div style="border:solid 1px blue" ng-show="showCustomer">
-    
-    <div>Id: <b>{{ customer.id }}</b></div>
-    <div>Name: <input type="text" ng-model="customer.name"></div>
-    <div>Address: <input type="text" ng-model="customer.address"></div>
-    <div>Town: <input type="text" ng-model="customer.town"></div>
-    <div><button ng-click="save()">SAVE</button></div>
-</div>
+    <!-- EDIT Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" ng-show="showCustomer">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                       <span aria-hidden="true">&times;</span>
+                       <span class="sr-only">Close</span>
+                </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        Make changes for {{customer.name}}
+                    </h4>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <form role="form">
+                        <div class="form-group">
+                            <label>ID</label>
+                            <input type="text" class="form-control" ng-model="customer.id" ng-disabled="customer.id" />
+                        </div>
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" ng-model="customer.name" />
+                        </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" class="form-control" ng-model="customer.address" />
+                        </div>
+                        <div class="form-group">
+                            <label>Town</label>
+                            <input type="text" class="form-control" ng-model="customer.town" />
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Close
+                </button>
+                    <button type="button" onclick="$('.modal').modal('hide')" class="btn btn-primary" ng-click="save(item)">
+                    Save changes
+                </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End of Modal-->
+
+
+        <!-- NEW Customer Modal -->
+    <div class="modal fade" id="myModalNew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                       <span aria-hidden="true">&times;</span>
+                       <span class="sr-only">Close</span>
+                </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        Creating customer {{customer.name}}
+                    </h4>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <form role="form">
+                        <div class="form-group">
+                            <label>ID</label>
+                            <input type="text" class="form-control" ng-model="customer.id" ng-disabled="customer.id" />
+                        </div>
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" ng-model="customer.name" />
+                        </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" class="form-control" ng-model="customer.address" />
+                        </div>
+                        <div class="form-group">
+                            <label>Town</label>
+                            <input type="text" class="form-control" ng-model="customer.town" />
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Close
+                </button>
+                    <button type="button" class="btn btn-primary" ng-click="new()">
+                    Create
+                </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End of Modal-->
+
+
     <div>
         <div class="form-group pull-left">
-        <input type="search" class="search form-control" placeholder="Search as you type" ng-model="select"> 
+            <input type="search" class="search form-control" placeholder="Search as you type" ng-model="select">
         </div>
-        <div class="col-xs-2 pull-left">      
-                    <select class="form-control" ng-model="sort">
+        <div class="col-xs-2 pull-left">
+            <select class="form-control" ng-model="sort">
                     <option value="id">Id</option>
                     <option value="+name">Name asc</option>
                     <option value="-name">Name dsc</option>
                     <option value="town">Town</option>
                     </select>
         </div>
-            <table class="table table-striped table-bordered table-list">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th><i class="fa fa-user-circle-o" aria-hidden="true"></i> Name</th>
-                    <th><i class="fa fa-address-book" aria-hidden="true"></i> Address</th>
-                    <th><i class="fa fa-map-marker" aria-hidden="true"></i> Town</th>
-                    <th>EDIT</th>
-                    <th>DELETE</th>
-                  </tr>
-                </thead>
-                    <tr ng-repeat="item in customers | filter:select | orderBy:sort ">
-                        
-                      <td>{{item.id}}</td>
-                      <td>{{item.name}}</td>
-                      <td>{{item.address}}</td>
-                      <td>{{item.town}}</td>
-                      <td> <a href="" ng-click="getCustomer(item)"><button type="submit" class="btn btn-primary" type="submit"><i class="fa fa-pencil-square-o" aria-hidden="true" </i></button></a></td>
-                      <td> <a href="" ng-click="delete(item)"><button type="submit" class="btn btn-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true" </i></button></a></td>
-                    </tr>
-            </table>
-            <div class="alert alert-info" ng-show="(customers | filter:select).length == 0">
-              <strong>Hello Talent!</strong> No results for your search. Watch your fingers. </div>
     </div>
-            <div class="col col-xs-12 text-right">
-                    <button type="button" class="btn btn-sm btn-primary btn-create" ng-click="new()"><i class="fa fa-plus" aria-hidden="true"> </i>  CUSTOMER</button>
-            </div>
+    <div class="col col-xs-12 text-right">
+        <td> <a href="" ng-click="new()"><button type="submit" class="btn btn-sm btn-primary btn-create" data-toggle="modal" data-target="#myModalNew" type="submit"><i class="fa fa-plus" aria-hidden="true" ></i> CUSTOMER</button></a></td>
+
+    </div>
+    <table class="table table-striped table-bordered table-list">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th><i class="fa fa-user-circle-o" aria-hidden="true"></i> Name</th>
+                <th><i class="fa fa-address-book" aria-hidden="true"></i> Address</th>
+                <th><i class="fa fa-map-marker" aria-hidden="true"></i> Town</th>
+                <th>EDIT</th>
+                <th>DELETE</th>
+            </tr>
+        </thead>
+        <tr ng-repeat="item in customers | filter:select | orderBy:sort ">
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.address}}</td>
+            <td>{{item.town}}</td>
+            <td> <a href="" ng-click="edit(item)"><button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal" type="submit"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button></a></td>
+            <td> <a href="" ng-click="delete(item)"><button type="submit" class="btn btn-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true" </i></button></a></td>
+        </tr>
+    </table>
+    <div class="alert alert-info" ng-show="(customers | filter:select).length == 0">
+        <strong>Hello Talent!</strong> No results for your search. Watch your fingers. 
+    </div>
 </div>
-  
