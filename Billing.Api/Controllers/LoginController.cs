@@ -12,10 +12,10 @@ using WebMatrix.WebData;
 
 namespace Billing.Api.Controllers
 {
-    
+
     public class LoginController : BaseController
     {
-      
+
         [BillingAuthorization]
         [Route("api/login")]
         [HttpPost]
@@ -33,11 +33,11 @@ namespace Billing.Api.Controllers
             {
                 Token = Convert.ToBase64String(rawTokenByte),
                 Expiration = DateTime.Now.AddMinutes(20),
-                //Remember = (request.Remember != null) ? Factory.Create() : null,
+                Remember = (request.Remember == "True") ? Factory.Create() : null,
                 ApiUser = apiUser,
                 Agent = BillingIdentity.Agent
             };
-           
+
 
             UnitOfWork.Tokens.Insert(authToken);
             UnitOfWork.Commit();
@@ -65,7 +65,7 @@ namespace Billing.Api.Controllers
             {
                 Token = Convert.ToBase64String(rawTokenByte),
                 Expiration = DateTime.Now.AddMinutes(20),
-                Remember = (request.Remember != null) ? Factory.Create() : null,
+                Remember = Factory.Create(),
                 ApiUser = apiUser,
                 Agent = token.Agent
             };
@@ -79,18 +79,17 @@ namespace Billing.Api.Controllers
         [HttpGet]
         public IHttpActionResult Logout()
         {
-            string message = $"User {BillingIdentity.CurrentUser.Name} logged out";
-            if (!WebSecurity.Initialized) WebSecurity.InitializeDatabaseConnection("Billing", "Agents", "Id", "UserName", autoCreateTables: true);
-            if (Thread.CurrentPrincipal.Identity.IsAuthenticated)
+            if (BillingIdentity.Agent != null)
             {
+                string message = $"User {BillingIdentity.CurrentUser.Name} logged out";
+                if (!WebSecurity.Initialized) WebSecurity.InitializeDatabaseConnection("Billing", "Agents", "Id", "Username", autoCreateTables: true);
                 WebSecurity.Logout();
-                return Ok("message");
+                return Ok(message);
             }
             else
             {
                 return Ok("No user is logged in!!!");
             }
-
         }
     }
 }
