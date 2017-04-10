@@ -1,5 +1,4 @@
 (function(){
-
     app.controller("CustomersCtrl", ['$scope', 'DataService',  function($scope, DataService) {
         $scope.showCustomer = false;
         ListCustomers();

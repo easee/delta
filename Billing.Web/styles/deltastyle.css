@@ -1,5 +1,9 @@
 .login-page{
     
     margin-left: -s50px;
-    
+}
+
+table.auto
+{
+    table-layout:auto;
 }
