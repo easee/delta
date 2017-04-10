@@ -3,8 +3,8 @@
         $scope.showCustomer = false;
         ListCustomers();
 
-        //READ CUSTOMERS
-        $scope.getCustomer = function(currentCustomer){
+        //READ AND EDIT CUSTOMERS
+        $scope.edit = function(currentCustomer){
             $scope.customer = currentCustomer;
             $scope.showCustomer = true;
         };
@@ -25,7 +25,9 @@
                 address: "",
                 town: ""
             };
-            $scope.showCustomer = true;
+
+            DataService.insert("customers", $scope.customer, function(data){ ListCustomers();} ); //Ovo sam ja dodao u nadi da proradi insert sa gornje update funkcije, jer gore radi ok.
+            // $scope.showCustomer = true;
         };
         
         //DELETE CUSTOMER
@@ -35,16 +37,6 @@
             });
             $scope.showCustomers = false;
         };
-
-        $scope.new = function(){
-            $scope.customer =
-                            {
-                                id:0,
-                                name:""
-                            };
-            $scope.showCustomers = true;
-        };
-        
         //LIST ALL CUSTOMERS
         function ListCustomers(){
             DataService.list("customers", function(data){ $scope.customers = data});

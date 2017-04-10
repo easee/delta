@@ -10,6 +10,7 @@
 bin/
 obj/
 packages/
+Billing.Web/.vscode/
 
 # Build results
 [Dd]ebug/
