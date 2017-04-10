@@ -103,23 +103,24 @@
     <!--End of Modal-->
 
 
-    <div class="col col-xs-12 text-right">
-        <td><button type="submit" class="btn btn-sm btn-primary btn-create" data-toggle="modal" ng-click="new()" data-target="#myModalNew" type="submit">
-            <i class="fa fa-plus" aria-hidden="true" ></i> CUSTOMER</button></a></td>
-
-    </div>
+        <div class="form-group pull-right">
+            <td><button type="submit" class="btn btn-sm btn-primary btn-create" data-toggle="modal" ng-click="new()" data-target="#myModalNew"
+                    type="submit">
+                    <i class="fa fa-plus" aria-hidden="true" ></i> CUSTOMER</button></a>
+            </td>
+        </div>
 
         <div>
         <div class="form-group pull-left">
             <input type="search" class="search form-control" placeholder="Search as you type" ng-model="select">
         </div>
-        <div class="col-xs-2 pull-left">
+        <div class="form-group pull-left">
             <select class="form-control" ng-model="sort">
                     <option value="id">Id</option>
                     <option value="+name">Name asc</option>
                     <option value="-name">Name dsc</option>
                     <option value="town">Town</option>
-                    </select>
+            </select>
         </div>
     </div>
 
