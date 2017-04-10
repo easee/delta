@@ -1,12 +1,91 @@
-<link rel="stylesheet" href="styles/deltastyle.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" class="rel">
 <div>
-<div style="border:solid 1px blue" ng-show="showCategories">
-    
-    <div>Id: <b>{{ category.id }}</b></div>
-    <div>Name: <input type="text" ng-model="category.name"></div>
-    <div><button ng-click="save()">SAVE</button></div>
-</div>
+    <!-- EDIT Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" ng-show="showCategories">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                       <span aria-hidden="true">&times;</span>
+                       <span class="sr-only">Close</span>
+                </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        Make changes for {{category.name}}
+                    </h4>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <form role="form">
+                        <!-- EDIT DIO !!!!! -->
+                        <div class="form-group">
+                            <label>ID</label>
+                            <input type="text" class="form-control" ng-model="category.id" ng-disabled="category.id"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" ng-model="category.name" />
+                        </div>
+                    </form>
+                </div>
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Close
+                </button>
+                    <button type="button" onclick="$('.modal').modal('hide')" class="btn btn-primary" ng-click="save(item)">
+                    Save changes
+                </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End of Modal-->
+        <!-- NEW Category Modal -->
+    <div class="modal fade" id="myModalNew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                       <span aria-hidden="true">&times;</span>
+                       <span class="sr-only">Close</span>
+                </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        Creating category {{category.name}}
+                    </h4>
+                </div>
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <form role="form">
+                        <div class="form-group">
+                           <!-- BUTTON ZA DODAVANJE NOVOG-->
+                            <label>ID</label>
+                            <input type="hidden" class="form-control" ng-model="category.id" ng-disabled="category.id"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" ng-model="category.name" />
+                        </div>
+                    </form>
+                </div>
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Close
+                </button>
+                    <button type="button" class="btn btn-primary" ng-click="save()">
+                    Create
+                </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End of Modal-->
+<div>
+    <div class="col col-xs-12 text-right">
+        <td><button type="submit" class="btn btn-sm btn-primary btn-create" data-toggle="modal" ng-click="new()" data-target="#myModalNew" type="submit"><i class="fa fa-plus" aria-hidden="true" ></i> CATEGORY</button></a></td>
+    </div>
     <div>
         <div class="form-group pull-left">
         <input type="search" class="search form-control" placeholder="Search as you type" ng-model="select"> 
@@ -28,17 +107,14 @@
                   </tr>
                 </thead>
                     <tr ng-repeat="item in category | filter:select | orderBy:sort ">
-                      <td>{{item.id}}</td>
-                      <td>{{item.name}}</td>
-                      <td> <a href="" ng-click="getCategory(item)"><button type="submit" class="btn btn-primary pull-right" type="submit"><i class="fa fa-pencil-square-o" aria-hidden="true" </i></button></a></td>
-                      <td> <a href="" ng-click="delete(item)"><button type="submit" class="btn btn-danger  pull-right" type="submit"><i class="fa fa-trash-o" aria-hidden="true" </i></button></a></td>
+                      <td class="col-md-1">{{item.id}}</td>
+                      <td class="col-md-9">{{item.name}}</td>
+                      <td class="col-md-1"> <a href="" ng-click="edit(item)"><button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal" type="submit"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button></a></td>
+                      <td class="col-md-1"> <a href="" ng-click="delete(item)"><button type="submit" class="btn btn-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true" </i></button></a></td>
                     </tr>
             </table>
             <div class="alert alert-info" ng-show="(category | filter:select).length == 0">
               <strong>Hello Talent!</strong> No results for your search. Watch your fingers. </div>
     </div>
-            <div class="col col-xs-12 text-right">
-                    <button type="button" class="btn btn-sm btn-primary btn-create" ng-click="new()"><i class="fa fa-plus" aria-hidden="true"> </i>  CATEGORY</button>
-            </div>
 </div>
   

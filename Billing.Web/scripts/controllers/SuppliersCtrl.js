@@ -4,7 +4,7 @@
         $scope.showSuppliers = false;
         ListSuppliers();
 
-        $scope.getSupplier = function(current){
+        $scope.edit = function(current){
             $scope.supplier = current;
             $scope.showSuppliers = true;
         };

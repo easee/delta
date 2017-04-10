@@ -26,8 +26,8 @@
                 town: ""
             };
 
-            DataService.insert("customers", $scope.customer, function(data){ ListCustomers();} ); //Ovo sam ja dodao u nadi da proradi insert sa gornje update funkcije, jer gore radi ok.
-            // $scope.showCustomer = true;
+//            DataService.insert("customers", $scope.customer, function(data){ ListCustomers();} ); //Ovo sam ja dodao u nadi da proradi insert sa gornje update funkcije, jer gore radi ok.
+            $scope.showCustomer = true;
         };
         
         //DELETE CUSTOMER

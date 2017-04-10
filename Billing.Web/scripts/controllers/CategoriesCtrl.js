@@ -3,7 +3,7 @@
       $scope.showCategories = false;
         ListCategories();
         
-        $scope.getCategory = function(currentCategory){
+        $scope.edit = function(currentCategory){
             $scope.category = currentCategory;
             $scope.showCategories = true;                                        
     };
@@ -20,7 +20,9 @@
                 id: 0,
                 name: ""
             };
-            $scope.showCategories = true;
+            $scope.showCategories = true;      
+
+            //DataService.insert("categories", $scope.category, function(data){ ListCategories();} );
         };
         
         //DELETE CUSTOMER
@@ -29,15 +31,6 @@
                 ListCategories();
             });
             $scope.showCategories = false;
-        };
-
-        $scope.new = function(){
-            $scope.category =
-                            {
-                                id:0,
-                                name:""
-                            };
-            $scope.showCategories = true;
         };
         function ListCategories(){
             DataService.list("categories", function(data){ $scope.category = data});
