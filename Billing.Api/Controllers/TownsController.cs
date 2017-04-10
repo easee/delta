@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    [TokenAuthorization("user")]
+    //[TokenAuthorization("user")]
     [RoutePrefix("api/towns")]
     public class TownsController : BaseController
     {
@@ -23,8 +23,11 @@ namespace Billing.Api.Controllers
         [Route("{name}")]
         public IHttpActionResult Get(string name)
         {
-            return Ok(UnitOfWork.Towns.Get().Where(x => x.Name.Contains(name)).ToList()
-                                  .Select(a => Factory.Create(a)).ToList());
+            name = name.ToLower();
+            return Ok(UnitOfWork.Towns.Get().Where(x => x.Name.Contains(name)).ToList() //Contains znači da Sadrži, i nije case sensitive. 
+                                   .OrderBy(x => x.Name.ToLower().IndexOf(name)) //IndexOf je case sensitive.
+                                  .Select(a => Factory.Create(a))
+                                  .Take(8).ToList());//Uzmi 8 na listu, proizvoljno.
         }
 
         [Route("{id:int}")]
@@ -35,7 +38,7 @@ namespace Billing.Api.Controllers
             return Ok(Factory.Create(town));
         }
 
-        [TokenAuthorization("admin")]
+        //[TokenAuthorization("admin")]
         [Route("")]
         public IHttpActionResult Post([FromBody]Town town)
         {
@@ -52,7 +55,7 @@ namespace Billing.Api.Controllers
             }
         }
 
-        [TokenAuthorization("admin")]
+        //[TokenAuthorization("admin")]
         [Route("{id}")]
         public IHttpActionResult Put([FromUri] int id, [FromBody]Town town)//FromUri i FromBody možemo i ne moramo pisati, podrazumijeva se.
         {
@@ -69,7 +72,7 @@ namespace Billing.Api.Controllers
             }
         }
 
-        [TokenAuthorization("admin")]
+        //[TokenAuthorization("admin")]
         [Route("{id}")]
         public IHttpActionResult Delete(int id)
         {

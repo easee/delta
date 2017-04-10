@@ -33,7 +33,7 @@ namespace Billing.Api.Controllers
             {
                 Token = Convert.ToBase64String(rawTokenByte),
                 Expiration = DateTime.Now.AddMinutes(20),
-                Remember = (request.Remember == "True") ? Factory.Create() : null,
+                Remember = (request.Remember != null) ? Factory.Create() : null,
                 ApiUser = apiUser,
                 Agent = BillingIdentity.Agent
             };
@@ -65,7 +65,7 @@ namespace Billing.Api.Controllers
             {
                 Token = Convert.ToBase64String(rawTokenByte),
                 Expiration = DateTime.Now.AddMinutes(20),
-                Remember = Factory.Create(),
+                Remember = (request.Remember != null) ? Factory.Create() : null,
                 ApiUser = apiUser,
                 Agent = token.Agent
             };

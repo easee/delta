@@ -2,6 +2,7 @@
     app.controller("CustomersCtrl", ['$scope', 'DataService',  function($scope, DataService) {
         $scope.showCustomer = false;
         ListCustomers();
+        ListTowns('');
 
         //READ AND EDIT CUSTOMERS
         $scope.edit = function(currentCustomer){
@@ -23,11 +24,13 @@
                 id: 0,
                 name: "",
                 address: "",
-                town: ""
+                towns: []
             };
+            $scope.showCustomers = true;
 
-//            DataService.insert("customers", $scope.customer, function(data){ ListCustomers();} ); //Ovo sam ja dodao u nadi da proradi insert sa gornje update funkcije, jer gore radi ok.
-            $scope.showCustomer = true;
+        
+            
+            //$scope.showCustomer = true;
         };
         
         //DELETE CUSTOMER
@@ -36,11 +39,16 @@
                 ListCustomers();
             });
             $scope.showCustomers = false;
-        };
+        }; 
         //LIST ALL CUSTOMERS
         function ListCustomers(){
             DataService.list("customers", function(data){ $scope.customers = data});
-        }
+        };
+
+        //LIST ALL TOWNS
+        function ListTowns(name){
+            DataService.list("towns", function(data){ $scope.towns = data});
+        };
     }]);
 
 }());
