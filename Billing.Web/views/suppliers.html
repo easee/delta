@@ -79,17 +79,13 @@
                             <input type="text" class="form-control" ng-model="supplier.address" />
                         </div>
                         <!--EDIT-->
-                        <div class="form-group">
+              <div class="form-group">
                             <label>Town</label>
-                             <br>
-<!--
-	                        <div class="container-fluid">
-		                    <div class="form-group">
-			                <input name="towns" id="towns" type="text" placeholder="Start typing.." ng-model="supplier.townId" typeahead="town.id as town.name for town in towns | filter:$viewValue | limitTo:8" class="form-control">
-		                    </div>
-	                       </div>                       
--->
-                              <select class="form-control" data-style="btn-primary" ng-model="supplier.townId" ng-options="town.id as town.name for town in towns"></select>
+                                          <div>
+                                           <input type="text" class="form-control" ng-model="supplier.town" ng-change="autocomplete(supplier.town)" ng-keyup="textUp($event)">
+                            </div>
+                            <select class="form-control" id="townsel" data-style="btn-primary" ng-model="supplier.townId" ng-options="town.id as town.name for town in towns" ng-keypress="townSelected($event)"></select>
+                             
                         </div>
                     </form>
                 </div>
