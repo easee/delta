@@ -3,6 +3,7 @@
     app.controller("SuppliersCtrl", ['$scope', 'DataService',  function($scope, DataService) {
         $scope.showSuppliers = false;
         ListSuppliers();
+        ListTowns();
 
         $scope.edit = function(current){
             $scope.supplier = current;
@@ -28,13 +29,17 @@
                 id: 0,
                 name: "",
                 address: "",
-                town: ""
+                towns: []
+//DODATI DIO SAM TOWNid
             };
             $scope.showSuppliers = true;
         };
 
         function ListSuppliers(){
             DataService.list("suppliers", function(data){ $scope.suppliers = data});
-        }
+        };
+          function ListTowns(){
+            DataService.list("towns", function(data){ $scope.towns = data});
+        };
     }]);
 }());

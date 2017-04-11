@@ -78,9 +78,11 @@
                             <label>Address</label>
                             <input type="text" class="form-control" ng-model="supplier.address" />
                         </div>
+                        <!--EDIT-->
                         <div class="form-group">
                             <label>Town</label>
-                            <input type="text" class="form-control" ng-model="supplier.town" />
+                             <br>
+                              <select class="selectpicker" data-style="btn-primary" ng-model="supplier.townId" ng-options="town.id as town.name for town in towns"></select>
                         </div>
                     </form>
                 </div>
@@ -98,16 +100,7 @@
     </div>
     <!--End of Modal-->
 <div>
-<!--
-<div style="border:solid 1px blue" ng-show="showShipper">
-    
-    <div>Id: <b>{{ supplier.id }}</b></div>
-    <div>Name: <input type="text" ng-model="supplier.name"></div>
-    <div>Address: <input type="text" ng-model="supplier.address"></div>
-    <div>Town: <input type="text" ng-model="supplier.town"></div>
-    <div><button ng-click="save()">SAVE</button></div>
-</div>
--->   <div class="col col-xs-12 text-right">
+        <div class="col col-xs-12 text-right">
         <td> <a href="" ng-click="new()"><button type="submit" class="btn btn-sm btn-primary btn-create" data-toggle="modal" data-target="#myModalNew" type="submit"><i class="fa fa-plus" aria-hidden="true" ></i> SUPPLIER</button></a></td>
 
     </div>
