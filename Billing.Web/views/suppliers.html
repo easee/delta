@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="styles/deltastyle.css">
+<link rel="stylesheet" href="styles/custom.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" class="rel">
 <div>
     <!-- EDIT Modal -->
@@ -20,7 +20,7 @@
                     <form role="form">
                         <div class="form-group">
                             <label>ID</label>
-                            <input type="text" class="form-control" ng-model="supplier.id"/>
+                            <input type="text" class="form-control" ng-model="supplier.id" ng-disabled="supplier.id" />
                         </div>
                         <div class="form-group">
                             <label>Name</label>
@@ -60,15 +60,15 @@
                        <span class="sr-only">Close</span>
                 </button>
                     <h4 class="modal-title" id="myModalLabel">
-                        Creating supplier {{suppliers.name}}
+                        Creating supplier {{supplier.name}}
                     </h4>
                 </div>
                 <!-- Modal Body -->
                 <div class="modal-body">
                     <form role="form">
                         <div class="form-group">
-                            <label>ID</label>
-                            <input type="text" class="form-control" ng-model="supplier.id" ng-disabled="supplier.id" />
+                            <label class="hidden">ID</label>
+                            <input type="hidden" class="form-control" ng-model="supplier.id" ng-disabled="supplier.id" />
                         </div>
                         <div class="form-group">
                             <label>Name</label>
@@ -82,7 +82,14 @@
                         <div class="form-group">
                             <label>Town</label>
                              <br>
-                              <select class="selectpicker" data-style="btn-primary" ng-model="supplier.townId" ng-options="town.id as town.name for town in towns"></select>
+<!--
+	                        <div class="container-fluid">
+		                    <div class="form-group">
+			                <input name="towns" id="towns" type="text" placeholder="Start typing.." ng-model="supplier.townId" typeahead="town.id as town.name for town in towns | filter:$viewValue | limitTo:8" class="form-control">
+		                    </div>
+	                       </div>                       
+-->
+                              <select class="form-control" data-style="btn-primary" ng-model="supplier.townId" ng-options="town.id as town.name for town in towns"></select>
                         </div>
                     </form>
                 </div>
@@ -91,7 +98,7 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                             Close
                 </button>
-                    <button type="button" class="btn btn-primary" ng-click="save()">
+                    <button type="button" class="btn btn-primary" ng-click="save()" onclick="$('.modal').modal('hide')">
                     Create
                 </button>
                 </div>
@@ -100,7 +107,7 @@
     </div>
     <!--End of Modal-->
 <div>
-        <div class="col col-xs-12 text-right">
+        <div class="form-group pull-right">
         <td> <a href="" ng-click="new()"><button type="submit" class="btn btn-sm btn-primary btn-create" data-toggle="modal" data-target="#myModalNew" type="submit"><i class="fa fa-plus" aria-hidden="true" ></i> SUPPLIER</button></a></td>
 
     </div>
@@ -108,7 +115,7 @@
         <div class="form-group pull-left">
         <input type="search" class="search form-control" placeholder="Search as you type" ng-model="select"> 
         </div>
-        <div class="col-xs-2 pull-left">      
+        <div class="form-group pull-left">      
                     <select class="form-control" ng-model="sort">
                     <option value="id">Id</option>
                     <option value="+name">Name asc</option>
@@ -138,7 +145,7 @@
                     </tr>
             </table>
             <div class="alert alert-info" ng-show="(supplier | filter:select).length == 0">
-              <strong>Hello Talent!</strong> No results for your search. Watch your fingers. </div>
+              <strong>Hello Talent!</strong> Nao results for your search. Watch your fingers. </div>
     </div>
 <!--
             <div class="col col-xs-12 text-right">

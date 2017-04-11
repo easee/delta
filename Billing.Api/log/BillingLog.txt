@@ -26,3 +26,9 @@
 2017-04-10 14:35:19,629 | ERROR | Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.: http://localhost:9000/api/suppliers
 2017-04-10 14:41:26,590 | ERROR | Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.: http://localhost:9000/api/suppliers
 2017-04-10 10:37:30,337 | ERROR | An error occurred while updating the entries. See the inner exception for details.: http://localhost:9000/api/categories/1
+2017-04-11 11:06:53,634 | ERROR | Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.: http://localhost:9000/api/suppliers
+2017-04-11 11:08:38,431 | ERROR | Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.: http://localhost:9000/api/suppliers
+2017-04-11 11:10:32,927 | ERROR | Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.: http://localhost:9000/api/suppliers
+2017-04-11 11:10:44,588 | ERROR | Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.: http://localhost:9000/api/suppliers
+2017-04-11 11:13:57,008 | ERROR | Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.: http://localhost:9000/api/suppliers
+2017-04-11 11:45:00,970 | ERROR | Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.: http://localhost:9000/api/suppliers

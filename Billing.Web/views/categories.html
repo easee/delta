@@ -60,7 +60,7 @@
                     <form role="form">
                         <div class="form-group">
                            <!-- BUTTON ZA DODAVANJE NOVOG-->
-                            <label>ID</label>
+                            <label class="hidden">ID</label>
                             <input type="hidden" class="form-control" ng-model="category.id" ng-disabled="category.id"/>
                         </div>
                         <div class="form-group">
@@ -74,7 +74,7 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                             Close
                 </button>
-                    <button type="button" class="btn btn-primary" ng-click="save()">
+                    <button type="button" class="btn btn-primary" ng-click="save()" onclick="$('.modal').modal('hide')">
                     Create
                 </button>
                 </div>
@@ -107,7 +107,7 @@
                   </tr>
                 </thead>
                     <tr ng-repeat="item in category | filter:select | orderBy:sort ">
-                      <td class="col-md-1">{{item.id}}</td>
+                      <td class="col-md-1 push-left">{{item.id}}</td>
                       <td class="col-md-9">{{item.name}}</td>
                       <td class="col-md-1"> <a href="" ng-click="edit(item)"><button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal" type="submit"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button></a></td>
                       <td class="col-md-1"> <a href="" ng-click="delete(item)"><button type="submit" class="btn btn-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true" </i></button></a></td>

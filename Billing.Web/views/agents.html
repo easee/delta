@@ -1,15 +1,103 @@
+<link rel="stylesheet" href="styles/deltastyle.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" class="rel">
-<div style="border:solid 1px blue" ng-show="showAgent">
-    
-    <div>Id: <b>{{ agent.id }}</b></div>
-    <div>Name: <input type="text" ng-model="agent.name"></div>
-    <div><button class="btn btn-primary pull-right" ng-click="save()">SAVE</button></div>
-</div>
-    <div>        
+<div>
+    <!-- EDIT Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" ng-show="showAgents">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                       <span aria-hidden="true">&times;</span>
+                       <span class="sr-only">Close</span>
+                </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        Make changes for {{agent.name}}
+                    </h4>
+                </div>
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <form role="form">
+                        <div class="form-group">
+                            <label>ID</label>
+                            <input type="text" class="form-control" ng-model="agent.id" ng-disabled="agent.id" />
+                        </div>
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" ng-model="agent.name" />
+                        </div>
+                         <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" class="form-control" ng-model="agent.username" />
+                        </div>
+                    </form>
+                </div>
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Close
+                </button>
+                    <button type="button" onclick="$('.modal').modal('hide')" class="btn btn-primary" ng-click="save(item)">
+                    Save changes
+                </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End of Modal-->
+        <!-- NEW Agent Modal -->
+    <div class="modal fade" id="myModalNew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                       <span aria-hidden="true">&times;</span>
+                       <span class="sr-only">Close</span>
+                </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        Creating agent {{agent.name}}
+                    </h4>
+                </div>
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <form role="form">
+                        <div class="form-group">
+                            <label class="hidden">ID</label>
+                            <input type="hidden" class="form-control" ng-model="agent.id" ng-disabled="agent.id" />
+                        </div>
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" ng-model="agent.name" />
+                        </div>
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" class="form-control" ng-model="agent.username" />
+                        </div>
+                    </form>
+                </div>
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Close
+                </button>
+                    <button type="button" class="btn btn-primary" ng-click="save()" onclick="$('.modal').modal('hide')">
+                    Create
+                </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End of Modal-->
+    <div>
+       
+        <div class="form-group pull-right">
+        <td> <a href="" ng-click="new()"><button type="submit" class="btn btn-sm btn-primary btn-create" data-toggle="modal" data-target="#myModalNew" type="submit"><i class="fa fa-plus" aria-hidden="true" ></i> AGENT</button></a></td>
+        </div>
             <div class="form-group pull-left">
                 <input type="search" class="search form-control" placeholder="Search as you type" ng-model="select">
             </div>
-                <div class="col-xs-2 pull-left">      
+                <div class="form-group pull-left">      
                             <select class="form-control" ng-model="sort">
                             <option value="id">Id</option>
                             <option value="+name">Name asc</option>
@@ -23,21 +111,20 @@
                     <th>ID</th>
                     <th><i class="fa fa-address-card" aria-hidden="true"></i> Name</th>
                     <th><i class="fa fa-user" aria-hidden="true"></i> Username</th>
-                    <th>Action</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                   </tr>
                 </thead>
                     <tr ng-repeat="item in agents | filter:select | orderBy:sort">
                     
-                      <td>{{item.id}}</td>
+                      <td class="col-md-1">{{item.id}}</td>
                       <td>{{item.name}}</td>
                       <td>{{item.username}}</td>
-                      <td> <a href="" ng-click="getAgent(item)">GET</a></td>
+                      <td class="col-md-1"> <a href="" ng-click="edit(item)"><button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal" type="submit"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button></a></td>
+                      <td class="col-md-1"> <a href="" ng-click="delete(item)"><button type="submit" class="btn btn-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true" </i></button></a></td>
                     </tr>
             </table>
             <div class="alert alert-info" ng-show="(agents | filter:select).length == 0">
               <strong>Hello Talent!</strong> No results for your search. Watch your fingers. </div>
-            <div class="col col-xs-12 text-right">
-                    <button type="button" class="btn btn-sm btn-primary btn-create" ng-click="new()"><i class="fa fa-plus" aria-hidden="true"> </i>  AGENT</button>
-        </div>
-    </div>
             
+    </div>
