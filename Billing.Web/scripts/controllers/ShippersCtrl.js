@@ -1,66 +1,50 @@
 (function(){
-
-    var app = angular.module("Billing");
-
-    var ShippersCtrl = function($scope, $http) {
-        $http.defaults.headers.common.Token = "12345678901234567890";
-        $http.defaults.headers.common.ApiKey = "RGVsdGEtQmlsbGluZw==";
-
+    app.controller("ShippersCtrl", ['$scope', 'DataService',  function($scope, DataService) {
         $scope.showShipper = false;
         ListShippers();
+        ListTowns('');
 
-        $scope.getShipper = function(currentShipper){
+        //READ AND EDIT SHIPPERS
+        $scope.edit = function(currentShipper){
             $scope.shipper = currentShipper;
             $scope.showShipper = true;
         };
 
+        //UPDATE SHIPPER
         $scope.save = function(){
-            var promise = $http({
-                method: "put",
-                url: "http://localhost:9000/api/shippers/" + $scope.shipper.id,
-                data: $scope.shipper
-            });
-
-            $scope.message = "Please wait...";
-            promise.then(function(response){
-                $scope.shipper = response.data;
-                $scope.message = " ";
-                ListShippers();
-            }, function(reason){
-                $scope.message = "No data for that request";
-                });
-            };
-
-            $scope.new = function(){
-                $scope.shipper.id = 0;
-            var promise = $http({
-                method: "post",
-                url: "http://localhost:9000/api/shippers",
-                data: $scope.shipper
-            });
-            
-            $scope.message = "Please wait...";
-            promise.then(function(response){
-                $scope.shipper = response.data;
-                $scope.message = " ";
-                ListShippers();
-            }, function(reason){
-                $scope.message = "No data for that request";
-            });
+            if($scope.shipper.id == 0)
+                DataService.insert("shippers", $scope.shipper, function(data){ ListShippers();} );
+            else
+                DataService.update("shippers", $scope.shipper.id, $scope.shipper, function(data){ListShippers();});
         };
 
-            function ListShippers(){
-            var promise = $http.get("http://localhost:9000/api/shippers");
-            $scope.message = "Please wait for shippers...";
-            promise.then(function(response){
-                $scope.shippers = response.data;
-                $scope.message = " ";
-            }, function(reason){
-                $scope.message = "No data for that request";
+        //CREATE NEW SHIPPER
+        $scope.new = function(){
+            $scope.shipper = {
+                id: 0,
+                name: "",
+                address: "",
+                towns: []
+            };
+            $scope.showShippers = true;
+        };
+        
+        //DELETE SHIPPER
+        $scope.delete = function (shipper) {
+            DataService.delete("shippers",shipper.id, function (data) {
+                ListShippers();
             });
-        }
-    };
+            $scope.showShippers= false;
+        }; 
+        //LIST ALL SHIPPERS
+        function ListShippers(){
+            DataService.list("shippers", function(data){ $scope.shippers = data});
+        };
 
-    app.controller("ShippersCtrl", ShippersCtrl);
+        //LIST ALL TOWNS
+        function ListTowns(name){
+            DataService.list("towns", function(data){ $scope.towns = data});
+        };
+    }]);
 
 }());
