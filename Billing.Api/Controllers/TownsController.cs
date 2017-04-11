@@ -23,8 +23,11 @@ namespace Billing.Api.Controllers
         [Route("{name}")]
         public IHttpActionResult Get(string name)
         {
-            return Ok(UnitOfWork.Towns.Get().Where(x => x.Name.Contains(name)).ToList()
-                                  .Select(a => Factory.Create(a)).ToList());
+            name = name.ToLower();
+            return Ok(UnitOfWork.Towns.Get().Where(x => x.Name.Contains(name)).ToList() //Contains znači da Sadrži, i nije case sensitive. 
+                                   .OrderBy(x => x.Name.ToLower().IndexOf(name)) //IndexOf je case sensitive.
+                                  .Select(a => Factory.Create(a))
+                                  .Take(8).ToList());//Uzmi 8 na listu, proizvoljno.
         }
 
         [Route("{id:int}")]

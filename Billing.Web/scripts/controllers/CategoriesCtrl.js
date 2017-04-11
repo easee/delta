@@ -14,7 +14,7 @@
                 DataService.update("categories", $scope.category.id, $scope.category, function(data){ListCategories();});
         };
 
-        //CREATE NEW CUSTOMER
+        //CREATE NEW CATEGORY
         $scope.new = function(){
             $scope.category = {
                 id: 0,

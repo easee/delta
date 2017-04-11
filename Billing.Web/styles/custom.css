@@ -7,3 +7,10 @@ table.auto
 {
     table-layout:auto;
 }
+
+.navbar-nav li:nth-child(2) {
+    float:right;
+}
+.navbar-nav {
+    float:none;
+}
