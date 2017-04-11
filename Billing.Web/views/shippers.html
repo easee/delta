@@ -70,8 +70,8 @@
                 <div class="modal-body">
                     <form role="form">
                         <div class="form-group">
-                            <label>ID</label>
-                            <input type="text" class="form-control" ng-model="shipper.id" ng-disabled="shipper.id" />
+                            <label class="hidden">ID</label>
+                            <input type="hidden" class="form-control" ng-model="shipper.id" ng-disabled="shipper.id" />
                         </div>
                         <div class="form-group">
                             <label>Name</label>
@@ -82,8 +82,11 @@
                             <input type="text" class="form-control" ng-model="shipper.address" />
                         </div>
                         <div class="form-group">
-                            <label>Town</label>
-                            <select class="selectpicker" data-style="btn-primary" ng-model="shipper.townId" ng-options="town.id as town.name for town in towns"></select>
+                             <label>Town</label>
+                            <div>
+                            <input type="text" class="form-control" ng-model="shipper.town" ng-change="autocomplete(shipper.town)" ng-keyup="textUp($event)">
+                            </div>
+                            <select class="form-control" id="townsel" data-style="btn-primary" ng-model="shipper.townId" ng-options="town.id as town.name for town in towns" ng-keypress="townSelected($event)"></select>
                         </div>
                     </form>
                 </div>
@@ -136,12 +139,12 @@
             </tr>
         </thead>
         <tr ng-repeat="item in shippers | filter:select | orderBy:sort ">
-            <td>{{item.id}}</td>
-            <td>{{item.name}}</td>
-            <td>{{item.address}}</td>
-            <td>{{item.town}}</td>
-            <td> <a href="" ng-click="edit(item)"><button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal" type="submit"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button></a></td>
-            <td> <a href="" ng-click="delete(item)"><button type="submit" class="btn btn-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true" </i></button></a></td>
+            <td class="col-md-1">{{item.id}}</td>
+            <td class="col-md-3">{{item.name}}</td>
+            <td class="col-md-3">{{item.address}}</td>
+            <td class="col-md-3">{{item.town}}</td>
+            <td class="col-md-1"> <a href="" ng-click="edit(item)"><button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal" type="submit"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button></a></td>
+            <td class="col-md-1"> <a href="" ng-click="delete(item)"><button type="submit" class="btn btn-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true" </i></button></a></td>
         </tr>
     </table>
     <div class="alert alert-info" ng-show="(shippers | filter:select).length == 0">

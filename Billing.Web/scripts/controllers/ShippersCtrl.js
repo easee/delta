@@ -26,6 +26,7 @@
                 address: "",
                 towns: []
             };
+             document.getElementById('townsel').style.visibility = 'hidden';//sakrivamo combobox na otvaranju modala
             $scope.showShippers = true;
         };
         
@@ -43,8 +44,36 @@
 
         //LIST ALL TOWNS
         function ListTowns(name){
-            DataService.list("towns", function(data){ $scope.towns = data});
+            DataService.list("towns/" + name, function(data){ $scope.towns = data});
         };
+               //ARROW DOWN EVENT SO IT COULD FOCUS ON DROPDOWN
+        $scope.textUp = function(keyEvent){
+                if(keyEvent.key == "ArrowDown") document.getElementById('townsel').focus();
+            };
+
+        $scope.townSelected = function(keyEvent){
+                if(keyEvent.key == "Enter") {
+                    for(var i=0; i<$scope.towns.length; i++){
+                        if($scope.towns[i].id === $scope.shipper.townId){ //Onaj ID koji ima istu vrijednost kao
+                            $scope.shipper.town = $scope.towns[i].name;
+                            document.getElementById('townsel').style.visibility = 'hidden';
+                            break;
+                        }
+                    }
+                }
+            };
+
+        //AUTOCOMPLETE in BOX
+        $scope.autocomplete = function(autoStr){
+                if (autoStr.length >= 3){ //reaguje samo kada ima 3 ili više slova uneseno
+                    ListTowns(autoStr);
+                    document.getElementById('townsel').style.visibility = 'visible';//Otkrivamo combobox
+                    document.getElementById('townsel').size = 8;
+                }
+                else {
+                    document.getElementById('townsel').style.visibility = 'hidden';
+                }
+            };         
     }]);
 
 }());
