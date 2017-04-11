@@ -14,3 +14,7 @@ table.auto
 .navbar-nav {
     float:none;
 }
+
+.input-append .btn.dropdown-toggle {
+    float: none;
+}

@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    [TokenAuthorization("user")]
+    //[TokenAuthorization("user")]
     [RoutePrefix("api/products")]
     public class ProductsController : BaseController
     {

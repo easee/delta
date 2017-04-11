@@ -23,14 +23,13 @@
             });
             $scope.showSuppliers = false;
         };
-        
         $scope.new = function(){
             $scope.supplier = {
                 id: 0,
                 name: "",
                 address: "",
                 towns: []
-//DODATI DIO SAM TOWNid
+//DODATI DIO SA TOWNid
             };
             $scope.showSuppliers = true;
         };
