@@ -39,6 +39,7 @@
                 $scope.login();
             };
 
+            $rootScope.username = credentials.currentUser.username;
             $scope.login = function() {
                 var userData = LoginService.encode($scope.user.name + ":" + $scope.user.pass);
                 $http.defaults.headers.common.Authorization = "Basic " + userData;
@@ -62,6 +63,7 @@
                         $rootScope.currentUser = credentials.currentUser.name;
                         $rootScope.username = credentials.currentUser.username;
                         console.log(credentials);
+                        console.log($rootScope.username);
                         $location.path(redirectTo);
                     },
                     function(reason){

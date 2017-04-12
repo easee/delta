@@ -3,7 +3,7 @@
     app.controller("SuppliersCtrl", ['$scope', 'DataService',  function($scope, DataService) {
         $scope.showSuppliers = false;
         ListSuppliers();
-        ListTowns('sar');
+        ListTowns('');
 
         $scope.edit = function(current){
             $scope.supplier = current;

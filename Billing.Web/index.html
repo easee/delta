@@ -25,6 +25,7 @@
     <script src="scripts/controllers/CategoriesCtrl.js"></script>
     <script src="scripts/controllers/SuppliersCtrl.js"></script>
     <script src="scripts/controllers/ProductsCtrl.js"></script>
+    <script src="scripts/directives/AdminDirective.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.js"></script>
 </head>
 <body>
@@ -49,9 +50,9 @@
 					<ul class="dropdown-menu">
 						<li>
 							<a class="clearfix" href="#">
-								<img src="images/marlon.jpg" alt="User Avatar">
+								<img ng-src="images/{{username}}.jpg" alt="User Avatar">
 								<div class="detail">
-                                    <strong>{{ username }}</strong>
+                                    <strong>{{username}}</strong>
 								</div>
 							</a>
 						</li>
@@ -85,7 +86,7 @@
                     <a href="#/agents"> <span class="fa-stack fa-lg pull-left"><i class="fa fa-user-o fa-stack-1x "></i></span>Agents</a>
                 </li>
                 <li>
-                    <a href="#/products"><span class="fa-stack fa-lg pull-left"><i class="fa fa-users fa-stack-1x" ></i></span>Products</a>
+                    <a href="#/products"><span class="fa-stack fa-lg pull-left"><i class="fa fa-shopping-bag  fa-stack-1x "></i></span>Products</a>
                 </li>
                 <li>
                     <a href="#/categories"><span class="fa-stack fa-lg pull-left"><i class="fa fa-braille fa-stack-1x "></i></span>Categories</a>
