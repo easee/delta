@@ -16,10 +16,8 @@ namespace Billing.Api.Models
 
         //IN GIGI's DOCUMENT 
         public double Total { get; set; }
-
         public string Supplier { get; set; }
         public int SupplierId { get; set; }
-
         public int ProductId { get; set; }
         public string Product { get; set; }
 
