@@ -1,7 +1,7 @@
 <div>
     <!-- EDIT Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" ng-show="showShipper">
+        <div class="modal-dialog" ng-show="showProduct">
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
@@ -10,7 +10,7 @@
                        <span class="sr-only">Close</span>
                 </button>
                     <h4 class="modal-title" id="myModalLabel">
-                        Make changes for {{shipper.name}}
+                        Make changes for {{product.name}}
                     </h4>
                 </div>
 
@@ -19,19 +19,23 @@
                     <form role="form">
                         <div class="form-group">
                             <label>ID</label>
-                            <input type="text" class="form-control" ng-model="shipper.id" ng-disabled="shipper.id" />
+                            <input type="text" class="form-control" ng-model="product.id" ng-disabled="product.id" />
                         </div>
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="text" class="form-control" ng-model="shipper.name" />
+                            <input type="text" class="form-control" ng-model="product.name" />
                         </div>
                         <div class="form-group">
-                            <label>Address</label>
-                            <input type="text" class="form-control" ng-model="shipper.address" />
+                            <label>Unit</label>
+                            <input type="text" class="form-control" ng-model="product.unit" />
                         </div>
                         <div class="form-group">
-                            <label>Town</label>
-                            <input type="text" class="form-control" ng-model="shipper.town" />
+                            <label>Price</label>
+                            <input type="text" class="form-control" ng-model="product.price" />
+                        </div>
+                        <div class="form-group">
+                            <label>Category</label>
+                            <input type="text" class="form-control" ng-model="product.category" />
                         </div>
                     </form>
                 </div>
@@ -49,9 +53,7 @@
         </div>
     </div>
     <!--End of Modal-->
-
-
-        <!-- NEW Shipper Modal -->
+        <!-- NEW PRODUCT Modal -->
     <div class="modal fade" id="myModalNew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -62,7 +64,7 @@
                        <span class="sr-only">Close</span>
                 </button>
                     <h4 class="modal-title" id="myModalLabel">
-                        Creating shipper {{shipper.name}}
+                        Adding Product <strong>{{product.name}}</strong>
                     </h4>
                 </div>
 
@@ -71,22 +73,29 @@
                     <form role="form">
                         <div class="form-group">
                             <label class="hidden">ID</label>
-                            <input type="hidden" class="form-control" ng-model="shipper.id" ng-disabled="shipper.id" />
+                            <input type="text" class="hidden" ng-model="product.id" ng-disabled="product.id" />
                         </div>
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="text" class="form-control" ng-model="shipper.name" />
+                            <input type="text" class="form-control" ng-model="product.name" />
                         </div>
                         <div class="form-group">
-                            <label>Address</label>
-                            <input type="text" class="form-control" ng-model="shipper.address" />
+                            <label>Unit</label>
+                            <input type="text" class="form-control" ng-model="product.unit" />
                         </div>
                         <div class="form-group">
-                             <label>Town</label>
-                            <div>
-                            <input type="text" class="form-control" ng-model="shipper.town" ng-change="autocomplete(shipper.town)" ng-keyup="textUp($event)">
-                            </div>
-                            <select class="form-control" id="townsel" data-style="btn-primary" ng-model="shipper.townId" ng-options="town.id as town.name for town in towns" ng-keypress="townSelected($event)"></select>
+                            <label>Price</label>
+                            <input type="text" class="form-control" ng-model="product.price" />
+                        </div>
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select class="form-control" ng-model="product.categoryId"
+                                            ng-options="category.id as category.name
+                                            for category in categories"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Inventory</label>
+                            <input type="text" class="form-control" ng-model="product.inventory" />
                         </div>
                     </form>
                 </div>
@@ -96,7 +105,7 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                             Close
                 </button>
-                    <button type="button" class="btn btn-primary" ng-click="save()">
+                    <button type="button" onclick="$('.modal').modal('hide')" class="btn btn-primary" ng-click="save()">
                     Create
                 </button>
                 </div>
@@ -109,7 +118,7 @@
         <div class="form-group pull-right">
             <td><button type="submit" class="btn btn-sm btn-primary btn-create" data-toggle="modal" ng-click="new()" data-target="#myModalNew"
                     type="submit">
-                    <i class="fa fa-plus" aria-hidden="true" ></i> SHIPPER</button></a>
+                    <i class="fa fa-plus" aria-hidden="true" ></i> PRODUCT</button></a>
             </td>
         </div>
 
@@ -122,7 +131,7 @@
                     <option value="id">Id</option>
                     <option value="+name">Name asc</option>
                     <option value="-name">Name dsc</option>
-                    <option value="town">Town</option>
+                    <option value="price">Price</option>
             </select>
         </div>
     </div>
@@ -132,23 +141,28 @@
             <tr>
                 <th>ID</th>
                 <th><i class="fa fa-user-circle-o" aria-hidden="true"></i> Name</th>
-                <th><i class="fa fa-address-book" aria-hidden="true"></i> Address</th>
-                <th><i class="fa fa-map-marker" aria-hidden="true"></i> Town</th>
+                <th><i class="fa fa-address-book" aria-hidden="true"></i> Unit</th>
+                <th><i class="fa fa-eur" aria-hidden="true"></i> Price</th>
+                <th><i class="fa fa-braille" aria-hidden="true"></i> Category</th>
+                <th><i class="fa fa-cube" aria-hidden="true"></i> inventory</th>
                 <th>EDIT</th>
                 <th>DELETE</th>
             </tr>
         </thead>
-        <tr ng-repeat="item in shippers | filter:select | orderBy:sort ">
+        <tr ng-repeat="item in products | filter:select | orderBy:sort">
             <td>{{item.id}}</td>
             <td>{{item.name}}</td>
-            <td>{{item.address}}</td>
-            <td>{{item.town}}</td>
+            <td>{{item.unit}}</td>
+            <td>{{item.price}}</td>
+            <td>{{item.category}}</td>
+            <td>{{item.inventory}}</td>
             <td> <a href="" ng-click="edit(item)"><button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal" type="submit"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button></a></td>
-            
             <td> <a href="" ng-click="delete(item)"><button type="submit" class="btn btn-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true" </i></button></a></td>
         </tr>
     </table>
-    <div class="alert alert-info" ng-show="(shippers | filter:select).length == 0">
+    <div class="alert alert-info" ng-show="(products | filter:select).length == 0">
         <strong>Hello Talent!</strong> No results for your search. Watch your fingers. 
     </div>
+    <!--PAGINATION-->
+    Page: <b>{{currentPage}}</b>
 </div>

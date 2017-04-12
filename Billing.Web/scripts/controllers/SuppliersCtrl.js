@@ -13,8 +13,10 @@
         $scope.save = function(){
             if($scope.supplier.id == 0)
                 DataService.insert("suppliers", $scope.supplier, function(data){ ListSuppliers();} );
-            else
+            else{
+                $scope.supplier.townId = $scope.selected.id;
                 DataService.update("suppliers", $scope.supplier.id, $scope.supplier, function(data){ListSuppliers();});
+        }
         };
         
         $scope.delete = function (supplier) {
@@ -69,6 +71,24 @@
                 else {
                     document.getElementById('townsel').style.visibility = 'hidden';
                 }
-            };        
+            };
+        //typeahead --- start
+      var _selected;
+      $scope.selected = undefined;
+      $scope.ngModelOptionsSelected = function(value) {
+        if (arguments.length) {
+          _selected = value;
+        } else {
+          return _selected;
+        }
+      };
+      $scope.modelOptions = {
+        debounce: {
+          default: 500,
+          blur: 250
+        },
+        getterSetter: true
+      };
+    //typeahead --- end    
     }]);
 }());
