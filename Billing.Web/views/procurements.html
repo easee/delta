@@ -1,0 +1,181 @@
+
+<div>
+    <!-- EDIT Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" ng-show="showProcurements">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                       <span aria-hidden="true">&times;</span>
+                       <span class="sr-only">Close</span>
+                </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        Make changes for {{procurement.id}}
+                    </h4>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <form role="form">
+                       <div class="form-group">
+                            <label>ID</label>
+                            <input type="text" class="form-control" ng-model="procurement.id" ng-disabled="procurement.id" />
+                        </div> 
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="date" class="form-control" ng-model="procurement.date"  />
+                        </div>
+                        <div class="form-group">
+                            <label>Document</label>
+                            <input type="text" class="form-control" ng-model="procurement.document" />
+                        </div>
+                        <div class="form-group">
+                            <label>Quantity</label>
+                            <input type="text" class="form-control" ng-model="procurement.quantity" />
+                        </div>
+                        <div class="form-group">
+                            <label>Price</label>
+                            <input type="text" class="form-control" ng-model="procurement.price" />
+                        </div>
+                        <div class="form-group">
+                            <label>Shipper</label>
+                            <input type="text" class="form-control" ng-model="procurement.supplier" />
+                        </div>
+                        <div class="form-group">
+                            <label>Product</label>
+                            <input type="text" class="form-control" ng-model="procurement.product" />
+                        </div>  
+                    </form>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Close
+                </button>
+                    <button type="button" onclick="$('.modal').modal('hide')" class="btn btn-primary" ng-click="save(item)">
+                    Save changes
+                </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End of Modal-->
+
+
+        <!-- NEW Procurement Modal -->
+    <div class="modal fade" id="myModalNew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                       <span aria-hidden="true">&times;</span>
+                       <span class="sr-only">Close</span>
+                </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        Creating procurement {{procurement.id}}
+                    </h4>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <form role="form">
+                        <div class="form-group">
+                            <label>ID</label>
+                            <input type="text" class="form-control" ng-model="procurement.id" ng-disabled="procurement.id" />
+                        </div> 
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="date" class="form-control" ng-model="procurement.date"  />
+                        </div>
+                        <div class="form-group">
+                            <label>Document</label>
+                            <input type="text" class="form-control" ng-model="procurement.document" />
+                        </div>
+                        <div class="form-group">
+                            <label>Quantity</label>
+                            <input type="text" class="form-control" ng-model="procurement.quantity" />
+                        </div>
+                        <div class="form-group">
+                            <label>Price</label>
+                            <input type="text" class="form-control" ng-model="procurement.price" />
+                        </div>
+                        <div class="form-group">
+                             <label>Supplier</label>
+                           <div>
+                            <input type="text" class="form-control" ng-model="procurement.supplier" ng-change="autocomplete(procurement.supplier)" ng-keyup="textUp($event)">
+                            </div>
+                            <select class="form-control" id="suppliersel" data-style="btn-primary" ng-model="procurement.supplierId" ng-options="supplier.id as supplier.name for supplier in suppliers" ng-keypress="supplierSelected($event)"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Product</label>
+                            <input type="text" class="form-control" ng-model="procurement.product" />
+                        </div>  
+                    </form>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                            Close
+                </button>
+                    <button type="button" onclick="$('.modal').modal('hide')" class="btn btn-primary" ng-click="save()">
+                    Create
+                </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End of Modal-->
+
+
+        <div class="form-group pull-right">
+            <td><button type="submit" class="btn btn-sm btn-primary btn-create" data-toggle="modal" ng-click="new()" data-target="#myModalNew"
+                    type="submit">
+                    <i class="fa fa-plus" aria-hidden="true" ></i> PROCUREMENT</button></a>
+            </td>
+        </div>
+
+        <div>
+        <div class="form-group pull-left">
+            <input type="search" class="search form-control" placeholder="Search as you type" ng-model="select">
+        </div>
+        <div class="form-group pull-left">
+            <select class="form-control" ng-model="sort">
+                    <option value="id">Id</option>
+            </select>
+        </div>
+    </div>
+
+    <table class="table table-striped table-bordered table-list">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th><i class="fa fa-user-circle-o" aria-hidden="true"></i> Date</th>
+                <th><i class="fa fa-user-circle-o" aria-hidden="true"></i> Document</th>
+                <th><i class="fa fa-address-book" aria-hidden="true"></i> Quantity</th>
+                <th><i class="fa fa-map-marker" aria-hidden="true"></i> Price</th>
+                <th><i class="fa fa-map-marker" aria-hidden="true"></i> Supplier</th>
+                <th><i class="fa fa-map-marker" aria-hidden="true"></i> Product</th>
+                <th>EDIT</th>
+                <th>DELETE</th>
+            </tr>
+        </thead>
+        <tr ng-repeat="item in procurements | filter:select | orderBy:sort ">
+            <td>{{item.id}}</td>
+            <td>{{item.date}}</td>
+            <td>{{item.document}}</td>
+            <td>{{item.quantity}}</td>
+            <td>{{item.price}}</td>
+            <td>{{item.supplier}}</td>
+            <td>{{item.product}}</td>
+            <td> <a href="" ng-click="edit(item)"><button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal" type="submit"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button></a></td>
+            <td> <a href="" ng-click="delete(item)"><button type="submit" class="btn btn-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true" </i></button></a></td>
+        </tr>
+    </table>
+    <div class="alert alert-info" ng-show="(procurements | filter:select).length == 0">
+        <strong>Hello Talent!</strong> No results for your search. Watch your fingers. 
+    </div>
+</div>

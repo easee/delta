@@ -11,7 +11,7 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    [TokenAuthorization("user")]
+    //[TokenAuthorization("user")]
     [RoutePrefix("api/procurements")]
     public class ProcurementsController : BaseController
     {
@@ -22,7 +22,7 @@ namespace Billing.Api.Controllers
         {
             return Ok(UnitOfWork.Procurements.Get().ToList().Select(x => Factory.Create(x)).ToList());
         }
-        
+
         [Route("{name}")]
         public IHttpActionResult Get(string name)
         {
