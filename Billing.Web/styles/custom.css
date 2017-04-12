@@ -6,7 +6,7 @@
 table.auto
 {
     table-layout:auto;
-}
+} 
 
 .navbar-nav li:nth-child(2) {
     float:right;
@@ -18,7 +18,6 @@ table.auto
 .input-append .btn.dropdown-toggle {
     float: none;
 }
-
 
 .typeahead-demo .custom-popup-wrapper {
     position: absolute;
@@ -45,3 +44,9 @@ table.auto
     border-radius: 0;
     box-shadow: none;
   }
+
+.profile {
+    cursor: pointer;
+}
+
+

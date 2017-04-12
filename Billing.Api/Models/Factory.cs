@@ -268,12 +268,12 @@ namespace Billing.Api.Models
         //Josip
         public InvoiceModel Create(Invoice invoice)
         {
-            return new InvoiceModel() 
+            return new InvoiceModel()
             {
                 Id = invoice.Id,
                 InvoiceNo = invoice.InvoiceNo,
                 Date = invoice.Date,
-                ShippedOn = (DateTime)invoice.ShippedOn,
+                ShippedOn = (invoice.ShippedOn != null) ? invoice.ShippedOn.Value : DateTime.Now,
                 Status = (int)invoice.Status,
                 Vat = invoice.Vat,
                 SubTotal = invoice.SubTotal,

@@ -11,7 +11,7 @@ bin/
 obj/
 packages/
 Billing.Web/.vscode/
-Billing.Api/log/
+log/
 
 # Build results
 [Dd]ebug/

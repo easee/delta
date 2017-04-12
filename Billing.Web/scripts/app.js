@@ -39,6 +39,9 @@
             .when("/shippers", {
                 templateUrl: "views/shippers.html",
                 controller: "ShippersCtrl" })
+            .when("/products", {
+                templateUrl: "views/products.html",
+                controller: "ProductsCtrl" })
             .when("/login", {
                 templateUrl: "views/login.html",
                 controller: "LoginCtrl" })
