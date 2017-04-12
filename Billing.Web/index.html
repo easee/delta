@@ -25,6 +25,7 @@
     <script src="scripts/controllers/CategoriesCtrl.js"></script>
     <script src="scripts/controllers/SuppliersCtrl.js"></script>
     <script src="scripts/controllers/ProductsCtrl.js"></script>
+    <script src="scripts/directives/AdminDirective.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.js"></script>
 </head>
 <body>
@@ -49,9 +50,9 @@
 					<ul class="dropdown-menu">
 						<li>
 							<a class="clearfix" href="#">
-								<img src="images/marlon.jpg" alt="User Avatar">
+								<img ng-src="images/{{username}}.jpg" alt="User Avatar">
 								<div class="detail">
-                                    <strong>{{ username }}</strong>
+                                    <strong>{{username}}</strong>
 								</div>
 							</a>
 						</li>
