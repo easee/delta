@@ -21,7 +21,11 @@ namespace Billing.Api.Controllers
         [Route("{name}")]
         public IHttpActionResult Get(string name)
         {
-            return Ok(UnitOfWork.Customers.Get().Where(x => x.Name.Contains(name)).ToList().Select(a => Factory.Create(a)).ToList());
+            name = name.ToLower();
+            return Ok(UnitOfWork.Customers.Get().Where(x => x.Name.Contains(name)).ToList()
+                                                .OrderBy(x => x.Name.ToLower().IndexOf(name))
+                                                .Select(a => Factory.Create(a))
+                                                .Take(8).ToList());
         }
 
         [Route("{id:int}")]
