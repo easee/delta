@@ -277,18 +277,18 @@ namespace Billing.Api.Models
                 Status = (int)invoice.Status,
                 Vat = invoice.Vat,
                 SubTotal = invoice.SubTotal,
-                Total = invoice.Total,
+                Total = Math.Round(invoice.Total, 2),
                 VatAmount = invoice.VatAmount,
-                ShipperId = (invoice.Shipper==null)?0:invoice.Shipper.Id, //Ako dobijemo Shipper objekat kao null, stavimo nulu
-                CustomerId = invoice.Customer.Id,
-                AgentId = invoice.Agent.Id,
-                Shipper = (invoice.Shipper==null)?"":invoice.Shipper.Name,
-                Customer = invoice.Customer.Name,
-                Agent = invoice.Agent.Name,              
+                ShipperId = (invoice.Shipper==null) ? 0 : invoice.Shipper.Id, //Ako dobijemo Shipper objekat kao null, stavimo nulu
+                CustomerId = (invoice.Customer == null) ? 0 : invoice.Customer.Id,
+                AgentId = (invoice.Agent == null) ? 0 : invoice.Agent.Id,
+                Shipper = (invoice.Shipper==null) ? "" : invoice.Shipper.Name,
+                Customer = (invoice.Customer.Name==null) ? "" : invoice.Customer.Name,
+                Agent = (invoice.Agent.Name == null) ? "" : invoice.Agent.Name,
                 Shipping = invoice.Shipping
             };
         }
-
+        
         public Invoice Create(InvoiceModel model)
         {
           
