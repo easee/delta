@@ -1,7 +1,7 @@
 (function(){
     app.controller("CustomersCtrl", ['$scope', 'DataService',  function($scope, DataService) {
         $scope.showCustomer = false;
-        ListTowns('');
+        //ListTowns('');
         ListCustomers();
 
         //READ AND EDIT CUSTOMERS

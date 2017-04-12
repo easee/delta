@@ -86,7 +86,12 @@
                             </div>
                             <select class="form-control" id="townsel" data-style="btn-primary" ng-model="supplier.townId" ng-options="town.id as town.name for town in towns" ng-keypress="townSelected($event)"></select>
                              
-                        </div>
+<!--
+                    <div class='typeahead-demo'>   /// TYPEAHEAD
+                <input type="text" ng-model="selected" uib-typeahead="town as town.name for town in towns | filter:$viewValue | limitTo:8" class="form-control">
+            </div>
+-->
+                     </div>
                     </form>
                 </div>
                 <!-- Modal Footer -->
