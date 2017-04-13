@@ -111,8 +111,11 @@
                         </div>
                         <div class="form-group">
                             <label>Product</label>
-                            <input type="text" class="form-control" ng-model="procurement.product" />
-                        </div>  
+                             <div>
+                            <input type="text" class="form-control" ng-model="procurement.product" ng-change="autocomplete2(procurement.product)" ng-keyup="textUp2($event)">
+                            </div>
+                            <select class="form-control" id="productsel" data-style="btn-primary" ng-model="procurement.productId" ng-options="product.id as product.name for product in products" ng-keypress="productSelected($event)"></select>
+                        </div> 
                     </form>
                 </div>
 
@@ -156,9 +159,9 @@
                 <th><i class="fa fa-user-circle-o" aria-hidden="true"></i> Date</th>
                 <th><i class="fa fa-user-circle-o" aria-hidden="true"></i> Document</th>
                 <th><i class="fa fa-address-book" aria-hidden="true"></i> Quantity</th>
-                <th><i class="fa fa-map-marker" aria-hidden="true"></i> Price</th>
-                <th><i class="fa fa-map-marker" aria-hidden="true"></i> Supplier</th>
-                <th><i class="fa fa-map-marker" aria-hidden="true"></i> Product</th>
+                <th><i class="fa fa-eur" aria-hidden="true"></i> Price</th>
+                <th><i class="fa fa-users" aria-hidden="true"></i> Supplier</th>
+                <th><i class="fa fa-shopping-bag" aria-hidden="true"></i> Product</th>
                 <th>EDIT</th>
                 <th>DELETE</th>
             </tr>

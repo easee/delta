@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    [TokenAuthorization("user")]
+    //[TokenAuthorization("user")]
     [RoutePrefix("api/categories")]
     public class CategoriesController : BaseController
     {
