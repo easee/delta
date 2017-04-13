@@ -11,7 +11,7 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    //[TokenAuthorization("user")]
+    [TokenAuthorization("user")]
     [RoutePrefix("api/shippers")]
     public class ShippersController : BaseController
     {
