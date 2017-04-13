@@ -83,7 +83,7 @@ namespace Billing.Tests
         public void ChangeShipperName()
         {
             GetReady();
-            var actRes = controller.Put(1, new ShipperModel() { Id = 1, Name = "New name for old shipper" });
+            var actRes = controller.Put(1, new ShipperModel() { Id = 1, Name = "New name for old shipper", Address="Aleja od lipe 33", TownId=1 });
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsTrue(response.IsSuccessStatusCode);
@@ -93,7 +93,7 @@ namespace Billing.Tests
         public void ChangeShipperTown()
         {
             GetReady();
-            var actRes = controller.Put(1, new ShipperModel() { Id = 1, Town = "New York" });
+            var actRes = controller.Put(1, new ShipperModel() { Id = 1, Name = "New name for old shipper", Address = "Aleja od lipe 33", TownId = 2 });
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsTrue(response.IsSuccessStatusCode);
