@@ -15,8 +15,8 @@ namespace Billing.Api.Reports
         public CustomersByCategoryReport(UnitOfWork unitOfWork) : base(unitOfWork) { }
         public CustomerByCategoryModel Report(RequestModel Request)
         {
+            if (Request.EndDate <= Request.StartDate) throw new Exception("Incorrect Date");
             List<Item> Items = UnitOfWork.Items.Get().Where(x => x.Invoice.Date >= Request.StartDate && x.Invoice.Date <= Request.EndDate).ToList();
-
             CustomerByCategoryModel result = new CustomerByCategoryModel()
             {
                 StartDate = Request.StartDate,
