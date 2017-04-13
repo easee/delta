@@ -14,10 +14,26 @@ namespace Billing.Api.Controllers
     public class ProductsController : BaseController
     {
         [Route("")]
-        public IHttpActionResult Get()
+        public IHttpActionResult GetAll(int page = 0)
         {
-            return Ok(UnitOfWork.Products.Get().ToList().Select(x => Factory.Create(x)).ToList());
+            int PageSize = 8;
+            var query = UnitOfWork.Products.Get().OrderBy(x => x.Id).ToList();
+            int TotalPages = (int)Math.Ceiling((double)query.Count() / PageSize);
+
+            var returnObject = new
+            {
+                pageSize = PageSize,
+                currentPage = page,
+                totalPages = TotalPages,
+                productsList = query.Skip(PageSize * page).Take(PageSize).Select(x => Factory.Create(x)).ToList()
+            };
+            return Ok(returnObject);
         }
+        //[Route("")]
+        //public IHttpActionResult Get()
+        //{
+        //    return Ok(UnitOfWork.Products.Get().ToList().Select(x => Factory.Create(x)).ToList());
+        //}
 
         [Route("{name}")]
         public IHttpActionResult Get(string name)
