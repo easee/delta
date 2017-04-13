@@ -60,6 +60,8 @@
             if(!authenticated()){
                 if(next.templateUrl != "views/login.html"){
                     redirectTo = $location.path();
+                    if(redirectTo == "/login") redirectTo = "/agents";
+                    if (redirectTo == "/logout") redirectTo ="/agents";
                     $location.path("/login");
                 }
             }
