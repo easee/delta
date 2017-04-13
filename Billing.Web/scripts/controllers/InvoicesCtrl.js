@@ -1,6 +1,8 @@
 (function(){
     app.controller("InvoicesCtrl", ['$scope', 'DataService',  function($scope, DataService) {
         $scope.showInvoice = false;
+        getShippers('');
+        getAgents('');
         getCustomers('');
         ListInvoices();
 
@@ -35,9 +37,11 @@
                 shipping: 0,
                 items: []
             };
-            document.getElementById('custsel').style.visibility = 'hidden';//sakrivamo combobox na otvaranju modala
+            document.getElementById('custsel').style.visibility = 'hidden';
             $scope.showInvoices = true;
         };
+
+        
         
         //DELETE INVOICE
         $scope.delete = function (invoice) {
@@ -51,7 +55,30 @@
             DataService.list("invoices", function(data){ $scope.invoices = data});
         };
 
+        $scope.statuses = [
+            { "-1": "Canceled" },
+            { "0": "OrderCreated" },
+            { "1": "InvoiceCreated" },
+            { "2": "InvoiceSent" },
+            { "3": "InvoicePaid" },
+            { "4": "InvoiceOnHold" },
+            { "5": "InvoiceReady" },
+            { "6": "InvoiceShipped" }
+        ];
 
+        $scope.getKey = function (status) {
+            return Object.keys(status)[0];
+        }
+
+        //LIST/GET ALL SHIPPERS
+        function getShippers(name){
+            DataService.list("shippers/" + name, function(data){ $scope.shippers = data});
+        };
+
+        //LIST/GET ALL AGENTS
+        function getAgents(name){
+            DataService.list("agents", function(data){ $scope.agents = data});
+        };
         
         //LIST/GET ALL CUSTOMERS
         function getCustomers(name){
@@ -66,7 +93,7 @@
         $scope.customerSelected = function(keyEvent){
                 if(keyEvent.key == "Enter") {
                     for(var i=0; i<$scope.customers.length; i++){
-                        if($scope.customers[i].id === $scope.invoice.customerId){ //Onaj ID koji ima istu vrijednost kao
+                        if($scope.customers[i].id === $scope.invoice.customerId){
                             $scope.invoice.customer = $scope.customers[i].name;
                             document.getElementById('custsel').style.visibility = 'hidden';
                             break;

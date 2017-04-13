@@ -36,7 +36,8 @@
                         <!--Dodati select dropdown za statuse-->
                         <div class="form-group">
                             <label>Status</label>
-                            <input type="text" class="form-control" ng-model="invoice.status" />
+                            <select class="form-control "id="statuses" name="statuses" ng-model="invoice.status" 
+                            ng-options="getKey(status) as status[getKey(status)] for status in statuses"><option value="" selected>{{invoice.status}}</option></select>
                         </div>
                         <div class="form-group">
                             <label>Sub Total</label>
@@ -44,7 +45,7 @@
                         </div>
                         <div class="form-group">
                             <label>VAT</label>
-                            <input type="text" class="form-control" ng-model="invoice.vat" />
+                            <input type="text" class="form-control" ng-model="invoice.vat" ng-disabled="true" />
                         </div>
                         <div class="form-group">
                             <label>VAT Ammount</label>
@@ -54,12 +55,12 @@
                             <label>Total</label>
                             <input type="text" class="form-control" ng-model="invoice.total" />
                         </div>
-                        <!--Dodati select dropdown za shippera-->
                         <div class="form-group">
                             <label>Shipper</label>
-                            <input type="text" class="form-control" ng-model="invoice.shipperId" />
+                            <select class="form-control" ng-model="invoice.shipperId"
+                                                         ng-options="shipper.id as shipper.name
+                                                                    for shipper in shippers"></select>
                         </div>
-                        <!--Dodati select dropdown za agenta-->
                         <div class="form-group">
                             <label>Agent</label>
                             <select class="form-control" ng-model="invoice.agentId"
@@ -69,7 +70,9 @@
                         <!--Dodati select dropdown za customera-->
                         <div class="form-group">
                             <label>Customer</label>
-                            <input type="text" class="form-control" ng-model="invoice.customerId" />
+                            <div><input type="text" class="form-control" placeholder="See suggestions as you type" ng-model="invoice.customer" ng-change="autocomplete(invoice.customer)" ng-keyup="textUp($event)"></div>
+                            <select class="form-control" id="custsel" data-style="btn-primary" ng-model="invoice.customerId" ng-options="customer.id as customer.name for customer in customers" ng-keypress="customerSelected($event)"></select>
+                             
                         </div>
                         <div class="form-group">
                             <label>Shipping costs</label>
@@ -104,7 +107,7 @@
                        <span class="sr-only">Close</span>
                 </button>
                     <h4 class="modal-title" id="myModalLabel">
-                        Creating Invoice <strong>{{invoice.InvoiceNo}}</strong>
+                        Creating Invoice <strong>{{invoice.invoiceNo}}</strong>
                     </h4>
                 </div>
 
@@ -125,16 +128,17 @@
                         </div>
                         <div class="form-group">
                             <label>Shipped Date</label>
-                            <input type="text" class="form-control" ng-model="invoice.shippedon" />
+                            <input type="text" class="form-control" ng-model="invoice.shippedOn" />
                         </div>
                         <!--Dodati select dropdown za statuse-->
                         <div class="form-group">
                             <label>Status</label>
-                            <input type="text" class="form-control" ng-model="invoice.status" />
+                            <select class="form-control" id="statuses" name="statuses" ng-model="invoice.status" 
+                            ng-options="getKey(status) as status[getKey(status)] for status in statuses"><option value="" disabled selected> Select your option </option></select>
                         </div>
                         <div class="form-group">
                             <label>Sub Total</label>
-                            <input type="text" class="form-control" ng-model="invoice.subtotal" />
+                            <input type="text" class="form-control" ng-model="invoice.subTotal" />
                         </div>
                         <div class="form-group">
                             <label>VAT</label>
@@ -142,7 +146,7 @@
                         </div>
                         <div class="form-group">
                             <label>VAT Ammount</label>
-                            <input type="text" class="form-control" ng-model="invoice.vatamount" />
+                            <input type="text" class="form-control" ng-model="invoice.vatAmount" />
                         </div>
                         <div class="form-group">
                             <label>Total</label>
@@ -151,20 +155,23 @@
                         <!--Dodati select dropdown za shippera-->
                         <div class="form-group">
                             <label>Shipper</label>
-                            <input type="text" class="form-control" ng-model="invoice.shipperId" />
+                            <select class="form-control" ng-model="invoice.shipperId"
+                                                         ng-options="shipper.id as shipper.name
+                                                                    for shipper in shippers"><option value="" disabled selected> Select your option </option>
+                            </select>
                         </div>
-                        <!--Dodati select dropdown za agenta-->
                         <div class="form-group">
                             <label>Agent</label>
                             <select class="form-control" ng-model="invoice.agentId"
-                                            ng-options="agent.id as agent.name
-                                            for agent in agents"></select>
+                                                         ng-options="agent.id as agent.name
+                                                                    for agent in agents"><option value="" disabled selected> Select your option </option>
+                            </select>
                         </div>
                         <!--Dodati select dropdown za customera-->
                         <div class="form-group">
                             <label>Customer</label>
-                            <div><input type="text" class="form-control" ng-model="invoice.customer" ng-change="autocomplete(invoice.customer)" ng-keyup="textUp($event)"></div>
-                            <select class="form-control" id="custsel" data-style="btn-primary" ng-model="invoice.customerId" ng-options="customer.id as customer.name for customer in customers" ng-keypress="townSelected($event)"></select>
+                            <div><input type="text" class="form-control" placeholder="See suggestions as you type" ng-model="invoice.customer" ng-change="autocomplete(invoice.customer)" ng-keyup="textUp($event)"></div>
+                            <select class="form-control" id="custsel" data-style="btn-primary" ng-model="invoice.customerId" ng-options="customer.id as customer.name for customer in customers" ng-keypress="customerSelected($event)"></select>
                              
                         </div>
                         <div class="form-group">
@@ -208,10 +215,10 @@
         </div>
         <div class="form-group pull-left">
             <select class="form-control" ng-model="sort">
+                    <option value="" disabled selected>Sort by</option>
                     <option value="id">Id</option>
-                    <option value="+name">Name asc</option>
-                    <option value="-name">Name dsc</option>
-                    <option value="total">Total</option>
+                    <option value="-total">Total dsc</option>
+                    <option value="+total">Total asc</option>
             </select>
         </div>
     </div>
