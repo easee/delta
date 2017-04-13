@@ -69,9 +69,8 @@
                         </div>
                         <div class="form-group">
                             <label>Customer</label>
-                            <div><input type="text" class="form-control" placeholder="See suggestions as you type" ng-model="invoice.customer" ng-change="autocomplete(invoice.customer)" ng-keyup="textUp($event)"></div>
+                            <div><input type="text" class="form-control" ng-model="invoice.customer" ng-change="autocomplete(invoice.customer)" ng-keyup="textUp($event)"></div>
                             <select class="form-control" id="custsel" data-style="btn-primary" ng-model="invoice.customerId" ng-options="customer.id as customer.name for customer in customers" ng-keypress="customerSelected($event)"></select>
-                             
                         </div>
                         <div class="form-group">
                             <label>Shipping costs</label>
@@ -169,7 +168,7 @@
                         <!--Dodati select dropdown za customera-->
                         <div class="form-group col-xs-4">
                             <label>Customer</label>
-                            <div><input type="text" class="form-control" placeholder="See suggestions as you type" ng-model="invoice.customer" ng-change="autocomplete(invoice.customer)" ng-keyup="textUp($event)"></div>
+                            <div><input type="text" class="form-control" ng-model="invoice.customer" ng-change="autocomplete(invoice.customer)" ng-keyup="textUp($event)"></div>
                             <select class="form-control" id="custsel" data-style="btn-primary" ng-model="invoice.customerId" ng-options="customer.id as customer.name for customer in customers" ng-keypress="customerSelected($event)"></select>
                         </div>
 
