@@ -85,7 +85,6 @@
                             <label>Town</label>
                             <div><input type="text" class="form-control" placeholder="See suggestions as you type" ng-model="customer.town" ng-change="autocomplete(customer.town)" ng-keyup="textUp($event)"></div>
                             <select class="form-control" id="townsel" data-style="btn-primary" ng-model="customer.townId" ng-options="town.id as town.name for town in towns" ng-keypress="townSelected($event)"></select>
-                             
                         </div>
                     </form>
                 </div>
