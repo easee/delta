@@ -48,8 +48,8 @@ table.auto
 .profile {
     cursor: pointer;
 }
-.modal-dialog{
-    width: 90%;
+.modal.custom .modal-dialog {
+    width: 70%;
 }
 /*
 .bgimg {
