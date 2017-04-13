@@ -9,10 +9,10 @@ using System.Web.Http;
 namespace Billing.Api.Controllers
 {
     [TokenAuthorization("user")]
-    [RoutePrefix("api/inventory")]
+    [RoutePrefix("api/productsbycategory")]
     public class ProductsByCategoryController : BaseController
     {
-        [Route("{id}")]
+        [Route("{id:int}")]
         public IHttpActionResult Get(int id)
         {
             try

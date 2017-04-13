@@ -17,6 +17,7 @@ namespace Billing.Api.Reports
 
         public SalesByAgentModel Report(RequestModel Request)
         {
+            if (Request.EndDate <= Request.StartDate) throw new Exception("Incorrect Date");
             List<Invoice> Invoices = UnitOfWork.Invoices.Get().Where(x => x.Date >= Request.StartDate && x.Date <= Request.EndDate).ToList();
             List<Invoice> InvoicesOfAgent = UnitOfWork.Invoices.Get().Where(x => x.Date >= Request.StartDate && x.Date <= Request.EndDate && x.Agent.Id == Request.Id).ToList();
             double grandTotal = Math.Round(Invoices.Sum(x => x.SubTotal), 2);

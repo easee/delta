@@ -16,6 +16,7 @@ namespace Billing.Api.Reports
         public InvoiceReviewPopupModel Report(int id)
         {
             Invoice Invoice = UnitOfWork.Invoices.Get(id);
+            if (Invoice == null) throw new Exception("Invoice not found");
             InvoiceReviewPopupModel result = new InvoiceReviewPopupModel
             {
                 InvoiceNo = Invoice.InvoiceNo,
