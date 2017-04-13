@@ -68,8 +68,15 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="ReportTests\TestCustomersByCategory.cs" />
     <Compile Include="ReportTests\TestCrossAgent.cs" />
     <Compile Include="ReportTests\TestDashboardController.cs" />
+    <Compile Include="ReportTests\TestInvoicesReview.cs" />
+    <Compile Include="ReportTests\TestProductsByCategory.cs" />
+    <Compile Include="ReportTests\TestSalesByAgent.cs" />
+    <Compile Include="ReportTests\TestSalesByCategory.cs" />
+    <Compile Include="ReportTests\TestSalesByCustomer.cs" />
+    <Compile Include="ReportTests\TestSalesByProduct.cs" />
     <Compile Include="ReportTests\TestSalesbyRegion.cs" />
     <Compile Include="TestAgentController.cs" />
     <Compile Include="TestCategoriesController.cs" />
