@@ -14,11 +14,34 @@
 
         //UPDATE INVOICE
         $scope.save = function(){
-            if($scope.invoice.id == 0)
-                DataService.insert("invoices", $scope.invoice, function(data){ ListInvoices();} );
+            if($scope.invoice.id == 0) {
+                DataService.insert("invoices", $scope.invoice, function(data){ ListInvoices();} ); 
+                //DataService.insert("items", $scope.invoice.items, function(data){ ListInvoices();} ); 
+            }
             else
-                DataService.update("invoices", $scope.invoice.id, $scope.invoice, function(data){ListInvoices();});
+            DataService.update("invoices", $scope.invoice.id, $scope.invoice, function(data){ListInvoices();});
         };
+
+        //SAVING ITEM IN MODAL
+        $scope.saveItem = function(){
+            if($scope.item.id == 0) {
+                DataService.insert("items", $scope.item, function(data){ ListInvoices();} ); 
+                //DataService.insert("items", $scope.invoice.items, function(data){ ListInvoices();} ); 
+            }
+            else
+            DataService.update("items", $scope.item.id, $scope.item, function(data){ListInvoices();});
+        };
+            //HARDCODE DEFINING ITEM
+            $scope.newItem = function(){
+                $scope.item = {
+                    id: 0,
+                    productId: 2,
+                    quantity: 2,
+                    price: 0,
+                    invoiceId: 2
+                }
+            };
+
         //CREATE NEW INVOICE
         $scope.new = function(){
             $scope.invoice = {
@@ -35,11 +58,41 @@
                 agentId: 0,
                 customers: [],
                 shipping: 0,
-                items: []
+        //START OF ITEM SECTION IN MODAL
+                items: [{
+                    id: 0,
+                    productId: 3,
+                    quantity: 3,
+                    price: 0,
+                    invoiceId: 3,
+                }]
             };
             document.getElementById('custsel').style.visibility = 'hidden';
             $scope.showInvoices = true;
+
+                $scope.add = function () {
+                $scope.invoice.items.push({
+                    productId: 0,
+                    quantity: 4,
+                    price: 0,
+                    invoiceId: 4,
+                });
+            };
+
+            $scope.remove = function (index) {
+                    $scope.invoice.items.splice(index, 1);
+                },
+
+            $scope.total = function () {
+                    var total = 0;
+                    angular.forEach($scope.invoice.items, function (item) {
+                        total += item.quantity * item.price;
+                    })
+                    return total;
+                }
+            
         };
+        //END OF ITEM SECTION IN MODAL
 
         
         
