@@ -62,8 +62,6 @@
                         }
                         $rootScope.currentUser = credentials.currentUser.name;
                         $rootScope.username = credentials.currentUser.username;
-                        console.log(credentials);
-                        console.log($rootScope.username);
                         $location.path(redirectTo);
                     },
                     function(reason){

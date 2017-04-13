@@ -25,7 +25,7 @@
                 id: 0,
                 invoiceNo: "",
                 date: new Date(),
-                shippedOn: new Date(),
+                shippedOn: null,
                 status: 0,
                 subTotal: 0,
                 vat: 0,
@@ -69,6 +69,16 @@
         $scope.getKey = function (status) {
             return Object.keys(status)[0];
         }
+
+        //LIST/GET ALL ITEMS
+        function getItems(name){
+            DataService.list("items/" + name, function(data){ $scope.items = data});
+        };
+
+        //LIST/GET ALL PRODUCTS
+        function getProducts(name){
+            DataService.list("products/" + name, function(data){ $scope.products = data});
+        };
 
         //LIST/GET ALL SHIPPERS
         function getShippers(name){

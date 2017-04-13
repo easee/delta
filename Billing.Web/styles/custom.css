@@ -49,4 +49,8 @@ table.auto
     cursor: pointer;
 }
 
+.modal-dialog{
+    width: 90%;
+}
+
 
