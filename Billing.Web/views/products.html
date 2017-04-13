@@ -1,4 +1,5 @@
-<div>
+
+   <div>
     <!-- EDIT Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" ng-show="showProduct">
@@ -163,6 +164,12 @@
     <div class="alert alert-info" ng-show="(products | filter:select).length == 0">
         <strong>Hello Talent!</strong> No results for your search. Watch your fingers. 
     </div>
+<div>
     <!--PAGINATION-->
-    Page: <b>{{currentPage}}</b>
+    <div class="text-center">
+    <button class="btn btn" ng-click="goto(page)">First</button>
+    <ul class="pagination" ng-repeat="page in pages" ><button class="btn btn-default" ng-click="goto(page)" >{{page}}</button></ul>
+    <button class="btn btn" ng-click="goto(totalPages)">Last</button>
+    </div>
+</div>
 </div>
