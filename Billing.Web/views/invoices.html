@@ -1,7 +1,7 @@
 <div>
     <!-- EDIT Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" ng-show="showInvoice">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
@@ -95,7 +95,7 @@
 
 
         <!-- NEW INVOICE DIV -->
-    <div class="modal fade" id="myModalNew" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade custom" id="myModalNew" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <!-- Modal Header -->
@@ -201,7 +201,7 @@
                                     <td><input type="number" ng-model="item.quantity" class="form-control" /></td>
                                     <td><input type="number" ng-model="item.price" class="form-control" /></td>
                                     <td>{{item.quantity * item.price}} €</td>
-                                    <td><button type="button" class="btn btn-danger" ng-click="remove($index)">Delete</button></td>
+                                    <td><button type="button" class="btn btn-danger" ng-click="remove($index)"><i class="fa fa-remove" aria-hidden="true" </i></button></td>
                                     </tr>
                                     <tr>
                                     <td><button type="button" class="btn btn-info" ng-click="add()">Add item</button></td>
