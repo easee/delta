@@ -35,7 +35,9 @@
                         </div>
                         <div class="form-group">
                             <label>Category</label>
-                            <input type="text" class="form-control" ng-model="product.category" />
+                            <select class="form-control" ng-model="product.categoryId"
+                                            ng-options="category.id as category.name
+                                            for category in categories"></select>
                         </div>
                     </form>
                 </div>
@@ -91,7 +93,7 @@
                             <label>Category</label>
                             <select class="form-control" ng-model="product.categoryId"
                                             ng-options="category.id as category.name
-                                            for category in categories"></select>
+                                            for category in categories"><option value="" disabled selected> Select your option </option></select>
                         </div>
                     </form>
                 </div>
@@ -124,10 +126,12 @@
         </div>
         <div class="form-group pull-left">
             <select class="form-control" ng-model="sort">
+                    <option value="" disabled selected>Sort by</option>
                     <option value="id">Id</option>
                     <option value="+name">Name asc</option>
                     <option value="-name">Name dsc</option>
-                    <option value="price">Price</option>
+                    <option value="+price">Price asc</option>
+                    <option value="-price">Price dsc</option>
             </select>
         </div>
     </div>

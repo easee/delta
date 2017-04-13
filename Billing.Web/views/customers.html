@@ -83,7 +83,7 @@
                         </div>
                         <div class="form-group">
                             <label>Town</label>
-                            <div><input type="text" class="form-control" ng-model="customer.town" ng-change="autocomplete(customer.town)" ng-keyup="textUp($event)"></div>
+                            <div><input type="text" class="form-control" placeholder="See suggestions as you type" ng-model="customer.town" ng-change="autocomplete(customer.town)" ng-keyup="textUp($event)"></div>
                             <select class="form-control" id="townsel" data-style="btn-primary" ng-model="customer.townId" ng-options="town.id as town.name for town in towns" ng-keypress="townSelected($event)"></select>
                              
                         </div>
@@ -118,6 +118,7 @@
         </div>
         <div class="form-group pull-left">
             <select class="form-control" ng-model="sort">
+                    <option value="" disabled selected>Sort by</option>
                     <option value="id">Id</option>
                     <option value="+name">Name asc</option>
                     <option value="-name">Name dsc</option>

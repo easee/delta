@@ -15,7 +15,8 @@ namespace Billing.Api.Models
         public string InvoiceNo { get; set; }
         public DateTime Date { get; set; }
         public DateTime ShippedOn { get; set; }
-        public int Status { get; set; }
+        public string Status { get; set; }
+        public int StatusId { get; set; }
         public double SubTotal { get; set; }
         public double Vat { get; set; }
         public double VatAmount { get; set; }
