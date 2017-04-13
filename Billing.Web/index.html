@@ -8,7 +8,6 @@
     <meta name="author" content="">
     <title>Billing | Delta Inc.</title>
     <link rel="stylesheet" href="styles/bootstrap.min.css">
-    <link rel="stylesheet" href="styles/custom.css">
     <link rel="stylesheet" href="styles/sidebar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" class="rel">
     <script src="library/angular.min.js"></script>
@@ -29,7 +28,7 @@
     <script src="scripts/controllers/InvoicesCtrl.js"></script>
     <script src="scripts/directives/AdminDirective.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.js"></script>
-
+    <link rel="stylesheet" href="styles/custom.css">
 </head>
 <body>
     <nav class="navbar navbar-default no-margin">
@@ -38,11 +37,11 @@
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"  id="menu-toggle">
                       <span class="fa fa-align-justify" aria-hidden="true"></span>
                     </button>
-                    <a class="navbar-brand" href="#"><i class="fa fa-rocket fa-4"></i> Delta</a>
+                    <a class="navbar-brand" href="#" ng-hide="showDash"><i class="fa fa-drupal fa-4"></i> Delta</a>
                 </div><!-- navbar-header-->
                 <td>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            <ul class="nav navbar-nav">
+                            <ul class="nav navbar-nav" ng-hide="showDash">
                                 <li class="active" ><button class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle-2"> <span class="fa fa-align-justify" aria-hidden="true"></span></button></li>                                
 <!-- User profile dropdown start -->
                 <li class="profile dropdown pull-right" ng-show="currentUser">
@@ -71,7 +70,7 @@
     </nav>
     <div id="wrapper">
         <!-- Sidebar -->
-        <div id="sidebar-wrapper">
+        <div id="sidebar-wrapper" ng-hide="showDash">
             <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
                 <li class="active">
                     <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-pie-chart fa-stack-1x "></i></span> Dashboard</a>

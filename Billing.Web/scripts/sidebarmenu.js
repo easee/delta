@@ -24,6 +24,6 @@ $("#menu-toggle").click(function(e) {
             return false;
             }
           }
-        );
+        ); 
       }
     $(document).ready(function() {initMenu();});

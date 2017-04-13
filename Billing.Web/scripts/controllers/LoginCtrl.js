@@ -4,6 +4,7 @@
         function($scope, $rootScope, $http, $location, LoginService, localStorageService) {
             $http.get("config.json").then(
                 function(response){
+                    
                     BillingConfig = response.data;
                     $scope.debug = BillingConfig.debugMode;
                     var remToken = localStorageService.get('MistralBilling');
@@ -23,8 +24,9 @@
                                 var expireDate = (new Date());
                                 expireDate.setDate(expireDate.getDate() + 30);
                                 localStorageService.set('MistralBilling', credentials.remember, { 'expired': expireDate });
-                                $rootScope.currentUser = credentials.currentUser.name;
+                                $rootScope.currentUser = credentials.currentUser.name; 
                                 $location.path(redirectTo);
+                                $rootScope.showDash = false;
                             },
                             function(reason){
                                 console.log(reason);
@@ -37,8 +39,11 @@
             $scope.loginAs = function(username){
                 $scope.user = { name : username, pass : "billing", remember: true };
                 $scope.login();
+                $rootScope.showDash = false;
+                $rootScope.buttonPressed = true;
             };
-
+            $rootScope.showDash = true;
+            $rootScope.btn = true;
             $rootScope.username = credentials.currentUser.username;
             $scope.login = function() {
                 var userData = LoginService.encode($scope.user.name + ":" + $scope.user.pass);
@@ -63,6 +68,7 @@
                         $rootScope.currentUser = credentials.currentUser.name;
                         $rootScope.username = credentials.currentUser.username;
                         $location.path(redirectTo);
+                        $rootScope.showDash = false;
                     },
                     function(reason){
                         credentials.currentUser.id = 0;
