@@ -132,7 +132,7 @@
                         
                         <div class="form-group col-xs-4">
                             <label>Sub Total</label>
-                            <input type="number" class="form-control" ng-model="invoice.subTotal" />
+                            <input type="number" class="form-control" ng-model="invoice.subTotal" ng-disabled="true" />
                         </div>
                         <div class="hidden">
                             <label>VAT</label>
@@ -199,7 +199,7 @@
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="item in invoice.items">
-                                    <td><input type="text" ng-model="item.product" class="form-control" /></td>
+                                    <td><input type="text" class="form-control" ng-model="selectedProduct" bs-options="product for product in products" placeholder="Enter product" bs-typeahead></td>
                                     <td><input type="number" ng-model="item.quantity" class="form-control" /></td>
                                     <td><input type="number" ng-model="item.price" class="form-control" /></td>
                                     <td>{{item.quantity * item.price}} €</td>
@@ -266,7 +266,7 @@
                 <th><i class="fa fa-cube" aria-hidden="true"></i> Shipped On</th>
                 <th><i class="fa fa-bell" aria-hidden="true"></i> Status</th>
                 <th><i class="fa fa-truck" aria-hidden="true"></i> Shipper</th>
-                <th><i class="fa fa-cube" aria-hidden="true"></i> Total</th>
+                <th><i class="fa fa-money" aria-hidden="true"></i> Total</th>
                 <th>EDIT</th>
                 <th>DELETE</th>
             </tr>
