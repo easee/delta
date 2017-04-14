@@ -68,6 +68,7 @@
                 }]
             };
             document.getElementById('custsel').style.visibility = 'hidden';
+            document.getElementById('custsel1').style.visibility = 'hidden';
             $scope.showInvoices = true;
 
                 $scope.add = function () {
@@ -151,6 +152,7 @@
         //ARROW DOWN EVENT SO IT COULD FOCUS ON DROPDOWN
         $scope.textUp = function(keyEvent){
                 if(keyEvent.key == "ArrowDown") document.getElementById('custsel').focus();
+                if(keyEvent.key == "ArrowDown") document.getElementById('custsel1').focus();
             };
 
         $scope.customerSelected = function(keyEvent){
@@ -159,6 +161,7 @@
                         if($scope.customers[i].id === $scope.invoice.customerId){
                             $scope.invoice.customer = $scope.customers[i].name;
                             document.getElementById('custsel').style.visibility = 'hidden';
+                            document.getElementById('custsel1').style.visibility = 'hidden';
                             break;
                         }
                     }
@@ -170,10 +173,15 @@
                 if (autoStr.length >= 3){ //reaguje samo kada ima 3 ili više slova uneseno
                     getCustomers(autoStr);
                     document.getElementById('custsel').style.visibility = 'visible';//Otkrivamo combobox
+                    document.getElementById('custsel1').style.visibility = 'visible';//Otkrivamo combobox
+
                     document.getElementById('custsel').size = 8;
+                    document.getElementById('custsel1').size = 8;
+
                 }
                 else {
                     document.getElementById('custsel').style.visibility = 'hidden';
+                    document.getElementById('custsel1').style.visibility = 'hidden';
                 }
             };
     }]);
