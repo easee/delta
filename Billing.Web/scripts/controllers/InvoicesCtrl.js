@@ -74,7 +74,7 @@
                 $scope.add = function () {
                 $scope.invoice.items.push({
                     productId: 0,
-                    quantity: 4,
+                    quantity: 1,
                     price: 0,
                     invoiceId: 4,
                 });
@@ -123,6 +123,26 @@
         $scope.getKey = function (status) {
             return Object.keys(status)[0];
         }
+
+        //TYPEAHEAD START
+        $scope.selectedProduct = "";
+        $scope.products = ["Monitor 24 AOC 2481FXH",
+                         "Asus RT-N16", 
+                         "HP Color LaserJet M252dw", 
+                         "SSD Transcend 128G", 
+                         "Samsung Galaxy A3", 
+                         "SSD Kingston 120G", 
+                         "Cisco Switch WS-C2960"
+                         ];
+                         
+        app.config(function($typeaheadProvider) {
+            angular.extend($typeaheadProvider.defaults, {
+              animation: 'am-flip-x',
+              minLength: 2,
+              limit: 8
+            });
+          })
+
 
         //LIST/GET ALL ITEMS
         function getItems(name){
