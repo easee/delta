@@ -19,12 +19,13 @@ namespace Billing.Api.Controllers
             int PageSize = 8;
             var query = UnitOfWork.Products.Get().OrderBy(x => x.Id).ToList();
             int TotalPages = (int)Math.Ceiling((double)query.Count() / PageSize);
-
+            
             var returnObject = new
             {
                 pageSize = PageSize,
                 currentPage = page,
                 totalPages = TotalPages,
+                size=query.Count,
                 productsList = query.Skip(PageSize * page).Take(PageSize).Select(x => Factory.Create(x)).ToList()
             };
             return Ok(returnObject);

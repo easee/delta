@@ -14,6 +14,7 @@ namespace Billing.Api.Controllers
     [RoutePrefix("api/invoices")]
     public class InvoicesController : BaseController
     {
+
         [Route("")]
         public IHttpActionResult Get()
         {
