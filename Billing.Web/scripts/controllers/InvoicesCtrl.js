@@ -1,10 +1,12 @@
 (function(){
-    app.controller("InvoicesCtrl", ['$scope', 'DataService',  function($scope, DataService) {
+    app.controller("InvoicesCtrl", ['$scope', 'DataService',  function($scope, DataService, $http) {
         $scope.showInvoice = false;
         getShippers('');
         getAgents('');
         getCustomers('');
         ListInvoices();
+        //getProduct();
+        
 
         //READ AND EDIT INVOICES
         $scope.edit = function(currentInvoice){
@@ -95,6 +97,37 @@
         };
         //END OF ITEM SECTION IN MODAL
 
+
+        //TYPEAHEAD PRODUCTS
+        var _selected;
+        $scope.selected = undefined;
+
+        $scope.getProduct = function (name) {
+            return $http.get('http://localhost:9000/api/products/' + name).then(function (response) {
+                return response.data;
+            });
+        };
+
+        // $scope.getProducts = function (name){
+        //     DataService.list("products/" + name, function(data){ $scope.products = data});
+        // };
+
+        $scope.ngModelOptionsSelected = function (value) {
+            if (arguments.length) {
+                _selected = value;
+            } else {
+                return _selected;
+            }
+        };
+
+        $scope.modelOptions = {
+            debounce: {
+                default: 500,
+                blur: 250
+            },
+            getterSetter: true
+        };
+        //END OF TYPEAHEAD
         
         
         //DELETE INVOICE
@@ -124,34 +157,29 @@
             return Object.keys(status)[0];
         }
 
-        //TYPEAHEAD START
-        $scope.selectedProduct = "";
-        $scope.products = ["Monitor 24 AOC 2481FXH",
-                         "Asus RT-N16", 
-                         "HP Color LaserJet M252dw", 
-                         "SSD Transcend 128G", 
-                         "Samsung Galaxy A3", 
-                         "SSD Kingston 120G", 
-                         "Cisco Switch WS-C2960"
-                         ];
+        // //TYPEAHEAD START
+        // $scope.selectedProduct = "";
+        // $scope.products = ["Monitor 24 AOC 2481FXH",
+        //                  "Asus RT-N16", 
+        //                  "HP Color LaserJet M252dw", 
+        //                  "SSD Transcend 128G", 
+        //                  "Samsung Galaxy A3", 
+        //                  "SSD Kingston 120G", 
+        //                  "Cisco Switch WS-C2960"
+        //                  ];
                          
-        app.config(function($typeaheadProvider) {
-            angular.extend($typeaheadProvider.defaults, {
-              animation: 'am-flip-x',
-              minLength: 2,
-              limit: 8
-            });
-          })
+        // app.config(function($typeaheadProvider) {
+        //     angular.extend($typeaheadProvider.defaults, {
+        //       animation: 'am-flip-x',
+        //       minLength: 2,
+        //       limit: 8
+        //     });
+        //   })
 
 
         //LIST/GET ALL ITEMS
         function getItems(name){
             DataService.list("items/" + name, function(data){ $scope.items = data});
-        };
-
-        //LIST/GET ALL PRODUCTS
-        function getProducts(name){
-            DataService.list("products/" + name, function(data){ $scope.products = data});
         };
 
         //LIST/GET ALL SHIPPERS

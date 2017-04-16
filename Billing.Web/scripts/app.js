@@ -1,6 +1,6 @@
 (function(){
     
-    app = angular.module("Billing", ["ngRoute", "LocalStorageModule", "ui.bootstrap","mgcrea.ngStrap"]);
+    app = angular.module("Billing", ["ngRoute", "LocalStorageModule", "ui.bootstrap", "ngSanitize"]);
     
     credentials = {
         token: "",
