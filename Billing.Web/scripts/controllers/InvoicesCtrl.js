@@ -22,32 +22,18 @@
             else
             DataService.update("invoices", $scope.invoice.id, $scope.invoice, function(data){ListInvoices();});
         };
-
-        // //SAVING ITEM IN MODAL
-        // $scope.saveItem = function(){
-        //     if($scope.item.id == 0) 
-        //         DataService.insert("items", $scope.item, function(data){ ListInvoices();} );
-        //     else
-        //     DataService.update("items", $scope.item.id, $scope.item, function(data){ListInvoices();});
-        // };
-        //     //HARDCODE DEFINING ITEM
-        //     $scope.newItem = function(){
-        //         $scope.item = {
-        //             id: 0,
-        //             productId: 2,
-        //             quantity: 2,
-        //             price: 0,
-        //             invoiceId: 2
-        //         }
-        //     };
-
+        
         //CREATE NEW INVOICE
+        var dbase = new Date();
+        var invGenNum = dbase.valueOf(); //Generate invoice number
+        var currentDate = new Date();
+        var dateShipped =  new Date(new Date(currentDate).setDate(currentDate.getDate() + 5)); // Set default shipping date to current + 5 days.
         $scope.new = function(){
             $scope.invoice = {
                 id: 0,
-                invoiceNo: "",
+                invoiceNo: invGenNum,
                 date: new Date(),
-                shippedOn: null,
+                shippedOn: dateShipped,
                 status: 0,
                 subTotal: 0,
                 vat: 0,
@@ -65,9 +51,9 @@
                 $scope.add = function () {
                 $scope.invoice.items.push({
                     productId: 0,
-                    quantity: 4,
-                    price: 4,
-                    invoiceId: 4,
+                    quantity: 0,
+                    price: 0,
+                    invoiceId: 0,
                 });
             };
 
