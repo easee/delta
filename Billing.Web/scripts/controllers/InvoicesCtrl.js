@@ -16,6 +16,7 @@
 
         //UPDATE INVOICE
         $scope.save = function(){
+            console.log($scope.invoice);
             if($scope.invoice.id == 0)
                 DataService.insert("invoices", $scope.invoice, function(data){ ListInvoices();} );
             else
@@ -57,7 +58,7 @@
                 customers: [],
                 shipping: 0,
         //START OF ITEM SECTION IN MODAL
-                items: [/*{id: 0, productId: 3, quantity: 3, price: 0, invoiceId: 0}*/] 
+                items: [] 
             };
             $scope.showInvoices = true;
 
