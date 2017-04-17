@@ -1,5 +1,5 @@
 (function(){
-    app.controller("InvoicesCtrl", ['$scope', 'DataService',  function($scope, DataService, $http) {
+    app.controller("InvoicesCtrl", ['$scope', 'DataService', '$http',  function($scope, DataService, $http) {
         $scope.showInvoice = false;
         getShippers('');
         getAgents('');
@@ -107,10 +107,6 @@
                 return response.data;
             });
         };
-
-        // $scope.getProducts = function (name){
-        //     DataService.list("products/" + name, function(data){ $scope.products = data});
-        // };
 
         $scope.ngModelOptionsSelected = function (value) {
             if (arguments.length) {
