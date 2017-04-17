@@ -3,12 +3,12 @@
     app.controller("LoginCtrl", ['$scope', '$rootScope', '$http', '$location', 'LoginService', 'localStorageService',
         function($scope, $rootScope, $http, $location, LoginService, localStorageService) {
             $http.get("config.json").then(
-                function(response){
-                    
+                function(response) {
+
                     BillingConfig = response.data;
                     $scope.debug = BillingConfig.debugMode;
                     var remToken = localStorageService.get('MistralBilling');
-                    if(remToken != null){
+                    if (remToken != null) {
                         var promise = $http({
                             method: "post",
                             url: BillingConfig.source + "remember",
@@ -19,25 +19,26 @@
                             }
                         });
                         promise.then(
-                            function(response){
+                            function(response) {
                                 credentials = response.data;
                                 var expireDate = (new Date());
                                 expireDate.setDate(expireDate.getDate() + 30);
                                 localStorageService.set('MistralBilling', credentials.remember, { 'expired': expireDate });
-                                $rootScope.currentUser = credentials.currentUser.name; 
+                                $rootScope.currentUser = credentials.currentUser.name;
                                 $location.path(redirectTo);
                                 $rootScope.showDash = false;
                             },
-                            function(reason){
+                            function(reason) {
                                 console.log(reason);
                             })
                     }
-                },  function(reason){
+                },
+                function(reason) {
                     console.log(reason);
                 });
 
-            $scope.loginAs = function(username){
-                $scope.user = { name : username, pass : "billing", remember: true };
+            $scope.loginAs = function(username) {
+                $scope.user = { name: username, pass: "billing", remember: true };
                 $scope.login();
                 $rootScope.showDash = false;
                 $rootScope.buttonPressed = true;
@@ -60,7 +61,7 @@
                 promise.then(
                     function(response) {
                         credentials = response.data;
-                        if ($scope.user.remember){
+                        if ($scope.user.remember) {
                             var expireDate = (new Date());
                             expireDate.setDate(expireDate.getDate() + 30);
                             localStorageService.set('MistralBilling', credentials.remember, { 'expired': expireDate });
@@ -70,7 +71,7 @@
                         $location.path(redirectTo);
                         $rootScope.showDash = false;
                     },
-                    function(reason){
+                    function(reason) {
                         credentials.currentUser.id = 0;
                         $location.path("/login");
                     });
@@ -86,12 +87,12 @@
             async: false
         });
         request.then(
-            function (response) {
+            function(response) {
                 localStorageService.clearAll("MistralBilling");
                 window.location.reload();
                 return true;
             },
-            function (reason) {
+            function(reason) {
                 return false;
             });
     }]);
