@@ -292,7 +292,17 @@ namespace Billing.Api.Models
         
         public Invoice Create(InvoiceModel model)
         {
-          
+            List<Item> TempItems = new List<Item>();
+            foreach (var item in model.Items)
+            {
+                var product = _unitOfWork.Products.Get(item.ProductId);
+                TempItems.Add(new Item()
+                {
+                    Product = product,
+                    Price = item.Price,
+                    Quantity = item.Quantity
+                });
+            }
             return new Invoice()
             { 
                 Id =model.Id,
@@ -301,6 +311,7 @@ namespace Billing.Api.Models
                 ShippedOn = model.ShippedOn,
                 Status = (Status)model.StatusId,
                 Vat = model.Vat,
+                Items = TempItems,
                 Shipping = model.Shipping,
                 Customer = _unitOfWork.Customers.Get(model.CustomerId),
                 Agent = _unitOfWork.Agents.Get(model.AgentId),
