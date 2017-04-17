@@ -36,8 +36,7 @@
                         <!--Dodati select dropdown za statuse-->
                         <div class="form-group">
                             <label>Status</label>
-                            <select class="form-control "id="statuses" name="statuses" ng-model="invoice.status" 
-                            ng-options="getKey(status) as status[getKey(status)] for status in statuses"><option value="" selected>{{invoice.status}}</option></select>
+                            <select class="form-control " id="statuses" name="statuses" ng-model="invoice.status" ng-options="getKey(status) as status[getKey(status)] for status in statuses"><option value="" selected>{{invoice.status}}</option></select>
                         </div>
                         <div class="form-group">
                             <label>Sub Total</label>
@@ -57,14 +56,12 @@
                         </div>
                         <div class="form-group">
                             <label>Shipper</label>
-                            <select class="form-control" ng-model="invoice.shipperId"
-                                                         ng-options="shipper.id as shipper.name
+                            <select class="form-control" ng-model="invoice.shipperId" ng-options="shipper.id as shipper.name
                                                                     for shipper in shippers"></select>
                         </div>
                         <div class="form-group">
                             <label>Agent</label>
-                            <select class="form-control" ng-model="invoice.agentId"
-                                            ng-options="agent.id as agent.name
+                            <select class="form-control" ng-model="invoice.agentId" ng-options="agent.id as agent.name
                                             for agent in agents"></select>
                         </div>
                         <div class="form-group">
@@ -94,7 +91,7 @@
     <!--End of Modal-->
 
 
-        <!-- NEW INVOICE DIV -->
+    <!-- NEW INVOICE DIV -->
     <div class="modal fade custom" id="myModalNew" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -110,7 +107,7 @@
                 </div>
 
                 <!-- Modal Body -->
-                <div class="modal-body"> 
+                <div class="modal-body">
                     <form role="form">
                         <div class="form-group">
                             <label class="hidden">ID</label>
@@ -129,7 +126,7 @@
                             <input type="date" class="form-control" ng-model="invoice.shippedOn" />
                         </div>
                         <!--Dodati select dropdown za statuse-->
-                        
+
                         <div class="form-group col-xs-4">
                             <label>Sub Total</label>
                             <input type="number" class="form-control" ng-model="invoice.subTotal" readonly="readonly" />
@@ -153,31 +150,28 @@
                         <!--Dodati select dropdown za shippera-->
                         <div class="form-group col-xs-4">
                             <label>Shipper</label>
-                            <select class="form-control" ng-model="invoice.shipperId"
-                                                         ng-options="shipper.id as shipper.name
+                            <select class="form-control" ng-model="invoice.shipperId" ng-options="shipper.id as shipper.name
                                                                     for shipper in shippers"><option value="" disabled selected> Select your option </option>
                             </select>
                         </div>
                         <div class="form-group col-xs-4">
                             <label>Agent</label>
-                            <select class="form-control" ng-model="invoice.agentId"
-                                                         ng-options="agent.id as agent.name
+                            <select class="form-control" ng-model="invoice.agentId" ng-options="agent.id as agent.name
                                                                     for agent in agents"><option value="" disabled selected> Select your option </option>
                             </select>
                         </div>
                         <!--Dodati select dropdown za customera-->
                         <div class="form-group col-xs-4">
                             <label>Customer</label>
-                                          <div>
-                                           <input type="text" class="form-control" ng-model="invoice.customer" ng-change="autocomplete(invoice.customer)" ng-keyup="textUp($event)">
+                            <div>
+                                <input type="text" class="form-control" ng-model="invoice.customer" ng-change="autocomplete(invoice.customer)" ng-keyup="textUp($event)">
                             </div>
                             <select class="form-control" id="custsel1" data-style="btn-primary" ng-model="invoice.customerId" ng-options="customer.id as customer.name for customer in customers" ng-keypress="customerSelected($event)"></select>
                         </div>
 
                         <div class="form-group col-xs-4">
                             <label>Status</label>
-                            <select class="form-control" id="statuses" name="statuses" ng-model="invoice.status" 
-                            ng-options="getKey(status) as status[getKey(status)] for status in statuses"><option value="" disabled selected> Select your option </option></select>
+                            <select class="form-control" id="statuses" name="statuses" ng-model="invoice.status" ng-options="getKey(status) as status[getKey(status)] for status in statuses"><option value="" disabled selected> Select your option </option></select>
                         </div>
 
                         <!--Here starts Typeahead for product-->
@@ -190,44 +184,44 @@
                         </div>
 
                         </div>-->
-                        
+
                         <!--<div class="form-group">
                             <label>Town</label>
                             <div><input type="text" class="form-control" ng-model="customer.town" ng-change="autocomplete(customer.town)" ng-keyup="textUp($event)"></div>
                             <select class="form-control" id="townsel" data-style="btn-primary" ng-model="customer.townId" ng-options="town.id as town.name for town in towns" ng-keypress="townSelected($event)"></select>
                         </div>-->
-                            <div class="container-fluid">
-                            <section class="row" >
+                        <div class="container-fluid">
+                            <section class="row">
                                 <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                    <th>Product</th>
-                                    <th>Qty</th>
-                                    <th>Price</th>
-                                    <th>SubTotal</th>
-                                    <th>Delete</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="item in invoice.items">
-                                    <td><input type="text" ng-model="asyncSelected" placeholder="Enter product" uib-typeahead="product.name for product in getProduct($viewValue)" 
-                            typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control"></td>
-                                    <td><input type="number" ng-model="item.quantity" class="form-control" /></td>
-                                    <td><input type="number" ng-model="item.price" class="form-control" /></td>
-                                    <td>{{item.quantity * item.price}} €</td>
-                                    <td><button type="button" class="btn btn-danger" ng-click="remove($index)"><i class="fa fa-remove" aria-hidden="true" </i></button></td>
-                                    </tr>
-                                    <tr>
-                                    <td><button type="button" class="btn btn-info" ng-click="add()">Add item</button></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>Total : </td>
-                                    <td>{{total()}} €</td>
-                                    </tr>
-                                </tbody>
+                                    <thead>
+                                        <tr>
+                                            <th>Product</th>
+                                            <th>Qty</th>
+                                            <th>Price</th>
+                                            <th>SubTotal</th>
+                                            <th>Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in invoice.items">
+                                            <td><input type="text" ng-model="asyncSelected" placeholder="Enter product" uib-typeahead="product.name for product in getProduct($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults"
+                                                    class="form-control"></td>
+                                            <td><input type="number" ng-model="item.quantity" class="form-control" /></td>
+                                            <td><input type="number" ng-model="item.price" class="form-control" /></td>
+                                            <td>{{item.quantity * item.price}} €</td>
+                                            <td><button type="button" class="btn btn-danger" ng-click="remove($index)"><i class="fa fa-remove" aria-hidden="true" </i></button></td>
+                                        </tr>
+                                        <tr>
+                                            <td><button type="button" class="btn btn-info" ng-click="add()">Add item</button></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>Total : </td>
+                                            <td>{{total()}} €</td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </section>
-                            </div>
+                        </div>
                     </form>
                 </div>
 
@@ -236,7 +230,7 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                             Close
                 </button>
-                <button type="button" class="btn btn-info" ng-click="saveItem()">
+                    <button type="button" class="btn btn-info" ng-click="saveItem()">
                     Save Items
                 </button>
                     <button type="button" onclick="$('.modal').modal('hide')" class="btn btn-primary" ng-click="save()">
@@ -248,15 +242,16 @@
     </div>
     <!--End of CREATE NEW Modal-->
 
-
         <div class="form-group pull-right">
             <td><button type="submit" class="btn btn-sm btn-primary btn-create" data-toggle="modal" ng-click="new()" data-target="#myModalNew"
                     type="submit">
-                    <i class="fa fa-plus" aria-hidden="true" ></i> INVOICE</button></a>
-            </td>
-        </div>
+    <div class="form-group pull-right">
+        <td><button type="submit" class="btn btn-sm btn-primary btn-create" data-toggle="modal" ng-click="new(); newItem()" data-target="#myModalNew" type="submit">
+                    <i class="fa fa-plus" aria-hidden="true" ></i> INVOICE</button>
+        </td>
+    </div>
 
-        <div>
+    <div>
         <div class="form-group pull-left">
             <input type="search" class="search form-control" placeholder="Search as you type" ng-model="select">
         </div>
@@ -269,7 +264,7 @@
             </select>
         </div>
     </div>
-    <table class="table table-striped table-bordered table-list" >
+    <table class="table table-striped table-bordered table-list">
         <thead>
             <tr>
                 <th>ID</th>
@@ -280,7 +275,7 @@
                 <th><i class="fa fa-truck" aria-hidden="true"></i> Shipper</th>
                 <th><i class="fa fa-money" aria-hidden="true"></i> Total</th>
                 <th>EDIT</th>
-                <th>DELETE</th>
+                <th admin-view>DELETE</th>
             </tr>
         </thead>
         <tr ng-repeat="item in invoices | filter:select | orderBy:sort">
@@ -291,11 +286,11 @@
             <td>{{item.status}}</td>
             <td>{{item.shipper}}</td>
             <td>{{item.total}}</td>
-            <td> <a href="" ng-click="edit(item)"><button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal" type="submit"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button></a></td>
+            <td> <a href="" ng-click="edit(item)" admin-view><button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal" type="submit"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button></a></td>
             <td> <a href="" ng-click="delete(item)"><button type="submit" class="btn btn-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true" </i></button></a></td>
         </tr>
     </table>
     <div class="alert alert-info" ng-show="(invoices | filter:select).length == 0">
-        <strong>Hello Talent!</strong> No results for your search. Watch your fingers. 
+        <strong>Hello Talent!</strong> No results for your search. Watch your fingers.
     </div>
 </div>

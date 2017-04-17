@@ -25,7 +25,7 @@
                             <label>Name</label>
                             <input type="text" class="form-control" ng-model="agent.name" />
                         </div>
-                         <div class="form-group">
+                        <div class="form-group">
                             <label>Username</label>
                             <input type="text" class="form-control" ng-model="agent.username" />
                         </div>
@@ -44,7 +44,7 @@
         </div>
     </div>
     <!--End of Modal-->
-        <!-- NEW Agent Modal -->
+    <!-- NEW Agent Modal -->
     <div class="modal fade" id="myModalNew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -89,42 +89,42 @@
     </div>
     <!--End of Modal-->
     <div>
-       
+
         <div class="form-group pull-right">
-        <td> <a href="" ng-click="new()"><button type="submit" class="btn btn-sm btn-primary btn-create" data-toggle="modal" data-target="#myModalNew" type="submit"><i class="fa fa-plus" aria-hidden="true" ></i> AGENT</button></a></td>
+            <td> <a href="" ng-click="new()"><button type="submit" class="btn btn-sm btn-primary btn-create" data-toggle="modal" data-target="#myModalNew" type="submit" admin-view><i class="fa fa-plus" aria-hidden="true" ></i> AGENT</button></a></td>
         </div>
-            <div class="form-group pull-left">
-                <input type="search" class="search form-control" placeholder="Search as you type" ng-model="select">
-            </div>
-                <div class="form-group pull-left">      
-                            <select class="form-control" ng-model="sort">
+        <div class="form-group pull-left">
+            <input type="search" class="search form-control" placeholder="Search as you type" ng-model="select">
+        </div>
+        <div class="form-group pull-left">
+            <select class="form-control" ng-model="sort">
                             <option value="" disabled selected>Sort by</option>
                             <option value="id">Id</option>
                             <option value="+name">Name asc</option>
                             <option value="-name">Name dsc</option>
                             </select>
-                </div>
-        
-            <table class="table table-striped table-bordered table-list">
-                <thead>
-                  <tr>
+        </div>
+
+        <table class="table table-striped table-bordered table-list">
+            <thead>
+                <tr>
                     <th>ID</th>
                     <th><i class="fa fa-address-card" aria-hidden="true"></i> Name</th>
                     <th><i class="fa fa-user" aria-hidden="true"></i> Username</th>
                     <th>Edit</th>
-                    <th>Delete</th>
-                  </tr>
-                </thead>
-                    <tr ng-repeat="item in agents | filter:select | orderBy:sort">
-                    
-                      <td class="col-md-1">{{item.id}}</td>
-                      <td>{{item.name}}</td>
-                      <td>{{item.username}}</td>
-                      <td class="col-md-1"> <a href="" ng-click="edit(item)"><button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal" type="submit"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button></a></td>
-                      <td class="col-md-1"> <a href="" ng-click="delete(item)"><button type="submit" class="btn btn-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true" </i></button></a></td>
-                    </tr>
-            </table>
-            <div class="alert alert-info" ng-show="(agents | filter:select).length == 0">
-              <strong>Hello Talent!</strong> No results for your search. Watch your fingers. </div>
-            
+                    <th admin-view>Delete</th>
+                </tr>
+            </thead>
+            <tr ng-repeat="item in agents | filter:select | orderBy:sort">
+
+                <td class="col-md-1">{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.username}}</td>
+                <td class="col-md-1"> <a href="" ng-click="edit(item)"><button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal" type="submit"  param="{{item.username}}" admin-view is-from-agent><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button></a></td>
+                <td class="col-md-1" admin-view> <a href="" ng-click="delete(item)"><button type="submit" class="btn btn-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true" </i></button></a></td>
+            </tr>
+        </table>
+        <div class="alert alert-info" ng-show="(agents | filter:select).length == 0">
+            <strong>Hello Talent!</strong> No results for your search. Watch your fingers. </div>
+
     </div>

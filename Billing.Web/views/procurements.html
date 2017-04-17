@@ -1,4 +1,3 @@
-
 <div>
     <!-- EDIT Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -11,20 +10,20 @@
                        <span class="sr-only">Close</span>
                 </button>
                     <h4 class="modal-title" id="myModalLabel">
-                        Make changes for {{procurement.id}}
+                        Make changes
                     </h4>
                 </div>
 
                 <!-- Modal Body -->
                 <div class="modal-body">
                     <form role="form">
-                       <div class="form-group">
-                            <label>ID</label>
-                            <input type="text" class="form-control" ng-model="procurement.id" ng-disabled="procurement.id" />
-                        </div> 
+                        <div class="form-group">
+                            <label class="hidden">ID</label>
+                            <input type="hidden" class="form-control" ng-model="procurement.id" ng-disabled="procurement.id" />
+                        </div>
                         <div class="form-group">
                             <label>Date</label>
-                            <input type="date" class="form-control" ng-model="procurement.date"  />
+                            <input type="date" class="form-control" ng-model="procurement.date" />
                         </div>
                         <div class="form-group">
                             <label>Document</label>
@@ -45,7 +44,7 @@
                         <div class="form-group">
                             <label>Product</label>
                             <input type="text" class="form-control" ng-model="procurement.product" />
-                        </div>  
+                        </div>
                     </form>
                 </div>
 
@@ -64,7 +63,7 @@
     <!--End of Modal-->
 
 
-        <!-- NEW Procurement Modal -->
+    <!-- NEW Procurement Modal -->
     <div class="modal fade" id="myModalNew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -75,7 +74,7 @@
                        <span class="sr-only">Close</span>
                 </button>
                     <h4 class="modal-title" id="myModalLabel">
-                        Creating procurement {{procurement.id}}
+                        Creating procurement
                     </h4>
                 </div>
 
@@ -83,12 +82,12 @@
                 <div class="modal-body">
                     <form role="form">
                         <div class="form-group">
-                            <label>ID</label>
-                            <input type="text" class="form-control" ng-model="procurement.id" ng-disabled="procurement.id" />
-                        </div> 
+                            <label class="hidden">ID</label>
+                            <input type="hidden" class="form-control" ng-model="procurement.id" ng-disabled="procurement.id" />
+                        </div>
                         <div class="form-group">
                             <label>Date</label>
-                            <input type="date" class="form-control" ng-model="procurement.date"  />
+                            <input type="date" class="form-control" ng-model="procurement.date" />
                         </div>
                         <div class="form-group">
                             <label>Document</label>
@@ -103,19 +102,19 @@
                             <input type="text" class="form-control" ng-model="procurement.price" />
                         </div>
                         <div class="form-group">
-                             <label>Supplier</label>
-                           <div>
-                            <input type="text" class="form-control" ng-model="procurement.supplier" ng-change="autocomplete(procurement.supplier)" ng-keyup="textUp($event)">
+                            <label>Supplier</label>
+                            <div>
+                                <input type="text" class="form-control" ng-model="procurement.supplier" ng-change="autocomplete(procurement.supplier)" ng-keyup="textUp($event)">
                             </div>
                             <select class="form-control" id="suppliersel" data-style="btn-primary" ng-model="procurement.supplierId" ng-options="supplier.id as supplier.name for supplier in suppliers" ng-keypress="supplierSelected($event)"></select>
                         </div>
                         <div class="form-group">
                             <label>Product</label>
-                             <div>
-                            <input type="text" class="form-control" ng-model="procurement.product" ng-change="autocomplete2(procurement.product)" ng-keyup="textUp2($event)">
+                            <div>
+                                <input type="text" class="form-control" ng-model="procurement.product" ng-change="autocomplete2(procurement.product)" ng-keyup="textUp2($event)">
                             </div>
                             <select class="form-control" id="productsel" data-style="btn-primary" ng-model="procurement.productId" ng-options="product.id as product.name for product in products" ng-keypress="productSelected($event)"></select>
-                        </div> 
+                        </div>
                     </form>
                 </div>
 
@@ -134,14 +133,13 @@
     <!--End of Modal-->
 
 
-        <div class="form-group pull-right">
-            <td><button type="submit" class="btn btn-sm btn-primary btn-create" data-toggle="modal" ng-click="new()" data-target="#myModalNew"
-                    type="submit">
+    <div class="form-group pull-right">
+        <td><button type="submit" class="btn btn-sm btn-primary btn-create" data-toggle="modal" ng-click="new()" data-target="#myModalNew" type="submit" admin-view>
                     <i class="fa fa-plus" aria-hidden="true" ></i> PROCUREMENT</button></a>
-            </td>
-        </div>
+        </td>
+    </div>
 
-        <div>
+    <div>
         <div class="form-group pull-left">
             <input type="search" class="search form-control" placeholder="Search as you type" ng-model="select">
         </div>
@@ -162,8 +160,8 @@
                 <th><i class="fa fa-eur" aria-hidden="true"></i> Price</th>
                 <th><i class="fa fa-users" aria-hidden="true"></i> Supplier</th>
                 <th><i class="fa fa-shopping-bag" aria-hidden="true"></i> Product</th>
-                <th>EDIT</th>
-                <th>DELETE</th>
+                <th admin-view>EDIT</th>
+                <th admin-view>DELETE</th>
             </tr>
         </thead>
         <tr ng-repeat="item in procurements | filter:select | orderBy:sort ">
@@ -174,11 +172,11 @@
             <td>{{item.price}}</td>
             <td>{{item.supplier}}</td>
             <td>{{item.product}}</td>
-            <td> <a href="" ng-click="edit(item)"><button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal" type="submit"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button></a></td>
-            <td> <a href="" ng-click="delete(item)"><button type="submit" class="btn btn-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true" </i></button></a></td>
+            <td admin-view> <a href="" ng-click="edit(item)"><button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal" type="submit"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button></a></td>
+            <td admin-view> <a href="" ng-click="delete(item)"><button type="submit" class="btn btn-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true" </i></button></a></td>
         </tr>
     </table>
     <div class="alert alert-info" ng-show="(procurements | filter:select).length == 0">
-        <strong>Hello Talent!</strong> No results for your search. Watch your fingers. 
+        <strong>Hello Talent!</strong> No results for your search. Watch your fingers.
     </div>
 </div>
