@@ -132,15 +132,15 @@
                         
                         <div class="form-group col-xs-4">
                             <label>Sub Total</label>
-                            <input type="number" class="form-control" ng-model="invoice.subTotal" ng-disabled="true" />
+                            <input type="number" class="form-control" ng-model="invoice.subTotal" readonly="readonly" />
                         </div>
                         <div class="hidden">
                             <label>VAT</label>
-                            <input type="number" class="form-control" ng-model="invoice.vat" ng-disabled="true" />
+                            <input type="number" class="form-control" ng-model="invoice.vat" readonly="readonly" />
                         </div>
                         <div class="form-group col-xs-2">
                             <label>Taxes</label>
-                            <input type="number" class="form-control" ng-model="invoice.vatAmount" />
+                            <input type="number" class="form-control" ng-model="invoice.vatAmount" readonly="readonly" />
                         </div>
                         <div class="form-group col-xs-2">
                             <label>Shipping</label>
@@ -239,7 +239,7 @@
                 <button type="button" class="btn btn-info" ng-click="saveItem()">
                     Save Items
                 </button>
-                    <button type="button" onclick="$('.modal').modal('hide')" class="btn btn-primary" ng-click="save(); saveItem()">
+                    <button type="button" onclick="$('.modal').modal('hide')" class="btn btn-primary" ng-click="save()">
                     Create Invoice
                 </button>
                 </div>
@@ -250,7 +250,7 @@
 
 
         <div class="form-group pull-right">
-            <td><button type="submit" class="btn btn-sm btn-primary btn-create" data-toggle="modal" ng-click="new(); newItem()" data-target="#myModalNew"
+            <td><button type="submit" class="btn btn-sm btn-primary btn-create" data-toggle="modal" ng-click="new()" data-target="#myModalNew"
                     type="submit">
                     <i class="fa fa-plus" aria-hidden="true" ></i> INVOICE</button></a>
             </td>
