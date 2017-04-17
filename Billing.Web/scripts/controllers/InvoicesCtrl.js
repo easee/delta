@@ -153,25 +153,6 @@
             return Object.keys(status)[0];
         }
 
-        // //TYPEAHEAD START
-        // $scope.selectedProduct = "";
-        // $scope.products = ["Monitor 24 AOC 2481FXH",
-        //                  "Asus RT-N16", 
-        //                  "HP Color LaserJet M252dw", 
-        //                  "SSD Transcend 128G", 
-        //                  "Samsung Galaxy A3", 
-        //                  "SSD Kingston 120G", 
-        //                  "Cisco Switch WS-C2960"
-        //                  ];
-                         
-        // app.config(function($typeaheadProvider) {
-        //     angular.extend($typeaheadProvider.defaults, {
-        //       animation: 'am-flip-x',
-        //       minLength: 2,
-        //       limit: 8
-        //     });
-        //   })
-
 
         //LIST/GET ALL ITEMS
         function getItems(name){
@@ -192,42 +173,6 @@
         function getCustomers(name){
             DataService.list("customers/" + name, function(data){ $scope.customers = data});
         };
-
-        //ARROW DOWN EVENT SO IT COULD FOCUS ON DROPDOWN
-        $scope.textUp = function(keyEvent){
-                if(keyEvent.key == "ArrowDown") document.getElementById('custsel').focus();
-                if(keyEvent.key == "ArrowDown") document.getElementById('custsel1').focus();
-            };
-
-        $scope.customerSelected = function(keyEvent){
-                if(keyEvent.key == "Enter") {
-                    for(var i=0; i<$scope.customers.length; i++){
-                        if($scope.customers[i].id === $scope.invoice.customerId){
-                            $scope.invoice.customer = $scope.customers[i].name;
-                            document.getElementById('custsel').style.visibility = 'hidden';
-                            document.getElementById('custsel1').style.visibility = 'hidden';
-                            break;
-                        }
-                    }
-                }
-            };
-
-        //AUTOCOMPLETE in BOX
-        $scope.autocomplete = function(autoStr){
-                if (autoStr.length >= 3){ //reaguje samo kada ima 3 ili više slova uneseno
-                    getCustomers(autoStr);
-                    document.getElementById('custsel').style.visibility = 'visible';//Otkrivamo combobox
-                    document.getElementById('custsel1').style.visibility = 'visible';//Otkrivamo combobox
-
-                    document.getElementById('custsel').size = 8;
-                    document.getElementById('custsel1').size = 8;
-
-                }
-                else {
-                    document.getElementById('custsel').style.visibility = 'hidden';
-                    document.getElementById('custsel1').style.visibility = 'hidden';
-                }
-            };
     }]);
 
 }());
