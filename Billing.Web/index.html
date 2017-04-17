@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="Billing">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,48 +28,52 @@
     <script src="scripts/controllers/ProductsCtrl.js"></script>
     <script src="scripts/controllers/InvoicesCtrl.js"></script>
     <script src="scripts/directives/AdminDirective.js"></script>
+    <script src="scripts/directives/IsFromAgent.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-animate.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-sanitize.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.js"></script>
     <link rel="stylesheet" href="styles/custom.css">
 </head>
+
 <body>
     <nav class="navbar navbar-default no-margin">
-    <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header fixed-brand">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"  id="menu-toggle">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header fixed-brand">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" id="menu-toggle">
                       <span class="fa fa-align-justify" aria-hidden="true"></span>
                     </button>
-                    <a class="navbar-brand" href="#" ng-hide="showDash"><i class="fa fa-drupal fa-4"></i> Delta</a>
-                </div><!-- navbar-header-->
-                <td>
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            <ul class="nav navbar-nav" ng-hide="showDash">
-                                <li class="active" ><button class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle-2"> <span class="fa fa-align-justify" aria-hidden="true"></span></button></li>                                
-<!-- User profile dropdown start -->
-                <li class="profile dropdown pull-right" ng-show="currentUser">
-					<a class="dropdown-toggle" data-toggle="dropdown">
-						<strong>{{ currentUser }}</strong>
-						<span><i class="fa fa-chevron-down"></i></span>
-					</a>
-					<ul class="dropdown-menu">
-						<li>
-							<a class="clearfix" href="#">
-								<img ng-src="images/{{username}}.jpg" alt="User Avatar">
-								<div class="detail">
-                                    <strong>{{username}}</strong>
-								</div>
-							</a>
-						</li>
-						<li><a tabindex="-1" href="#/agents" class="main-link"><i class="fa fa-edit fa-lg"></i> Edit profile</a></li>
-						<li class="divider"></li>
-						<li><a tabindex="-1" class="main-link logoutConfirm_open" href="#/logout"><i class="fa fa-lock fa-lg"></i> Log out</a></li>
-					</ul>
-				</li>
-<!-- User profile dropdown end  -->
-                            </ul>
-                    
-                </div><!-- bs-example-navbar-collapse-1 -->
+            <a class="navbar-brand" href="#" ng-hide="showDash"><i class="fa fa-drupal fa-4"></i> Delta</a>
+        </div>
+        <!-- navbar-header-->
+        <td>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav" ng-hide="showDash">
+                    <li class="active"><button class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle-2"> <span class="fa fa-align-justify" aria-hidden="true"></span></button></li>
+                    <!-- User profile dropdown start -->
+                    <li class="profile dropdown pull-right" ng-show="currentUser">
+                        <a class="dropdown-toggle" data-toggle="dropdown">
+                            <strong>{{ currentUser }}</strong>
+                            <span><i class="fa fa-chevron-down"></i></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="clearfix" href="#">
+                                    <img ng-src="images/{{username}}.jpg" alt="User Avatar">
+                                    <div class="detail">
+                                        <strong>{{username}}</strong>
+                                    </div>
+                                </a>
+                            </li>
+                            <li><a tabindex="-1" href="#/agents" class="main-link"><i class="fa fa-edit fa-lg"></i> Edit profile</a></li>
+                            <li class="divider"></li>
+                            <li><a tabindex="-1" class="main-link logoutConfirm_open" href="#/logout"><i class="fa fa-lock fa-lg"></i> Log out</a></li>
+                        </ul>
+                    </li>
+                    <!-- User profile dropdown end  -->
+                </ul>
+
+            </div>
+            <!-- bs-example-navbar-collapse-1 -->
     </nav>
     <div id="wrapper">
         <!-- Sidebar -->
@@ -76,14 +81,14 @@
             <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
                 <li class="active">
                     <a href="#"><span class="fa-stack fa-lg pull-left"><i class="fa fa-pie-chart fa-stack-1x "></i></span> Dashboard</a>
-               </li>
+                </li>
                 <li>
                     <a href="#/invoices"><span class="fa-stack fa-lg pull-left"><i class="fa fa-file-text fa-stack-1x "></i></span> Invoices</a>
-               </li>
+                </li>
                 <li>
                     <a href="#/customers"><span class="fa-stack fa-lg pull-left"><i class="fa fa-address-card-o fa-stack-1x "></i></span>Customers</a>
                 </li>
-                 <li>
+                <li>
                     <a href="#/shippers"><span class="fa-stack fa-lg pull-left"><i class="fa fa-truck fa-stack-1x "></i></span>Shippers</a>
                 </li>
                 <li>
@@ -98,23 +103,25 @@
                 <li>
                     <a href="#/suppliers"><span class="fa-stack fa-lg pull-left"><i class="fa fa-users fa-stack-1x" ></i></span>Suppliers</a>
                 </li>
-                 <li>
+                <li>
                     <a href="#/procurements"><span class="fa-stack fa-lg pull-left"><i class="fa fa-file fa-stack-1x" ></i></span>Procurements</a>
                 </li>
             </ul>
-        </div><!-- /#sidebar-wrapper -->
+        </div>
+        <!-- /#sidebar-wrapper -->
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
-                    <div ng-view></div></div>
+                <div ng-view></div>
+            </div>
         </div>
         <!-- /#page-content-wrapper -->
     </div>
     <!-- /#wrapper -->
-
     <script src="library/jquery-3.2.0.min.js"></script>
     <script src="library/bootstrap.min.js"></script>
     <script src="scripts/sidebarmenu.js"></script>
 
 </body>
+
 </html>

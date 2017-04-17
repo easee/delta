@@ -1,5 +1,4 @@
-
-   <div>
+<div>
     <!-- EDIT Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" ng-show="showProduct">
@@ -36,8 +35,7 @@
                         </div>
                         <div class="form-group">
                             <label>Category</label>
-                            <select class="form-control" ng-model="product.categoryId"
-                                            ng-options="category.id as category.name
+                            <select class="form-control" ng-model="product.categoryId" ng-options="category.id as category.name
                                             for category in categories"></select>
                         </div>
                     </form>
@@ -56,7 +54,7 @@
         </div>
     </div>
     <!--End of Modal-->
-        <!-- NEW PRODUCT Modal -->
+    <!-- NEW PRODUCT Modal -->
     <div class="modal fade" id="myModalNew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -92,8 +90,7 @@
                         </div>
                         <div class="form-group">
                             <label>Category</label>
-                            <select class="form-control" ng-model="product.categoryId"
-                                            ng-options="category.id as category.name
+                            <select class="form-control" ng-model="product.categoryId" ng-options="category.id as category.name
                                             for category in categories"><option value="" disabled selected> Select your option </option></select>
                         </div>
                     </form>
@@ -114,14 +111,13 @@
     <!--End of Modal-->
 
 
-        <div class="form-group pull-right">
-            <td><button type="submit" class="btn btn-sm btn-primary btn-create" data-toggle="modal" ng-click="new()" data-target="#myModalNew"
-                    type="submit">
+    <div class="form-group pull-right">
+        <td><button type="submit" class="btn btn-sm btn-primary btn-create" data-toggle="modal" ng-click="new()" data-target="#myModalNew" type="submit" admin-view>
                     <i class="fa fa-plus" aria-hidden="true" ></i> PRODUCT</button></a>
-            </td>
-        </div>
+        </td>
+    </div>
 
-        <div>
+    <div>
         <div class="form-group pull-left">
             <input type="search" class="search form-control" placeholder="Search as you type" ng-model="select">
         </div>
@@ -146,8 +142,8 @@
                 <th><i class="fa fa-eur" aria-hidden="true"></i> Price</th>
                 <th><i class="fa fa-braille" aria-hidden="true"></i> Category</th>
                 <th><i class="fa fa-cube" aria-hidden="true"></i> inventory</th>
-                <th>EDIT</th>
-                <th>DELETE</th>
+                <th admin-view>EDIT</th>
+                <th admin-view>DELETE</th>
             </tr>
         </thead>
         <tr ng-repeat="item in products | filter:select | orderBy:sort">
@@ -157,22 +153,22 @@
             <td>{{item.price}}</td>
             <td>{{item.category}}</td>
             <td>{{item.inventory}}</td>
-            <td> <a href="" ng-click="edit(item)"><button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal" type="submit"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button></a></td>
-            <td> <a href="" ng-click="delete(item)"><button type="submit" class="btn btn-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true" </i></button></a></td>
+            <td admin-view> <a href="" ng-click="edit(item)"><button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal" type="submit"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button></a></td>
+            <td admin-view> <a href="" ng-click="delete(item)"><button type="submit" class="btn btn-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true" </i></button></a></td>
         </tr>
     </table>
     <div class="alert alert-info" ng-show="(products | filter:select).length == 0">
-        <strong>Hello Talent!</strong> No results for your search. Watch your fingers. 
+        <strong>Hello Talent!</strong> No results for your search. Watch your fingers.
     </div>
-<div>
-    <!--PAGINATION-->
-    <div class="text-center">
-    <button id="first" class="btn btn" ng-click="goto(page,0)">First</button>
-    <button id="previous" class="btn btn" ng-click="goto(currentPage,-1)">Previous</button>
-    <ul class="pagination" ng-repeat="page in pages" ><button id="{{page}}" class="btn btn-default" ng-click="goto(page,0)" >{{page}}</button></ul>
-    <button id="next" class="btn btn" ng-click="goto(currentPage,1)">Next</button>
-    <button id="last" class="btn btn" ng-click="goto(totalPages,0)">Last</button>
+    <div>
+        <!--PAGINATION-->
+        <div class="text-center">
+            <button id="first" class="btn btn" ng-click="goto(page,0)">First</button>
+            <button id="previous" class="btn btn" ng-click="goto(currentPage,-1)">Previous</button>
+            <ul class="pagination" ng-repeat="page in pages"><button id="{{page}}" class="btn btn-default" ng-click="goto(page,0)">{{page}}</button></ul>
+            <button id="next" class="btn btn" ng-click="goto(currentPage,1)">Next</button>
+            <button id="last" class="btn btn" ng-click="goto(totalPages,0)">Last</button>
+        </div>
+        <p class="text-center">Page {{currentPage}} of {{totalPages}}</p>
     </div>
-    <p class="text-center">Page {{currentPage}} of {{totalPages}}</p>
-</div>
 </div>
