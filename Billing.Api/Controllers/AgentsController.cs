@@ -59,15 +59,15 @@ namespace Billing.Api.Controllers
             }
         }
 
-        [TokenAuthorization("user")]
         [Route("{id}")]
         public IHttpActionResult Put([FromUri] int id, [FromBody]AgentModel model)//FromUri i FromBody možemo i ne moramo pisati, podrazumijeva se.
         {
             try
             {
                 Agent current = UnitOfWork.Agents.Get(id);
+             
                 //If any of two following values is true it will return true and allow access
-                if (Thread.CurrentPrincipal.Identity.Name == current.Username || Thread.CurrentPrincipal.IsInRole("admin"))
+                if (BillingIdentity.CurrentUser.Username == current.Username || Thread.CurrentPrincipal.IsInRole("admin"))
                 {
                     Agent agent = Factory.Create(model);
                     UnitOfWork.Agents.Update(agent, id);

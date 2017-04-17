@@ -1,29 +1,29 @@
 <div>
-    <div id="fullscreen_bg" class="fullscreen_bg"/>
-    <div class="col-xs-9"> 
-<!--    ovaj div sam dodao jer se na taj nacin pravi npr col-xs-4.5 cime sam dobio tacno sredinu ekrana :D-->
-    <div class="col-xs-6 centered col-xs-offset-3">
-        <div class="login-block">
-        <img class="center-block" src="../images/team.png" height="100px" width="auto" ng-hide="currentUser"> 
-        <form class="form-signin">
-            <br>
-            <label for="inputEmail" class="sr-only">Username</label>
-            <input type="text" id="inputEmail" ng-model="user.name" class="form-control" placeholder="Username" required="" autofocus="">
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputPassword" ng-model="user.pass" class="form-control" placeholder="Password" required="">
-            <div class="checkbox">
-              <label>
+    <div id="fullscreen_bg" class="fullscreen_bg" />
+    <div class="col-xs-9">
+        <!--    ovaj div sam dodao jer se na taj nacin pravi npr col-xs-4.5 cime sam dobio tacno sredinu ekrana :D-->
+        <div class="col-xs-6 centered col-xs-offset-3">
+            <div class="login-block">
+                <img class="center-block" src="../images/team.png" height="100px" width="auto" ng-hide="currentUser">
+                <form class="form-signin">
+                    <br>
+                    <label for="inputEmail" class="sr-only">Username</label>
+                    <input type="text" id="inputEmail" ng-model="user.name" class="form-control" placeholder="Username" required="" autofocus="">
+                    <label for="inputPassword" class="sr-only">Password</label>
+                    <input type="password" id="inputPassword" ng-model="user.pass" class="form-control" placeholder="Password" required="">
+                    <div class="checkbox">
+                        <label>
                 <input type="checkbox" ng-model="user.remember"> Remember me
               </label>
+                    </div>
+                    <button ng-click="login()" class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+                    <div>
+                        <br>
+                        <button ng-click="loginAs('marlon')" class="btn btn-sm btn-primary btn-info top-buffer btn-block">Admin login as Marlon</button>
+                        <button ng-click="loginAs('kevin')" class="btn btn-sm btn-success top-buffer btn-block">User login as Kevin</button>
+                    </div>
+                </form>
             </div>
-            <button ng-click="login()" class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
-        <div>
-            <br>
-            <button ng-click="loginAs('marlon')" class="btn btn-sm btn-primary btn-info top-buffer btn-block">Admin login as Marlon</button>
-            <button ng-click="loginAs('kevin')" class="btn btn-sm btn-success top-buffer btn-block">User login as Kevin</button>
         </div>
-          </form>
-    </div>
-    </div>
     </div>
 </div>
