@@ -51,7 +51,7 @@
     <!--End of Modal-->
 
 
-        <!-- NEW Shipper Modal -->
+    <!-- NEW Shipper Modal -->
     <div class="modal fade" id="myModalNew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -82,9 +82,9 @@
                             <input type="text" class="form-control" ng-model="shipper.address" />
                         </div>
                         <div class="form-group">
-                             <label>Town</label>
+                            <label>Town</label>
                             <div>
-                            <input type="text" class="form-control" ng-model="shipper.town" ng-change="autocomplete(shipper.town)" ng-keyup="textUp($event)">
+                                <input type="text" class="form-control" ng-model="shipper.town" ng-change="autocomplete(shipper.town)" ng-keyup="textUp($event)">
                             </div>
                             <select class="form-control" id="townsel" data-style="btn-primary" ng-model="shipper.townId" ng-options="town.id as town.name for town in towns" ng-keypress="townSelected($event)"></select>
                         </div>
@@ -106,14 +106,13 @@
     <!--End of Modal-->
 
 
-        <div class="form-group pull-right">
-            <td><button type="submit" class="btn btn-sm btn-primary btn-create" data-toggle="modal" ng-click="new()" data-target="#myModalNew"
-                    type="submit">
+    <div class="form-group pull-right">
+        <td><button type="submit" class="btn btn-sm btn-primary btn-create" data-toggle="modal" ng-click="new()" data-target="#myModalNew" type="submit" admin-view>
                     <i class="fa fa-plus" aria-hidden="true" ></i> SHIPPER</button></a>
-            </td>
-        </div>
+        </td>
+    </div>
 
-        <div>
+    <div>
         <div class="form-group pull-left">
             <input type="search" class="search form-control" placeholder="Search as you type" ng-model="select">
         </div>
@@ -135,8 +134,8 @@
                 <th><i class="fa fa-user-circle-o" aria-hidden="true"></i> Name</th>
                 <th><i class="fa fa-address-book" aria-hidden="true"></i> Address</th>
                 <th><i class="fa fa-map-marker" aria-hidden="true"></i> Town</th>
-                <th>EDIT</th>
-                <th>DELETE</th>
+                <th admin-view>EDIT</th>
+                <th admin-view>DELETE</th>
             </tr>
         </thead>
         <tr ng-repeat="item in shippers | filter:select | orderBy:sort ">
@@ -144,12 +143,12 @@
             <td>{{item.name}}</td>
             <td>{{item.address}}</td>
             <td>{{item.town}}</td>
-            <td> <a href="" ng-click="edit(item)"><button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal" type="submit"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button></a></td>
-            
-            <td> <a href="" ng-click="delete(item)"><button type="submit" class="btn btn-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true" </i></button></a></td>
+            <td admin-view> <a href="" ng-click="edit(item)"><button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal" type="submit"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button></a></td>
+
+            <td admin-view> <a href="" ng-click="delete(item)"><button type="submit" class="btn btn-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true" </i></button></a></td>
         </tr>
     </table>
     <div class="alert alert-info" ng-show="(shippers | filter:select).length == 0">
-        <strong>Hello Talent!</strong> No results for your search. Watch your fingers. 
+        <strong>Hello Talent!</strong> No results for your search. Watch your fingers.
     </div>
 </div>
