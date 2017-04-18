@@ -164,9 +164,10 @@
                         <div class="form-group col-xs-4">
                             <label>Customer</label>
                             <div>
-                                <input type="text" class="form-control" ng-model="invoice.customer" ng-change="autocomplete(invoice.customer)" ng-keyup="textUp($event)">
+                                <input type="text" ng-model="selectedCustomer" placeholder="Enter customer" uib-typeahead="{id:customer.id, name:customer.name} as customer.name for customer in getCustomers($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults"
+                                                    class="form-control">Model: {{invoice.customerId.id | json}}
                             </div>
-                            <select class="form-control" id="custsel1" data-style="btn-primary" ng-model="invoice.customerId" ng-options="customer.id as customer.name for customer in customers" ng-keypress="customerSelected($event)"></select>
+                            <!--<select class="form-control" id="custsel1" data-style="btn-primary" ng-model="invoice.customerId" ng-options="customer.id as customer.name for customer in customers" ng-keypress="customerSelected($event)"></select>-->
                         </div>
 
                         <div class="form-group col-xs-4">
@@ -255,7 +256,7 @@
         <div class="form-group pull-left">
             <select class="form-control" ng-model="sort">
                     <option value="" disabled selected>Sort by</option>
-                    <option value="id">Id</option>
+                    <option value="id" class="hidden">Id</option>
                     <option value="-total">Total dsc</option>
                     <option value="+total">Total asc</option>
             </select>
@@ -264,7 +265,7 @@
     <table class="table table-striped table-bordered table-list">
         <thead>
             <tr>
-                <th>ID</th>
+                <th class="hidden">ID</th>
                 <th><i class="fa fa-user-circle-o" aria-hidden="true"></i> Invoice #</th>
                 <th><i class="fa fa-calendar" aria-hidden="true"></i> Date</th>
                 <th><i class="fa fa-cube" aria-hidden="true"></i> Shipped On</th>
@@ -276,7 +277,7 @@
             </tr>
         </thead>
         <tr ng-repeat="item in invoices | filter:select | orderBy:sort">
-            <td>{{item.id}}</td>
+            <td class="hidden">{{item.id}}</td>
             <td>{{item.invoiceNo}}</td>
             <td>{{item.date}}</td>
             <td>{{item.shippedOn}}</td>

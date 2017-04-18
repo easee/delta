@@ -119,7 +119,7 @@
         <div class="form-group pull-left">
             <select class="form-control" ng-model="sort">
                     <option value="" disabled selected>Sort by</option>
-                    <option value="id">Id</option>
+                    <option value="id" class="hidden">Id</option>
                     <option value="+name">Name asc</option>
                     <option value="-name">Name dsc</option>
                     <option value="town">Town</option>
@@ -130,7 +130,7 @@
     <table class="table table-striped table-bordered table-list">
         <thead>
             <tr>
-                <th>ID</th>
+                <th class="hidden">ID</th>
                 <th><i class="fa fa-user-circle-o" aria-hidden="true"></i> Name</th>
                 <th><i class="fa fa-address-book" aria-hidden="true"></i> Address</th>
                 <th><i class="fa fa-map-marker" aria-hidden="true"></i> Town</th>
@@ -139,7 +139,7 @@
             </tr>
         </thead>
         <tr ng-repeat="item in shippers | filter:select | orderBy:sort ">
-            <td>{{item.id}}</td>
+            <td class="hidden">{{item.id}}</td>
             <td>{{item.name}}</td>
             <td>{{item.address}}</td>
             <td>{{item.town}}</td>

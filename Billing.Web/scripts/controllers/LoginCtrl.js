@@ -43,6 +43,14 @@
                 $rootScope.showDash = false;
                 $rootScope.buttonPressed = true;
             };
+
+            $(document).ready(function() {
+                $('#example').DataTable();
+            });
+            $("li").on("click", function() {
+                $("li").removeClass("active");
+                $(this).addClass("active");
+            });
             $rootScope.showDash = true;
             $rootScope.btn = true;
             $rootScope.username = credentials.currentUser.username;
