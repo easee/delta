@@ -18,9 +18,21 @@ namespace Billing.Api.Controllers
         //public IBillingRepository<Procurement> procurements = new BillingRepository<Procurement>(new BillingContext());
         //Factory factory = new Factory();
         [Route("")]
-        public IHttpActionResult Get()
-        {
-            return Ok(UnitOfWork.Procurements.Get().ToList().Select(x => Factory.Create(x)).ToList());
+        public IHttpActionResult GetAll(int page=0)
+        { 
+            int PageSize = 8;
+            var query = UnitOfWork.Procurements.Get().OrderBy(x => x.Id).ToList();
+            int TotalPages = (int)Math.Ceiling((double)query.Count() / PageSize);
+
+            var returnObject = new
+            {
+                pageSize = PageSize,
+                currentPage = page,
+                totalPages = TotalPages,
+                size = query.Count,
+                procurementsList = query.Skip(PageSize * page).Take(PageSize).Select(x => Factory.Create(x)).ToList()
+            };
+            return Ok(returnObject);
         }
 
         [Route("{name}")]
