@@ -150,22 +150,23 @@
         </div>
     </div>
 
-    <table class="table table-striped table-bordered table-list">
+    <table id="example" class="table table-striped table-bordered table-list">
         <thead>
             <tr>
-                <th>ID</th>
+                <th class="hidden">ID</th>
                 <th><i class="fa fa-user-circle-o" aria-hidden="true"></i> Date</th>
                 <th><i class="fa fa-user-circle-o" aria-hidden="true"></i> Document</th>
                 <th><i class="fa fa-address-book" aria-hidden="true"></i> Quantity</th>
                 <th><i class="fa fa-eur" aria-hidden="true"></i> Price</th>
                 <th><i class="fa fa-users" aria-hidden="true"></i> Supplier</th>
                 <th><i class="fa fa-shopping-bag" aria-hidden="true"></i> Product</th>
+
                 <th admin-view>EDIT</th>
                 <th admin-view>DELETE</th>
             </tr>
         </thead>
         <tr ng-repeat="item in procurements | filter:select | orderBy:sort ">
-            <td>{{item.id}}</td>
+            <td class="hidden">{{item.id}}</td>
             <td>{{item.date}}</td>
             <td>{{item.document}}</td>
             <td>{{item.quantity}}</td>
