@@ -3,9 +3,11 @@
         $scope.showInvoice = false;
         getShippers('');
         getAgents('');
-        getCustomers('');
+        // getCustomers('');
         ListInvoices();
         //getProduct();
+
+       $scope.selectedCustomer = {id: 0, name: ""};
         
 
         //READ AND EDIT INVOICES
@@ -16,6 +18,8 @@
 
         //UPDATE INVOICE
         $scope.save = function(){
+            console.log($scope.selectedCustomer);
+            $scope.invoice.customerId = $scope.selectedCustomer.id;
             console.log($scope.invoice);
             if($scope.invoice.id == 0)
                 DataService.insert("invoices", $scope.invoice, function(data){ ListInvoices();} );
@@ -41,7 +45,7 @@
                 total: 0,
                 shipperId: 0,
                 agentId: 0,
-                customers: [],
+                customerId: 0,
                 shipping: 0,
         //START OF ITEM SECTION IN MODAL
                 items: [] 
@@ -73,9 +77,15 @@
         //END OF ITEM SECTION IN MODAL
 
 
-        //TYPEAHEAD PRODUCTS
+        //TYPEAHEAD PRODUCTS AND CUSTOMERS
         var _selected;
-        $scope.selected = undefined;
+        $scope.selected = (undefined);
+
+        $scope.getCustomers = function (name) {
+            return $http.get('http://localhost:9000/api/customers/' + name).then(function (response) {
+                return response.data;
+            });
+        };
 
         $scope.getProduct = function (name) {
             return $http.get('http://localhost:9000/api/products/' + name).then(function (response) {
@@ -98,8 +108,19 @@
             },
             getterSetter: true
         };
+
+        // $scope.onSelect = function (keyEvent) {
+        //     for (var i = 0; i < $scope.customers.length; i++) {
+        //         if ($scope.customers[i].id === $scope.invoice.customerId) { //Onaj ID koji ima istu vrijednost kao
+        //             $scope.invoice.customer = $scope.customers[i].name;
+        //             break;
+        //         }
+        //     }
+        // };
         //END OF TYPEAHEAD
-        
+
+
+
         
         //DELETE INVOICE
         $scope.delete = function (invoice) {
@@ -144,10 +165,10 @@
             DataService.list("agents", function(data){ $scope.agents = data});
         };
         
-        //LIST/GET ALL CUSTOMERS
-        function getCustomers(name){
-            DataService.list("customers/" + name, function(data){ $scope.customers = data});
-        };
+        // //LIST/GET ALL CUSTOMERS
+        // function getCustomers(name){
+        //     DataService.list("customers/" + name, function(data){ $scope.customers = data});
+        // };
     }]);
 
 }());
