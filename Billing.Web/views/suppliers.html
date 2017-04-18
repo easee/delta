@@ -152,6 +152,16 @@
         <!--
             <div class="col col-xs-12 text-right">
                     <button type="button" class="btn btn-sm btn-primary btn-create" ng-click="new()"><i class="fa fa-plus" aria-hidden="true"> </i>  SUPPLIER</button>
-            </div>
--->
+            </div>-->
+        <div>
+        <!--PAGINATION-->
+        <div class="text-center">
+            <button id="first" class="btn btn" ng-click="goto(page,0)">First</button>
+            <button id="previous" class="btn btn" ng-click="goto(currentPage,-1)">Previous</button>
+            <ul class="pagination" ng-repeat="page in pages"><button id="{{page}}" class="btn btn-default" ng-click="goto(page,0)">{{page}}</button></ul>
+            <button id="next" class="btn btn" ng-click="goto(currentPage,1)">Next</button>
+            <button id="last" class="btn btn" ng-click="goto(totalPages,0)">Last</button>
+        </div>
+        <p class="text-center">Page {{currentPage}} of {{totalPages}}</p>
+    </div>
     </div>

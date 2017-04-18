@@ -2,7 +2,7 @@
 
     app.controller("SuppliersCtrl", ['$scope', 'DataService',  function($scope, DataService) {
         $scope.showSuppliers = false;
-        ListSuppliers();
+        ListSuppliers(0);
         ListTowns('');
 
         $scope.edit = function(current){
@@ -36,10 +36,87 @@
             document.getElementById('townsel').style.visibility = 'hidden';//sakrivamo combobox na otvaranju modala
             $scope.showSuppliers = true;
         };
-
-        function ListSuppliers(){
+            //PAGINATION
+        function ListSuppliers(page){
+                DataService.list("suppliers?page="+page, function(data){
+                  
+                    $scope.suppliers= data.suppliersList;
+                    $scope.totalPages = data.totalPages;
+                    $scope.currentPage = data.currentPage+1;
+                    if($scope.totalPages<11)
+                    $scope.pages = new Array($scope.totalPages);
+                    else
+                    $scope.pages = new Array(10);   
+                    
+                    $scope.size=data.size;
+                        
+                    
+                    if($scope.currentPage== $scope.totalPages)
+                        {
+                            document.getElementById("next").disabled = true;
+                            document.getElementById("previous").disabled = false;        
+                        }
+                    else if($scope.currentPage== 1)
+                        {
+                            document.getElementById("previous").disabled = true;
+                            document.getElementById("next").disabled = false;
+                        }
+                    
+                    else
+                        {
+                            document.getElementById("next").disabled = false;
+                            document.getElementById("previous").disabled = false;
+                        }
+                     if($scope.totalPages<11)
+                            for(var i=0; i<$scope.totalPages;i++) 
+                                $scope.pages[i] = i+1;
+                        
+                    else
+                    {
+                                
+                        if($scope.currentPage<=5 && $scope.currentPage+9<$scope.totalPages)
+                            for(var i=0; i<=9;i++) 
+                                 $scope.pages[i] = i+1; 
+                            
+                        else if($scope.currentPage+9>=$scope.totalPages)
+                            {
+                                 var d=9-($scope.totalPages-$scope.currentPage);
+                                 for(var i=$scope.currentPage-d; i<=$scope.currentPage+9-d;i++) 
+                                        $scope.pages[i-$scope.currentPage+d] = i;
+                            }
+                        
+                        else
+                            {
+                                var d=0,tmp=4;
+                                for(var i=$scope.currentPage; i<=$scope.currentPage+9;i++) 
+                                    {
+                                         $scope.pages[d] =$scope.currentPage-tmp+d;
+                                         d++; 
+                                    }
+                            }           
+                    }           
+                    console.log($scope.currentPage);
+                });
+            }
+        //GO TO
+         $scope.goto = function(page,direction){
+                if(direction==-1)
+                    {
+                     ListSuppliers(page-2); 
+                     document.getElementById(page-1).focus();
+                    }
+             else if(direction==1)
+                 {
+                      ListSuppliers(page);
+                      document.getElementById(page+1).focus();
+                 }
+                
+             else       
+                      ListSuppliers(page-1);           
+            }
+        /*function ListSuppliers(){
             DataService.list("suppliers", function(data){ $scope.suppliers = data});
-        };
+        };*/
           function ListTowns(name){
             DataService.list("towns/" + name, function(data){ $scope.towns = data});
         };
