@@ -43,6 +43,10 @@
                 $rootScope.showDash = false;
                 $rootScope.buttonPressed = true;
             };
+            $("li").on("click", function() {
+                $("li").removeClass("active");
+                $(this).addClass("active");
+            });
             $rootScope.showDash = true;
             $rootScope.btn = true;
             $rootScope.username = credentials.currentUser.username;
