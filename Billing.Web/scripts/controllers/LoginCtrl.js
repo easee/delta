@@ -43,14 +43,12 @@
                 $rootScope.showDash = false;
                 $rootScope.buttonPressed = true;
             };
-
-            $(document).ready(function() {
-                $('#example').DataTable();
-            });
+            // Dio koji sluzi za mjenjanje fokusa i boje na tabu koji je oznacen na lijevoj strani dashboarda   V    
             $("li").on("click", function() {
                 $("li").removeClass("active");
                 $(this).addClass("active");
             });
+            // Dio koji sluzi za mjenjanje fokusa i boje na tabu koji je oznacen na lijevoj strani dashboarda   Y
             $rootScope.showDash = true;
             $rootScope.btn = true;
             $rootScope.username = credentials.currentUser.username;

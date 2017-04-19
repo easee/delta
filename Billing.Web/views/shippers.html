@@ -131,21 +131,21 @@
         <thead>
             <tr>
                 <th class="hidden">ID</th>
-                <th><i class="fa fa-user-circle-o" aria-hidden="true"></i> Name</th>
-                <th><i class="fa fa-address-book" aria-hidden="true"></i> Address</th>
-                <th><i class="fa fa-map-marker" aria-hidden="true"></i> Town</th>
-                <th admin-view>EDIT</th>
-                <th admin-view>DELETE</th>
+                <th><i class="fa fa-user-circle-o col-md-3" aria-hidden="true"></i> Name</th>
+                <th><i class="fa fa-address-book col-md-3" aria-hidden="true"></i> Address</th>
+                <th><i class="fa fa-map-marker col-md-4" aria-hidden="true"></i> Town</th>
+                <th class="col-md-1" admin-view>EDIT</th>
+                <th class="col-md-1" admin-view>DELETE</th>
             </tr>
         </thead>
         <tr ng-repeat="item in shippers | filter:select | orderBy:sort ">
             <td class="hidden">{{item.id}}</td>
-            <td>{{item.name}}</td>
-            <td>{{item.address}}</td>
-            <td>{{item.town}}</td>
-            <td admin-view> <a href="" ng-click="edit(item)"><button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal" type="submit"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button></a></td>
+            <td class="col-md-3">{{item.name}}</td>
+            <td class="col-md-3">{{item.address}}</td>
+            <td class="col-md-4">{{item.town}}</td>
+            <td class="col-md-1" admin-view> <a href="" ng-click="edit(item)"><button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal" type="submit"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button></a></td>
 
-            <td admin-view> <a href="" ng-click="delete(item)"><button type="submit" class="btn btn-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true" </i></button></a></td>
+            <td class="col-md-1" admin-view> <a href="" ng-click="delete(item)"><button type="submit" class="btn btn-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true" </i></button></a></td>
         </tr>
     </table>
     <div class="alert alert-info" ng-show="(shippers | filter:select).length == 0">
