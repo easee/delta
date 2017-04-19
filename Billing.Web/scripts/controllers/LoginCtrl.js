@@ -43,6 +43,12 @@
                 $rootScope.showDash = false;
                 $rootScope.buttonPressed = true;
             };
+
+            $scope.isDisabled = false;
+            $scope.disableLoginButton = function(){
+                $scope.isDisabled = true;
+            } 
+
             // Dio koji sluzi za mjenjanje fokusa i boje na tabu koji je oznacen na lijevoj strani dashboarda   V    
             $("li").on("click", function() {
                 $("li").removeClass("active");
