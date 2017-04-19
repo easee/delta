@@ -1,8 +1,8 @@
 {
-  "source": "http://localhost:9000/api/",
-  "regions": [ "Banja Luka", "Bihac", "Doboj", "Mostar", "Sarajevo", "Trebinje", "Tuzla", "Zenica" ],
-  "signature": "CaByDlSnGLx0gOtlDClK6L94Jb/cwJoJAdUDlhtNpnI=",
-  "apiKey": "RGVsdGEtQmlsbGluZw==",
-  "statuses": [ "Canceled", "OrderCreated", "OrderConfirmed", "InvoiceCreated", "InvoiceSent", "InvoicePaid", "OnHold", "Ready", "Shipped" ],
-  "debugMode": true
+    "source": "http://localhost:9000/api/",
+    "regions": ["Banja Luka", "Bihac", "Doboj", "Mostar", "Sarajevo", "Trebinje", "Tuzla", "Zenica"],
+    "signature": "CaByDlSnGLx0gOtlDClK6L94Jb/cwJoJAdUDlhtNpnI=",
+    "apiKey": "RGVsdGEtQmlsbGluZw==",
+    "stat": ["Canceled", "Order Created", "Order Confirmed", "Invoice Created", "Invoice Sent", "Invoice Paid", "On Hold", "Ready", "Shipped"],
+    "debugMode": true
 }

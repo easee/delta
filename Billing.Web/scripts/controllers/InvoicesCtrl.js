@@ -109,19 +109,6 @@
             getterSetter: true
         };
 
-        // $scope.onSelect = function (keyEvent) {
-        //     for (var i = 0; i < $scope.customers.length; i++) {
-        //         if ($scope.customers[i].id === $scope.invoice.customerId) { //Onaj ID koji ima istu vrijednost kao
-        //             $scope.invoice.customer = $scope.customers[i].name;
-        //             break;
-        //         }
-        //     }
-        // };
-        //END OF TYPEAHEAD
-
-
-
-
         //DELETE INVOICE
         $scope.delete = function(invoice) {
             DataService.delete("invoices", invoice.id, function(data) {
@@ -134,17 +121,20 @@
             DataService.list("invoices", function(data) { $scope.invoices = data });
         };
 
-        // $scope.statuses = [
-        //     { "-1": "Canceled" },
-        //     { "0": "OrderCreated" },
-        //     { "1": "InvoiceCreated" },
-        //     { "2": "InvoiceSent" },
-        //     { "3": "InvoicePaid" },
-        //     { "4": "InvoiceOnHold" },
-        //     { "5": "InvoiceReady" },
-        //     { "6": "InvoiceShipped" }
-        // ];
-        $scope.states = BillingConfig.statuses;
+        $scope.statuses = [
+            { "-1": "Canceled" },
+            { "0": "OrderCreated" },
+            { "1": "InvoiceCreated" },
+            { "2": "InvoiceSent" },
+            { "3": "InvoicePaid" },
+            { "4": "InvoiceOnHold" },
+            { "5": "InvoiceReady" },
+            { "6": "InvoiceShipped" }
+        ];
+
+        // Ovaj dio sluzi za view onih sarenih buttona na invoice tabeli
+        $scope.states = BillingConfig.stat;
+        //--------------------------------------------------------------
 
         $scope.getKey = function(status) {
             return Object.keys(status)[0];
