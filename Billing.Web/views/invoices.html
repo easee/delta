@@ -165,7 +165,7 @@
                             <label>Customer</label>
                             <div>
                                 <input type="text" ng-model="selectedCustomer" placeholder="Enter customer" uib-typeahead="{id:customer.id, name:customer.name} as customer.name for customer in getCustomers($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults"
-                                                    class="form-control">Model: {{invoice.customerId.id | json}}
+                                    class="form-control">Model: {{invoice.customerId.id | json}}
                             </div>
                             <!--<select class="form-control" id="custsel1" data-style="btn-primary" ng-model="invoice.customerId" ng-options="customer.id as customer.name for customer in customers" ng-keypress="customerSelected($event)"></select>-->
                         </div>
@@ -281,7 +281,9 @@
             <td>{{item.invoiceNo}}</td>
             <td>{{item.date}}</td>
             <td>{{item.shippedOn}}</td>
-            <td>{{item.status}}</td>
+            <td><button ng-class="{'btn btn-danger': item.statusId == 0, 'btn btn-warning': (item.statusId < 3 && item.statusId > 0), 'btn btn-primary': (item.statusId < 5 && item.statusId > 2), 'btn btn-success': (item.statusId < 9 && item.statusId > 4)}">
+                       {{ states[item.statusId]}}
+                   </button></td>
             <td>{{item.shipper}}</td>
             <td>{{item.total}}</td>
             <td> <a href="" ng-click="edit(item)" admin-view><button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal" type="submit"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button></a></td>

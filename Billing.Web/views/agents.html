@@ -111,15 +111,15 @@
                     <th class="hidden">ID</th>
                     <th><i class="fa fa-address-card" aria-hidden="true"></i> Name</th>
                     <th><i class="fa fa-user" aria-hidden="true"></i> Username</th>
-                    <th>Edit</th>
-                    <th admin-view>Delete</th>
+                    <th class="col-md-1">Edit</th>
+                    <th class="col-md-1" admin-view>Delete</th>
                 </tr>
             </thead>
             <tr ng-repeat="item in agents | filter:select | orderBy:sort">
 
                 <td class="col-md-1 hidden">{{item.id}}</td>
-                <td>{{item.name}}</td>
-                <td>{{item.username}}</td>
+                <td class="col-md-5">{{item.name}}</td>
+                <td class="col-md-4">{{item.username}}</td>
                 <td class="col-md-1"> <a href="" ng-click="edit(item)"><button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal" type="submit"  param="{{item.username}}" admin-view is-from-agent><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button></a></td>
                 <td class="col-md-1" admin-view> <a href="" ng-click="delete(item)"><button type="submit" class="btn btn-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true" </i></button></a></td>
             </tr>

@@ -106,19 +106,11 @@
 
 
 
-        <div class="form-group pull-right">
-            <td><button type="submit" class="btn btn-sm btn-primary btn-create" data-toggle="modal" ng-click="new()" data-target="#myModalNew"
-                    type="submit">
-                    <i class="fa fa-plus" aria-hidden="true" ></i> CUSTOMER</button>
-            </td>
-        </div>
-
     <div class="form-group pull-right">
         <td><button type="submit" class="btn btn-sm btn-primary btn-create" data-toggle="modal" ng-click="new()" data-target="#myModalNew" type="submit">
                     <i class="fa fa-plus" aria-hidden="true" ></i> CUSTOMER</button>
         </td>
-</div>
-
+    </div>
     <div>
         <div class="form-group pull-left">
             <input type="search" class="search form-control" placeholder="Search as you type" ng-model="select">
@@ -157,7 +149,7 @@
     <div class="alert alert-info" ng-show="(customers | filter:select).length == 0">
         <strong>Hello Talent!</strong> No results for your search. Watch your fingers.
     </div>
-<div>
+    <div>
         <!--PAGINATION-->
         <div class="text-center">
             <button id="first" class="btn btn" ng-click="goto(page,0)">First</button>
