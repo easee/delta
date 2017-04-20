@@ -49,12 +49,12 @@
                     $scope.size=data.size;
                         
                     
-                    if($scope.currentPage== $scope.totalPages)
+                    if($scope.currentPage == $scope.totalPages)
                         {
                             document.getElementById("next").disabled = true;
-                            document.getElementById("previous").disabled = false;        
+                            document.getElementById("previous").disabled = false; 
                         }
-                    else if($scope.currentPage== 1)
+                    else if($scope.currentPage == 1)
                         {
                             document.getElementById("previous").disabled = true;
                             document.getElementById("next").disabled = false;
@@ -72,11 +72,11 @@
                     else
                     {
                                 
-                        if($scope.currentPage<=5 && $scope.currentPage+9<$scope.totalPages)
+                        if($scope.currentPage<=5)
                             for(var i=0; i<=9;i++) 
                                  $scope.pages[i] = i+1; 
                             
-                        else if($scope.currentPage+9>=$scope.totalPages)
+                        else if($scope.currentPage+5>=$scope.totalPages)
                             {
                                  var d=9-($scope.totalPages-$scope.currentPage);
                                  for(var i=$scope.currentPage-d; i<=$scope.currentPage+9-d;i++) 
@@ -110,9 +110,9 @@
                  }
                 
              else       
-                     ListProcurements(page-1);           
+                     ListProcurements(page-1);   
             }
-        
+         
         //DELETE PROCUREMENTS
         $scope.delete = function (procurement) {
             DataService.delete("procurements", procurement.id, function (data) {

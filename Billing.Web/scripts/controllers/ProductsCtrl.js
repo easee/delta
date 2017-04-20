@@ -65,11 +65,11 @@
                     else
                     {
                                 
-                        if($scope.currentPage<=5 && $scope.currentPage+9<$scope.totalPages)
+                        if($scope.currentPage<=5)
                             for(var i=0; i<=9;i++) 
                                  $scope.pages[i] = i+1; 
                             
-                        else if($scope.currentPage+9>=$scope.totalPages)
+                        else if($scope.currentPage+4>=$scope.totalPages)
                             {
                                  var d=9-($scope.totalPages-$scope.currentPage);
                                  for(var i=$scope.currentPage-d; i<=$scope.currentPage+9-d;i++) 
