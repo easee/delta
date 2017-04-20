@@ -59,13 +59,13 @@
                         <div class="form-group col-xs-4">
                             <label>Shipper</label>
                             <select class="form-control" ng-model="invoice.shipperId" ng-options="shipper.id as shipper.name
-                                                                    for shipper in shippers"><option value="" disabled selected> Select your option </option>
+                                                                    for shipper in shippers"><option value="" disabled selected> Select shipper </option>
                             </select>
                         </div>
                         <div class="form-group col-xs-4">
                             <label>Agent</label>
                             <select class="form-control" ng-model="invoice.agentId" ng-options="agent.id as agent.name
-                                                                    for agent in agents"><option value="" disabled selected> Select your option </option>
+                                                                    for agent in agents"><option value="" disabled selected> Select agent </option>
                             </select>
                         </div>
                         <!--Dodati select dropdown za customera-->
@@ -73,7 +73,7 @@
                             <label>Customer</label>
                             <div>
                                 <input type="text" ng-model="selectedCustomer" placeholder="Enter customer" uib-typeahead="{id:customer.id, name:customer.name} as customer.name for customer in getCustomers($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults"
-                                    class="form-control">Model: {{invoice.customerId.id | json}}
+                                    class="form-control">
                             </div>
                             <!--<select class="form-control" id="custsel1" data-style="btn-primary" ng-model="invoice.customerId" ng-options="customer.id as customer.name for customer in customers" ng-keypress="customerSelected($event)"></select>-->
                         </div>
@@ -98,14 +98,25 @@
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="item in invoice.items">
-                                            <td><input type="text" ng-model="selectedProduct" placeholder="Enter product" uib-typeahead="{id:product.id, name:product.name} as product.name for product in getProduct($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults"
-                                                    class="form-control"></td>
+                                            <td><input type="text" ng-model="item.product" class="form-control"></td>
                                             <td><input type="number" ng-model="item.quantity" class="form-control" /></td>
                                             <td><input type="number" ng-model="item.price" class="form-control" /></td>
                                             <td>{{item.quantity * item.price}} €</td>
-                                            <td><input type="button" ng-model="item.price" class="fa fa-plus" ng-click="saveItem" /></td>
-                                            <td><button type="button" class="btn btn-danger" ng-click="remove($index)"><i class="fa fa-remove" aria-hidden="true" </i></button></td>
+                                            <td><button type="button" class="btn btn-xs btn-success" ng-click="saveItem(item)"><i class="fa fa-check-circle"></i></button></td>
+                                            <td><button type="button" class="btn btn-danger" ng-click="removeItem(item)"><i class="fa fa-remove"></i></button></td>
                                         </tr>
+
+                                        <tr>
+                                            <td><input type="text" ng-model="selectedProduct" placeholder="Enter product" uib-typeahead="product as product.name for product in getProducts($viewValue)"
+                                                    typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control"></td>
+                                            <td><input type="number" ng-model="newItem.quantity" class="form-control" /></td>
+                                            <td><input type="number" ng-model="newItem.price" class="form-control" /></td>
+                                            <td>{{newItem.quantity * newItem.price}} €</td>
+                                            <td>
+                                                <div class="pull-left"><button type="button" ng-click="saveItem(newItem)" class="btn btn-xs btn-success"><i class="fa fa-check-circle"></i></button></div>
+                                            </td>
+                                        </tr>
+
                                         <tr>
                                             
                                             <td></td>

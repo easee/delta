@@ -34,53 +34,19 @@
         var dateShipped = new Date(new Date(currentDate).setDate(currentDate.getDate() + 5)); // Set default shipping date to current + 5 days.
         $scope.new = function() {
             $scope.invoice = {
-                id: 0,
-                invoiceNo: invGenNum,
-                date: new Date(),
-                shippedOn: dateShipped,
-                status: 0,
-                subTotal: 0,
-                vat: 0,
-                vatAmount: 0,
-                total: 0,
-                shipperId: 0,
-                agentId: 0,
-                customerId: 0,
-                shipping: 0
+                id: 0
             };
             $scope.showInvoices = true;
 
-            $scope.itemBlank = function() {
-                $scope.invoice.items = {
-                    productId: 0,
-                    quantity: 0,
-                    price: 0,
-                    invoiceId: 0,
-                };
-            };
-
-            $scope.remove = function(index) {
-                    $scope.invoice.items.splice(index, 1);
-                },
-
-                $scope.total = function() {
-                    var total = 0;
-                    angular.forEach($scope.invoice.items, function(item) {
-                        total += item.quantity * item.price;
-                    })
-                    return total;
-                }
+                // $scope.total = function() {
+                //     var total = 0;
+                //     angular.forEach($scope.invoice.items, function(item) {
+                //         total += item.quantity * item.price;
+                //     })
+                //     return total;
+                // }
 
         };
-
-                $scope.saveItem = function() {
-                $scope.invoice.items = {
-                    productId: 0,
-                    quantity: 0,
-                    price: 0,
-                    invoiceId: 0,
-                };
-            };
         //END OF ITEM SECTION IN MODAL
 
 
@@ -94,7 +60,7 @@
             });
         };
 
-        $scope.getProduct = function(name) {
+        $scope.getProducts = function(name) {
             return $http.get('http://localhost:9000/api/products/' + name).then(function(response) {
                 return response.data;
             });
@@ -148,10 +114,29 @@
         }
 
 
-        //LIST/GET ALL ITEMS
-        function getItems(name) {
-            DataService.list("items/" + name, function(data) { $scope.items = data });
-        };
+        //GET AND SAVE ITEMS
+        $scope.saveItem = function(item){
+                if (item.id == undefined){
+                    item.productId = $scope.selectedProduct.id;
+                    item.invoiceId = $scope.invoice.id;
+                    DataService.insert("items", item, function(){
+                        DataService.read("invoices", $scope.invoice.id, function(data){
+                            $scope.invoice = data;
+                            $scope.newItem = { productId: 0, quantity: 0, price: 0 };
+                            $scope.selectedProduct = { id: 0, name: "" };
+                        })
+                    });
+                }
+                else{
+                    DataService.update("items", item.id, item, function(){});
+                }
+            };
+            
+        $scope.removeItem = function (item) {
+            DataService.delete("items", item.id, function () {
+                DataService.read("invoices", $scope.invoice.id, function (data) { $scope.invoice = data; })
+            });
+        }
 
         //LIST/GET ALL SHIPPERS
         function getShippers(name) {
