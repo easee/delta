@@ -92,20 +92,22 @@
                                             <th>Qty</th>
                                             <th>Price</th>
                                             <th>SubTotal</th>
+                                            <th>Add</th>
                                             <th>Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="item in invoice.items">
-                                            <td><input type="text" ng-model="item.productId" placeholder="Enter product" uib-typeahead="product.id as product.name for product in getProduct($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults"
+                                            <td><input type="text" ng-model="selectedProduct" placeholder="Enter product" uib-typeahead="{id:product.id, name:product.name} as product.name for product in getProduct($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults"
                                                     class="form-control"></td>
                                             <td><input type="number" ng-model="item.quantity" class="form-control" /></td>
                                             <td><input type="number" ng-model="item.price" class="form-control" /></td>
                                             <td>{{item.quantity * item.price}} €</td>
+                                            <td><input type="button" ng-model="item.price" class="fa fa-plus" ng-click="saveItem" /></td>
                                             <td><button type="button" class="btn btn-danger" ng-click="remove($index)"><i class="fa fa-remove" aria-hidden="true" </i></button></td>
                                         </tr>
                                         <tr>
-                                            <td><button type="button" class="btn btn-info" ng-click="add()">Add item</button></td>
+                                            
                                             <td></td>
                                             <td></td>
                                             <td>Total : </td>
@@ -207,7 +209,7 @@
                             <label>Customer</label>
                             <div>
                                 <input type="text" ng-model="selectedCustomer" placeholder="Enter customer" uib-typeahead="{id:customer.id, name:customer.name} as customer.name for customer in getCustomers($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults"
-                                    class="form-control">Model: {{invoice.customerId.id | json}}
+                                    class="form-control">
                             </div>
                             <!--<select class="form-control" id="custsel1" data-style="btn-primary" ng-model="invoice.customerId" ng-options="customer.id as customer.name for customer in customers" ng-keypress="customerSelected($event)"></select>-->
                         </div>
@@ -219,34 +221,8 @@
 
                         <div class="container-fluid">
                             <section class="row">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Product</th>
-                                            <th>Qty</th>
-                                            <th>Price</th>
-                                            <th>SubTotal</th>
-                                            <th>Delete</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="item in invoice.items">
-                                            <td><input type="text" ng-model="item.productId" placeholder="Enter product" uib-typeahead="product.id as product.name for product in getProduct($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults"
-                                                    class="form-control"></td>
-                                            <td><input type="number" ng-model="item.quantity" class="form-control" /></td>
-                                            <td><input type="number" ng-model="item.price" class="form-control" /></td>
-                                            <td>{{item.quantity * item.price}} €</td>
-                                            <td><button type="button" class="btn btn-danger" ng-click="remove($index)"><i class="fa fa-remove" aria-hidden="true" </i></button></td>
-                                        </tr>
-                                        <tr>
-                                            <td><button type="button" class="btn btn-info" ng-click="add()">Add item</button></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>Total : </td>
-                                            <td>{{total()}} €</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                
+
                             </section>
                         </div>
                     </form>
@@ -256,9 +232,6 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                             Close
-                </button>
-                    <button type="button" class="btn btn-info" ng-click="saveItem()">
-                    Save Items
                 </button>
                     <button type="button" onclick="$('.modal').modal('hide')" class="btn btn-primary" ng-click="save()">
                     Create Invoice
@@ -270,7 +243,7 @@
     <!--End of CREATE NEW Modal-->
 
     <div class="form-group pull-right">
-        <td><button type="submit" class="btn btn-sm btn-primary btn-create" data-toggle="modal" ng-click="new(); add()" data-target="#myModalNew" type="submit">
+        <td><button type="submit" class="btn btn-sm btn-primary btn-create" data-toggle="modal" ng-click="new()" data-target="#myModalNew" type="submit">
                     <i class="fa fa-plus" aria-hidden="true"></i> INVOICE</button>
         </td>
     </div>
@@ -312,7 +285,7 @@
                    </button></td>
             <td>{{item.shipper}}</td>
             <td>{{item.total}}</td>
-            <td> <a href="" ng-click="edit(item)" ><button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal" type="submit"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button></a></td>
+            <td> <a href="" ng-click="edit(item);itemBlank()" ><button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal" type="submit"><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button></a></td>
             <td admin-view> <a href="" ng-click="delete(item)"><button type="submit" class="btn btn-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true" </i></button></a></td>
         </tr>
     </table>
