@@ -46,19 +46,17 @@
                 shipperId: 0,
                 agentId: 0,
                 customerId: 0,
-                shipping: 0,
-                //START OF ITEM SECTION IN MODAL
-                items: []
+                shipping: 0
             };
             $scope.showInvoices = true;
 
-            $scope.add = function() {
-                $scope.invoice.items.push({
+            $scope.itemBlank = function() {
+                $scope.invoice.items = {
                     productId: 0,
                     quantity: 0,
                     price: 0,
                     invoiceId: 0,
-                });
+                };
             };
 
             $scope.remove = function(index) {
@@ -74,6 +72,15 @@
                 }
 
         };
+
+                $scope.saveItem = function() {
+                $scope.invoice.items = {
+                    productId: 0,
+                    quantity: 0,
+                    price: 0,
+                    invoiceId: 0,
+                };
+            };
         //END OF ITEM SECTION IN MODAL
 
 
