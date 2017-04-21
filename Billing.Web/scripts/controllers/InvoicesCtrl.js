@@ -3,17 +3,24 @@
         $scope.showInvoice = false;
         getShippers('');
         getAgents('');
-        // getCustomers('');
         ListInvoices();
-        //getProduct();
 
         $scope.selectedCustomer = { id: 0, name: "" };
 
 
         //READ AND EDIT INVOICES
-        $scope.edit = function(currentInvoice) {
-            $scope.invoice = currentInvoice;
-            $scope.showInvoice = true;
+        // $scope.edit = function(currentInvoice) {
+        //     $scope.invoice = currentInvoice;
+        //     $scope.showInvoice = true;
+        // };
+
+        $scope.edit = function (invoice) {
+            if (invoice.id == 0) {
+                $scope.selectedCustomer = { id: 0, name: '' };
+            } else {
+                $scope.selectedCustomer = { id: invoice.customerId, name: invoice.customer };
+            }
+            $scope.invoice = invoice;
         };
 
         //UPDATE INVOICE
@@ -148,10 +155,6 @@
             DataService.list("agents", function(data) { $scope.agents = data });
         };
 
-        // //LIST/GET ALL CUSTOMERS
-        // function getCustomers(name){
-        //     DataService.list("customers/" + name, function(data){ $scope.customers = data});
-        // };
     }]);
 
 }());

@@ -280,13 +280,14 @@ namespace Billing.Api.Models
                 SubTotal = invoice.SubTotal,
                 Total = Math.Round(invoice.Total, 2),
                 VatAmount = invoice.VatAmount,
-                ShipperId = (invoice.Shipper==null) ? 0 : invoice.Shipper.Id, //Ako dobijemo Shipper objekat kao null, stavimo nulu
+                ShipperId = (invoice.Shipper == null) ? 0 : invoice.Shipper.Id, //Ako dobijemo Shipper objekat kao null, stavimo nulu
                 CustomerId = (invoice.Customer == null) ? 0 : invoice.Customer.Id,
                 AgentId = (invoice.Agent == null) ? 0 : invoice.Agent.Id,
-                Shipper = (invoice.Shipper==null) ? "" : invoice.Shipper.Name,
-                Customer = (invoice.Customer.Name==null) ? "" : invoice.Customer.Name,
+                Shipper = (invoice.Shipper == null) ? "" : invoice.Shipper.Name,
+                Customer = (invoice.Customer.Name == null) ? "" : invoice.Customer.Name,
                 Agent = (invoice.Agent.Name == null) ? "" : invoice.Agent.Name,
-                Shipping = invoice.Shipping
+                Shipping = invoice.Shipping,
+                Items = invoice.Items.Select(x => Create(x)).ToList()
             };
         }
         
