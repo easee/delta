@@ -41,7 +41,8 @@
         var dateShipped = new Date(new Date(currentDate).setDate(currentDate.getDate() + 5)); // Set default shipping date to current + 5 days.
         $scope.new = function() {
             $scope.invoice = {
-                id: 0
+                id: 0,
+                invoiceNo: invGenNum
             };
             $scope.showInvoices = true;
 
