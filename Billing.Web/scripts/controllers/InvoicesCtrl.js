@@ -7,13 +7,6 @@
 
         $scope.selectedCustomer = { id: 0, name: "" };
 
-
-        //READ AND EDIT INVOICES
-        // $scope.edit = function(currentInvoice) {
-        //     $scope.invoice = currentInvoice;
-        //     $scope.showInvoice = true;
-        // };
-
         $scope.edit = function (invoice) {
             if (invoice.id == 0) {
                 $scope.selectedCustomer = { id: 0, name: '' };
@@ -42,7 +35,10 @@
         $scope.new = function() {
             $scope.invoice = {
                 id: 0,
-                invoiceNo: invGenNum
+                invoiceNo: invGenNum,
+                date: new Date(),
+                shippedOn: dateShipped,
+                vat: 17
             };
             $scope.showInvoices = true;
 
