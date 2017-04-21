@@ -80,7 +80,7 @@
 
                         <div class="form-group col-xs-4">
                             <label>Status</label>
-                            <select class="form-control" id="statuses" name="statuses" ng-model="invoice.status" ng-options="getKey(status) as status[getKey(status)] for status in statuses"><option value="" disabled selected> Select your option </option></select>
+                            <select class="form-control" ng-model="invoice.statusId" ng-options="getKey(status) as status[getKey(status)] for status in statuses"><option value="" disabled selected> Select your option </option></select>
                         </div>
 
                         <div class="container-fluid">
@@ -102,8 +102,8 @@
                                             <td><input type="number" ng-model="item.quantity" class="form-control" /></td>
                                             <td><input type="number" ng-model="item.price" class="form-control" /></td>
                                             <td>{{item.quantity * item.price}} €</td>
-                                            <td><button type="button" class="btn btn-xs btn-success" ng-click="saveItem(item)"><i class="fa fa-check-circle"></i></button></td>
-                                            <td><button type="button" class="btn btn-danger" ng-click="removeItem(item)"><i class="fa fa-remove"></i></button></td>
+                                            <td><button type="button" class="btn btn btn-success" ng-click="saveItem(item)"><i class="fa fa-plus"></i></button></td>
+                                            <td><button type="button" class="btn btn-danger" ng-click="removeItem(item)"><i class="fa fa-trash-o"></i></button></td>
                                         </tr>
 
                                         <tr>
@@ -112,9 +112,7 @@
                                             <td><input type="number" ng-model="newItem.quantity" class="form-control" /></td>
                                             <td><input type="number" ng-model="newItem.price" class="form-control" /></td>
                                             <td>{{newItem.quantity * newItem.price}} €</td>
-                                            <td>
-                                                <div class="pull-left"><button type="button" ng-click="saveItem(newItem)" class="btn btn-xs btn-success"><i class="fa fa-check-circle"></i></button></div>
-                                            </td>
+                                            <td><button type="button" class="btn btn btn-success" ng-click="saveItem(newItem)"><i class="fa fa-plus"></i></button></td>
                                         </tr>
 
                                         <tr>
@@ -122,7 +120,7 @@
                                             <td></td>
                                             <td></td>
                                             <td>Total : </td>
-                                            <td>{{total()}} €</td>
+                                            <td>{{invoice.total}} €</td>
                                         </tr>
                                     </tbody>
                                 </table>
