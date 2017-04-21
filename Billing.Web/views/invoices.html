@@ -33,29 +33,10 @@
                             <label>Shipped Date</label>
                             <input type="date" class="form-control" ng-model="invoice.shippedOn" />
                         </div>
-                        <!--Dodati select dropdown za statuse-->
-
                         <div class="form-group col-xs-4">
-                            <label>Sub Total</label>
-                            <input type="number" class="form-control" ng-model="invoice.subTotal" readonly="readonly" />
-                        </div>
-                        <div class="hidden">
                             <label>VAT</label>
-                            <input type="number" class="form-control" ng-model="invoice.vat" readonly="readonly" />
+                            <input type="number" class="form-control" ng-model="invoice.vat" />
                         </div>
-                        <div class="form-group col-xs-2">
-                            <label>Taxes</label>
-                            <input type="number" class="form-control" ng-model="invoice.vatAmount" readonly="readonly" />
-                        </div>
-                        <div class="form-group col-xs-2">
-                            <label>Shipping</label>
-                            <input type="number" class="form-control" ng-model="invoice.shipping" />
-                        </div>
-                        <div class="form-group col-xs-4">
-                            <label>Total</label>
-                            <input type="number" class="form-control" ng-model="invoice.total" readonly="readonly" />
-                        </div>
-                        <!--Dodati select dropdown za shippera-->
                         <div class="form-group col-xs-4">
                             <label>Shipper</label>
                             <select class="form-control" ng-model="invoice.shipperId" ng-options="shipper.id as shipper.name
@@ -68,15 +49,13 @@
                                                                     for agent in agents"><option value="" disabled selected> Select agent </option>
                             </select>
                         </div>
-                        <!--Dodati select dropdown za customera-->
                         <div class="form-group col-xs-4">
                             <label>Customer</label>
                             <div>
                                 <input type="text" ng-model="selectedCustomer" placeholder="Enter customer" uib-typeahead="{id:customer.id, name:customer.name} as customer.name for customer in getCustomers($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults"
                                     class="form-control">
                             </div>
-                            <!--<select class="form-control" id="custsel1" data-style="btn-primary" ng-model="invoice.customerId" ng-options="customer.id as customer.name for customer in customers" ng-keypress="customerSelected($event)"></select>-->
-                        </div>
+                           </div>
 
                         <div class="form-group col-xs-4">
                             <label>Status</label>
@@ -125,6 +104,39 @@
                                     </tbody>
                                 </table>
                             </section>
+                             <section class="row">
+                                <table class="table table-hover">
+                                    <thead>
+                                    </thead>
+                                    <tbody> 
+                                        <div class="row summary">
+                                        <div class="form-group col-xs-2 pull-right">
+                                            <label>Sub Total</label>
+                                            <input type="number" class="form-control" ng-model="invoice.subTotal" readonly="readonly" />
+                                        </div>
+                                        </div>
+
+                                        <div class="row summary">
+                                        <div class="form-group col-xs-2 pull-right">
+                                            <label>Taxes</label>
+                                            <input type="number" class="form-control" ng-model="invoice.vatAmount" readonly="readonly" />
+                                        </div>
+                                        </div>
+                                        <div class="row summary">
+                                        <div class="form-group col-xs-2 pull-right">
+                                            <label>Shipping</label>
+                                            <input type="number" class="form-control" ng-model="invoice.shipping" />
+                                        </div>
+                                        </div>
+                                        <div class="row summary">
+                                        <div class="form-group col-xs-2 pull-right">
+                                            <label>Total</label>
+                                            <input type="number" class="form-control" ng-model="invoice.total" readonly="readonly" />
+                                        </div>
+                                        </div>
+                                    </tbody>
+                                </table>
+                            </section>
                         </div>
                     </form>
                 </div>
@@ -134,7 +146,7 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                             Close
                 </button>
-                    <button type="button" onclick="$('.modal').modal('hide')" class="btn btn-primary" ng-click="save(item)">
+                    <button type="button" onclick="$('.modal').modal('hide')" class="btn btn-primary">
                     Save changes
                 </button>
                 </div>
