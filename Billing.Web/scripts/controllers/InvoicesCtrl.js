@@ -42,13 +42,13 @@
             };
             $scope.showInvoices = true;
 
-                // $scope.total = function() {
-                //     var total = 0;
-                //     angular.forEach($scope.invoice.items, function(item) {
-                //         total += item.quantity * item.price;
-                //     })
-                //     return total;
-                // }
+                $scope.getTotal = function() {
+                    var total = 0;
+                    angular.forEach($scope.invoice.items, function(item) {
+                        total += item.quantity * item.price;
+                    })
+                    return total;
+                }
 
         };
         //END OF ITEM SECTION IN MODAL

@@ -94,46 +94,24 @@
                                             <td><button type="button" class="btn btn btn-success" ng-click="saveItem(newItem)"><i class="fa fa-plus"></i></button></td>
                                         </tr>
 
-                                        <tr>
-                                            
-                                            <td></td>
-                                            <td></td>
-                                            <td>Total : </td>
-                                            <td>{{invoice.total}} €</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </section>
-                             <section class="row">
-                                <table class="table table-hover">
-                                    <thead>
-                                    </thead>
-                                    <tbody> 
-                                        <div class="row summary">
-                                        <div class="form-group col-xs-2 pull-right">
-                                            <label>Sub Total</label>
-                                            <input type="number" class="form-control" ng-model="invoice.subTotal" readonly="readonly" />
-                                        </div>
-                                        </div>
-
-                                        <div class="row summary">
-                                        <div class="form-group col-xs-2 pull-right">
-                                            <label>Taxes</label>
-                                            <input type="number" class="form-control" ng-model="invoice.vatAmount" readonly="readonly" />
-                                        </div>
-                                        </div>
-                                        <div class="row summary">
-                                        <div class="form-group col-xs-2 pull-right">
-                                            <label>Shipping</label>
-                                            <input type="number" class="form-control" ng-model="invoice.shipping" />
-                                        </div>
-                                        </div>
-                                        <div class="row summary">
-                                        <div class="form-group col-xs-2 pull-right">
-                                            <label>Total</label>
-                                            <input type="number" class="form-control" ng-model="invoice.total" readonly="readonly" />
-                                        </div>
-                                        </div>
+                                            <tr>
+                                                <td class="noborders"></td>
+                                                <td class="noborders"></td>
+                                                <td class="noborders text-right"><strong>Subtotal:</strong></td>
+                                                <td class="noborders">{{invoice.subTotal}} KM</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="noborders"></td>
+                                                <td class="noborders"></td>
+                                                <td class="noborders text-right"><strong>Shipping:</strong></td>
+                                                <td class="noborders">{{invoice.shipping}} KM</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="noborders"></td>
+                                                <td class="noborders"></td>
+                                                <td class="noborders text-right"><strong>Total:</strong></td>
+                                                <td class="noborders"><strong>{{invoice.total}} KM</strong></td>
+                                            </tr>
                                     </tbody>
                                 </table>
                             </section>
