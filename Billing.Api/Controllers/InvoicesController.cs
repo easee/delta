@@ -3,6 +3,7 @@ using Billing.Api.Models;
 using Billing.Database;
 using Billing.Repository;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Web.Http;
@@ -103,8 +104,18 @@ namespace Billing.Api.Controllers
         {
             try
             {
+
                 Invoice entity = UnitOfWork.Invoices.Get(id);
                 if (entity == null) return NotFound();
+                List<Item> items = new List<Item>();
+                List<int> itemId = new List<int>();
+                items = UnitOfWork.Items.Get().Where(a => a.Invoice.Id == id).ToList();
+                foreach (var item in items)
+                    itemId.Add(item.Id);
+
+                foreach (int d in itemId)
+                    UnitOfWork.Items.Delete(d);
+
                 UnitOfWork.Invoices.Delete(id);
                 UnitOfWork.Commit();
                 return Ok();

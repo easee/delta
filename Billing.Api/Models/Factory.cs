@@ -289,6 +289,7 @@ namespace Billing.Api.Models
                 Shipping = invoice.Shipping,
                 Items = invoice.Items.Select(x => Create(x)).ToList()
             };
+
         }
         
         public Invoice Create(InvoiceModel model)
