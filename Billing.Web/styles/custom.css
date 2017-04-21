@@ -65,3 +65,7 @@ table.auto
     margin-right: 0px
 }
 
+.noborders{
+    border-top: none
+}
+
