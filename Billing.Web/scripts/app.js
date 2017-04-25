@@ -1,7 +1,7 @@
-(function(){
-    
+(function() {
+
     app = angular.module("Billing", ["ngRoute", "LocalStorageModule", "ui.bootstrap", "ngSanitize"]);
-    
+
     credentials = {
         token: "",
         expiration: "",
@@ -11,57 +11,72 @@
             role: ""
         }
     };
-    
+
     function authenticated() {
         return (credentials.currentUser.id != 0)
-    } 
-    
+    }
+
     redirectTo = '/';
-    
-    app.config(function($routeProvider){
+
+    app.config(function($routeProvider) {
         $routeProvider
             .when("/agents", {
                 templateUrl: "views/agents.html",
-                controller: "AgentsCtrl" })
+                controller: "AgentsCtrl"
+            })
             .when("/customers", {
                 templateUrl: "views/customers.html",
-                controller: "CustomersCtrl" })
+                controller: "CustomersCtrl"
+            })
             /*Dodao categories*/
             .when("/categories", {
-            templateUrl: "views/categories.html",
-            controller:"CategoriesCtrl"})
+                templateUrl: "views/categories.html",
+                controller: "CategoriesCtrl"
+            })
             /*--------------*/
             /*Dodao categories*/
             .when("/suppliers", {
-            templateUrl: "views/suppliers.html",
-            controller:"SuppliersCtrl"})
+                templateUrl: "views/suppliers.html",
+                controller: "SuppliersCtrl"
+            })
+            /*--------------*/
+            .when("/salesbycustomercategory", {
+                templateUrl: "views/Reports/salesbycustomercategory.html",
+                controller: "SalesByCustomerCategoryCtrl"
+            })
             /*--------------*/
             .when("/shippers", {
                 templateUrl: "views/shippers.html",
-                controller: "ShippersCtrl" })
+                controller: "ShippersCtrl"
+            })
             .when("/procurements", {
                 templateUrl: "views/procurements.html",
-                controller: "ProcurementsCtrl" })
+                controller: "ProcurementsCtrl"
+            })
             .when("/products", {
                 templateUrl: "views/products.html",
-                controller: "ProductsCtrl" })
+                controller: "ProductsCtrl"
+            })
             .when("/invoices", {
                 templateUrl: "views/invoices.html",
-                controller: "InvoicesCtrl" })
+                controller: "InvoicesCtrl"
+            })
             .when("/login", {
                 templateUrl: "views/login.html",
-                controller: "LoginCtrl" })
+                controller: "LoginCtrl"
+            })
             .when("/logout", {
                 template: "",
-                controller: "LogoutCtrl" })
+                controller: "LogoutCtrl"
+            })
             .otherwise({ redirectTo: "/agents" });
-    }).run(function($rootScope, $location){
-        $rootScope.$on("$routeChangeStart", function(event, next, current){
-            if(!authenticated()){
-                if(next.templateUrl != "views/login.html"){
+    }).run(function($rootScope, $location) {
+        $rootScope.$on("$routeChangeStart", function(event, next, current) {
+            if (!authenticated()) {
+                if (next.templateUrl != "views/login.html") {
                     redirectTo = $location.path();
-                    if(redirectTo == "/login") redirectTo = "/agents";
-                    if (redirectTo == "/logout") redirectTo ="/agents";
+                    if (redirectTo == "/login") redirectTo = "/agents";
+                    if (redirectTo == "/logout") redirectTo = "/agents";
                     $location.path("/login");
                 }
             }

@@ -1,24 +1,35 @@
-<input type="date" ng-model="requestData.startDate" required>
-<input type="date" ng-model="requestData.endDate" required>
-
-<button class="btn btn-primary" ng-click="save()" style="float: right;">SALES BY CUSTOMER / CATEGORY</button>
-
-<table class="table table-bordered" style="counter-reset: serial-number;" ng-show="showCustomerCategory">
+<!--<input type="date" class="datepicker" data-date-format="mm/dd/yyyy" ng-model="requestData.startDate">
+<input class="datepicker" data-date-format="mm/dd/yyyy" ng-model="requestData.endDate">-->
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <label>Start Date: </label>
+            <input type="date" id="e" ng-model="requestData.startDate" required>
+        </div>
+        <div class="col-md-4 ">
+            <label>End Date: </label>
+            <input type="date" ng-model="requestData.endDate" required>
+        </div>
+        <button class="btn btn-primary col-md-4 " ng-click="save() " style="float: right; ">SALES BY CUSTOMER / CATEGORY</button>
+    </div>
+</div>
+<hr>
+<table class="table table-striped table-bordered table-list auto " style="counter-reset: serial-number; " ng-show="showCustomerCategory ">
     <thead>
         <tr>
             <th>Customer</th>
-            <th bgcolor="#00ace6">Turnover</th>
-            <th ng-repeat="categorie in salesByCustomerCategorydata.catRevenue">{{categorie.categoryName}}</th>
+            <th bgcolor="#dbd6d6 ">Turnover</th>
+            <th ng-repeat="category in salesByCustomerCategorydata.catRevenue ">{{category.categoryName}}</th>
         </tr>
     </thead>
-    <tbody ng-repeat="customer in salesByCustomerCategorydata.cusRevenue">
+    <tbody ng-repeat="customer in salesByCustomerCategorydata.cusRevenue ">
         <tr>
             <td>{{customer.customerName}}</td>
-            <td bgcolor="#00ace6">{{customer.customerTurnover | number: 2}} &euro;</td>
-            <td ng-repeat="item in customer.categorySales track by $index">{{item | number: 2}} </td>
+            <td bgcolor="#dbd6d6 ">{{customer.customerTurnover | number: 2}} &euro;</td>
+            <td ng-repeat="item in customer.categorySales track by $index ">{{item | number: 2}} </td>
         </tr>
     </tbody>
-    <td bgcolor="#00ace6">TOTAL:</td>
-    <td bgcolor="#00ace6">{{salesByCustomerCategorydata.grandTotal}} &euro;</td>
-    <td ng-repeat="items in salesByCustomerCategorydata.catRevenue" bgcolor="#00ace6">{{items.categoryTotal}}</td>
+    <td bgcolor="#dbd6d6 ">TOTAL:</td>
+    <td bgcolor="#dbd6d6 ">{{salesByCustomerCategorydata.grandTotal}} &euro;</td>
+    <td ng-repeat="items in salesByCustomerCategorydata.catRevenue " bgcolor="#dbd6d6 ">{{items.categoryTotal}}</td>
 </table>
