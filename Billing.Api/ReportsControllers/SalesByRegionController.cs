@@ -10,7 +10,7 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    [TokenAuthorization("user")]
+    //[TokenAuthorization("user")]
     //dodati own
     public class SalesByRegionController : BaseController
     {
