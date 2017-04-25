@@ -31,7 +31,7 @@
             <td>{{agent.agentTotal}}</td>
             <td>{{agent.regionPercent}}%</td>
             <td>{{agent.totalPercent}}%</td>
-            <td> <a href=""><button type="submit" class="btn btn-info" type="submit"><i class="fa fa-info-circle" aria-hidden="true" </i></button></a></td>
+            <td> <a href=""><button type="submit" class="btn btn-info" data-toggle="modal" ng-click="agentSales(agent.agentId)" data-target="#myModal" type="submit"><i class="fa fa-info-circle" aria-hidden="true" </i></button></a></td>
         </tr>
     </tbody>
     <tbody>
@@ -44,3 +44,60 @@
         </tr>
     </tbody>
 </table>
+
+                <!-- VIEW AGENT SALES Modal -->
+        <div class="modal fade custom" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                
+                <div class="modal-content">
+                    <div class="container-fluid">
+<!-- Modal Header -->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
+                                             <span class="sr-only">Close</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            Sales performance for <strong>{{salesByAgentData.agentName}}</strong>
+                        </h4>
+                    </div>
+
+                    <!-- Modal Body -->
+                    <table class="table table-striped table-bordered table-list auto " style="counter-reset: serial-number; " ng-show="showRegion">
+                        <thead>
+                            <tr>
+                                <th>Agent</th>
+                                <th>Total Sales</th>
+                                <th>Percent of {{salesByAgentData.agentName}} </th>
+                                <th>Percent of Total</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="region in salesByAgentData.sales">
+                            <tr>
+                                <td>{{region.regionName}}</td>
+                                <td>{{region.regionTotal}}</td>
+                                <td>{{region.regionPercent}}%</td>
+                                <td>{{region.totalPercent}}%</td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <tr>
+                                <td>{{salesByAgentData.agentName}} Total</td>
+                                <td>{{salesByAgentData.agentTotal}}</td>
+                                <td></td>
+                                <td>{{salesByAgentData.percentTotal}} %</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                                    Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                    </div>
+                    
