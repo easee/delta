@@ -1,0 +1,46 @@
+<!--<input type="date" class="datepicker" data-date-format="mm/dd/yyyy" ng-model="requestData.startDate">
+<input class="datepicker" data-date-format="mm/dd/yyyy" ng-model="requestData.endDate">-->
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <label>Start Date: </label>
+            <input type="date" id="e" ng-model="requestData.startDate" required>
+        </div>
+        <div class="col-md-4 ">
+            <label>End Date: </label>
+            <input type="date" ng-model="requestData.endDate" required>
+        </div>
+        <button class="btn btn-primary col-md-4 " ng-click="save() " style="float: right; ">SALES BY REGION</button>
+    </div>
+</div>
+<hr>
+<table class="table table-striped table-bordered table-list auto " style="counter-reset: serial-number; " ng-show="showRegion" ng-repeat="region in salesbyRegiondata.sales">
+    <caption>Region: {{region.regionName}}</caption>
+    <thead>
+        <tr>
+            <th>Agent</th>
+            <th>Total Sales</th>
+            <th>Percent of Region</th>
+            <th>Percent of Total</th>
+            <th>Info</th>
+        </tr>
+    </thead>
+    <tbody ng-repeat="agent in region.agents">
+        <tr>
+            <td>{{agent.agentName}}</td>
+            <td>{{agent.agentTotal}}</td>
+            <td>{{agent.regionPercent}}%</td>
+            <td>{{agent.totalPercent}}%</td>
+            <td> <a href=""><button type="submit" class="btn btn-info" type="submit"><i class="fa fa-info-circle" aria-hidden="true" </i></button></a></td>
+        </tr>
+    </tbody>
+    <tbody>
+        <tr>
+            <td><strong>{{region.regionName}} Total</strong></td>
+            <td><strong>{{region.regionTotal}}</strong></td>
+            <td></td>
+            <td><strong>{{region.regionPercent}}%</strong></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
