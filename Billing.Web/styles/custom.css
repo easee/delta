@@ -59,4 +59,12 @@ table.auto {
     border-radius: 5px;
     border-top: 5px solid #ff656c;
     margin: 0 auto;
+
+}
+.summary{
+    margin-right: 0px
+}
+
+.noborders{
+    border-top: none
 }

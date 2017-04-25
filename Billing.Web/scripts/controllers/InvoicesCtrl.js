@@ -3,17 +3,17 @@
         $scope.showInvoice = false;
         getShippers('');
         getAgents('');
-        // getCustomers('');
         ListInvoices();
-        //getProduct();
 
         $scope.selectedCustomer = { id: 0, name: "" };
 
-
-        //READ AND EDIT INVOICES
-        $scope.edit = function(currentInvoice) {
-            $scope.invoice = currentInvoice;
-            $scope.showInvoice = true;
+        $scope.edit = function (invoice) {
+            if (invoice.id == 0) {
+                $scope.selectedCustomer = { id: 0, name: '' };
+            } else {
+                $scope.selectedCustomer = { id: invoice.customerId, name: invoice.customer };
+            }
+            $scope.invoice = invoice;
         };
 
         //UPDATE INVOICE
@@ -34,17 +34,21 @@
         var dateShipped = new Date(new Date(currentDate).setDate(currentDate.getDate() + 5)); // Set default shipping date to current + 5 days.
         $scope.new = function() {
             $scope.invoice = {
-                id: 0
+                id: 0,
+                invoiceNo: invGenNum,
+                date: new Date(),
+                shippedOn: dateShipped,
+                vat: 17
             };
             $scope.showInvoices = true;
 
-                // $scope.total = function() {
-                //     var total = 0;
-                //     angular.forEach($scope.invoice.items, function(item) {
-                //         total += item.quantity * item.price;
-                //     })
-                //     return total;
-                // }
+                $scope.getTotal = function() {
+                    var total = 0;
+                    angular.forEach($scope.invoice.items, function(item) {
+                        total += item.quantity * item.price;
+                    })
+                    return total;
+                }
 
         };
         //END OF ITEM SECTION IN MODAL
@@ -148,10 +152,6 @@
             DataService.list("agents", function(data) { $scope.agents = data });
         };
 
-        // //LIST/GET ALL CUSTOMERS
-        // function getCustomers(name){
-        //     DataService.list("customers/" + name, function(data){ $scope.customers = data});
-        // };
     }]);
 
 }());
