@@ -3,7 +3,7 @@
         $scope.showInvoice = false;
         getShippers('');
         getAgents('');
-        ListInvoices();
+        ListInvoices(0);
 
         $scope.selectedCustomer = { id: 0, name: "" };
 
@@ -22,9 +22,9 @@
             $scope.invoice.customerId = $scope.selectedCustomer.id;
             console.log($scope.invoice);
             if ($scope.invoice.id == 0)
-                DataService.insert("invoices", $scope.invoice, function(data) { ListInvoices(); });
+                DataService.insert("invoices", $scope.invoice, function(data) { ListInvoices($scope.currentPage-1); });
             else
-                DataService.update("invoices", $scope.invoice.id, $scope.invoice, function(data) { ListInvoices(); });
+                DataService.update("invoices", $scope.invoice.id, $scope.invoice, function(data) { ListInvoices($scope.currentPage-1); });
         };
 
         //CREATE NEW INVOICE
@@ -51,6 +51,84 @@
                 }
 
         };
+        
+           //PAGINATION
+        function ListInvoices(page){
+                DataService.list("invoices?page="+page, function(data){
+                  
+                    $scope.invoices= data.invoicesList;
+                    $scope.totalPages = data.totalPages;
+                    $scope.currentPage = data.currentPage+1;
+                    if($scope.totalPages<11)
+                    $scope.pages = new Array($scope.totalPages);
+                    else
+                    $scope.pages = new Array(10);   
+                    
+                    $scope.size=data.size;
+                                            
+                    if($scope.currentPage== $scope.totalPages)
+                        {
+                            document.getElementById("next").disabled = true;
+                            document.getElementById("previous").disabled = false;        
+                        }
+                    else if($scope.currentPage== 1)
+                        {
+                            document.getElementById("previous").disabled = true;
+                            document.getElementById("next").disabled = false;
+                        }
+                    
+                    else
+                        {
+                            document.getElementById("next").disabled = false;
+                            document.getElementById("previous").disabled = false;
+                        }
+                     if($scope.totalPages<11)
+                            for(var i=0; i<$scope.totalPages;i++) 
+                                $scope.pages[i] = i+1;
+                        
+                    else
+                    {
+                                
+                        if($scope.currentPage<=5)
+                            for(var i=0; i<=9;i++) 
+                                 $scope.pages[i] = i+1; 
+                            
+                        else if($scope.currentPage+4>=$scope.totalPages)
+                            {
+                                 var d=9-($scope.totalPages-$scope.currentPage);
+                                 for(var i=$scope.currentPage-d; i<=$scope.currentPage+9-d;i++) 
+                                        $scope.pages[i-$scope.currentPage+d] = i;
+                            }
+                        
+                        else
+                            {
+                                var d=0,tmp=4;
+                                for(var i=$scope.currentPage; i<=$scope.currentPage+9;i++) 
+                                    {
+                                         $scope.pages[d] =$scope.currentPage-tmp+d;
+                                         d++; 
+                                    }
+                            }           
+                    }           
+                    console.log($scope.currentPage);
+                });
+            }
+        //GO TO
+         $scope.goto = function(page,direction){
+                if(direction==-1)
+                    {
+                     ListInvoices(page-2); 
+                     document.getElementById(page-1).focus();
+                    }
+             else if(direction==1)
+                 {
+                      ListInvoices(page);
+                      document.getElementById(page+1).focus();
+                 }
+                
+             else       
+                      ListInvoices(page-1);           
+            }
         //END OF ITEM SECTION IN MODAL
 
 
@@ -94,9 +172,9 @@
             $scope.showInvoices = false;
         };
         //LIST ALL INVOICES
-        function ListInvoices() {
+        /*function ListInvoices() {
             DataService.list("invoices", function(data) { $scope.invoices = data });
-        };
+        };*/
 
         $scope.statuses = [
             { "-1": "Canceled" },

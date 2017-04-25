@@ -17,9 +17,21 @@ namespace Billing.Api.Controllers
     {
 
         [Route("")]
-        public IHttpActionResult Get()
+        public IHttpActionResult GetAll(int page = 0)
         {
-            return Ok(UnitOfWork.Invoices.Get().ToList().Select(x => Factory.Create(x)).ToList());
+            int PageSize = 8;
+            var query = UnitOfWork.Invoices.Get().OrderBy(x => x.Id).ToList();
+            int TotalPages = (int)Math.Ceiling((double)query.Count() / PageSize);
+
+            var returnObject = new
+            {
+                pageSize = PageSize,
+                currentPage = page,
+                totalPages = TotalPages,
+                size = query.Count,
+                invoicesList = query.Skip(PageSize * page).Take(PageSize).Select(x => Factory.Create(x)).ToList()
+            };
+            return Ok(returnObject);
         }
 
         [Route("customer/{id}")]
