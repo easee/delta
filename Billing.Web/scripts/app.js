@@ -44,7 +44,10 @@
                 templateUrl: "views/Reports/salesbycustomercategory.html",
                 controller: "SalesByCustomerCategoryCtrl"
             })
-            /*--------------*/
+            .when("/salesbycustomer", {
+                templateUrl: "views/Reports/salesbycustomer.html",
+                controller: "SalesByCustomerCtrl"
+            })
             .when("/shippers", {
                 templateUrl: "views/shippers.html",
                 controller: "ShippersCtrl"
@@ -67,7 +70,8 @@
             })
             .when("/logout", {
                 template: "",
-                controller: "LogoutCtrl" })
+                controller: "LogoutCtrl"
+            })
             .when("/salesbycategory", {
                 templateUrl: "views/reports/salesbycategory.html",
                 controller: "SalesByCategoryCtrl"
