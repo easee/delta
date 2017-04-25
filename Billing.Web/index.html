@@ -106,7 +106,25 @@
                 <li>
                     <a href="#/procurements"><span class="fa-stack fa-lg pull-left"><i class="fa fa-file fa-stack-1x" ></i></span>Procurements</a>
                 </li>
-            </ul>
+                <!--<li data-toggle="collapse">
+                    <a class="nav-sub-container"><span class="fa-stack fa-lg pull-left"><i class="fa fa-area-chart fa-stack-1x" ></i></span>Reports</a>
+                    <ul class="nav nav-pills nav-stacked collapse in">
+                        <li><a href="#/agents">Agent Report</a></li>
+                        <li><a href="#/suppliers">Supplier Report</a></li>
+                    </ul>
+                </li>-->
+                <li>
+                    <a href="#submenu1" class=" sub-item" data-toggle="collapse" data-parent="#submenu1">
+                        <span class=" menu-ico-collapse fa-stack fa-lg pull-left"><i class="fa fa-area-chart fa-stack-1x">
+                            </i></span>Reports<i class="fa fa-angle-double-down"></i>
+                    </a>
+                    <div class="collapse list-group-submenu" id="submenu1">
+                        <a href="#/categories" data-parent="#submenu1"><span>Category report</span></a>
+                        <a href="#" data-parent="#submenu1"><span>Sales by region</span> </a>
+                        <a href="#" data-parent="#submenu1"><span>Customer report</span> </a>
+                        <a href="#" data-parent="#submenu1"><span>Category report</span> </a>
+                    </div>
+                </li>
         </div>
         <!-- /#sidebar-wrapper -->
         <!-- Page Content -->
@@ -121,7 +139,18 @@
     <script src="library/jquery-3.2.0.min.js"></script>
     <script src="library/bootstrap.min.js"></script>
     <script src="scripts/sidebarmenu.js"></script>
+    <!--<script>
+        function initMenu() {
+            $('#menu ul').hide();
+            $('#menu li a').click(
 
+                function() {
+                    $('#menu ul').hide('fast');
+                    $(this).next().slideToggle('fast');
+
+                });
+        }
+    </script>-->
 </body>
 
 </html>

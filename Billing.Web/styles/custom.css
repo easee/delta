@@ -1,18 +1,17 @@
-.login-page{
-    
+.login-page {
     margin-left: -s50px;
 }
 
-table.auto
-{
-    table-layout:auto;
-} 
+table.auto {
+    table-layout: auto;
+}
 
 .navbar-nav li:nth-child(2) {
-    float:right;
+    float: right;
 }
+
 .navbar-nav {
-    float:none;
+    float: none;
 }
 
 .input-append .btn.dropdown-toggle {
@@ -26,15 +25,15 @@ table.auto
     z-index: 1000;
     display: none;
     background-color: #f9f9f9;
-  }
+}
 
-  .typeahead-demo .custom-popup-wrapper > .message {
+.typeahead-demo .custom-popup-wrapper>.message {
     padding: 10px 20px;
     border-bottom: 1px solid #ddd;
     color: #868686;
-  }
+}
 
-  .typeahead-demo .custom-popup-wrapper > .dropdown-menu {
+.typeahead-demo .custom-popup-wrapper>.dropdown-menu {
     position: static;
     float: none;
     display: block;
@@ -43,24 +42,25 @@ table.auto
     border: none;
     border-radius: 0;
     box-shadow: none;
-  }
+}
 
 .profile {
     cursor: pointer;
 }
+
 .modal.custom .modal-dialog {
     width: 70%;
 }
 
-.login-block{
+.login-block {
     width: 320px;
     padding: 20px;
     background: #f5f5f5;
     border-radius: 5px;
     border-top: 5px solid #ff656c;
     margin: 0 auto;
-}
 
+}
 .summary{
     margin-right: 0px
 }
@@ -68,4 +68,3 @@ table.auto
 .noborders{
     border-top: none
 }
-
