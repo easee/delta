@@ -28,23 +28,26 @@
                 templateUrl: "views/customers.html",
                 controller: "CustomersCtrl"
             })
-            /*Dodao categories*/
             .when("/categories", {
                 templateUrl: "views/categories.html",
                 controller: "CategoriesCtrl"
             })
-            /*--------------*/
-            /*Dodao categories*/
             .when("/suppliers", {
                 templateUrl: "views/suppliers.html",
                 controller: "SuppliersCtrl"
             })
-            /*--------------*/
             .when("/salesbycustomercategory", {
                 templateUrl: "views/Reports/salesbycustomercategory.html",
                 controller: "SalesByCustomerCategoryCtrl"
             })
-            /*--------------*/
+            .when("/salesbycategory", {
+                templateUrl: "views/reports/salesbycategory.html",
+                controller: "SalesByCategoryCtrl"
+            })
+            .when("/salesbycustomer", {
+                templateUrl: "views/Reports/salesbycustomer.html",
+                controller: "SalesByCustomerCtrl"
+            })
             .when("/shippers", {
                 templateUrl: "views/shippers.html",
                 controller: "ShippersCtrl"
@@ -57,6 +60,10 @@
                 templateUrl: "views/products.html",
                 controller: "ProductsCtrl"
             })
+            .when("/agentregion", {
+                templateUrl: "views/reports/agentregion.html",
+                controller: "AgentRegionCtrl"
+            })
             .when("/invoices", {
                 templateUrl: "views/invoices.html",
                 controller: "InvoicesCtrl"
@@ -67,7 +74,8 @@
             })
             .when("/logout", {
                 template: "",
-                controller: "LogoutCtrl" })
+                controller: "LogoutCtrl"
+            })
             .when("/salesbycategory", {
                 templateUrl: "views/reports/salesbycategory.html",
                 controller: "SalesByCategoryCtrl"

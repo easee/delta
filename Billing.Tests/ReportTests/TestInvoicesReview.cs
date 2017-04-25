@@ -17,7 +17,7 @@ namespace Billing.Tests
     {
         InvoicesReviewController controller = new InvoicesReviewController();
         HttpConfiguration config = new HttpConfiguration();
-        HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "api/inventory");
+        HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "api/productsbycategory");
 
         [TestInitialize]
         public void Initializing()
