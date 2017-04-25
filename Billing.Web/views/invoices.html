@@ -290,4 +290,15 @@
     <div class="alert alert-info" ng-show="(invoices | filter:select).length == 0">
         <strong>Hello Talent!</strong> No results for your search. Watch your fingers.
     </div>
+    <div>
+        <!--PAGINATION-->
+        <div class="text-center">
+            <button id="first" class="btn btn" ng-click="goto(page,0)">First</button>
+            <button id="previous" class="btn btn" ng-click="goto(currentPage,-1)">Previous</button>
+            <ul class="pagination" ng-repeat="page in pages"><button id="{{page}}" class="btn btn-default" ng-click="goto(page,0)">{{page}}</button></ul>
+            <button id="next" class="btn btn" ng-click="goto(currentPage,1)">Next</button>
+            <button id="last" class="btn btn" ng-click="goto(totalPages,0)">Last</button>
+        </div>
+        <p class="text-center">Page {{currentPage}} of {{totalPages}}</p>
+    </div>
 </div>
