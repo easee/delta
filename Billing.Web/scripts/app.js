@@ -28,18 +28,14 @@
                 templateUrl: "views/customers.html",
                 controller: "CustomersCtrl"
             })
-            /*Dodao categories*/
             .when("/categories", {
                 templateUrl: "views/categories.html",
                 controller: "CategoriesCtrl"
             })
-            /*--------------*/
-            /*Dodao categories*/
             .when("/suppliers", {
                 templateUrl: "views/suppliers.html",
                 controller: "SuppliersCtrl"
             })
-            /*--------------*/
             .when("/salesbycustomercategory", {
                 templateUrl: "views/Reports/salesbycustomercategory.html",
                 controller: "SalesByCustomerCategoryCtrl"
@@ -48,7 +44,10 @@
                 templateUrl: "views/reports/salesbycategory.html",
                 controller: "SalesByCategoryCtrl"
             })
-            /*--------------*/
+            .when("/salesbycustomer", {
+                templateUrl: "views/Reports/salesbycustomer.html",
+                controller: "SalesByCustomerCtrl"
+            })
             .when("/shippers", {
                 templateUrl: "views/shippers.html",
                 controller: "ShippersCtrl"
@@ -71,7 +70,12 @@
             })
             .when("/logout", {
                 template: "",
-                controller: "LogoutCtrl" })
+                controller: "LogoutCtrl"
+            })
+            .when("/salesbycategory", {
+                templateUrl: "views/reports/salesbycategory.html",
+                controller: "SalesByCategoryCtrl"
+            })
             .otherwise({ redirectTo: "/agents" });
     }).run(function($rootScope, $location) {
         $rootScope.$on("$routeChangeStart", function(event, next, current) {
