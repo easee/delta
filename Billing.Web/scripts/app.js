@@ -60,6 +60,10 @@
                 templateUrl: "views/products.html",
                 controller: "ProductsCtrl"
             })
+            .when("/agentregion", {
+                templateUrl: "views/reports/agentregion.html",
+                controller: "AgentRegionCtrl"
+            })
             .when("/invoices", {
                 templateUrl: "views/invoices.html",
                 controller: "InvoicesCtrl"
