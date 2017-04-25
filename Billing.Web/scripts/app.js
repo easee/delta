@@ -44,6 +44,10 @@
                 templateUrl: "views/Reports/salesbycustomercategory.html",
                 controller: "SalesByCustomerCategoryCtrl"
             })
+            .when("/salesbycategory", {
+                templateUrl: "views/reports/salesbycategory.html",
+                controller: "SalesByCategoryCtrl"
+            })
             /*--------------*/
             .when("/shippers", {
                 templateUrl: "views/shippers.html",
@@ -68,10 +72,6 @@
             .when("/logout", {
                 template: "",
                 controller: "LogoutCtrl" })
-            .when("/salesbycategory", {
-                templateUrl: "views/reports/salesbycategory.html",
-                controller: "SalesByCategoryCtrl"
-            })
             .otherwise({ redirectTo: "/agents" });
     }).run(function($rootScope, $location) {
         $rootScope.$on("$routeChangeStart", function(event, next, current) {
