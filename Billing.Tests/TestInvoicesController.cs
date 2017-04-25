@@ -40,7 +40,7 @@ namespace Billing.Tests
         public void GetAllInvoices()
         {
             TestHelper.InitDatabase(); GetReady();
-            var actRes = controller.Get();
+            var actRes = controller.GetAll();
             var response = actRes.ExecuteAsync(CancellationToken.None).Result;
 
             Assert.IsNotNull(response.Content);
