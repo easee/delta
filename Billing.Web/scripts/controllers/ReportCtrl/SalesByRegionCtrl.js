@@ -7,5 +7,14 @@
                 $scope.showRegion = true;
             });
         }
+
+        // $scope.agent.id = $scope.requestData.id;
+        $scope.agentSales = function(currentAgent) {
+                            $scope.requestData.id=currentAgent;
+                            DataService.insert("salesbyagent", $scope.requestData, function(data){
+                                $scope.salesByAgentData = data;
+                        })
+                
+            };
     }]);
 }());
