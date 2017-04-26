@@ -35,7 +35,7 @@ namespace Billing.Api.Reports
             result.Sales = InvoicesOfAgent.OrderBy(x => x.Customer.Id).ToList()
                                           .GroupBy(x => x.Customer.Town.Region.ToString())
                                           .Select(x => Factory.Create
-                                          (InvoicesOfAgent,x.Key, x.Sum(y => y.SubTotal),AgentTotal,Invoices))
+                                          (InvoicesOfAgent,x.Key, x.Sum(y => y.SubTotal),AgentTotal,Invoices,grandTotal))
                                           .ToList();
            
             return result;

@@ -115,7 +115,7 @@ namespace Billing.Api.Reports
             return customer;
         }
 
-        public RegionSalesAgentModel Create(List<Invoice> InvoicesOfAgent, string Region, double Sales, double AgentTotal, List<Invoice> Invoices)
+        public RegionSalesAgentModel Create(List<Invoice> InvoicesOfAgent, string Region, double Sales, double AgentTotal, List<Invoice> Invoices,double grandTotal)
         {
             var query = Invoices.GroupBy(x => x.Customer.Town.Region.ToString())
                                .Select(x => new { RegionName = x.Key, RegionTotal = x.Sum(y => y.SubTotal) })
@@ -129,8 +129,8 @@ namespace Billing.Api.Reports
             {
                 RegionName = Region,
                 RegionTotal = Math.Round(Sales, 2),
-                RegionPercent = Math.Round(100 * Sales / total, 2),
-                TotalPercent = Math.Round(100 * Sales / AgentTotal, 2)
+                RegionPercent = Math.Round(100 * Sales / AgentTotal, 2),
+                TotalPercent = Math.Round(100 * Sales / grandTotal, 2)
             };
             return region;
         }

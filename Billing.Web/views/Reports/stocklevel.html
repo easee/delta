@@ -4,11 +4,9 @@
     <div class="row">
         <div class="form-group">
              <label>Category</label>   
-             <select class="form-control" ng-model="stockleveldata.id" ng-options="category.id as category.name for category in categories">
+             <select class="form-control"  ng-options="category as category for category in categories">
              <option value="" disabled selected> Select your option </option></select>
         </div>
     </div>
 </div>
 <hr>
-<table>
-</table>
