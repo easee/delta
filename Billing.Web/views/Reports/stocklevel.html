@@ -1,12 +1,40 @@
 <!--<input type="date" class="datepicker" data-date-format="mm/dd/yyyy" ng-model="requestData.startDate">
 <input class="datepicker" data-date-format="mm/dd/yyyy" ng-model="requestData.endDate">-->
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="form-group">
-             <label>Category</label>   
-             <select class="form-control"  ng-options="category as category for category in categories">
-             <option value="" disabled selected> Select your option </option></select>
+            <div class="col-xs-4">
+            <div class="form-group">
+                <label>Category</label>
+                <select class="form-control" ng-model="product.categoryId" ng-options="category.id as category.name
+                                            for category in categories" ng-change="getProducts(product.categoryId)"><option value="" disabled selected> Select category </option></select>
+            </div>
+            </div>
+
         </div>
     </div>
-</div>
+
 <hr>
+
+<table class="table table-striped table-bordered table-list auto " style="counter-reset: serial-number; " ng-show="showProducts">
+    <thead>
+        <tr>
+            <th>Product ID</th>
+            <th>Product name</th>
+            <th>Unit</th>
+            <th>Purchased</th>
+            <th>Total sold</th>
+            <th>In stock</th>
+        </tr>
+    </thead>
+    <tbody ng-repeat="product in products.productsCategory">
+        <tr>
+            <td>{{product.productId}}</td>
+            <td>{{product.productName}}</td>
+            <td>{{product.unit}}</td>
+            <td>{{product.input}}</td>
+            <td>{{product.output}}</td>
+            <td>{{product.stock}}</td>
+            </tr>
+    </tbody>
+</table>

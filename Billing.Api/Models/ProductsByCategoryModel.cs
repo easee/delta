@@ -20,6 +20,7 @@ namespace Billing.Api.Models
     {
         public int ProductId { get; set; }
         public string ProductName { get; set; }
+        public string Unit { get; set; }
         public int Input { get; set; }
         public int Output { get; set; }
         public int Stock { get; set; }
