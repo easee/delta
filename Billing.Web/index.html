@@ -121,11 +121,11 @@
                     </ul>
                 </li>-->
                 <li>
-                    <a href="#submenu1" class=" sub-item" data-toggle="collapse" data-parent="#submenu1">
+                    <a href="#submenu1" class=" sub-item" data-toggle="collapse" data-parent="#submenu1" ng-click="isCollapsed = !isCollapsed">
                         <span class=" menu-ico-collapse fa-stack fa-lg pull-left"><i class="fa fa-area-chart fa-stack-1x">
-                            </i></span>Reports<i class="fa fa-angle-double-down"></i>
+                            </i></span>Reports <i ng-class="{'fa fa-long-arrow-up fa-1x push-right': isCollapsed, 'fa fa-long-arrow-down fa-1x push-right': !isCollapsed}"></i>
                     </a>
-                    <div class="collapse list-group-submenu" id="submenu1">
+                    <div class="collapse list-group-submenu" id="submenu1" style="background-color:#121212">
                         <a href="#/salesbycustomercategory" data-parent="#submenu1"><span>Sales by Customer/Category</span></a>
                         <a href="#/salesbyregion" data-parent="#submenu1"><span>Sales by region</span> </a>
                         <a href="#/salesbycategory" data-parent="#submenu1"><span>Sales by Category</span> </a>
