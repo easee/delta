@@ -7,7 +7,7 @@
 
         $scope.selectedCustomer = { id: 0, name: "" };
 
-        $scope.edit = function (invoice) {
+        $scope.edit = function(invoice) {
             if (invoice.id == 0) {
                 $scope.selectedCustomer = { id: 0, name: '' };
             } else {
@@ -16,15 +16,27 @@
             $scope.invoice = invoice;
         };
 
+        //Invoice review REPORT-->TEK POCEO...
+        $scope.info = function(invoice) {
+            if (invoice.id == 0) {
+                $scope.selectedCustomer = { id: 0, name: '' };
+            } else {
+                $scope.selectedCustomer = { id: invoice.customerId, name: invoice.customer };
+            }
+            $scope.invoice = invoice;
+        };
+        //--------------------- 
+
+
         //UPDATE INVOICE
         $scope.save = function() {
             console.log($scope.selectedCustomer);
             $scope.invoice.customerId = $scope.selectedCustomer.id;
             console.log($scope.invoice);
             if ($scope.invoice.id == 0)
-                DataService.insert("invoices", $scope.invoice, function(data) { ListInvoices($scope.currentPage-1); });
+                DataService.insert("invoices", $scope.invoice, function(data) { ListInvoices($scope.currentPage - 1); });
             else
-                DataService.update("invoices", $scope.invoice.id, $scope.invoice, function(data) { ListInvoices($scope.currentPage-1); });
+                DataService.update("invoices", $scope.invoice.id, $scope.invoice, function(data) { ListInvoices($scope.currentPage - 1); });
         };
 
         //CREATE NEW INVOICE
@@ -42,94 +54,78 @@
             };
             $scope.showInvoices = true;
 
-                $scope.getTotal = function() {
-                    var total = 0;
-                    angular.forEach($scope.invoice.items, function(item) {
-                        total += item.quantity * item.price;
-                    })
-                    return total;
-                }
+            $scope.getTotal = function() {
+                var total = 0;
+                angular.forEach($scope.invoice.items, function(item) {
+                    total += item.quantity * item.price;
+                })
+                return total;
+            }
 
         };
-        
-           //PAGINATION
-        function ListInvoices(page){
-                DataService.list("invoices?page="+page, function(data){
-                  
-                    $scope.invoices= data.invoicesList;
-                    $scope.totalPages = data.totalPages;
-                    $scope.currentPage = data.currentPage+1;
-                    if($scope.totalPages<11)
+
+        //PAGINATION
+        function ListInvoices(page) {
+            DataService.list("invoices?page=" + page, function(data) {
+
+                $scope.invoices = data.invoicesList;
+                $scope.totalPages = data.totalPages;
+                $scope.currentPage = data.currentPage + 1;
+                if ($scope.totalPages < 11)
                     $scope.pages = new Array($scope.totalPages);
-                    else
-                    $scope.pages = new Array(10);   
-                    
-                    $scope.size=data.size;
-                                            
-                    if($scope.currentPage== $scope.totalPages)
-                        {
-                            document.getElementById("next").disabled = true;
-                            document.getElementById("previous").disabled = false;        
+                else
+                    $scope.pages = new Array(10);
+
+                $scope.size = data.size;
+
+                if ($scope.currentPage == $scope.totalPages) {
+                    document.getElementById("next").disabled = true;
+                    document.getElementById("previous").disabled = false;
+                } else if ($scope.currentPage == 1) {
+                    document.getElementById("previous").disabled = true;
+                    document.getElementById("next").disabled = false;
+                } else {
+                    document.getElementById("next").disabled = false;
+                    document.getElementById("previous").disabled = false;
+                }
+                if ($scope.totalPages < 11)
+                    for (var i = 0; i < $scope.totalPages; i++)
+                        $scope.pages[i] = i + 1;
+
+                else {
+
+                    if ($scope.currentPage <= 5)
+                        for (var i = 0; i <= 9; i++)
+                            $scope.pages[i] = i + 1;
+
+                    else if ($scope.currentPage + 4 >= $scope.totalPages) {
+                        var d = 9 - ($scope.totalPages - $scope.currentPage);
+                        for (var i = $scope.currentPage - d; i <= $scope.currentPage + 9 - d; i++)
+                            $scope.pages[i - $scope.currentPage + d] = i;
+                    } else {
+                        var d = 0,
+                            tmp = 4;
+                        for (var i = $scope.currentPage; i <= $scope.currentPage + 9; i++) {
+                            $scope.pages[d] = $scope.currentPage - tmp + d;
+                            d++;
                         }
-                    else if($scope.currentPage== 1)
-                        {
-                            document.getElementById("previous").disabled = true;
-                            document.getElementById("next").disabled = false;
-                        }
-                    
-                    else
-                        {
-                            document.getElementById("next").disabled = false;
-                            document.getElementById("previous").disabled = false;
-                        }
-                     if($scope.totalPages<11)
-                            for(var i=0; i<$scope.totalPages;i++) 
-                                $scope.pages[i] = i+1;
-                        
-                    else
-                    {
-                                
-                        if($scope.currentPage<=5)
-                            for(var i=0; i<=9;i++) 
-                                 $scope.pages[i] = i+1; 
-                            
-                        else if($scope.currentPage+4>=$scope.totalPages)
-                            {
-                                 var d=9-($scope.totalPages-$scope.currentPage);
-                                 for(var i=$scope.currentPage-d; i<=$scope.currentPage+9-d;i++) 
-                                        $scope.pages[i-$scope.currentPage+d] = i;
-                            }
-                        
-                        else
-                            {
-                                var d=0,tmp=4;
-                                for(var i=$scope.currentPage; i<=$scope.currentPage+9;i++) 
-                                    {
-                                         $scope.pages[d] =$scope.currentPage-tmp+d;
-                                         d++; 
-                                    }
-                            }           
-                    }           
-                    console.log($scope.currentPage);
-                });
-            }
-        //GO TO
-         $scope.goto = function(page,direction){
-                if(direction==-1)
-                    {
-                     ListInvoices(page-2); 
-                     document.getElementById(page-1).focus();
                     }
-             else if(direction==1)
-                 {
-                      ListInvoices(page);
-                      document.getElementById(page+1).focus();
-                 }
-                
-             else       
-                      ListInvoices(page-1);           
+                }
+                console.log($scope.currentPage);
+            });
+        }
+        //GO TO
+        $scope.goto = function(page, direction) {
+                if (direction == -1) {
+                    ListInvoices(page - 2);
+                    document.getElementById(page - 1).focus();
+                } else if (direction == 1) {
+                    ListInvoices(page);
+                    document.getElementById(page + 1).focus();
+                } else
+                    ListInvoices(page - 1);
             }
-        //END OF ITEM SECTION IN MODAL
+            //END OF ITEM SECTION IN MODAL
 
 
         //TYPEAHEAD PRODUCTS AND CUSTOMERS
@@ -197,26 +193,25 @@
 
 
         //GET AND SAVE ITEMS
-        $scope.saveItem = function(item){
-                if (item.id == undefined){
-                    item.productId = $scope.selectedProduct.id;
-                    item.invoiceId = $scope.invoice.id;
-                    DataService.insert("items", item, function(){
-                        DataService.read("invoices", $scope.invoice.id, function(data){
-                            $scope.invoice = data;
-                            $scope.newItem = { productId: 0, quantity: 0, price: 0 };
-                            $scope.selectedProduct = { id: 0, name: "" };
-                        })
-                    });
-                }
-                else{
-                    DataService.update("items", item.id, item, function(){});
-                }
-            };
-            
-        $scope.removeItem = function (item) {
-            DataService.delete("items", item.id, function () {
-                DataService.read("invoices", $scope.invoice.id, function (data) { $scope.invoice = data; })
+        $scope.saveItem = function(item) {
+            if (item.id == undefined) {
+                item.productId = $scope.selectedProduct.id;
+                item.invoiceId = $scope.invoice.id;
+                DataService.insert("items", item, function() {
+                    DataService.read("invoices", $scope.invoice.id, function(data) {
+                        $scope.invoice = data;
+                        $scope.newItem = { productId: 0, quantity: 0, price: 0 };
+                        $scope.selectedProduct = { id: 0, name: "" };
+                    })
+                });
+            } else {
+                DataService.update("items", item.id, item, function() {});
+            }
+        };
+
+        $scope.removeItem = function(item) {
+            DataService.delete("items", item.id, function() {
+                DataService.read("invoices", $scope.invoice.id, function(data) { $scope.invoice = data; })
             });
         }
 
