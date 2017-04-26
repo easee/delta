@@ -26,7 +26,7 @@ namespace Billing.Api.Reports
 
             products.ProductsCategory = UnitOfWork.Products.Get().Where(x => x.Category.Id == id).ToList()
                                                              .OrderBy(x => x.Name)
-                                                             .Select(x => Factory.Create(x.Name, x.Id, x.Stock))
+                                                             .Select(x => Factory.Create(x.Name, x.Id, x.Stock,x.Unit))
                                                              .ToList();
             return products;
         }
