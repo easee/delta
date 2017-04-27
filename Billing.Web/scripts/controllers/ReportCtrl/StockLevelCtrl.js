@@ -11,7 +11,7 @@
                 DataService.read("productsbycategory",item, function (data) { $scope.products = data; })
                  $scope.showProducts=true;
             };
-
+            
         //TYPEAHEAD CATEGORIES
         var _selected;
         $scope.selected = (undefined);

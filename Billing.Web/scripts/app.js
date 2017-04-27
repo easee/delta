@@ -68,6 +68,10 @@
                 templateUrl: "views/invoices.html",
                 controller: "InvoicesCtrl"
             })
+            .when("/dashboard", {
+                templateUrl: "views/dashboard.html",
+                controller: "DashboardCtrl"
+            })
             .when("/login", {
                 templateUrl: "views/login.html",
                 controller: "LoginCtrl"
