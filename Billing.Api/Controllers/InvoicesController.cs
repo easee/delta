@@ -10,7 +10,7 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    [TokenAuthorization("user")]
+    //[TokenAuthorization("user")]
     //CRU za own
     [RoutePrefix("api/invoices")]
     public class InvoicesController : BaseController

@@ -9,7 +9,7 @@ using System.Web.Http;
 namespace Billing.Api.Controllers
 {
     [RoutePrefix("api/invoicereport")]
-    [TokenAuthorization("user")]
+    //[TokenAuthorization("user")]
     public class InvoicesReportController : BaseController
     {
         [Route("{id:int}")]
