@@ -23,7 +23,23 @@
         };
         //--------------------- 
 
-
+        //PDF
+        $scope.pdf = function() {
+            html2canvas(document.getElementById('myModalInfo'), {
+                onrendered: function(canvas) {
+                    var data = canvas.toDataURL();
+                    var docDefinition = {
+                        content: [{
+                            image: data,
+                            width: 600,
+                        }]
+                    };
+                    pdfMake.createPdf(docDefinition).download("invoice.pdf");
+                }
+            });
+        };
+        /*Code to generate pdf ends here*/
+        //PDF
         //UPDATE INVOICE
         $scope.save = function() {
             console.log($scope.selectedCustomer);
