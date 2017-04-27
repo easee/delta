@@ -23,7 +23,36 @@
         };
         //--------------------- 
 
-
+        //PDF
+        $scope.pdf = function() {
+            /*Code to generate pdf*/
+            var pdf = new jsPDF('p', 'pt', 'letter');
+            var specialElementHandlers = {
+                '#bypassme': function(element, renderer) {
+                    return true;
+                }
+            };
+            var margins = {
+                top: 50,
+                bottom: 60,
+                left: 60,
+                right: 20,
+                width: 522,
+            };
+            var output = document.getElementById("myModalInfo");
+            pdf.fromHTML(
+                output,
+                margins.left,
+                margins.top, {
+                    'width': margins.width,
+                    'elementHandlers': specialElementHandlers
+                },
+                margins
+            );
+            pdf.save('invoice.pdf');
+        };
+        /*Code to generate pdf ends here*/
+        //PDF
         //UPDATE INVOICE
         $scope.save = function() {
             console.log($scope.selectedCustomer);
