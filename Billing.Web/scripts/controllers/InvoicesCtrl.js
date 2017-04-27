@@ -25,31 +25,18 @@
 
         //PDF
         $scope.pdf = function() {
-            /*Code to generate pdf*/
-            var pdf = new jsPDF('p', 'pt', 'letter');
-            var specialElementHandlers = {
-                '#bypassme': function(element, renderer) {
-                    return true;
+            html2canvas(document.getElementById('myModalInfo'), {
+                onrendered: function(canvas) {
+                    var data = canvas.toDataURL();
+                    var docDefinition = {
+                        content: [{
+                            image: data,
+                            width: 600,
+                        }]
+                    };
+                    pdfMake.createPdf(docDefinition).download("invoice.pdf");
                 }
-            };
-            var margins = {
-                top: 50,
-                bottom: 60,
-                left: 60,
-                right: 20,
-                width: 522,
-            };
-            var output = document.getElementById("myModalInfo");
-            pdf.fromHTML(
-                output,
-                margins.left,
-                margins.top, {
-                    'width': margins.width,
-                    'elementHandlers': specialElementHandlers
-                },
-                margins
-            );
-            pdf.save('invoice.pdf');
+            });
         };
         /*Code to generate pdf ends here*/
         //PDF
