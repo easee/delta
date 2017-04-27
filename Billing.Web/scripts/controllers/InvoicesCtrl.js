@@ -24,17 +24,17 @@
         //--------------------- 
 
         //PDF
-        $scope.pdf = function() {
-            html2canvas(document.getElementById('myModalInfo'), {
+        $scope.pdf = function(invoice) {
+            html2canvas(document.getElementById('canvas'), {
                 onrendered: function(canvas) {
                     var data = canvas.toDataURL();
                     var docDefinition = {
                         content: [{
                             image: data,
-                            width: 600,
+                            width: 500,
                         }]
                     };
-                    pdfMake.createPdf(docDefinition).download("invoice.pdf");
+                    pdfMake.createPdf(docDefinition).download(invoice.invoiceNo + "-invoice-report.pdf");
                 }
             });
         };
