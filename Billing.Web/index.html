@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet" href="styles/sidebar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" class="rel">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="library/angular.min.js"></script>
     <script src="library/angular-animate.min.js"></script>
     <script src="library/angular-route.min.js"></script>
@@ -36,11 +37,12 @@
     <script src="scripts/controllers/ReportCtrl/SalesByCustomerCtrl.js"></script>
     <script src="scripts/controllers/ReportCtrl/AgentRegionCtrl.js"></script>
     <script src="scripts/controllers/ReportCtrl/StockLevelCtrl.js"></script>
+
     <!--PDF-->
     <script src="library/html2canvas.js"></script>
     <script src="library/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
-
+    <script src="scripts/controllers/ReportCtrl/InvoicesReviewCtrl.js"></script>
     <!--CDNs & styles-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-animate.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-sanitize.js"></script>
@@ -133,12 +135,12 @@
                     </a>
                     <div class="collapse list-group-submenu" id="submenu1" style="background-color:#121212">
                         <a href="#/salesbycustomercategory" data-parent="#submenu1"><span>Sales by Customer/Category</span></a>
-                        <a href="#/salesbyregion" data-parent="#submenu1"><span>Sales by region</span> </a>
+                        <a href="#/salesbyregion" data-parent="#submenu1"><span>Sales by Region</span> </a>
                         <a href="#/salesbycategory" data-parent="#submenu1"><span>Sales by Category</span> </a>
                         <a href="#/stocklevel" data-parent="#submenu1"><span>Stock Level</span> </a>
                         <a href="#/salesbycustomer" data-parent="#submenu1"><span>Sales by Customer</span> </a>
                         <a href="#/agentregion" data-parent="#submenu1"><span>Sales by Agent/Region</span> </a>
-
+                        <a href="#/invoicesreview" data-parent="#submenu1"><span>Invoices Review</span> </a>
                     </div>
                 </li>
             </ul>

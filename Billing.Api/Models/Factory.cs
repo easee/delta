@@ -284,8 +284,8 @@ namespace Billing.Api.Models
                 CustomerId = (invoice.Customer == null) ? 0 : invoice.Customer.Id,
                 AgentId = (invoice.Agent == null) ? 0 : invoice.Agent.Id,
                 Shipper = (invoice.Shipper == null) ? "" : invoice.Shipper.Name,
-                Customer = (invoice.Customer.Name == null) ? "" : invoice.Customer.Name,
-                Agent = (invoice.Agent.Name == null) ? "" : invoice.Agent.Name,
+                Customer = (invoice.Customer == null) ? "" : invoice.Customer.Name,
+                Agent = (invoice.Agent == null) ? "" : invoice.Agent.Name,
                 Shipping = invoice.Shipping,
                 Items = invoice.Items.Select(x => Create(x)).ToList()
             };

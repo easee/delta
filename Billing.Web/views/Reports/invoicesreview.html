@@ -1,0 +1,149 @@
+<!--<input type="date" class="datepicker" data-date-format="mm/dd/yyyy" ng-model="requestData.startDate">
+<input class="datepicker" data-date-format="mm/dd/yyyy" ng-model="requestData.endDate">-->
+<div class="container">
+    <div class="row">
+         <div class="form-group">
+            <div class="col-xs-4">
+            <div class="form-group">
+                <label>Customer</label>
+                <select class="form-control" ng-model="customerId" ng-options="customer.id as customer.name
+                                            for customer in customers"></select>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <label>Start Date: </label>
+            <input type="date" id="e" ng-model="requestData.startDate" required>
+        </div>
+        <div class="col-md-4 ">
+            <label>End Date: </label>
+            <input type="date" ng-model="requestData.endDate" required>
+        </div>
+        <button class="btn btn-primary col-md-4 " ng-click="getInvoices(customerId) " style="float: right; ">INVOICES REVIEW</button>
+    </div>
+</div>
+<hr>
+<table class="table table-striped table-bordered table-list auto " style="counter-reset: serial-number;" ng-show="showInvoice">
+    <thead>
+        <tr>
+            <th>Invoice No</th>
+            <th>Date</th>
+            <th>Shipped</th>
+            <th>Status</th>
+            <th>Amount</th>
+            <th>Info</th>
+        </tr>
+    </thead>
+    <tbody ng-repeat="invoice in invoices.invoiceInfo">
+        <tr>
+            <td>{{invoice.invoiceNo}}</td>
+            <td>{{invoice.invoiceDate}}</td>
+            <td>{{invoice.shippedOn}}</td>
+            <td>{{invoice.invoiceStatus}}</td>
+            <td>{{invoice.invoiceTotal}}</td>
+            <td> <a href=""><button type="submit" class="btn btn-info" data-toggle="modal" ng-click="getProducts(invoice.invoiceId)" data-target="#myModal" type="submit"><i class="fa fa-info-circle" aria-hidden="true" </i></button></a></td>
+            </tr>
+    </tbody>    
+</table>
+
+        <!-- VIEW AGENT SALES Modal -->
+        <div class="modal fade custom" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                
+                <div class="modal-content">
+                    <div class="container-fluid">
+<!-- Modal Header -->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span>
+                                             <span class="sr-only">Close</span>
+                        </button>
+                        <h2 class="modal-title" id="myModalLabel">
+                            Invoice {{invoice.invoiceNo}}
+                        </h2>
+                        <br>
+                        <div class="row">
+                        <div class="col-xs-6">
+                        <p>
+                            Created On:&nbsp{{invoice.invoiceDate}}
+                        </p>
+                        </div>    
+                        <div class="col-xs-2" style="float: right;">
+                            <h4>
+                                {{invoice.invoiceStatus}}
+                            </h4>
+                        </div>
+                            </div>
+                    </div>
+
+                    <!-- Modal Body -->
+                    <table class="table table-striped table-bordered table-list auto " style="counter-reset: serial-number; " ng-show="showProducts">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Unit</th>
+                                <th>Price</th>
+                                <th>Subtotal</th>                                  
+                            </tr>
+                        </thead>
+                         <tbody ng-repeat="product in invoice.products">
+                            <tr>
+                                <td>{{product.productId}}</td>
+                                <td>{{product.productName}}</td>
+                                <td>{{product.quantity}}</td>
+                                <td>{{product.unit}}</td>
+                                <td>{{product.price}}</td>
+                                <td>{{product.subtotal}}</td>
+                            </tr>
+                        </tbody>
+                        <tbody>
+                            <td></td>
+                            <td><strong>Total</strong></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><strong>{{invoice.subtotal}}</strong></td>
+                        </tbody>
+                        </table>
+                         <div class="row">
+                             <div class="col-xs-6">
+                                 <p>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Shipper:&nbsp{{invoice.shipper}}</p>                               
+                             </div>
+                             <div class="col-xs-4 text-right">
+                                 <p>Vat 17%:</p>                               
+                             </div>
+                             <div class="col-xs-2 text-left">
+                                 <p>{{invoice.vatAmount}}</p>                               
+                             </div>
+                        </div>
+                        <div class="row">
+                             <div class="col-xs-6 ">
+                                 <p>Shipped on:&nbsp{{invoice.shippedOn}}</p>                                
+                             </div>
+                            <div class="col-xs-4 text-right">
+                                 <p>Total:</p>                               
+                             </div>
+                            <div class="col-xs-2 text-left">
+                                 <p>{{invoice.vatAmount+invoice.shipping+invoice.subtotal}}</p>                               
+                             </div>
+                        </div>
+                         <div class="row">
+                             <div class="col-xs-6">
+                                 <p>&nbsp&nbsp&nbsp&nbsp Shipping:&nbsp{{invoice.shipping}}</p>                                
+                             </div>
+                        </div>
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                                    Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                    </div>
+                    

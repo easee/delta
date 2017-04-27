@@ -88,6 +88,10 @@
                     templateUrl: "views/reports/stocklevel.html",
                     controller: "StockLevelCtrl"
             })
+            .when("/invoicesreview", {
+                templateUrl: "views/reports/invoicesreview.html",
+                controller: "InvoicesReviewCtrl"
+            })
             .otherwise({ redirectTo: "/agents" });
     }).run(function($rootScope, $location) {
         $rootScope.$on("$routeChangeStart", function(event, next, current) {
