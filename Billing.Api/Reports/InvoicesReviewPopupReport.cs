@@ -20,18 +20,17 @@ namespace Billing.Api.Reports
             InvoiceReviewPopupModel result = new InvoiceReviewPopupModel
             {
                 InvoiceNo = Invoice.InvoiceNo,
-                CustomerName = Invoice.Customer.Name,
+                CustomerName = (Invoice.Customer==null) ? "":Invoice.Customer.Name,
                 InvoiceDate = Invoice.Date,
                 InvoiceStatus = Invoice.Status.ToString(),
                 Subtotal = Invoice.SubTotal,
                 VatAmount = Invoice.VatAmount,
-                Shipper = Invoice.Shipper.Name,
+                Shipper = (Invoice.Shipper==null) ? "": Invoice.Shipper.Name,
                 Shipping = Invoice.Shipping,
-                ShippedOn = Invoice.ShippedOn.Value
+                ShippedOn = (Invoice.ShippedOn==null) ? DateTime.Now : Invoice.ShippedOn.Value
             };
-
             result.Products = UnitOfWork.Items.Get().Where(x => x.Invoice.Id == id).ToList()
-                                        .Select(x => Factory.Create(x.Product.Id, x.Product.Name, x.Price, x.Quantity, x.SubTotal))
+                                        .Select(x => Factory.Create(x.Product.Id, x.Product.Name, x.Price, x.Quantity, x.SubTotal,x.Product.Unit))
                                         .ToList();
             return result;
         }

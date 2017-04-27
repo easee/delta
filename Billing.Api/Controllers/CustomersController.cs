@@ -12,6 +12,7 @@ namespace Billing.Api.Controllers
     [RoutePrefix("api/customers")]
     public class CustomersController : BaseController
     {
+      
         [Route("")]
         public IHttpActionResult GetAll(int page = 0)
         {
@@ -28,6 +29,11 @@ namespace Billing.Api.Controllers
                 customersList = query.Skip(PageSize * page).Take(PageSize).Select(x => Factory.Create(x)).ToList()
             };
             return Ok(returnObject);
+        }
+        [Route("all")]
+        public IHttpActionResult Get()
+        {
+            return Ok(UnitOfWork.Customers.Get().ToList().Select(x => Factory.Create(x)).ToList());
         }
 
         [Route("{name}")]

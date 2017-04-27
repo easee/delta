@@ -8,7 +8,7 @@ using System.Web.Http;
 
 namespace Billing.Api.Controllers
 {
-    [TokenAuthorization("user")]
+    //[TokenAuthorization("user")]
     public class InvoicesReviewController : BaseController
     {
         public IHttpActionResult Post(RequestModel request)
