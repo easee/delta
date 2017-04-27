@@ -1,6 +1,7 @@
 (function() {
     app.controller("InvoicesCtrl", ['$scope', 'DataService', '$http', function($scope, DataService, $http) {
         $scope.showInvoice = false;
+        $scope.showInvoices = false;
         getShippers('');
         getAgents('');
         ListInvoices(0);
@@ -16,14 +17,9 @@
             $scope.invoice = invoice;
         };
 
-        //Invoice review REPORT-->TEK POCEO...
         $scope.info = function(invoice) {
-            if (invoice.id == 0) {
-                $scope.selectedCustomer = { id: 0, name: '' };
-            } else {
-                $scope.selectedCustomer = { id: invoice.customerId, name: invoice.customer };
-            }
-            $scope.invoice = invoice;
+            DataService.read("invoicereport", invoice.id, function(data) { $scope.invoices = data; })
+            $scope.showInvoices = true;
         };
         //--------------------- 
 

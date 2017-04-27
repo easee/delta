@@ -59,12 +59,23 @@ table.auto {
     border-radius: 5px;
     border-top: 5px solid #ff656c;
     margin: 0 auto;
-
 }
-.summary{
+
+.summary {
     margin-right: 0px
 }
 
-.noborders{
+.noborders {
     border-top: none
 }
+
+
+/* table meta & balance */
+
+table.balance {
+    float: right;
+    width: 36%;
+}
+
+
+/* table meta */
