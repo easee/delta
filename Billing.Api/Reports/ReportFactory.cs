@@ -166,13 +166,14 @@ namespace Billing.Api.Reports
             };
             return products;
         }
-        public InvoiceReviewProducts Create(int Id, string Name, double Price, int Quantity, double SubTotal)
+        public InvoiceReviewProducts Create(int Id, string Name, double Price, int Quantity, double SubTotal,string Unit)
         {
 
             InvoiceReviewProducts products = new InvoiceReviewProducts()
             {
                 ProductId = Id,
                 ProductName = Name,
+                Unit=Unit,
                 Price = Price,
                 Quantity = Quantity,
                 Subtotal = SubTotal
@@ -235,14 +236,15 @@ namespace Billing.Api.Reports
             return customer;
         }
 
-        public InvoiceInfoModel Create(int Id, string InvoiceNo, DateTime Date, DateTime ShippedOn, double Total, Status Status)
+        public InvoiceInfoModel Create(int Id, string InvoiceNo, DateTime Date, DateTime? ShippedOn, double Total, Status Status)
         {
+
             InvoiceInfoModel invoice = new InvoiceInfoModel();
             invoice.InvoiceId = Id;
             invoice.InvoiceNo = InvoiceNo;
             invoice.InvoiceDate = Date;
-            invoice.ShippedOn = ShippedOn;
-            invoice.InvoiceTotal = Total;
+            invoice.ShippedOn = (ShippedOn == null) ? DateTime.Now : ShippedOn.Value;
+            invoice.InvoiceTotal = Math.Round(Total,2);
             invoice.InvoiceStatus = Status.ToString();
 
             return invoice;

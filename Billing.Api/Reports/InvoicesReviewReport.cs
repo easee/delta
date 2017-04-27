@@ -28,9 +28,9 @@ namespace Billing.Api.Reports
                 CustomerName = Customer.Name,
                 StartDate = Request.StartDate,
                 EndDate = Request.EndDate,
-                GrandTotal = Invoices.Sum(x => x.SubTotal)
+                GrandTotal = Math.Round(Invoices.Sum(x => x.SubTotal),2)
             };
-            result.InvoiceInfo = Invoices.Select(x => Factory.Create(x.Id, x.InvoiceNo, x.Date, x.ShippedOn.Value, x.Total, x.Status)).ToList();
+            result.InvoiceInfo = Invoices.Select(x => Factory.Create(x.Id, x.InvoiceNo, x.Date, x.ShippedOn, x.SubTotal, x.Status)).ToList();
             
             return result;
         }
