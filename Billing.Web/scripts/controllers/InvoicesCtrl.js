@@ -32,9 +32,8 @@
         };
 
         //PDF
-
-        $scope.pdf = function() {
-            html2canvas(document.getElementById("printable"), {
+        $scope.pdf = function(invoice) {
+            html2canvas(document.getElementById("printable"), { 
                 onrendered: function(canvas) {
                     var data = canvas.toDataURL();
                     var docDefinition = {
