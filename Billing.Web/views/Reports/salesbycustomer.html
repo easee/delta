@@ -8,14 +8,16 @@
             <label>End Date: </label>
             <input type="date" ng-model="requestData.endDate" required>
         </div>
-        <button class="btn btn-primary col-xs-4 " ng-click="save() " style="float: right; ">SALES BY CUSTOMER</button>
-    </div>
+        <button class="btn btn-danger col-xs" ng-show="showPrint" ng-click="printDiv('printable');">Print</button>
+        <button class="btn btn-primary col-xs-3 pull-right" ng-click="save() ">SALES BY CUSTOMER</button>    </div>
 </div>
 <hr>
 <!--
 <input type="date" ng-model="requestData.startDate" required>
 <input type="date" ng-model="requestData.endDate" required>
 -->
+<div id="printable">
+    <h2 ng-show="showHeader">Sales by Customer</h2>
 <table class="table table-bordered" style="counter-reset: serial-number;" ng-show="showCustomer">
     <thead>
         <tr>
@@ -34,3 +36,4 @@
     <td bgcolor="#dbd6d6 ">TOTAL:</td>
     <td bgcolor="#dbd6d6 ">{{salesByCustomerdata.grandTotal}} &euro;</td>
 </table>
+</div>
