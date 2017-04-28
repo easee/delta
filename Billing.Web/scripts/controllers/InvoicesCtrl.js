@@ -32,8 +32,9 @@
        };
         
         //PDF
+
         $scope.pdf = function() {
-            html2canvas(document.getElementById("printable"), {
+            html2canvas(document.getElementById("printable"), { 
                 onrendered: function(canvas) {
                     var data = canvas.toDataURL();
                     var docDefinition = {
@@ -42,7 +43,7 @@
                             width: 500,
                         }]
                     };
-                    pdfMake.createPdf(docDefinition).download("invoice.pdf");
+                    pdfMake.createPdf(docDefinition).download(invoice.invoiceNo + "-invoice-report.pdf");
                 }
             });
         };
