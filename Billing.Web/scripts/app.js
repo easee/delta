@@ -89,21 +89,21 @@
                 controller: "SalesByRegionCtrl"
             })
             .when("/stocklevel", {
-                    templateUrl: "views/reports/stocklevel.html",
-                    controller: "StockLevelCtrl"
+                templateUrl: "views/reports/stocklevel.html",
+                controller: "StockLevelCtrl"
             })
             .when("/invoicesreview", {
                 templateUrl: "views/reports/invoicesreview.html",
                 controller: "InvoicesReviewCtrl"
             })
-            .otherwise({ redirectTo: "/agents" });
+            .otherwise({ redirectTo: "/dashboard" });
     }).run(function($rootScope, $location) {
         $rootScope.$on("$routeChangeStart", function(event, next, current) {
             if (!authenticated()) {
                 if (next.templateUrl != "views/login.html") {
                     redirectTo = $location.path();
-                    if (redirectTo == "/login") redirectTo = "/agents";
-                    if (redirectTo == "/logout") redirectTo = "/agents";
+                    if (redirectTo == "/login") redirectTo = "/dashboard";
+                    if (redirectTo == "/logout") redirectTo = "/dashboard";
                     $location.path("/login");
                 }
             }
