@@ -244,16 +244,14 @@
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">
-                       <span aria-hidden="true">&times;</span>
-                       <span class="sr-only">Close</span>
-                </button>
                 </div>
                 <!-- Modal Body -->
+                 <div id="printable">
                 <div class="modal-body">
                     <form role="form">
                         <div class="container-fluid">
-                            <div class="col-md-3">
+                            <div class="row">
+                            <div class="col-xs-3">
                                 <div class="panel panel-info">
                                     <div class="panel-heading">
                                         <h4>Customer</h4>
@@ -265,10 +263,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <img src="../images/slika.png" height="90%" width="90%" align="middle">
+                            <div class="col-xs-6">
+                                <img src="../images/slika.png" height="80%" width="80%" class="img-responsive center-block">
                             </div>
-                            <div class="col-md-3" style="float:right">
+                            <div class="col-xs-3" style="float:right">
                                 <div class="panel panel-info">
                                     <div class="panel-heading">
                                         <h4>Invoice</h4>
@@ -280,6 +278,7 @@
                                 </div>
                             </div>
                         </div>
+                            </div>
                         <table class="table table-striped table-bordered table-list">
                             <thead>
                                 <tr>
@@ -319,42 +318,56 @@
                                 <td>{{item.subtotal}}</td>
                             </tr>
                         </table>
-                        <table class="table-striped balance">
-                            <tr>
-                                <th>SubTotal: </th>
-                                <td>{{invoices.invoiceSubtotal}}</td>
-                            </tr>
-                            <tr>
-                                <th>PDV:</th>
-                                <td>{{invoices.vatAmount}}</td>
-                            </tr>
-                            <tr>
-                                <th>Shipping: </th>
-                                <td>{{invoices.shipping}}</td>
-                            </tr>
-                            <tr>
-                                <th>TOTAL: </th>
-                                <td>
-                                    <h4><strong>{{invoices.invoiceTotal}}<strong></h4></td>
-                            </tr>
-                        </table>
+                        <div class="row">
+                            <div class="col-xs-10 text-right">
+                                <p>SubTotal:</p>
+                            </div>
+                             <div class="col-xs-2 text-left">
+                                <p>{{invoices.invoiceSubtotal}}</p>
+                            </div>
+                        </div>
+                         <div class="row">
+                            <div class="col-xs-10 text-right">
+                                <p>Vat:</p>
+                            </div>
+                             <div class="col-xs-2 text-left">
+                                <p>{{invoices.vatAmount}}</p>
+                            </div>
+                        </div>
+                         <div class="row">
+                            <div class="col-xs-10 text-right">
+                                <p>Shipping:</p>
+                            </div>
+                             <div class="col-xs-2 text-left">
+                                <p>{{invoices.shipping}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-10 text-right">
+                                <p><strong>TOTAL:</strong></p>
+                            </div>
+                             <div class="col-xs-2 text-left">
+                                <p><strong>{{invoices.invoiceTotal}}</strong></p>
+                            </div>
+                        </div>
+                        
                         <div class="container-fluid">
                             <section class="row">
                             </section>
                         </div>
                     </form>
                 </div>
-
+                </div>
                 <!-- Modal Footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">
-                            Close
-                </button>
-                    <button type="button" class="btn btn-primary" ng-click="print()">
+                     <button type="button" class="btn btn-danger" ng-click="printDiv('printable');">
                     Print
                 </button>
-                    <button type="button" class="btn btn-success" ng-click="pdf()">
-                    PDF
+                    <button type="button" class="btn btn-primary" ng-click="pdf()">
+                    Save
+                </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                     Close
                 </button>
                 </div>
             </div>
