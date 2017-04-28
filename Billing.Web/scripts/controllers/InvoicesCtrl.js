@@ -23,16 +23,15 @@
         };
         //--------------------- 
 
-        $scope.printDiv = function (divName) {
-           var printContents = document.getElementById(divName).innerHTML;
-           var popupWin = window.open('', '_blank', 'width=1000,height=1000');
-           popupWin.document.open();
-           popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css" /><link rel="stylesheet" type="text/css" href="styles/style.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
-           popupWin.document.close();
-       };
-        
-        //PDF
+        $scope.printDiv = function(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var popupWin = window.open('', '_blank', 'width=1000,height=1000');
+            popupWin.document.open();
+            popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css" /><link rel="stylesheet" type="text/css" href="styles/style.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
+            popupWin.document.close();
+        };
 
+        //PDF
         $scope.pdf = function(invoice) {
             html2canvas(document.getElementById("printable"), { 
                 onrendered: function(canvas) {

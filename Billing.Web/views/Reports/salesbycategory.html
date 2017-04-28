@@ -1,20 +1,18 @@
 <!--<input type="date" class="datepicker" data-date-format="mm/dd/yyyy" ng-model="requestData.startDate">
 <input class="datepicker" data-date-format="mm/dd/yyyy" ng-model="requestData.endDate">-->
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-4">
-            <label>Start Date: </label>
-            <input type="date" id="e" ng-model="requestData.startDate" required>
-        </div>
-        <div class="col-md-4 ">
-            <label>End Date: </label>
-            <input type="date" ng-model="requestData.endDate" required>
-        </div>
-        <button class="btn btn-primary col-xs-4" ng-click="save()" style="float: right;">SHOW SALES BY CATEGORY</button>
+    <button class="btn btn-primary col-xs-4 " ng-click="save() " style="float: right; ">Show</button>
+    <div class="pull-right input-group" style="margin-left:12px;">
+        <span>To: </span><input type="text" datepicker-popup="dd.MM.yyyy" ng-model="requestData.endDate" is-open="endOpened" show-button-bar="false" style=" background-color: white" />
+        <span><button type="button " class="btn btn-xs btn-default " ng-click="openEnd($event) "><i class="fa fa-calendar "></i></button></span>
     </div>
+    <div class="pull-right input-group" style=" margin-left:12px ">
+        <span>From: </span><input type="text " datepicker-popup="dd.MM.yyyy " size="12 " ng-model="requestData.startDate " is-open="startOpened " show-button-bar="false " />
+        <span><button type="button " class="btn btn-xs btn-default " ng-click="openStart($event) "><i class="fa fa-calendar "></i></button></span>
+    </div>
+    <div class="clearfix "></div>
 </div>
-<hr>
-<table class="table table-striped table-bordered table-list auto" style="counter-reset: serial-number;" ng-show="showSalesByCategory">
+<table class="table table-striped table-bordered table-list auto " style="counter-reset: serial-number; " ng-show="showSalesByCategory ">
     <thead>
         <tr>
             <th>Category</th>
@@ -22,14 +20,14 @@
             <th>Percent</th>
         </tr>
     </thead>
-    <tbody ng-repeat="category in SalesByCategoryData.categories">
+    <tbody ng-repeat="category in SalesByCategoryData.categories ">
         <tr>
             <td>{{category.categoryName}}</td>
             <td>{{category.categoryTotal}} KM</td>
             <td>{{category.categoryPercent}} %</td>
         </tr>
     </tbody>
-    <td bgcolor="#dbd6d6">TOTAL:</td>
-    <td bgcolor="#dbd6d6"><strong>{{SalesByCategoryData.grandTotal}} KM</strong></td>
+    <td bgcolor="#dbd6d6 ">TOTAL:</td>
+    <td bgcolor="#dbd6d6 "><strong>{{SalesByCategoryData.grandTotal}} KM</strong></td>
     <th></th>
 </table>
