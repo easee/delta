@@ -13,18 +13,21 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-xs-4">
             <label>Start Date: </label>
             <input type="date" id="e" ng-model="requestData.startDate" required>
         </div>
-        <div class="col-md-4 ">
+        <div class="col-xs-4 ">
             <label>End Date: </label>
             <input type="date" ng-model="requestData.endDate" required>
         </div>
-        <button class="btn btn-primary col-md-4 " ng-click="getInvoices(customerId) " style="float: right; ">INVOICES REVIEW</button>
+         <button class="btn btn-danger col-xs" ng-show="showPrint" ng-click="printDiv('printable2');">Print</button>
+        <button class="btn btn-primary col-xs-3 " ng-click="getInvoices(customerId) " style="float: right; ">INVOICES REVIEW</button>
     </div>
 </div>
 <hr>
+<div id="printable2">
+        <h2 ng-show="showHeader">Invoice Review</h2>
 <table class="table table-striped table-bordered table-list auto " style="counter-reset: serial-number;" ng-show="showInvoice">
     <thead>
         <tr>
@@ -47,7 +50,7 @@
             </tr>
     </tbody>    
 </table>
-
+</div>
         <!-- VIEW AGENT SALES Modal -->
         <div class="modal fade custom" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -136,10 +139,10 @@
                     </div>
                     <!-- Modal Footer -->
                     <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" ng-click="printDiv('printable');">Print</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">
                                     Close
                         </button>
-                        <button type="button" class="btn btn-danger" ng-click="printDiv('printable');">Print</button>
                     </div>
                 </div>
             </div>

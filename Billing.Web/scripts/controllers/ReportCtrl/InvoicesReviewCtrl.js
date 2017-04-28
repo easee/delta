@@ -3,6 +3,8 @@
      ListCustomers();
      $scope.showInvoice = false;
      $scope.showProducts = false;
+     $scope.showPrint = false;
+     $scope.showHeader = false;
      function ListCustomers(){
             DataService.list("customers/all", function(data){ $scope.customers = data});           
         };      
@@ -12,6 +14,7 @@
             DataService.insert("invoicesreview", $scope.requestData, function(data) {
                 $scope.invoices = data;
                 $scope.showInvoice = true;
+                $scope.showPrint = true;
             });
         }
         
@@ -33,12 +36,14 @@
                 return _selected;
             }
         };
-              $scope.printDiv = function (divName) {
+               $scope.printDiv = function (divName) {
            var printContents = document.getElementById(divName).innerHTML;
            var popupWin = window.open('', '_blank', 'width=1000,height=1000');
+           $scope.showHeader = true;
            popupWin.document.open();
            popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css" /><link rel="stylesheet" type="text/css" href="styles/style.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
            popupWin.document.close();
+           $scope.showHeader = false;
        };
 
         $scope.modelOptions = {
