@@ -61,35 +61,33 @@
             <a class="navbar-brand" href="#" ng-hide="showDash"><i class="fa fa-drupal fa-4"></i> Delta</a>
         </div>
         <!-- navbar-header-->
-        <td>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav" ng-hide="showDash">
-                    <li class="active"><button class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle-2"> <span class="fa fa-align-justify" aria-hidden="true"></span></button></li>
-                    <!-- User profile dropdown start -->
-                    <li class="profile dropdown pull-right" ng-show="currentUser">
-                        <a class="dropdown-toggle" data-toggle="dropdown">
-                            <span>{{ currentUser}}</span>
-                            <span class=" fa fa-angle-down"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a class="clearfix" href="#">
-                                    <img ng-src="images/{{username}}.jpg" alt="User Avatar">
-                                    <div class="detail">
-                                        <strong>{{username}}</strong>
-                                    </div>
-                                </a>
-                            </li>
-                            <li><a tabindex="-1" href="#/agents" class="main-link"><i class="fa fa-edit fa-lg"></i> Edit profile</a></li>
-                            <!--<li class="divider"></li>-->
-                            <li><a tabindex="-1" class="main-link logoutConfirm_open font-normal btn-danger" href="#/logout"><i class="fa fa-power-off fa-lg"></i> Log out</a></li>
-                        </ul>
-                    </li>
-                    <!-- User profile dropdown end  -->
-                </ul>
-
-            </div>
-            <!-- bs-example-navbar-collapse-1 -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav" ng-hide="showDash">
+                <li class="active"><button class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle-2"> <span class="fa fa-align-justify" aria-hidden="true"></span></button></li>
+                <!-- User profile dropdown start -->
+                <li class="profile dropdown pull-right" ng-show="currentUser">
+                    <a class="dropdown-toggle" data-toggle="dropdown">
+                        <span>{{ currentUser}}</span>
+                        <span class=" fa fa-angle-down"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="clearfix" href="#">
+                                <img ng-src="images/{{username}}.jpg" alt="User Avatar">
+                                <div class="detail">
+                                    <strong>{{username}}</strong>
+                                </div>
+                            </a>
+                        </li>
+                        <li><a tabindex="-1" href="#/agents" class="main-link"><i class="fa fa-edit fa-lg"></i> Edit profile</a></li>
+                        <!--<li class="divider"></li>-->
+                        <li><a tabindex="-1" class="main-link logoutConfirm_open font-normal btn-danger" href="#/logout"><i class="fa fa-power-off fa-lg"></i> Log out</a></li>
+                    </ul>
+                </li>
+                <!-- User profile dropdown end  -->
+            </ul>
+        </div>
+        <!-- bs-example-navbar-collapse-1 -->
     </nav>
     <div id="wrapper">
         <!-- Sidebar -->
@@ -122,13 +120,6 @@
                 <li>
                     <a href="#/procurements"><span class="fa-stack fa-lg pull-left"><i class="fa fa-file fa-stack-1x" ></i></span>Procurements</a>
                 </li>
-                <!--<li data-toggle="collapse">
-                    <a class="nav-sub-container"><span class="fa-stack fa-lg pull-left"><i class="fa fa-area-chart fa-stack-1x" ></i></span>Reports</a>
-                    <ul class="nav nav-pills nav-stacked collapse in">
-                        <li><a href="#/agents">Agent Report</a></li>
-                        <li><a href="#/suppliers">Supplier Report</a></li>
-                    </ul>
-                </li>-->
                 <li>
                     <a href="#submenu1" class=" sub-item" data-toggle="collapse" data-parent="#submenu1" ng-click="isCollapsed = !isCollapsed">
                         <span class=" menu-ico-collapse fa-stack fa-lg pull-left"><i class="fa fa-area-chart fa-stack-1x">

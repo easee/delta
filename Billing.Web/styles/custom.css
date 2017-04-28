@@ -81,5 +81,9 @@ table.balance {
     position: relative;
 }
 
+.navbar {
+    margin-bottom: 0;
+}
+
 
 /* table meta */
