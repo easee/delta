@@ -33,7 +33,7 @@
         
         //PDF
 
-        $scope.pdf = function() {
+        $scope.pdf = function(invoice) {
             html2canvas(document.getElementById("printable"), { 
                 onrendered: function(canvas) {
                     var data = canvas.toDataURL();
