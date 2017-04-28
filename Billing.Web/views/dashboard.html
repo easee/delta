@@ -3,8 +3,6 @@
 <!--<input type="date" class="datepicker" data-date-format="mm/dd/yyyy" ng-model="requestData.startDate">
 <input class="datepicker" data-date-format="mm/dd/yyyy" ng-model="requestData.endDate">-->
 <div class="container-fluid">
-    <div class="row">
-</div>
 <hr>
 
 <div class="col-xs-6">
@@ -73,24 +71,17 @@
 </div>
 
 
-<div class="col-md-12">
-<!--TOP 5 Products-->
+<div class="col-xs-6">
+    <!--TOP 5 Products-->
+    <h4>
+        <caption><strong>Annual review</strong></caption>
+    </h4>
     <table class="table table-striped table-bordered table-list">
-        <thead>
-            <tr>
-                <th class="hidden">ID</th>
-                <th><i class="fa fa-user-circle-o" aria-hidden="true"></i> Name</th>
-                <th><i class="fa fa-list-ol" aria-hidden="true"></i> Quantity</th>
-                <th><i class="fa fa-eur" aria-hidden="true"></i> Revenue</th>
-            </tr>
-        </thead>
-        <tr ng-repeat="product in dashData.top5">
-            <td class="hidden">{{item.id}}</td>
-            <td>{{product.name}}</td>
-            <td>{{product.quantity}}</td>
-            <td>{{product.revenue}}</td>
-            </tr>
+
+        <canvas id="barChart" </canvas>
+
     </table>
+</div>
 </div>
         
         
