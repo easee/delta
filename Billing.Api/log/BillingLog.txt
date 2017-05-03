@@ -1,13 +1,3 @@
-2017-04-28 09:48:19,436 | ERROR | Object reference not set to an instance of an object.: http://localhost:9000/api/SalesByCategory
-2017-04-28 09:48:20,244 | ERROR | Object reference not set to an instance of an object.: http://localhost:9000/api/SalesByCategory
-2017-04-28 09:48:20,367 | ERROR | Object reference not set to an instance of an object.: http://localhost:9000/api/SalesByCategory
-2017-04-28 10:17:06,594 | ERROR | Object reference not set to an instance of an object.: http://localhost:9000/api/invoicesreview
-2017-04-28 10:33:36,013 | ERROR | Incorrect Date: http://localhost:9000/api/CustomersByCategory
-2017-04-28 10:41:09,255 | ERROR | Object reference not set to an instance of an object.: http://localhost:9000/api/SalesByRegion
-2017-04-28 10:44:47,190 | ERROR | Object reference not set to an instance of an object.: http://localhost:9000/api/SalesByRegion
-2017-04-28 10:45:23,314 | ERROR | Incorrect Date: http://localhost:9000/api/SalesByRegion
-2017-04-28 10:52:25,009 | ERROR | Incorrect Date: http://localhost:9000/api/invoicesreview
-2017-04-28 10:56:43,203 | ERROR | Incorrect Date: http://localhost:9000/api/SalesByRegion
-2017-04-28 10:56:53,170 | ERROR | Incorrect Date: http://localhost:9000/api/SalesByRegion
-2017-04-28 11:08:35,144 | ERROR | Incorrect Date: http://localhost:9000/api/SalesByRegion
-2017-04-28 11:13:17,217 | ERROR | Incorrect Date: http://localhost:9000/api/SalesByRegion
+2017-05-03 01:05:18,976 | ERROR | Object reference not set to an instance of an object.: http://localhost:9000/api/dashboard
+2017-05-03 13:10:00,799 | ERROR | Object reference not set to an instance of an object.: http://localhost:9000/api/dashboard
+2017-05-03 13:10:09,478 | ERROR | Object reference not set to an instance of an object.: http://localhost:9000/api/dashboard

@@ -29,7 +29,7 @@
     </thead>
     <tbody ng-repeat="product in products.productsCategory">
         <tr>
-            <td>{{product.productId}}</td>
+            <td><asp:Label ID="lblName" runat="server"></asp:Label>{{product.productId}}</td>
             <td>{{product.productName}}</td>
             <td>{{product.unit}}</td>
             <td>{{product.input}}</td>
