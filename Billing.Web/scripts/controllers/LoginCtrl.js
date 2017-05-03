@@ -86,6 +86,16 @@
                     function(reason) {
                         credentials.currentUser.id = 0;
                         $location.path("/login");
+                        swal({
+                            title: "Unsuccessful login",
+                            text: "Wrong username or password.",
+                            type: "error",
+                            timer: 4000,
+                            animation: "slide-from-top",
+                            showCancelButton: false,
+                            showConfirmButton: false,
+                            customClass: 'notif-modal'
+                        });
                     });
             };
         }
