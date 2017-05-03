@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="styles/sidebar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" class="rel">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/2.3.11/css/AdminLTE.css">
     <script src="library/angular.min.js"></script>
     <script src="library/angular-animate.min.js"></script>
     <script src="library/angular-route.min.js"></script>
@@ -50,8 +51,9 @@
     <script src="library/ui-bootstrap-tpls.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <script src="http://cdn.jsdelivr.net/angular.chartjs/latest/angular-chart.min.js"></script>
+
     <link rel="stylesheet" href="styles/custom.css">
-    </head>
+</head>
 
 <body>
     <nav class="navbar navbar-default no-margin">
@@ -67,36 +69,44 @@
             <ul class="nav navbar-nav" ng-hide="showDash">
                 <li class="active"><button class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle-2"> <span class="fa fa-align-justify" aria-hidden="true"></span></button></li>
                 <!-- User profile dropdown start -->
-                <li class="profile dropdown pull-right" ng-show="currentUser">
+                <li class="dropdown user user-menu pull-right" ng-show="currentUser">
                     <a class="dropdown-toggle" data-toggle="dropdown">
+                        <img ng-src="images/{{username}}.jpg" width="30" height="30" style="border-radius:50%" class="user-image">
                         <span>{{ currentUser}}</span>
                         <span class=" fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li>
-                            <a class="clearfix" href="#">
-                                <img ng-src="images/{{username}}.jpg" alt="User Avatar">
-                                <div class="detail">
-                                    <strong>{{username}}</strong>
-                                </div>
-                            </a>
+                        <li class="user-header">
+                            <img ng-src="images/{{username}}.jpg" class="user-image">
+                            <div style: "text-allign: center">
+                                <p style="color:#86BF4C">
+                                    Welcome Agent
+                                </p>
+                                <p style="color:black">
+                                    {{ currentUser}}
+                                </p>
+                            </div>
                         </li>
-                        <li><a tabindex="-1" href="#/agents" class="main-link"><i class="fa fa-edit fa-lg"></i> Edit profile</a></li>
-                        <!--<li class="divider"></li>-->
-                        <li><a tabindex="-1" class="main-link logoutConfirm_open font-normal btn-danger" href="#/logout"><i class="fa fa-power-off fa-lg"></i> Log out</a></li>
+                        <li class="user-footer">
+                            <div class="pull-left">
+                                <a href="#/agents" class="btn btn-default btn-flat">Profile</a>
+                            </div>
+                            <div class="pull-right">
+                                <a href="#/logout" class="btn btn-danger btn-flat">Sign out</a>
+                            </div>
+                        </li>
                     </ul>
                 </li>
-                <!-- User profile dropdown end  -->
             </ul>
         </div>
-        <!-- bs-example-navbar-collapse-1 -->
     </nav>
     <div id="wrapper">
         <!-- Sidebar -->
         <div id="sidebar-wrapper" ng-hide="showDash">
             <ul class="sidebar-nav nav-pills nav-stacked" id="menu">
+                <li class="header"><span id="dashtext">MAIN NAVIGATION</span></li>
                 <li class="active">
-                    <a href="#/dashboard"><span class="fa-stack fa-lg pull-left"><i class="fa fa-pie-chart fa-stack-1x "></i></span> Dashboard</a>
+                    <a href="#/dashboard"><span class="fa-stack fa-lg pull-left"><i class="fa fa-tachometer fa-stack-1x "></i></span> Dashboard</a>
                 </li>
                 <li>
                     <a href="#/invoices"><span class="fa-stack fa-lg pull-left"><i class="fa fa-file-text fa-stack-1x "></i></span> Invoices</a>
@@ -122,6 +132,7 @@
                 <li>
                     <a href="#/procurements"><span class="fa-stack fa-lg pull-left"><i class="fa fa-file fa-stack-1x" ></i></span>Procurements</a>
                 </li>
+                <li class="header"><span id="dashtext">REPORTS</span></li>
                 <li>
                     <a href="#submenu1" class=" sub-item" data-toggle="collapse" data-parent="#submenu1" ng-click="isCollapsed = !isCollapsed">
                         <span class=" menu-ico-collapse fa-stack fa-lg pull-left"><i class="fa fa-area-chart fa-stack-1x">
