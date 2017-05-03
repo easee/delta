@@ -43,6 +43,17 @@
                         return callback(false);
                     });
             },
+            
+            download: function(id) {
+                    $http.get(source + '/invoices/download/' + id, { responseType: 'arraybuffer' })
+                        .success(function (data) {
+                            var blob = new Blob([data], {
+                                type: "application/pdf"
+                            });
+                            //saveAs provided by FileSaver.min.js
+                            saveAs(blob, "Invoice-" + id + "-" + (Math.floor(new Date()).toString()) + '.pdf');
+                        });
+                },
 
             update: function(dataSet, id, data, callback) {
                 $http({ method:"put", url:source + dataSet + "/" + id, data: data })

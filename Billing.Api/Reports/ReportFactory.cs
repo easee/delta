@@ -243,7 +243,7 @@ namespace Billing.Api.Reports
             invoice.InvoiceId = Id;
             invoice.InvoiceNo = InvoiceNo;
             invoice.InvoiceDate = Date;
-            invoice.ShippedOn = (ShippedOn == null) ? DateTime.Now : ShippedOn.Value;
+            invoice.ShippedOn =  ShippedOn.Value;
             invoice.InvoiceTotal = Math.Round(Total,2);
             invoice.InvoiceStatus = Status.ToString();
 

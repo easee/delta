@@ -305,6 +305,7 @@ namespace Billing.Api.Models
                     Quantity = item.Quantity
                 });
             }
+
             return new Invoice()
             { 
                 Id =model.Id,

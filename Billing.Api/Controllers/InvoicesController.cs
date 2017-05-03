@@ -1,10 +1,16 @@
 ﻿using Billing.Api.Helpers;
+using Billing.Api.Helpers.PDF;
 using Billing.Api.Models;
 using Billing.Database;
 using Billing.Repository;
+using MigraDoc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading;
 using System.Web.Http;
 
@@ -151,6 +157,30 @@ namespace Billing.Api.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [Route("download/{id}")]
+        public IHttpActionResult GetDownload(int id)
+        {
+            /* Get Invoice PDF */
+            Invoice invoice = UnitOfWork.Invoices.Get(id);
+            InvoicePdf pdf = new InvoicePdf(invoice);
+            PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(false);
+            pdfRenderer.Document = pdf.CreateDocument();
+            pdfRenderer.RenderDocument();
+            MemoryStream stream = new MemoryStream();
+            pdfRenderer.Save(stream, false);
+
+            /* Send PDF file */
+            var result = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StreamContent(stream)
+            };
+            result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/pdf");
+
+            var response = ResponseMessage(result);
+
+            return response;
         }
     }
 }

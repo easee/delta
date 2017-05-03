@@ -20,6 +20,7 @@ namespace Billing.Api.Reports
                       
             InvoiceReportModel result = new InvoiceReportModel()
             {
+                InvoiceId = id,
                 InvoiceNo = Invoice.InvoiceNo,
                 InvoiceDate = Invoice.Date,
                 CustomerId = Invoice.Customer.Id,
