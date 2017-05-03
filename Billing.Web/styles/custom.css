@@ -85,5 +85,20 @@ table.balance {
     margin-bottom: 0;
 }
 
+#menu-toggle-2 {
+    color: lightgray;
+}
+
+.user-header {
+    background-color: #F5F5F5;
+    font-family: Source Sans Pro;
+}
+
+#dashtext {
+    font-family: Source Sans Pro;
+    position: relative;
+    right: -34px;
+}
+
 
 /* table meta */
