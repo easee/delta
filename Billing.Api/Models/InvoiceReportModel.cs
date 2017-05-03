@@ -11,6 +11,7 @@ namespace Billing.Api.Models
         {
             Products = new List<InvoiceProductReport>();
         }
+        public int InvoiceId { get; set; }
         public string InvoiceNo { get; set; }
         public DateTime InvoiceDate { get; set; }
         public int CustomerId { get; set; }
