@@ -31,6 +31,9 @@
             popupWin.document.close();
         };
 
+        $scope.saveAsPdf = function(id){
+            DataService.download(id);
+        };
         //PDF
         $scope.pdf = function(invoice) {
             html2canvas(document.getElementById("printable"), { 
