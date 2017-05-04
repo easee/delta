@@ -34,7 +34,7 @@
             popupWin.document.close();
         };
 
-        $scope.saveAsPdf = function(id){
+        $scope.saveAsPdf = function(id) {
             DataService.download(id);
         };
         
@@ -46,7 +46,7 @@
         }
         //PDF
         $scope.pdf = function(invoice) {
-            html2canvas(document.getElementById("printable"), { 
+            html2canvas(document.getElementById("printable"), {
                 onrendered: function(canvas) {
                     var data = canvas.toDataURL();
                     var docDefinition = {
@@ -196,7 +196,19 @@
         //DELETE INVOICE
         $scope.delete = function(invoice) {
             DataService.delete("invoices", invoice.id, function(data) {
-                ListInvoices();
+                swal({
+                        title: "Are you sure?",
+                        text: "You will not be able to recover this Invoice!",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Yes, delete it!",
+                        closeOnConfirm: false
+                    },
+                    function() {
+                        ListInvoices();
+                        swal("Deleted!", "Invoice has been deleted.", "success");
+                    });
             });
             $scope.showInvoices = false;
         };
