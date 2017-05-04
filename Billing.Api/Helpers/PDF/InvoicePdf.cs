@@ -173,10 +173,9 @@ namespace Billing.Api.Helpers.PDF
             row.Cells[3].AddParagraph(invoice.ShippedOn.Value.ToShortDateString());
             else
             row.Cells[3].AddParagraph(DateTime.Now.ToShortDateString());
-            if(invoice.Shipper.Name!=null)
-            row.Cells[4].AddParagraph(invoice.Shipper.Name);
-            else
-            row.Cells[4].AddParagraph("");
+            if(invoice.Shipper!= null)
+                row.Cells[4].AddParagraph(invoice.Shipper.Name);
+           
 
 
             row = Table.AddRow();

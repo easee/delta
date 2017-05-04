@@ -5,7 +5,10 @@
         getShippers('');
         getAgents('');
         ListInvoices(0);
-
+          $scope.mailData = {
+            invoiceId: 0,
+            mailTo: ""
+        };
         $scope.selectedCustomer = { id: 0, name: "" };
 
         $scope.edit = function(invoice) {
@@ -34,6 +37,13 @@
         $scope.saveAsPdf = function(id) {
             DataService.download(id);
         };
+        
+        $scope.send = function(invoiceId) {
+            $scope.mailData.invoiceId=invoiceId;
+            DataService.insert("invoices/mail", $scope.mailData, function(data) {
+                
+            });
+        }
         //PDF
         $scope.pdf = function(invoice) {
             html2canvas(document.getElementById("printable"), {

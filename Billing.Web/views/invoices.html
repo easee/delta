@@ -236,6 +236,37 @@
             </div>
         </div>
     </div>
+    
+             <!-- VIEW AGENT SALES Modal -->
+        <div class="modal fade custom" id="sendModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                
+                <div class="modal-content">
+                    <div class="container-fluid">
+<!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myModalLabel">
+                          Send email
+                        </h4>
+                    </div>
+                    <!-- Modal Body -->
+                     <div class="form-group col-xs-4">
+                            <label>Email</label>
+                            <input type="text" class="form-control" ng-model="mailData.mailTo" />
+                    </div>
+                        </div>
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <button class="btn btn-success" ng-click="send(invoices.invoiceId)" data-dismiss="modal">
+                                    Send</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                                    Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     <!--End of CREATE NEW Modal-->
     <!--AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-->
     <!-- INFO INVOICE DIV REPORT -->
@@ -362,6 +393,8 @@
                 </div>
                 <!-- Modal Footer -->
                 <div class="modal-footer">
+                      <button type="submit" class="btn btn-success btn-create" data-dismiss="modal" data-toggle="modal" data-target="#sendModal" type="submit"> 
+                     Send</button>
                      <button type="button" class="btn btn-danger" ng-click="printDiv('printable');">
                     Print
                 </button>

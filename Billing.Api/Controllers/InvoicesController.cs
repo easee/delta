@@ -1,6 +1,7 @@
 ﻿using Billing.Api.Helpers;
 using Billing.Api.Helpers.PDF;
 using Billing.Api.Models;
+using Billing.API.Models;
 using Billing.Database;
 using Billing.Repository;
 using MigraDoc.Rendering;
@@ -159,6 +160,21 @@ namespace Billing.Api.Controllers
             }
         }
 
+
+        [TokenAuthorization("user")]
+        [HttpPost]
+        [Route("mail")]
+        public IHttpActionResult SendMail([FromBody]MailRequest model)
+        {
+            Invoice invoice = UnitOfWork.Invoices.Get(model.InvoiceId);
+            if (invoice.Agent.Email == null)
+                invoice.Agent.Email = invoice.Agent.Username + "@deltabilling.com";
+            string mailFrom = invoice.Agent.Email;
+            Helper.SendEmail(invoice, mailFrom, model.MailTo);
+            return Ok("Email sent");
+        }
+
+        [TokenAuthorization("user")]
         [Route("download/{id}")]
         public IHttpActionResult GetDownload(int id)
         {

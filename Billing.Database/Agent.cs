@@ -14,7 +14,7 @@ namespace Billing.Database
         public int Id { get; set; }
         public string Name { get; set; }
         public string Username { get; set; }//Proširili smo za ovo polje
-
+        public string Email { get; set; }
         public virtual List<Town> Towns { get; set; }
         public virtual List<Invoice> Invoices { get; set; }
     }
