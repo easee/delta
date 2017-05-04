@@ -196,6 +196,7 @@
     <Compile Include="Helpers\PDF\BasicPdf.cs" />
     <Compile Include="Helpers\PDF\InvoicePdf.cs" />
     <Compile Include="Models\CurrentUserModel.cs" />
+    <Compile Include="Models\MailRequest.cs" />
     <Compile Include="ReportsControllers\CrossAgentRegionController.cs" />
     <Compile Include="ReportsControllers\CustomersByCategoryController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />

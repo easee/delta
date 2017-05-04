@@ -1,5 +1,12 @@
-﻿using Billing.Database;
+﻿using Billing.Api.Helpers.PDF;
+using Billing.Database;
+using MigraDoc.Rendering;
 using System;
+using System.Configuration;
+using System.IO;
+using System.Net;
+using System.Net.Mail;
+using System.Net.Mime;
 using System.Reflection;
 using System.Text;
 using System.Web;
@@ -22,5 +29,43 @@ namespace Billing.Api.Helpers
 
             return Convert.ToBase64String(hash);
         }
+        public static void SendEmail(Invoice invoice, string from, string emailTo)
+        {
+            string subject = "Invoice - " + invoice.InvoiceNo;
+            string FromMail = from;
+            MailMessage mail = new MailMessage();
+            mail.From = new MailAddress(FromMail);
+            mail.To.Add(emailTo);
+            mail.Subject = subject;
+            string body = "Hi," + Environment.NewLine + "Please find the attached file. For more information contact us at: " + FromMail + Environment.NewLine + Environment.NewLine + "Kind Regards," + Environment.NewLine + invoice.Agent.Name;
+            mail.Body = body;
+
+            InvoicePdf pdf = new InvoicePdf(invoice);
+
+            PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer(false);
+
+            pdfRenderer.Document = pdf.CreateDocument();
+
+            pdfRenderer.RenderDocument();
+
+
+            MemoryStream stream = new MemoryStream();
+
+            pdfRenderer.Save(stream, false);
+
+
+
+            mail.Attachments.Add(new Attachment(stream, "Invoice-" + DateTime.UtcNow.ToShortDateString() + ".pdf", MediaTypeNames.Application.Pdf));
+
+            SmtpClient SmtpServer = new SmtpClient();
+            SmtpServer.Port = 587;
+            SmtpServer.Host = "smtp.gmail.com";
+            SmtpServer.EnableSsl = true;
+            SmtpServer.DeliveryMethod = SmtpDeliveryMethod.Network;
+            SmtpServer.UseDefaultCredentials = false;
+            SmtpServer.Credentials = new NetworkCredential("deltabillingteam@gmail.com", "deltateam2017");
+            SmtpServer.Send(mail);
+        }
     }
 }
+    
