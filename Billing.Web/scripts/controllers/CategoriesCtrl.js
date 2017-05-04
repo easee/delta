@@ -16,13 +16,33 @@
 
         //CREATE NEW CATEGORY
         $scope.new = function() {
-            $scope.category = {
-                id: 0,
-                name: ""
-            };
-            $scope.showCategories = true;
+            swal({
+                    title: "Add new Category",
+                    text: "Insert a new Category:",
+                    type: "input",
+                    showCancelButton: true,
+                    closeOnConfirm: false,
+                    animation: "slide-from-top",
+                    inputPlaceholder: "Enter Category"
+                },
+                function(inputValue) {
+                    if (inputValue === false) return false;
 
+                    if (inputValue === "") {
+                        swal.showInputError("You need to write something!");
+                        return false
+                    }
+                    console.log(inputValue);
+                    $scope.category = {
+                        id: 0,
+                        name: inputValue
+                    }
+                    $scope.save();
+                    swal("Nice!", "You added a new category", "success");
+                    s
+                });
             //DataService.insert("categories", $scope.category, function(data){ ListCategories();} );
+            $scope.showCategories = true;
         };
 
         //DELETE CUSTOMER

@@ -1,0 +1,3 @@
+2017-05-04 11:52:03,518 | ERROR | An error occurred while updating the entries. See the inner exception for details.: http://localhost:9000/api/categories/11
+2017-05-04 11:52:13,249 | ERROR | A relationship multiplicity constraint violation occurred: An EntityReference expected at least one related object, but the query returned no related objects from the data store.: http://localhost:9000/api/dashboard
+2017-05-04 11:52:28,834 | ERROR | Object reference not set to an instance of an object.: http://localhost:9000/api/dashboard
