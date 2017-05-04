@@ -1,39 +1,53 @@
-(function(){
-    app.controller("CategoriesCtrl", ['$scope', 'DataService', function($scope,DataService) {
-      $scope.showCategories = false;
+(function() {
+    app.controller("CategoriesCtrl", ['$scope', 'DataService', function($scope, DataService) {
+        $scope.showCategories = false;
         ListCategories();
-        
-        $scope.edit = function(currentCategory){
+
+        $scope.edit = function(currentCategory) {
             $scope.category = currentCategory;
-            $scope.showCategories = true;                                        
-    };
-    $scope.save = function(){
-            if($scope.category.id == 0)
-                DataService.insert("categories", $scope.category, function(data){ ListCategories();} );
+            $scope.showCategories = true;
+        };
+        $scope.save = function() {
+            if ($scope.category.id == 0)
+                DataService.insert("categories", $scope.category, function(data) { ListCategories(); });
             else
-                DataService.update("categories", $scope.category.id, $scope.category, function(data){ListCategories();});
+                DataService.update("categories", $scope.category.id, $scope.category, function(data) { ListCategories(); });
         };
 
         //CREATE NEW CATEGORY
-        $scope.new = function(){
+        $scope.new = function() {
             $scope.category = {
                 id: 0,
                 name: ""
             };
-            $scope.showCategories = true;      
+            $scope.showCategories = true;
 
             //DataService.insert("categories", $scope.category, function(data){ ListCategories();} );
         };
-        
+
         //DELETE CUSTOMER
-        $scope.delete = function (category) {
-            DataService.delete("categories", category.id, function (data) {
-                ListCategories();
+        $scope.delete = function(category) {
+            DataService.delete("categories", category.id, function(data) {
+                swal({
+                        title: "Are you sure?",
+                        text: "You will not be able to recover this Category!",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: "Yes, delete it!",
+                        closeOnConfirm: false
+                    },
+                    function() {
+                        ListCategories();
+                        swal("Deleted!", "Category has been deleted.", "success");
+                    });
+
             });
             $scope.showCategories = false;
         };
-        function ListCategories(){
-            DataService.list("categories", function(data){ $scope.category = data});
+
+        function ListCategories() {
+            DataService.list("categories", function(data) { $scope.category = data });
         }
     }]);
 }());
