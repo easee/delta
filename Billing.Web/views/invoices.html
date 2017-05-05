@@ -419,8 +419,16 @@
                     <i class="fa fa-plus" aria-hidden="true"></i> INVOICE</button>
         </td>
     </div>
-
     <div>
+        <div class="form-group pull-left">
+           <input type="text" class="form-control" ng-model="selectSearch">
+        </div>
+        <div class="form-group pull-left">
+            <a href="" ng-click="search()"><button type="submit" class="btn btn-info" type="submit" ><i class="fa fa-search" aria-hidden="true"></i></button></a>
+        </div>
+    </div>
+   
+    <!--<div>
         <div class="form-group pull-left">
             <input type="search" class="search form-control" placeholder="Search as you type" ng-model="select">
         </div>
@@ -432,7 +440,7 @@
                     <option value="+total">Total asc</option>
             </select>
         </div>
-    </div>
+    </div>-->
     <table class="table table-striped table-bordered table-list">
         <thead>
             <tr>
@@ -468,8 +476,15 @@
                 </div>
                 <div>
                     <!--PAGINATION-->
-                    <div class="text-center">
-                        <button id="first" class="btn btn" ng-click="goto(page,0)">First</button>
+                    <div class="text-center" ng-show="searchPage" >
+                        <button id="firstSearch" class="btn btn" ng-click="search(0,0)">First</button>
+                        <button id="previousSearch" class="btn btn" ng-click="search(currentPage-2,-1)">Previous</button>
+                        <ul class="pagination" ng-repeat="page in pages"><button id="{{page}}Search" class="btn btn-default" ng-click="search(page-1,0)">{{page}}</button></ul>
+                        <button id="nextSearch" class="btn btn" ng-click="search(currentPage,1)">Next</button>
+                        <button id="lastSearch" class="btn btn" ng-click="search(totalPages-1,0)">Last</button>
+                    </div>
+                    <div class="text-center" ng-show="pagination"  >
+                        <button id="first" class="btn btn" ng-click="goto(1,0)">First</button>
                         <button id="previous" class="btn btn" ng-click="goto(currentPage,-1)">Previous</button>
                         <ul class="pagination" ng-repeat="page in pages"><button id="{{page}}" class="btn btn-default" ng-click="goto(page,0)">{{page}}</button></ul>
                         <button id="next" class="btn btn" ng-click="goto(currentPage,1)">Next</button>
