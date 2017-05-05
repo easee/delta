@@ -1,5 +1,6 @@
 
 
+
 2017-05-03 01:05:18,976 | ERROR | Object reference not set to an instance of an object.: http://localhost:9000/api/dashboard
 2017-05-03 13:10:00,799 | ERROR | Object reference not set to an instance of an object.: http://localhost:9000/api/dashboard
 2017-05-03 13:10:09,478 | ERROR | Object reference not set to an instance of an object.: http://localhost:9000/api/dashboard
@@ -52,3 +53,4 @@
 2017-05-04 11:52:28,834 | ERROR | Object reference not set to an instance of an object.: http://localhost:9000/api/dashboard
 
 2017-05-04 18:40:32,582 | ERROR | Object reference not set to an instance of an object.: http://localhost:9000/api/CustomersByCategory
+

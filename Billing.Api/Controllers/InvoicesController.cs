@@ -41,6 +41,31 @@ namespace Billing.Api.Controllers
             return Ok(returnObject);
         }
 
+        [Route("pagination")]
+        public IHttpActionResult GetAll(string item, int page = 0)
+        {
+            if (item == null)
+                item = "";
+            int PageSize = 8;
+            List<Invoice> query = new List<Invoice>();
+            if(item.Equals(""))
+                query = UnitOfWork.Invoices.Get().OrderBy(x => x.Id).ToList();
+            else
+                query = UnitOfWork.Invoices.Get().Where(x => x.InvoiceNo.Contains(item) || x.Shipper.Name.Contains(item) || x.Agent.Name.Contains(item) || x.Customer.Name.Contains(item)).OrderBy(x => x.Id).ToList();
+
+            int TotalPages = (int)Math.Ceiling((double)query.Count() / PageSize);
+
+            var returnObject = new
+            {
+                pageSize = PageSize,
+                currentPage = page,
+                totalPages = TotalPages,
+                size = query.Count,
+                invoicesList = query.Skip(PageSize * page).Take(PageSize).Select(x => Factory.Create(x)).ToList()
+            };
+            return Ok(returnObject);
+        }
+
         [Route("customer/{id}")]
         public IHttpActionResult GetByCustomer(int id)
         {
