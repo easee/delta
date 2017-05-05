@@ -393,13 +393,14 @@
                 </div>
                 <!-- Modal Footer -->
                 <div class="modal-footer">
-                      <button type="submit" class="btn btn-success btn-create" data-dismiss="modal" data-toggle="modal" data-target="#sendModal" type="submit"> 
+                      <button type="submit" class="btn btn-success btn-create" data-dismiss="modal" data-toggle="modal" data-target="#sendModal" type="submit">
+                          <i class="fa fa-envelope" aria-hidden="true"></i>  
                      Send</button>
-                     <button type="button" class="btn btn-danger" ng-click="printDiv('printable');">
+                     <button type="button" class="btn btn-danger" ng-click="printDiv('printable');"><i class="fa fa-print" aria-hidden="true"></i> 
                     Print
                 </button>
 
-                    <button type="button" class="btn btn-primary" ng-click="saveAsPdf(invoices.invoiceId)">
+                    <button type="button" class="btn btn-primary" ng-click="saveAsPdf(invoices.invoiceId)"><i class="fa fa-download" aria-hidden="true"></i> 
                     Save
                 </button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">

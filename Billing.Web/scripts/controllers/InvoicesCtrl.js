@@ -44,7 +44,7 @@
         $scope.send = function(invoiceId) {
             $scope.mailData.invoiceId=invoiceId;
             DataService.insert("invoices/mail", $scope.mailData, function(data) {
-                
+            swal("Success!", "Your email is sent to given address!", "success") 
             });
         }
         //PDF
