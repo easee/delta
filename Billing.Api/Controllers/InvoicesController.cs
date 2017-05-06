@@ -51,7 +51,7 @@ namespace Billing.Api.Controllers
             if(item.Equals(""))
                 query = UnitOfWork.Invoices.Get().OrderBy(x => x.Id).ToList();
             else
-                query = UnitOfWork.Invoices.Get().Where(x => x.InvoiceNo.Contains(item) || x.Shipper.Name.Contains(item) || x.Agent.Name.Contains(item) || x.Customer.Name.Contains(item)).OrderBy(x => x.Id).ToList();
+                query = UnitOfWork.Invoices.Get().Where(x => x.InvoiceNo.Contains(item) || x.Shipper.Name.Contains(item) || x.Agent.Name.Contains(item) || x.Customer.Name.Contains(item) || x.Status.ToString().Contains(item)).OrderBy(x => x.Id).ToList();
 
             int TotalPages = (int)Math.Ceiling((double)query.Count() / PageSize);
 

@@ -462,7 +462,7 @@
             <td>{{item.invoiceNo}}</td>
             <td>{{item.date | date:'dd-MM-yyyy'}}</td>
             <td>{{item.shippedOn | date:'dd-MM-yyyy'}}</td>
-            <td><button ng-class="{'btn btn-danger': item.statusId == -1, 'btn btn-warning': (item.statusId < 2 && item.statusId > -1), 'btn btn-primary': (item.statusId < 5 && item.statusId > 1), 'btn btn-success': (item.statusId < 9 && item.statusId > 4)}">
+            <td><button ng-class="{'btn btn-danger': item.statusId == -1, 'btn btn-warning': (item.statusId == 0 || item.statusId == 1), 'btn btn-primary': (item.statusId < 5 && item.statusId > 1), 'btn btn-success': item.statusId > 4}">
                        {{ states[item.statusId+1]}}
                    </button></td>
             <td>{{item.shipper}}</td>
@@ -491,6 +491,6 @@
                         <button id="next" class="btn btn" ng-click="goto(currentPage,1)">Next</button>
                         <button id="last" class="btn btn" ng-click="goto(totalPages,0)">Last</button>
                     </div>
-                    <p class="text-center">Page {{currentPage}} of {{totalPages}}</p>
+                    <p class="text-center" ng-show="number">Page {{currentPage}} of {{totalPages}}</p>
                 </div>
             </div>

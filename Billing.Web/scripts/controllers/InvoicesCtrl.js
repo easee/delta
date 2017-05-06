@@ -4,6 +4,7 @@
         $scope.showInvoices = false;
         $scope.searchPage = false;
         $scope.pagination = false;
+        $scope.number = false;
         getShippers('');
         getAgents('');
         ListInvoices(0);
@@ -108,14 +109,18 @@
                 $scope.invoices = data.invoicesList;
                 $scope.totalPages = data.totalPages;
                 $scope.currentPage = data.currentPage + 1;
+                
                 if ($scope.totalPages < 11)
                     $scope.pages = new Array($scope.totalPages);
                 else
                     $scope.pages = new Array(10);
                 $scope.size = data.size;    
-                if ($scope.currentPage == $scope.totalPages) {
+                if ($scope.currentPage == $scope.totalPages && $scope.totalPages>1) {
                     document.getElementById("nextSearch").disabled = true;
                     document.getElementById("previousSearch").disabled = false;
+                } else if ($scope.currentPage == 1 && $scope.totalPages==1) {
+                    document.getElementById("previousSearch").disabled = true;
+                    document.getElementById("nextSearch").disabled = true;
                 } else if ($scope.currentPage == 1) {
                     document.getElementById("previousSearch").disabled = true;
                     document.getElementById("nextSearch").disabled = false;
@@ -146,8 +151,15 @@
                         }
                     }
                 }
-               $scope.searchPage = true;
-        
+               if($scope.totalPages>0){
+                $scope.searchPage = true;
+                $scope.number = true;
+                }
+                else{
+                $scope.number = false;
+                $scope.searchPage = false;
+                }
+                
                 console.log($scope.currentPage);
             });
         };
@@ -162,6 +174,7 @@
                 $scope.invoices = data.invoicesList;
                 $scope.totalPages = data.totalPages;
                 $scope.currentPage = data.currentPage + 1;
+                          
                 if ($scope.totalPages < 11)
                     $scope.pages = new Array($scope.totalPages);
                 else
@@ -169,9 +182,12 @@
 
                 $scope.size = data.size;
 
-                if ($scope.currentPage == $scope.totalPages) {
+                if ($scope.currentPage == $scope.totalPages && $scope.totalPages>1) {
                     document.getElementById("next").disabled = true;
                     document.getElementById("previous").disabled = false;
+                } else if ($scope.currentPage == 1 && $scope.totalPages==1) {
+                    document.getElementById("previous").disabled = true;
+                    document.getElementById("next").disabled = true;
                 } else if ($scope.currentPage == 1) {
                     document.getElementById("previous").disabled = true;
                     document.getElementById("next").disabled = false;
@@ -202,10 +218,18 @@
                         }
                     }
                 }
+                if($scope.totalPages>0){
                 $scope.pagination = true;
+                $scope.number = true;
+                }
+                else{
+                $scope.number = false;
+                $scope.pagination = false;
+                }
                 console.log($scope.currentPage);
             });
         }
+        
         //GO TO
         $scope.goto = function(page, direction) {
                 if (direction == -1) {
