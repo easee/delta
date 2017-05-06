@@ -30,6 +30,30 @@ namespace Billing.Api.Controllers
             };
             return Ok(returnObject);
         }
+        [Route("pagination")]
+        public IHttpActionResult GetAll(string item, int page = 0)
+        {
+            if (item == null)
+                item = "";
+            int PageSize = 8;
+            List<Supplier> query = new List<Supplier>();
+            if (item.Equals(""))
+                query = UnitOfWork.Suppliers.Get().OrderBy(x => x.Id).ToList();
+            else
+                query = UnitOfWork.Suppliers.Get().Where(x => x.Name.Contains(item) || x.Town.Name.Contains(item) || x.Address.Contains(item)).OrderBy(x => x.Id).ToList();
+
+            int TotalPages = (int)Math.Ceiling((double)query.Count() / PageSize);
+
+            var returnObject = new
+            {
+                pageSize = PageSize,
+                currentPage = page,
+                totalPages = TotalPages,
+                size = query.Count,
+                suppliersList = query.Skip(PageSize * page).Take(PageSize).Select(x => Factory.Create(x)).ToList()
+            };
+            return Ok(returnObject);
+        }
 
         [Route("{name}")]
         public IHttpActionResult Get(string name)

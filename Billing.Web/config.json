@@ -3,6 +3,6 @@
     "regions": ["Banja Luka", "Bihac", "Doboj", "Mostar", "Sarajevo", "Trebinje", "Tuzla", "Zenica"],
     "signature": "CaByDlSnGLx0gOtlDClK6L94Jb/cwJoJAdUDlhtNpnI=",
     "apiKey": "RGVsdGEtQmlsbGluZw==",
-    "stat": ["Canceled", "Order Created", "Order Confirmed", "Invoice Created", "Invoice Sent", "Invoice Paid", "On Hold", "Ready", "Shipped"],
+    "stat": ["Canceled", "Order Created", "Invoice Created", "Invoice Sent", "Invoice Paid", "On Hold", "Ready", "Shipped"],
     "debugMode": true
 }
