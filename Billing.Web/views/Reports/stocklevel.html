@@ -1,12 +1,10 @@
-<!--<input type="date" class="datepicker" data-date-format="mm/dd/yyyy" ng-model="requestData.startDate">
-<input class="datepicker" data-date-format="mm/dd/yyyy" ng-model="requestData.endDate">-->
 <div class="container-fluid">
     <div class="row">
         <div class="form-group">
                 <div class="col-xs-3">
                 <select class="form-control" ng-model="categoryId" ng-options="category.id as category.name
                                             for category in categories" ng-change="getProducts(categoryId)"><option value="" disabled selected> Select category </option></select></div>
-                <button class="btn btn-danger col-xs pull-right" ng-show="showPrint" ng-click="printDiv('printable');">Print</button>
+                <button class="btn btn-danger col-xs pull-right" ng-show="showPrint" ng-click="printDiv('printable');"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
             </div>
             </div>
 

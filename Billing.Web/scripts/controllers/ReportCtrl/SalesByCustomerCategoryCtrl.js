@@ -20,5 +20,19 @@
            popupWin.document.close();
            $scope.showHeader = false;
        };
+
+        //Datepicker
+        $scope.openStart = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            $scope.startOpened = true;
+        };
+
+        $scope.openEnd = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            $scope.endOpened = true;
+        };
+
     }]);
 }());
