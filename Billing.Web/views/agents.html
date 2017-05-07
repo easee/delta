@@ -29,6 +29,10 @@
                             <label>Username</label>
                             <input type="text" class="form-control" ng-model="agent.username" />
                         </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" class="form-control" ng-model="agent.email" />
+                        </div>
                     </form>
                 </div>
                 <!-- Modal Footer -->
@@ -73,6 +77,10 @@
                             <label>Username</label>
                             <input type="text" class="form-control" ng-model="agent.username" />
                         </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" class="form-control" ng-model="agent.email" />
+                        </div>
                     </form>
                 </div>
                 <!-- Modal Footer -->
@@ -111,6 +119,7 @@
                     <th class="hidden">ID</th>
                     <th><i class="fa fa-address-card" aria-hidden="true"></i> Name</th>
                     <th><i class="fa fa-user" aria-hidden="true"></i> Username</th>
+                    <th><i class="fa fa-envelope" aria-hidden="true"></i> Email</th>
                     <th class="col-md-1">Edit</th>
                     <th class="col-md-1" admin-view>Delete</th>
                 </tr>
@@ -119,7 +128,8 @@
 
                 <td class="col-md-1 hidden">{{item.id}}</td>
                 <td class="col-md-5">{{item.name}}</td>
-                <td class="col-md-4">{{item.username}}</td>
+                <td class="col-md-3">{{item.username}}</td>
+                <td class="col-md-3">{{item.email}}</td>
                 <td class="col-md-1"> <a href="" ng-click="edit(item)"><button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#myModal" type="submit"  param="{{item.username}}" admin-view is-from-agent><i class="fa fa-pencil-square-o" aria-hidden="true" ></i></button></a></td>
                 <td class="col-md-1" admin-view> <a href="" ng-click="delete(item)"><button type="submit" class="btn btn-danger" type="submit"><i class="fa fa-trash-o" aria-hidden="true" </i></button></a></td>
             </tr>
