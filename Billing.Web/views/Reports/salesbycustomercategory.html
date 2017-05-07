@@ -1,17 +1,29 @@
-<!--<input type="date" class="datepicker" data-date-format="mm/dd/yyyy" ng-model="requestData.startDate">
-<input class="datepicker" data-date-format="mm/dd/yyyy" ng-model="requestData.endDate">-->
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-4">
-            <label>Start Date: </label>
-            <input type="date" id="e" ng-model="requestData.startDate" required>
+        <!--Datepicker start-->
+        <div class="col-xs-2 pull-left">
+                <div class="input-group" ng-click="openStart($event)">
+                    <input type="text" class="form-control" datepicker-popup="dd.MM.yyyy" ng-model="requestData.startDate" 
+                    is-open="startOpened" show-button-bar="false" placeholder="From">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
         </div>
-        <div class="col-md-4 ">
-            <label>End Date: </label>
-            <input type="date" ng-model="requestData.endDate" required>
+
+        <div class="col-xs-2 pull-left">
+                <div class="input-group" ng-click="openEnd($event)">
+                    <input type="text" class="form-control" datepicker-popup="dd.MM.yyyy" ng-model="requestData.endDate" 
+                    is-open="endOpened" show-button-bar="false"  placeholder="To">
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
         </div>
-        <button class="btn btn-danger col-xs" ng-show="showPrint" ng-click="printDiv('printable');">Print</button>
-        <button class="btn btn-primary col-xs-3 pull-right" ng-click="save() ">CROSSTABLE CUSTOMERS/CATEGORY</button> </div>      
+        <!--Datepicker END-->
+        <button class="btn btn-danger col-xs" ng-show="showPrint" ng-click="printDiv('printable');"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
+        <button class="btn btn-primary col-xs-3 pull-right" ng-click="save() ">CROSSTABLE CUSTOMERS/CATEGORY</button> 
+    </div>      
 </div>
 <hr>
 <div id="printable">

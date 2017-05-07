@@ -33,5 +33,17 @@
            $scope.showHeader = false;
            $scope.showHeader2 = false;
        };
+       //Datepicker
+        $scope.openStart = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            $scope.startOpened = true;
+        };
+
+        $scope.openEnd = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            $scope.endOpened = true;
+        };
     }]);
 }());
