@@ -16,7 +16,7 @@ namespace Billing.Api.Reports
 
         public SalesByProductModel Report(RequestModel Request)
         {
-            if (Request.EndDate <= Request.StartDate) throw new Exception("Incorrect Date");
+            if (Request.EndDate < Request.StartDate) throw new Exception("Incorrect Date");
             var Items = UnitOfWork.Items.Get().Where(x => x.Invoice.Date >= Request.StartDate && x.Invoice.Date <= Request.EndDate).ToList();
             var ItemsOfProduct = UnitOfWork.Items.Get().Where(x => x.Invoice.Date >= Request.StartDate && x.Invoice.Date <= Request.EndDate && x.Product.Category.Id == Request.Id).ToList();
             Category Category = UnitOfWork.Categories.Get(Request.Id);

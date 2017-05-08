@@ -15,7 +15,7 @@ namespace Billing.Api.Reports
 
         public SalesByCategoryModel Report (RequestModel Request)
         {
-            if (Request.EndDate <= Request.StartDate) throw new Exception("Incorrect Date");
+            if (Request.EndDate < Request.StartDate) throw new Exception("Incorrect Date");
             SalesByCategoryModel result = new SalesByCategoryModel();
 
             result.StartDate = Request.StartDate;
