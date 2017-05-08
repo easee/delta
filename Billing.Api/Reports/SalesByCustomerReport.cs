@@ -15,7 +15,7 @@ namespace Billing.Api.Reports
 
         public  SalesByCustomerModel Report(RequestModel Request)
         {
-            if (Request.EndDate <= Request.StartDate) throw new Exception("Incorrect Date");
+            if (Request.EndDate < Request.StartDate) throw new Exception("Incorrect Date");
             List<Invoice> Invoices = UnitOfWork.Invoices.Get().Where(x => x.Date >= Request.StartDate && x.Date <= Request.EndDate).ToList();
             SalesByCustomerModel result = new SalesByCustomerModel()
             {

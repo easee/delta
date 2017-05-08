@@ -8,3 +8,7 @@
 2017-05-07 23:30:02,812 | ERROR | Object reference not set to an instance of an object.: http://localhost:9000/api/invoicesreview
 2017-05-07 23:30:08,030 | ERROR | Nullable object must have a value.: http://localhost:9000/api/invoicesreview
 2017-05-07 23:30:25,720 | ERROR | Nullable object must have a value.: http://localhost:9000/api/invoicesreview
+2017-05-08 08:49:28,000 | ERROR | Nullable object must have a value.: http://localhost:9000/api/invoicesreview
+2017-05-08 08:50:16,222 | ERROR | Nullable object must have a value.: http://localhost:9000/api/invoicesreview
+2017-05-08 08:53:24,774 | ERROR | Nullable object must have a value.: http://localhost:9000/api/invoicesreview
+2017-05-08 08:59:08,316 | ERROR | Incorrect Date: http://localhost:9000/api/invoicesreview
