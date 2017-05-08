@@ -36,7 +36,14 @@
                 return _selected;
             }
         };
-               $scope.printDiv = function (divName) {
+           $scope.printDiv = function (divName,data) {
+           document.getElementById("hide").style.visibility="hidden";
+           for(var i=0;i<data.length;i++)
+               {
+                    var obj=data[i];
+                    document.getElementById(obj.invoiceNo).style.visibility="hidden";             
+               }
+            
            var printContents = document.getElementById(divName).innerHTML;
            var popupWin = window.open('', '_blank', 'width=1000,height=1000');
            $scope.showHeader = true;
@@ -44,6 +51,12 @@
            popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css" /><link rel="stylesheet" type="text/css" href="styles/style.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
            popupWin.document.close();
            $scope.showHeader = false;
+           document.getElementById("hide").style.visibility="visible";
+           for(var i=0;i<data.length;i++)
+               {
+                    var obj=data[i];
+                    document.getElementById(obj.invoiceNo).style.visibility="visible";             
+               }
        };
 
         $scope.modelOptions = {

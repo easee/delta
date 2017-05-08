@@ -21,7 +21,7 @@
             <label>End Date: </label>
             <input type="date" ng-model="requestData.endDate" required>
         </div>
-         <button class="btn btn-danger col-xs" ng-show="showPrint" ng-click="printDiv('printable2');"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
+         <button class="btn btn-danger col-xs" ng-show="showPrint" ng-click="printDiv('printable2',invoices.invoiceInfo);"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
         <button class="btn btn-primary col-xs-3 " ng-click="getInvoices(customerId) " style="float: right; ">INVOICES REVIEW</button>
     </div>
 </div>
@@ -36,7 +36,7 @@
             <th>Shipped</th>
             <th>Status</th>
             <th>Amount</th>
-            <th>Info</th>
+            <th id="hide">Info</th>
         </tr>
     </thead>
     <tbody ng-repeat="invoice in invoices.invoiceInfo">
@@ -46,7 +46,7 @@
             <td>{{invoice.shippedOn | date:'dd-MM-yyyy'}}</td>
             <td>{{invoice.invoiceStatus}}</td>
             <td>{{invoice.invoiceTotal}}</td>
-            <td> <a href=""><button type="submit" class="btn btn-info" data-toggle="modal" ng-click="getProducts(invoice.invoiceId)" data-target="#myModal" type="submit"><i class="fa fa-info-circle" aria-hidden="true" </i></button></a></td>
+            <td id="{{invoice.invoiceNo}}"> <a href=""><button type="submit" class="btn btn-info" data-toggle="modal" ng-click="getProducts(invoice.invoiceId)" data-target="#myModal" type="submit"><i class="fa fa-info-circle" aria-hidden="true" </i></button></a></td>
             </tr>
     </tbody>    
 </table>

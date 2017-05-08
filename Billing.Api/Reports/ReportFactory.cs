@@ -181,13 +181,15 @@ namespace Billing.Api.Reports
             return products;
         }
 
-        public CategoriesSalesModel CreateCategory(string Name, double SubTotal, double grandTotal)
-
-
+        public CategoriesSalesModel Create(string Name, double SubTotal, double grandTotal,List<Category> Category)            
         {
+            int Id=0;
+            foreach (var item in Category)
+                if (item.Name.Equals(Name))
+                    Id = item.Id;
             CategoriesSalesModel category = new CategoriesSalesModel()
             {
-
+                CategoryId = Id,
                 CategoryName = Name,
                 CategoryTotal = Math.Round(SubTotal, 2),
                 CategoryPercent = Math.Round(100 * SubTotal / grandTotal, 2)
@@ -197,6 +199,7 @@ namespace Billing.Api.Reports
 
         public CategoryPurchaseModel Create(string Name, double SubTotal)
         {
+           
             CategoryPurchaseModel category = new CategoryPurchaseModel()
             {
                 CategoryName = Name,
