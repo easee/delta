@@ -249,13 +249,13 @@
         $scope.selected = (undefined);
 
         $scope.getCustomers = function(name) {
-            return $http.get('http://localhost:9000/api/customers/' + name).then(function(response) {
+            return $http.get('http://api-delta.gigischool.com/api/customers/' + name).then(function(response) {
                 return response.data;
             });
         };
 
         $scope.getProducts = function(name) {
-            return $http.get('http://localhost:9000/api/products/' + name).then(function(response) {
+            return $http.get('http://api-delta.gigischool.com/api/products/' + name).then(function(response) {
                 return response.data;
             });
         };
