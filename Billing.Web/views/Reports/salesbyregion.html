@@ -21,7 +21,7 @@
                 </div>
         </div>
         <!--Datepicker END-->
-        <button class="btn btn-danger col-xs" ng-show="showPrint" ng-click="printDiv('printable');"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
+        <button class="btn btn-danger col-xs" ng-show="showPrint" ng-click="printDiv('printable',salesbyRegiondata.sales);"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
         <button class="btn btn-primary col-xs-3 pull-right" ng-click="save()">SALES BY REGION</button>
     </div>
 </div>
@@ -37,7 +37,7 @@
             <th>Total Sales</th>
             <th>Percent of Region</th>
             <th>Percent of Total</th>
-            <th>Info</th>
+            <th id="{{region.regionName}}">Info</th>
         </tr>
     </thead>
     <tbody ng-repeat="agent in region.agents">
@@ -46,7 +46,7 @@
             <td>{{agent.agentTotal}}</td>
             <td>{{agent.regionPercent}}%</td>
             <td>{{agent.totalPercent}}%</td>
-            <td> <a href=""><button type="submit" class="btn btn-info" data-toggle="modal" ng-click="agentSales(agent.agentId)" data-target="#myModal" type="submit"><i class="fa fa-info-circle" aria-hidden="true" </i></button></a></td>
+            <td id="{{agent.agentName}}{{agent.totalPercent}}"> <a href=""><button type="submit" class="btn btn-info" data-toggle="modal" ng-click="agentSales(agent.agentId)" data-target="#myModal" type="submit"><i class="fa fa-info-circle" aria-hidden="true" </i></button></a></td>
         </tr>
     </tbody>
     <tbody>
@@ -55,7 +55,7 @@
             <td><strong>{{region.regionTotal}}</strong></td>
             <td></td>
             <td><strong>{{region.regionPercent}}%</strong></td>
-            <td></td>
+            <td id="{{region.regionName}}{{region.regionTotal}}"></td>
         </tr>
     </tbody>
 </table>

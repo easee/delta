@@ -6,6 +6,7 @@ using System.Web;
 namespace Billing.Api.Models
 {
     public class CategoriesSalesModel {
+        public int CategoryId { get; set; }
         public string CategoryName { get; set; }
         public double CategoryTotal { get; set; }
         public double CategoryPercent { get; set; }

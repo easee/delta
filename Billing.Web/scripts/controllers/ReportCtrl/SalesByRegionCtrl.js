@@ -20,7 +20,29 @@
                         })
                 
             };
-        $scope.printDiv = function (divName) {
+        $scope.printDiv = function (divName,data) {
+          for(var i=0;i<data.length;i++)
+               {
+                    var obj=data[i];
+                    document.getElementById(obj.regionName).style.visibility="hidden";
+               }
+          
+           for(var i=0;i<data.length;i++)
+               {
+                    var obj=data[i];
+                    for(var j=0;j<data[i].agents.length;j++)
+                        {
+                            var object=data[i].agents[j];
+                            var name=object.agentName+object.totalPercent;
+                            document.getElementById(name).style.visibility="hidden";   
+                        }          
+               }
+          for(var i=0;i<data.length;i++)
+               {
+                    var obj=data[i];
+                    var object=obj.regionName+obj.regionTotal;
+                    document.getElementById(object).style.visibility="hidden";
+               }
            var printContents = document.getElementById(divName).innerHTML;
            var popupWin = window.open('', '_blank', 'width=1000,height=1000');
            if(divName=="printable")
@@ -32,6 +54,28 @@
            popupWin.document.close();
            $scope.showHeader = false;
            $scope.showHeader2 = false;
+           for(var i=0;i<data.length;i++)
+               {
+                    var obj=data[i];
+                    document.getElementById(obj.regionName).style.visibility="visible";
+               }
+          
+           for(var i=0;i<data.length;i++)
+               {
+                    var obj=data[i];
+                    for(var j=0;j<data[i].agents.length;j++)
+                        {
+                            var object=data[i].agents[j];
+                            var name=object.agentName+object.totalPercent;
+                            document.getElementById(name).style.visibility="visible";   
+                        }          
+               }
+          for(var i=0;i<data.length;i++)
+               {
+                    var obj=data[i];
+                    var object=obj.regionName+obj.regionTotal;
+                    document.getElementById(object).style.visibility="visible";
+               }
        };
        //Datepicker
         $scope.openStart = function($event) {
