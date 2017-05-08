@@ -6,11 +6,6 @@
         $scope.showHeader2 = false;
         $scope.showProduct = false;
         
-        $scope.openStart = function($event) {
-            $event.preventDefault();
-            $event.stopPropagation();
-            $scope.startOpened = true;
-        };
  $scope.salesByProduct = function(item) {
                             $scope.requestData.id=item;
                             DataService.insert("salesbyproduct", $scope.requestData, function(data){
@@ -51,11 +46,7 @@
            document.getElementById("emptyGrid").style.visibility="visible";
            }
        };
-        $scope.openEnd = function($event) {
-            $event.preventDefault();
-            $event.stopPropagation();
-            $scope.endOpened = true;
-        };
+
         $scope.save = function() {
             console.log("listing" + $scope.requestModel);
             DataService.insert("SalesByCategory", $scope.requestData, function(data) {
@@ -65,5 +56,25 @@
                 $scope.infoHide = true;
             });
         }
+
+        //Angular UI Datepicker JS must have
+        $scope.open1 = function () {
+            $scope.popup1.opened = true;
+        };
+        $scope.open2 = function () {
+            $scope.popup2.opened = true;
+        };
+
+        $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+        $scope.format = $scope.formats[2];
+        $scope.altInputFormats = ['M!/d!/yyyy'];
+
+        $scope.popup1 = {
+            opened: false
+        };
+        $scope.popup2 = {
+            opened: false
+        };
+
     }]);
 }());
