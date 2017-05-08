@@ -1,28 +1,38 @@
 <div class="container-fluid">
+    <!--Datepicker start-->
     <div class="row">
-        <!--Datepicker start-->
-        <div class="col-xs-2 pull-left">
-                <div class="input-group" ng-click="openStart($event)">
-                    <input type="text" class="form-control" datepicker-popup="dd.MM.yyyy" ng-model="requestData.startDate" 
-                    is-open="startOpened" show-button-bar="false" placeholder="From">
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
+        <div class="col-sm-2">
+            <div class="input-group">
+                <input type="text" class="form-control ng-pristine ng-valid ng-isolate-scope ng-not-empty ng-valid-required ng-valid-date ng-touched"
+                    uib-datepicker-popup="dd.MM.yyyy" ng-model="requestData.startDate" is-open="popup1.opened" datepicker-options="dateOptions"
+                    ng-required="true" close-text="Close" alt-input-formats="altInputFormats" required="required" placeholder="From">
+                <div uib-datepicker-popup-wrap="" ng-model="date" ng-change="dateSelection(date)" template-url="uib/template/datepickerPopup/popup.html"
+                    class="ng-pristine ng-untouched ng-valid ng-scope ng-not-empty ng-valid-date-disabled">
+                    <!-- ngIf: isOpen -->
                 </div>
+                <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+            </div>
         </div>
 
-        <div class="col-xs-2 pull-left">
-                <div class="input-group" ng-click="openEnd($event)">
-                    <input type="text" class="form-control" datepicker-popup="dd.MM.yyyy" ng-model="requestData.endDate" 
-                    is-open="endOpened" show-button-bar="false"  placeholder="To">
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
+        <div class="col-sm-2">
+            <div class="input-group">
+                <input type="text" class="form-control ng-pristine ng-valid ng-isolate-scope ng-not-empty ng-valid-required ng-valid-date ng-touched"
+                    uib-datepicker-popup="dd.MM.yyyy" ng-model="requestData.endDate" is-open="popup2.opened" datepicker-options="dateOptions"
+                    ng-required="true" close-text="Close" alt-input-formats="altInputFormats" required="required" placeholder="To">
+                <div uib-datepicker-popup-wrap="" ng-model="date" ng-change="dateSelection(date)" template-url="uib/template/datepickerPopup/popup.html"
+                    class="ng-pristine ng-untouched ng-valid ng-scope ng-not-empty ng-valid-date-disabled">
+                    <!-- ngIf: isOpen -->
                 </div>
+                <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+          </span>
+            </div>
         </div>
         <!--Datepicker END-->
         <button class="btn btn-danger col-xs" ng-show="showPrint" ng-click="printDiv('printable',salesbyRegiondata.sales);"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
-        <button class="btn btn-primary col-xs-3 pull-right" ng-click="save()">SALES BY REGION</button>
+        <button class="btn btn-primary col-md-2 pull-right" ng-click="save()">SALES BY REGION</button>
     </div>
 </div>
 <hr>

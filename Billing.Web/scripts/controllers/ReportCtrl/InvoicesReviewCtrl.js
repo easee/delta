@@ -67,6 +67,25 @@
             getterSetter: true
         };
 
+        //Angular UI Datepicker JS must have
+        $scope.open1 = function () {
+            $scope.popup1.opened = true;
+        };
+        $scope.open2 = function () {
+            $scope.popup2.opened = true;
+        };
+
+        $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
+        $scope.format = $scope.formats[2];
+        $scope.altInputFormats = ['M!/d!/yyyy'];
+
+        $scope.popup1 = {
+            opened: false
+        };
+        $scope.popup2 = {
+            opened: false
+        };
+
         
     }]);
 }());
