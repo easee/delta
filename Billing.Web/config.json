@@ -1,5 +1,5 @@
 {
-    "source": "http://localhost:9000/api/",
+    "source": "http://api-delta.gigischool.com/api/",
     "regions": ["Banja Luka", "Bihac", "Doboj", "Mostar", "Sarajevo", "Trebinje", "Tuzla", "Zenica"],
     "signature": "CaByDlSnGLx0gOtlDClK6L94Jb/cwJoJAdUDlhtNpnI=",
     "apiKey": "RGVsdGEtQmlsbGluZw==",
