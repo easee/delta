@@ -17,12 +17,17 @@
 
         //UPDATE CUSTOMER
         $scope.save = function() {
-            if (!$scope.myForm.$valid)
+            if (!$scope.myForm.$valid) {
                 $scope.onSubmit = true;
-            if ($scope.customer.id == 0)
+                $scope.modal('show');
+            }
+            if ($scope.customer.id == 0) {
                 DataService.insert("customers", $scope.customer, function(data) { ListCustomers(); });
-            else
+                $('.modal').modal('hide');
+            } else {
                 DataService.update("customers", $scope.customer.id, $scope.customer, function(data) { ListCustomers(); });
+                $('.modal').modal('hide');
+            }
         };
 
         //CREATE NEW CUSTOMER
