@@ -100,5 +100,13 @@ table.balance {
     right: -34px;
 }
 
+input.ng-invaild.ng-dirty {
+    border: 1px solid red;
+}
+
+#valid {
+    color: red;
+}
+
 
 /* table meta */
