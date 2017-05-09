@@ -12,10 +12,18 @@
 
         //UPDATE SHIPPER
         $scope.save = function() {
-            if ($scope.shipper.id == 0)
+            if (!$scope.myForm.$valid) {
+                $scope.onSubmit = true;
+                $scope.modal('show');
+            }
+
+            if ($scope.shipper.id == 0) {
                 DataService.insert("shippers", $scope.shipper, function(data) { ListShippers(); });
-            else
+                $('.modal').modal('hide');
+            } else {
                 DataService.update("shippers", $scope.shipper.id, $scope.shipper, function(data) { ListShippers(); });
+                $('.modal').modal('hide');
+            }
         };
 
         //CREATE NEW SHIPPER

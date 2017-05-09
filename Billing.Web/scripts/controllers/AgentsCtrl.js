@@ -10,10 +10,17 @@
         };
 
         $scope.save = function() {
-            if ($scope.agent.id == 0)
+            if (!$scope.myForm.$valid) {
+                $scope.onSubmit = true;
+                $scope.modal('show');
+            }
+            if ($scope.agent.id == 0) {
                 DataService.insert("agents", $scope.agent, function(data) { ListAgents(); });
-            else
+                $('.modal').modal('hide');
+            } else {
                 DataService.update("agents", $scope.agent.id, $scope.agent, function(data) { ListAgents(); });
+                $('.modal').modal('hide');
+            }
         };
 
         $scope.delete = function(agent) {

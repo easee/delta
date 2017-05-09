@@ -65,18 +65,20 @@
                 </div>
                 <!-- Modal Body -->
                 <div class="modal-body">
-                    <form role="form">
+                    <form role="form" name="myForm">
                         <div class="form-group">
                             <label class="hidden">ID</label>
                             <input type="hidden" class="form-control" ng-model="supplier.id" ng-disabled="supplier.id" />
                         </div>
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="text" class="form-control" ng-model="supplier.name" />
+                            <input type="text" class="form-control" name="name" ng-model="supplier.name" required/>
+                            <p id="valid" ng-show="onSubmit && (!myForm.name.$valid)">Name is required</p>
                         </div>
                         <div class="form-group">
                             <label>Address</label>
-                            <input type="text" class="form-control" ng-model="supplier.address" />
+                            <input type="text" class="form-control" name="address" ng-model="supplier.address" required/>
+                            <p id="valid" ng-show="onSubmit && (!myForm.address.$valid)">Address is required</p>
                         </div>
                         <!--EDIT-->
                         <div class="form-group">
@@ -84,8 +86,8 @@
                             <div>
                                 <input type="text" class="form-control" ng-model="supplier.town" ng-change="autocomplete(supplier.town)" ng-keyup="textUp($event)">
                             </div>
-                            <select class="form-control" id="townsel" data-style="btn-primary" ng-model="supplier.townId" ng-options="town.id as town.name for town in towns" ng-keypress="townSelected($event)"></select>
-
+                            <select class="form-control" id="townsel" name="town" data-style="btn-primary" ng-model="supplier.townId" ng-options="town.id as town.name for town in towns" ng-keypress="townSelected($event)" required></select>
+                            <p id="valid" ng-show="onSubmit && (!myForm.town.$valid)">Town is required</p>
                             <!--
                     <div class='typeahead-demo'>   /// TYPEAHEAD
                 <input type="text" ng-model="selected" uib-typeahead="town as town.name for town in towns | filter:$viewValue | limitTo:8" class="form-control">
@@ -96,10 +98,10 @@
                 </div>
                 <!-- Modal Footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="hideval()">
                             Close
                 </button>
-                    <button type="button" class="btn btn-primary" ng-click="save()" onclick="$('.modal').modal('hide')">
+                    <button type="button" class="btn btn-primary" ng-click="save()">
                     Create
                 </button>
                 </div>

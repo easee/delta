@@ -16,7 +16,7 @@
 
                 <!-- Modal Body -->
                 <div class="modal-body">
-                    <form role="form">
+                    <form role="form" name="myForm">
                         <div class="form-group">
                             <label>ID</label>
                             <input type="text" class="form-control" ng-model="shipper.id" ng-disabled="shipper.id" />
@@ -69,28 +69,32 @@
                 <!-- Modal Body -->
                 <div class="modal-body">
                     <form role="form">
-                        <div class="form-group">
-                            <label class="hidden">ID</label>
-                            <input type="hidden" class="form-control" ng-model="shipper.id" ng-disabled="shipper.id" />
-                        </div>
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" class="form-control" ng-model="shipper.name" />
-                        </div>
-                        <div class="form-group">
-                            <label>Address</label>
-                            <input type="text" class="form-control" ng-model="shipper.address" />
-                        </div>
-                        <div class="form-group">
-                            <label>Town</label>
-                            <div>
-                                <input type="text" class="form-control" ng-model="shipper.town" ng-change="autocomplete(shipper.town)" ng-keyup="textUp($event)">
+                        <div ng-form="myForm">
+                            <div class="form-group">
+                                <label class="hidden">ID</label>
+                                <input type="hidden" class="form-control" ng-model="shipper.id" ng-disabled="shipper.id" />
                             </div>
-                            <select class="form-control" id="townsel" data-style="btn-primary" ng-model="shipper.townId" ng-options="town.id as town.name for town in towns" ng-keypress="townSelected($event)"></select>
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" class="form-control" name="name" ng-model="shipper.name" required />
+                                <p id="valid" ng-show="onSubmit && (!myForm.name.$valid)">Address is required</p>
+                            </div>
+                            <div class="form-group">
+                                <label>Address</label>
+                                <input type="text" class="form-control" name="address" ng-model="shipper.address" required/>
+                                <p id="valid" ng-show="onSubmit && (!myForm.address.$valid)">Address is required</p>
+                            </div>
+                            <div class="form-group">
+                                <label>Town</label>
+                                <div>
+                                    <input type="text" class="form-control" ng-model="shipper.town" ng-change="autocomplete(shipper.town)" ng-keyup="textUp($event)">
+                                </div>
+                                <select name="town" class="form-control" id="townsel" data-style="btn-primary" ng-model="shipper.townId" ng-options="town.id as town.name for town in towns" ng-keypress="townSelected($event)" required></select>
+                                <p id="valid" ng-show="onSubmit && (!myForm.town.$valid)">Town is required</p>
+                            </div>
                         </div>
                     </form>
                 </div>
-
                 <!-- Modal Footer -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">
