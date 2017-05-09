@@ -64,22 +64,28 @@
                 </div>
                 <!-- Modal Body -->
                 <div class="modal-body">
-                    <form role="form">
-                        <div class="form-group">
-                            <label class="hidden">ID</label>
-                            <input type="hidden" class="form-control" ng-model="agent.id" ng-disabled="agent.id" />
-                        </div>
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" class="form-control" ng-model="agent.name" />
-                        </div>
-                        <div class="form-group">
-                            <label>Username</label>
-                            <input type="text" class="form-control" ng-model="agent.username" />
-                        </div>
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="text" class="form-control" ng-model="agent.email" />
+                    <form role="form" name="myForm">
+                        <div ng-form="myForm">
+                            <div class="form-group">
+                                <label class="hidden">ID</label>
+                                <input type="hidden" class="form-control" ng-model="agent.id" ng-disabled="agent.id" />
+                            </div>
+                            <div class="form-group">
+                                <label>Name</label>
+                                <input type="text" class="form-control" name="name" ng-model="agent.name" required />
+                                <p id="valid" ng-show="onSubmit && (!myForm.name.$valid)">Name is required</p>
+
+                            </div>
+                            <div class="form-group">
+                                <label>Username</label>
+                                <input type="username" name="username" class="form-control" ng-model="agent.username" required/>
+                                <p id="valid" ng-show="onSubmit && (!myForm.username.$valid)">Username is required</p>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" class="form-control" name="email" ng-model="agent.email" required/>
+                                <p id="valid" ng-show="onSubmit && (!myForm.email.$valid)">Email is required</p>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -88,7 +94,7 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                             Close
                 </button>
-                    <button type="button" class="btn btn-primary" ng-click="save()" onclick="$('.modal').modal('hide')">
+                    <button type="button" class="btn btn-primary" ng-click="save()">
                     Create
                 </button>
                 </div>
