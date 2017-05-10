@@ -24,7 +24,7 @@
                                 var expireDate = (new Date());
                                 expireDate.setDate(expireDate.getDate() + 30);
                                 localStorageService.set('MistralBilling', credentials.remember, { 'expired': expireDate });
-                                $rootScope.currentUser = credentials.currentUser.name;
+                                $rootScope.currentUser = "images/" + credentials.currentUser.username + ".jpg";
                                 $location.path(redirectTo);
                                 $rootScope.showDash = false;
                             },
@@ -78,7 +78,7 @@
                             expireDate.setDate(expireDate.getDate() + 30);
                             localStorageService.set('MistralBilling', credentials.remember, { 'expired': expireDate });
                         }
-                        $rootScope.currentUser = credentials.currentUser.name;
+                        $rootScope.currentUser = "images/" + credentials.currentUser.username + ".jpg";
                         $rootScope.username = credentials.currentUser.username;
                         $location.path(redirectTo);
                         $rootScope.showDash = false;

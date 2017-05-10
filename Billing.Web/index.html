@@ -54,7 +54,7 @@
 
     <link rel="stylesheet" href="styles/bootstrap.css">
     <link rel="stylesheet" href="styles/custom.css">
-    
+
 </head>
 
 <body>
@@ -73,20 +73,20 @@
                 <!-- User profile dropdown start -->
                 <li class="dropdown user user-menu pull-right" ng-show="currentUser">
                     <a class="dropdown-toggle" data-toggle="dropdown">
-                        <img ng-src="images/{{username}}.jpg" width="30" height="30" style="border-radius:50%" class="user-image">
-                        <span>{{ currentUser}}</span>
+                        <img ng-src="{{currentUser}}" class="image" width="30" height="30" style="border-radius:50%">
+                        <span>Welcome</span>
                         <span class=" fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="user-header">
-                            <img ng-src="images/{{username}}.jpg" class="user-image">
+                            <img ng-src="{{currentUser}}" class="image">
                             <div style="text-align: center">
                                 <p style="color:#86BF4C">
-                                    Welcome Agent
+                                    Welcome Agents
                                 </p>
-                                <p style="color:black">
-                                    {{ currentUser}}
-                                </p>
+                                <!--<p style="color:black">
+                                    {{ currentName}}
+                                </p>-->
                             </div>
                         </li>
                         <li class="user-footer">
