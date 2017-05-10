@@ -7,12 +7,13 @@
         $scope.edit = function(currentAgent) {
             $scope.agent = currentAgent;
             $scope.showAgents = true;
+            console.log(currentAgent);
         };
 
         $scope.save = function() {
             if (!$scope.myForm.$valid) {
                 $scope.onSubmit = true;
-                $scope.modal('show');
+                $('.modal').modal('hide');
             }
             if ($scope.agent.id == 0) {
                 DataService.insert("agents", $scope.agent, function(data) { ListAgents(); });

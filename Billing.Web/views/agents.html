@@ -33,6 +33,15 @@
                             <label>Email</label>
                             <input type="text" class="form-control" ng-model="agent.email" />
                         </div>
+                        <!--Towns in Agents section-->
+                        <div class="form-group">
+                            <label>Add new Town</label>
+                            <input type="text" class="form-control" name="email" ng-model="agent.towns" required/>
+                        </div>
+                        <div class="form-group">
+                            <label>Currenty assigned towns:</label>
+                            {{agent.towns}}
+                        </div>
                     </form>
                 </div>
                 <!-- Modal Footer -->

@@ -18,7 +18,7 @@
         $scope.save = function() {
             if (!$scope.myForm.$valid) {
                 $scope.onSubmit = true;
-                $scope.modal('show');
+                $('.modal').modal('hide');
             }
             if ($scope.supplier.id == 0) {
                 DataService.insert("suppliers", $scope.supplier, function(data) { ListSuppliers(); });
