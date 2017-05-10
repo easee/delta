@@ -73,6 +73,9 @@ namespace Billing.Api.Controllers
         public IHttpActionResult Delete(int id) {
             try
             {
+                var products = UnitOfWork.Products.Get().Where(x => x.Category.Id == id).ToList();
+                foreach(var item in products)
+                    UnitOfWork.Products.Delete(item.Id);
                 UnitOfWork.Categories.Delete(id);
                 UnitOfWork.Commit();
                 return Ok();
