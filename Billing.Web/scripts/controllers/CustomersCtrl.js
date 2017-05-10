@@ -4,6 +4,7 @@
         $scope.searchPage = false;
         $scope.pagination = false;
         $scope.number = false;
+        $scope.onSubmit = false;
         ListCustomers(0);
         ListTowns('');
         $scope.selectSearch = "";
@@ -14,6 +15,10 @@
             $scope.customer = currentCustomer;
             $scope.showCustomer = true;
         };
+
+        $scope.hideval = function() {
+            $scope.onSubmit = false;
+        }
 
         //UPDATE CUSTOMER
         $scope.save = function() {
@@ -105,7 +110,7 @@
         //PAGINATION
         function ListCustomers(page) {
             DataService.list("customers?page=" + page, function(data) {
-
+                $scope.onSubmit = false;
                 $scope.searchPage = false;
                 $scope.customers = data.customersList;
                 $scope.totalPages = data.totalPages;

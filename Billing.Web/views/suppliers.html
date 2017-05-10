@@ -72,13 +72,19 @@
                         </div>
                         <div class="form-group">
                             <label>Name</label>
-                            <input type="text" class="form-control" name="name" ng-model="supplier.name" required/>
-                            <p id="valid" ng-show="onSubmit && (!myForm.name.$valid)">Name is required</p>
+                            <input type="text" class="form-control" name="name" ng-minlength="3" ng-model="supplier.name" ng-pattern="/^[a-zA-Z\s]*$/" required/>
+                            <!--<p id="valid" ng-show="myForm.name.$error.required">This field is required!</p>-->
+                            <p id="valid" ng-show="onSubmit && (!myForm.name.$valid)">Minimum <strong id="mincharacters">3</strong> characters required !</p>
+                            <p id="valid" ng-show="myForm.name.$error.pattern">
+                                Please input alphabet characters only.
+                            </p>
                         </div>
                         <div class="form-group">
                             <label>Address</label>
-                            <input type="text" class="form-control" name="address" ng-model="supplier.address" required/>
-                            <p id="valid" ng-show="onSubmit && (!myForm.address.$valid)">Address is required</p>
+                            <input type="text" class="form-control" name="address" ng-minlength="5" ng-model="supplier.address" ng-pattern="/^\d+$/[a-zA-Z\s0-9]*$/" required/>
+                            <p id="valid" ng-show="onSubmit && (!myForm.address.$valid)">Minimum <strong id="mincharacters">5</strong> characters required !</p>
+                            <p id="valid" ng-show="myForm.address.$error.pattern">
+                                Please input alphabet characters only.</p>
                         </div>
                         <!--EDIT-->
                         <div class="form-group">
@@ -87,7 +93,7 @@
                                 <input type="text" class="form-control" ng-model="supplier.town" ng-change="autocomplete(supplier.town)" ng-keyup="textUp($event)">
                             </div>
                             <select class="form-control" id="townsel" name="town" data-style="btn-primary" ng-model="supplier.townId" ng-options="town.id as town.name for town in towns" ng-keypress="townSelected($event)" required></select>
-                            <p id="valid" ng-show="onSubmit && (!myForm.town.$valid)">Town is required</p>
+                            <p id="valid" ng-show="onSubmit && (!myForm.town.$valid)">Town is required !</p>
                             <!--
                     <div class='typeahead-demo'>   /// TYPEAHEAD
                 <input type="text" ng-model="selected" uib-typeahead="town as town.name for town in towns | filter:$viewValue | limitTo:8" class="form-control">
