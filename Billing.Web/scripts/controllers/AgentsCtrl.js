@@ -1,8 +1,47 @@
 (function() {
 
-    app.controller("AgentsCtrl", ['$scope', 'DataService', function($scope, DataService) {
+    app.controller("AgentsCtrl", ['$scope', 'DataService', '$http', function($scope, DataService, $http) {
         $scope.showAgents = false;
         ListAgents();
+
+        //Add or remove town for Agent
+        $scope.add = function(town){
+            $scope.currentAgent.towns.push(town);
+        };
+
+        $scope.remove = function(town){
+            var i = $scope.currentAgent.towns.indexOf(town);
+            $scope.currentAgent.towns.splice(i, 1);
+        };
+
+        //Typeahead
+        var _selected;
+        $scope.selected = (undefined);
+
+        $scope.selectedTown = {id: 0, name: '', zip: 0, region: ''};
+        $scope.getTowns = function(name) {
+                return $http.get('http://api-delta.gigischool.com/api/towns/' + name).then(function(response) {
+                    return response.data;
+                });
+        };
+
+        $scope.ngModelOptionsSelected = function(value) {
+            if (arguments.length) {
+                _selected = value;
+            } else {
+                return _selected;
+            }
+        };
+
+        $scope.modelOptions = {
+            debounce: {
+                default: 500,
+                blur: 250
+            },
+            getterSetter: true
+        };
+        //End of typeahead
+        //End of towns
 
         $scope.edit = function(currentAgent) {
             $scope.agent = currentAgent;
