@@ -15,7 +15,7 @@
         $scope.save = function() {
             if (!$scope.myForm.$valid) {
                 $scope.onSubmit = true;
-                $scope.modal('show');
+                $('.modal').modal('hide');
             }
 
             if ($scope.shipper.id == 0) {
