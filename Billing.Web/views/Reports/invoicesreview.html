@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <!--Datepicker start-->
     <div class="row">
-        <div class="col-sm-2">
+        <div class="col-sm-3">
             <div class="input-group">
                 <input type="text" class="form-control ng-pristine ng-valid ng-isolate-scope ng-not-empty ng-valid-required ng-valid-date ng-touched"
                     uib-datepicker-popup="dd.MM.yyyy" ng-model="requestData.startDate" is-open="popup1.opened" datepicker-options="dateOptions"
@@ -11,12 +11,12 @@
                     <!-- ngIf: isOpen -->
                 </div>
                 <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+            <button type="button" class="btn btn-default" ng-click="open1()"><i class="fa fa-calendar"></i></button>
           </span>
             </div>
         </div>
 
-        <div class="col-sm-2">
+        <div class="col-sm-3">
             <div class="input-group">
                 <input type="text" class="form-control ng-pristine ng-valid ng-isolate-scope ng-not-empty ng-valid-required ng-valid-date ng-touched"
                     uib-datepicker-popup="dd.MM.yyyy" ng-model="requestData.endDate" is-open="popup2.opened" datepicker-options="dateOptions"
@@ -26,7 +26,7 @@
                     <!-- ngIf: isOpen -->
                 </div>
                 <span class="input-group-btn">
-            <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+            <button type="button" class="btn btn-default" ng-click="open2()"><i class="fa fa-calendar"></i></button>
           </span>
             </div>
         </div>
