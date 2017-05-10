@@ -9,13 +9,13 @@ namespace Billing.Api.Models
     {
         public AgentModel()
         {
-            Towns = new List<string>();
+            Towns = new List<TownModel>();
         }
         public int Id { get; set; }
         public string Name { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
-        public List<string> Towns { get; set; }
+        public List<TownModel> Towns { get; set; }
     }
 }
 

@@ -32,7 +32,7 @@ namespace Billing.Api.Models
                 Name = agent.Name,
                 Username = agent.Username,
                 Email=(agent.Email==null) ? "" : agent.Email,
-                Towns = agent.Towns.Where(x => x.Customers.Count != 0).Select(x => x.Name).ToList()
+                Towns = agent.Towns.Select(x => Create(x)).ToList()
             };
         }
 
@@ -43,8 +43,9 @@ namespace Billing.Api.Models
                 Id = model.Id,
                 Name = model.Name,
                 Username = model.Username,
-                Email = model.Email
-            };
+                Email = model.Email,
+                Towns= model.Towns.Select(x => _unitOfWork.Towns.Get(x.Id)).ToList()
+        };
         }
 
         //All together
