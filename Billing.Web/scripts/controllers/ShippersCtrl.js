@@ -1,6 +1,7 @@
 (function() {
     app.controller("ShippersCtrl", ['$scope', 'DataService', function($scope, DataService) {
         $scope.showShipper = false;
+        $scope.onSubmit = false;
         ListShippers();
         ListTowns('');
 
@@ -25,7 +26,9 @@
                 $('.modal').modal('hide');
             }
         };
-
+        $scope.hideval = function() {
+            $scope.onSubmit = false;
+        };
         //CREATE NEW SHIPPER
         $scope.new = function() {
             $scope.shipper = {
@@ -59,11 +62,13 @@
         };
         //LIST ALL SHIPPERS
         function ListShippers() {
+            $scope.onSubmit = false;
             DataService.list("shippers", function(data) { $scope.shippers = data });
         };
 
         //LIST ALL TOWNS
         function ListTowns(name) {
+            $scope.onSubmit = false;
             DataService.list("towns/" + name, function(data) { $scope.towns = data });
         };
         //ARROW DOWN EVENT SO IT COULD FOCUS ON DROPDOWN

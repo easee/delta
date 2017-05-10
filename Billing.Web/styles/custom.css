@@ -105,7 +105,11 @@ input.ng-invaild.ng-dirty {
 }
 
 #valid {
-    color: red;
+    color: #7A7676;
+}
+
+#mincharacters {
+    color: #4656E3;
 }
 
 
