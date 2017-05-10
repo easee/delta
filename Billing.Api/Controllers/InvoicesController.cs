@@ -147,18 +147,10 @@ namespace Billing.Api.Controllers
         public IHttpActionResult Delete(int id)
         {
             try
-            {
-
-                Invoice entity = UnitOfWork.Invoices.Get(id);
-                if (entity == null) return NotFound();
-                List<Item> items = new List<Item>();
-                List<int> itemId = new List<int>();
-                items = UnitOfWork.Items.Get().Where(a => a.Invoice.Id == id).ToList();
+            {      
+                var items = UnitOfWork.Items.Get().Where(a => a.Invoice.Id == id).ToList();
                 foreach (var item in items)
-                    itemId.Add(item.Id);
-
-                foreach (int d in itemId)
-                    UnitOfWork.Items.Delete(d);
+                    UnitOfWork.Items.Delete(item.Id);
 
                 UnitOfWork.Invoices.Delete(id);
                 UnitOfWork.Commit();
