@@ -112,5 +112,14 @@ input.ng-invaild.ng-dirty {
     color: #4656E3;
 }
 
+.btncss {
+    margin-top: 5px;
+    padding: 0;
+}
+
+#rep {
+    float: right;
+}
+
 
 /* table meta */
