@@ -65,9 +65,9 @@ namespace Billing.Api.Controllers
             try
             {
                 Agent current = UnitOfWork.Agents.Get(id);
-             
+                
                 //If any of two following values is true it will return true and allow access
-                if (BillingIdentity.CurrentUser.Username == current.Username || Thread.CurrentPrincipal.IsInRole("admin"))
+                if (BillingIdentity.CurrentUser.Username == current.Username || BillingIdentity.CurrentUser.Roles.Contains("admin"))
                 {
                     Agent agent = Factory.Create(model);
                     UnitOfWork.Agents.Update(agent, id);
