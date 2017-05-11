@@ -6,12 +6,12 @@
 
         //Add or remove town for Agent
         $scope.add = function(town){
-            $scope.currentAgent.towns.push(town);
+            $scope.agent.towns.push(town);
         };
 
         $scope.remove = function(town){
-            var i = $scope.currentAgent.towns.indexOf(town);
-            $scope.currentAgent.towns.splice(i, 1);
+            var i = $scope.agent.towns.indexOf(town);
+            $scope.agent.towns.splice(i, 1);
         };
 
         //Typeahead
