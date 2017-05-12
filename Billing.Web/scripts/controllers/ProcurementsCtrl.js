@@ -4,20 +4,31 @@
         $scope.searchPage = false;
         $scope.pagination = false;
         $scope.number = false;
+        $scope.onSubmit = false;
         ListProcurements(0);
         ListSuppliers('');
         ListProducts('');
         $scope.selectSearch = "";
-        
+
         $scope.edit = function(currentProcurement) {
             $scope.procurement = currentProcurement;
             $scope.showProcurements = true;
         };
+        $scope.hideval = function() {
+            $scope.onSubmit = false;
+        };
         $scope.save = function() {
-            if ($scope.procurement.id == 0)
+            if (!$scope.myForm.$valid) {
+                $scope.onSubmit = true;
+                $scope.modal('show');
+            }
+            if ($scope.procurement.id == 0) {
                 DataService.insert("procurements", $scope.procurement, function(data) { ListProcurements(); });
-            else
+                $('.modal').modal('hide');
+            } else {
                 DataService.update("procurements", $scope.procurement.id, $scope.procurement, function(data) { ListProcurements(); });
+                $('.modal').modal('hide');
+            }
         };
 
         //CREATE NEW PROCUREMENT
@@ -37,25 +48,25 @@
 
             //DataService.insert("procurements", $scope.procurement, function(data){ ListProcurements();} );
         };
-        
-        $scope.page=0;
-        $scope.search = function(page=0,direction=0) {
-            DataService.list("procurements/pagination?item="+$scope.selectSearch+"&page=" +page, function(data) {
-                        
+
+        $scope.page = 0;
+        $scope.search = function(page = 0, direction = 0) {
+            DataService.list("procurements/pagination?item=" + $scope.selectSearch + "&page=" + page, function(data) {
+
                 $scope.pagination = false;
                 $scope.procurements = data.procurementsList;
                 $scope.totalPages = data.totalPages;
                 $scope.currentPage = data.currentPage + 1;
-                
+
                 if ($scope.totalPages < 11)
                     $scope.pages = new Array($scope.totalPages);
                 else
                     $scope.pages = new Array(10);
-                $scope.size = data.size;    
-                if ($scope.currentPage == $scope.totalPages && $scope.totalPages>1) {
+                $scope.size = data.size;
+                if ($scope.currentPage == $scope.totalPages && $scope.totalPages > 1) {
                     document.getElementById("nextSearch").disabled = true;
                     document.getElementById("previousSearch").disabled = false;
-                } else if ($scope.currentPage == 1 && $scope.totalPages==1) {
+                } else if ($scope.currentPage == 1 && $scope.totalPages == 1) {
                     document.getElementById("previousSearch").disabled = true;
                     document.getElementById("nextSearch").disabled = true;
                 } else if ($scope.currentPage == 1) {
@@ -88,22 +99,21 @@
                         }
                     }
                 }
-               if($scope.totalPages>0){
-                $scope.searchPage = true;
-                $scope.number = true;
+                if ($scope.totalPages > 0) {
+                    $scope.searchPage = true;
+                    $scope.number = true;
+                } else {
+                    $scope.number = false;
+                    $scope.searchPage = false;
                 }
-                else{
-                $scope.number = false;
-                $scope.searchPage = false;
-                }
-                
+
                 console.log($scope.currentPage);
             });
         };
         //PAGINATION
         function ListProcurements(page) {
             DataService.list("procurements?page=" + page, function(data) {
-                
+
                 $scope.searchPage = false;
                 $scope.procurements = data.procurementsList;
                 $scope.totalPages = data.totalPages;
@@ -149,13 +159,12 @@
                         }
                     }
                 }
-                if($scope.totalPages>0){
-                $scope.pagination = true;
-                $scope.number = true;
-                }
-                else{
-                $scope.number = false;
-                $scope.pagination = false;
+                if ($scope.totalPages > 0) {
+                    $scope.pagination = true;
+                    $scope.number = true;
+                } else {
+                    $scope.number = false;
+                    $scope.pagination = false;
                 }
                 console.log($scope.currentPage);
             });
