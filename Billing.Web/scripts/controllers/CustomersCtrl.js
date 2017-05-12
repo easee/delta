@@ -24,7 +24,7 @@
         $scope.save = function() {
             if (!$scope.myForm.$valid) {
                 $scope.onSubmit = true;
-                $('.modal').modal('hide');
+                $scope.modal('show');
             }
             if ($scope.customer.id == 0) {
                 DataService.insert("customers", $scope.customer, function(data) { ListCustomers(); });
