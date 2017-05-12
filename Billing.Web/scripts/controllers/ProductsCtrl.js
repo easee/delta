@@ -12,13 +12,22 @@
             $scope.product = currentProduct;
             $scope.showProduct = true;
         };
-
+        $scope.hideval = function() {
+            $scope.onSubmit = false;
+        };
         //UPDATE PRODUCT
         $scope.save = function() {
-            if ($scope.product.id == 0)
+            if (!$scope.myForm.$valid) {
+                $scope.onSubmit = true;
+                $scope.modal('show');
+            }
+            if ($scope.product.id == 0) {
                 DataService.insert("products", $scope.product, function(data) { ListProducts($scope.currentPage - 1); });
-            else
+                $('.modal').modal('hide');
+            } else {
                 DataService.update("products", $scope.product.id, $scope.product, function(data) { ListProducts($scope.currentPage - 1); });
+                $('.modal').modal('hide');
+            }
         };
 
         //CREATE NEW PRODUCT
@@ -31,24 +40,24 @@
             };
             $scope.showProducts = true;
         };
-          $scope.page=0;
-        $scope.search = function(page=0,direction=0) {
-            DataService.list("products/pagination?item="+$scope.selectSearch+"&page=" +page, function(data) {
-                        
+        $scope.page = 0;
+        $scope.search = function(page = 0, direction = 0) {
+            DataService.list("products/pagination?item=" + $scope.selectSearch + "&page=" + page, function(data) {
+
                 $scope.pagination = false;
                 $scope.products = data.productsList;
                 $scope.totalPages = data.totalPages;
                 $scope.currentPage = data.currentPage + 1;
-                
+
                 if ($scope.totalPages < 11)
                     $scope.pages = new Array($scope.totalPages);
                 else
                     $scope.pages = new Array(10);
-                $scope.size = data.size;    
-                if ($scope.currentPage == $scope.totalPages && $scope.totalPages>1) {
+                $scope.size = data.size;
+                if ($scope.currentPage == $scope.totalPages && $scope.totalPages > 1) {
                     document.getElementById("nextSearch").disabled = true;
                     document.getElementById("previousSearch").disabled = false;
-                } else if ($scope.currentPage == 1 && $scope.totalPages==1) {
+                } else if ($scope.currentPage == 1 && $scope.totalPages == 1) {
                     document.getElementById("previousSearch").disabled = true;
                     document.getElementById("nextSearch").disabled = true;
                 } else if ($scope.currentPage == 1) {
@@ -81,22 +90,21 @@
                         }
                     }
                 }
-               if($scope.totalPages>0){
-                $scope.searchPage = true;
-                $scope.number = true;
+                if ($scope.totalPages > 0) {
+                    $scope.searchPage = true;
+                    $scope.number = true;
+                } else {
+                    $scope.number = false;
+                    $scope.searchPage = false;
                 }
-                else{
-                $scope.number = false;
-                $scope.searchPage = false;
-                }
-                
+
                 console.log($scope.currentPage);
             });
         };
         //PAGINATION
         function ListProducts(page) {
             DataService.list("products?page=" + page, function(data) {
-                
+
                 $scope.searchPage = false;
                 $scope.products = data.productsList;
                 $scope.totalPages = data.totalPages;
@@ -142,13 +150,12 @@
                         }
                     }
                 }
-                 if($scope.totalPages>0){
-                $scope.pagination = true;
-                $scope.number = true;
-                }
-                else{
-                $scope.number = false;
-                $scope.pagination = false;
+                if ($scope.totalPages > 0) {
+                    $scope.pagination = true;
+                    $scope.number = true;
+                } else {
+                    $scope.number = false;
+                    $scope.pagination = false;
                 }
                 console.log($scope.currentPage);
             });
