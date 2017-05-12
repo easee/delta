@@ -5,11 +5,12 @@
         $scope.searchPage = false;
         $scope.pagination = false;
         $scope.number = false;
+        $scope.onSubmit = false;
         getShippers('');
         getAgents('');
         ListInvoices(0);
         $scope.selectSearch = "";
-          $scope.mailData = {
+        $scope.mailData = {
             invoiceId: 0,
             mailTo: ""
         };
@@ -29,7 +30,9 @@
             $scope.showInvoices = true;
         };
         //--------------------- 
-
+        $scope.hideval = function() {
+            $scope.onSubmit = false;
+        };
         $scope.printDiv = function(divName) {
             var printContents = document.getElementById(divName).innerHTML;
             var popupWin = window.open('', '_blank', 'width=1000,height=1000');
@@ -41,14 +44,14 @@
         $scope.saveAsPdf = function(id) {
             DataService.download(id);
         };
-        
+
         $scope.send = function(invoiceId) {
-            $scope.mailData.invoiceId=invoiceId;
-            DataService.insert("invoices/mail", $scope.mailData, function(data) {
-            swal("Success!", "Your email is sent to given address!", "success") 
-            });
-        }
-        //PDF
+                $scope.mailData.invoiceId = invoiceId;
+                DataService.insert("invoices/mail", $scope.mailData, function(data) {
+                    swal("Success!", "Your email is sent to given address!", "success")
+                });
+            }
+            //PDF
         $scope.pdf = function(invoice) {
             html2canvas(document.getElementById("printable"), {
                 onrendered: function(canvas) {
@@ -67,13 +70,20 @@
         //PDF
         //UPDATE INVOICE
         $scope.save = function() {
+            if (!$scope.myForm.$valid) {
+                $scope.onSubmit = true;
+                $scope.modal('show');
+            }
             console.log($scope.selectedCustomer);
             $scope.invoice.customerId = $scope.selectedCustomer.id;
             console.log($scope.invoice);
-            if ($scope.invoice.id == 0)
+            if ($scope.invoice.id == 0) {
                 DataService.insert("invoices", $scope.invoice, function(data) { ListInvoices($scope.currentPage - 1); });
-            else
+                $('.modal').modal('hide');
+            } else {
                 DataService.update("invoices", $scope.invoice.id, $scope.invoice, function(data) { ListInvoices($scope.currentPage - 1); });
+                $('.modal').modal('hide');
+            }
         };
 
         //CREATE NEW INVOICE
@@ -100,25 +110,25 @@
             }
 
         };
-        
-        $scope.page=0;
-        $scope.search = function(page=0,direction=0) {
-            DataService.list("invoices/pagination?item="+$scope.selectSearch+"&page=" +page, function(data) {
-                        
+
+        $scope.page = 0;
+        $scope.search = function(page = 0, direction = 0) {
+            DataService.list("invoices/pagination?item=" + $scope.selectSearch + "&page=" + page, function(data) {
+
                 $scope.pagination = false;
                 $scope.invoices = data.invoicesList;
                 $scope.totalPages = data.totalPages;
                 $scope.currentPage = data.currentPage + 1;
-                
+
                 if ($scope.totalPages < 11)
                     $scope.pages = new Array($scope.totalPages);
                 else
                     $scope.pages = new Array(10);
-                $scope.size = data.size;    
-                if ($scope.currentPage == $scope.totalPages && $scope.totalPages>1) {
+                $scope.size = data.size;
+                if ($scope.currentPage == $scope.totalPages && $scope.totalPages > 1) {
                     document.getElementById("nextSearch").disabled = true;
                     document.getElementById("previousSearch").disabled = false;
-                } else if ($scope.currentPage == 1 && $scope.totalPages==1) {
+                } else if ($scope.currentPage == 1 && $scope.totalPages == 1) {
                     document.getElementById("previousSearch").disabled = true;
                     document.getElementById("nextSearch").disabled = true;
                 } else if ($scope.currentPage == 1) {
@@ -151,30 +161,29 @@
                         }
                     }
                 }
-               if($scope.totalPages>0){
-                $scope.searchPage = true;
-                $scope.number = true;
+                if ($scope.totalPages > 0) {
+                    $scope.searchPage = true;
+                    $scope.number = true;
+                } else {
+                    $scope.number = false;
+                    $scope.searchPage = false;
                 }
-                else{
-                $scope.number = false;
-                $scope.searchPage = false;
-                }
-                
+
                 console.log($scope.currentPage);
             });
         };
-        
-    
+
+
         //PAGINATION
         function ListInvoices(page) {
             DataService.list("invoices?page=" + page, function(data) {
-                
-                
+
+
                 $scope.searchPage = false;
                 $scope.invoices = data.invoicesList;
                 $scope.totalPages = data.totalPages;
                 $scope.currentPage = data.currentPage + 1;
-                          
+
                 if ($scope.totalPages < 11)
                     $scope.pages = new Array($scope.totalPages);
                 else
@@ -182,10 +191,10 @@
 
                 $scope.size = data.size;
 
-                if ($scope.currentPage == $scope.totalPages && $scope.totalPages>1) {
+                if ($scope.currentPage == $scope.totalPages && $scope.totalPages > 1) {
                     document.getElementById("next").disabled = true;
                     document.getElementById("previous").disabled = false;
-                } else if ($scope.currentPage == 1 && $scope.totalPages==1) {
+                } else if ($scope.currentPage == 1 && $scope.totalPages == 1) {
                     document.getElementById("previous").disabled = true;
                     document.getElementById("next").disabled = true;
                 } else if ($scope.currentPage == 1) {
@@ -218,18 +227,17 @@
                         }
                     }
                 }
-                if($scope.totalPages>0){
-                $scope.pagination = true;
-                $scope.number = true;
-                }
-                else{
-                $scope.number = false;
-                $scope.pagination = false;
+                if ($scope.totalPages > 0) {
+                    $scope.pagination = true;
+                    $scope.number = true;
+                } else {
+                    $scope.number = false;
+                    $scope.pagination = false;
                 }
                 console.log($scope.currentPage);
             });
         }
-        
+
         //GO TO
         $scope.goto = function(page, direction) {
                 if (direction == -1) {

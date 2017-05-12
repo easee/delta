@@ -5,7 +5,7 @@
         ListAgents();
 
         //Add or remove town for Agent
-        $scope.add = function(town){
+        $scope.add = function(town) {
             $scope.agent.towns.push(town);
         };
 
@@ -18,11 +18,11 @@
         var _selected;
         $scope.selected = (undefined);
 
-        $scope.selectedTown = {id: 0, name: '', zip: 0, region: ''};
+        $scope.selectedTown = { id: 0, name: '', zip: 0, region: '' };
         $scope.getTowns = function(name) {
-                return $http.get('http://api-delta.gigischool.com/api/towns/' + name).then(function(response) {
-                    return response.data;
-                });
+            return $http.get('http://api-delta.gigischool.com/api/towns/' + name).then(function(response) {
+                return response.data;
+            });
         };
 
         $scope.ngModelOptionsSelected = function(value) {
@@ -48,11 +48,14 @@
             $scope.showAgents = true;
             console.log(currentAgent);
         };
+        $scope.hideval = function() {
+            $scope.onSubmit = false;
+        }
 
         $scope.save = function() {
             if (!$scope.myForm.$valid) {
                 $scope.onSubmit = true;
-                $('.modal').modal('hide');
+                $scope.modal('show');
             }
             if ($scope.agent.id == 0) {
                 DataService.insert("agents", $scope.agent, function(data) { ListAgents(); });

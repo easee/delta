@@ -10,12 +10,14 @@
             $scope.shipper = currentShipper;
             $scope.showShipper = true;
         };
-
-        //UPDATE SHIPPER
+        $scope.hideval = function() {
+                $scope.onSubmit = false;
+            }
+            //UPDATE SHIPPER
         $scope.save = function() {
             if (!$scope.myForm.$valid) {
                 $scope.onSubmit = true;
-                $('.modal').modal('hide');
+                $scope.modal('show');
             }
 
             if ($scope.shipper.id == 0) {

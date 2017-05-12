@@ -80,50 +80,62 @@
 
                 <!-- Modal Body -->
                 <div class="modal-body">
-                    <form role="form">
+                    <form role="form" name="myForm">
                         <div class="form-group">
                             <label class="hidden">ID</label>
                             <input type="hidden" class="form-control" ng-model="procurement.id" ng-disabled="procurement.id" />
                         </div>
                         <div class="form-group">
                             <label>Date</label>
-                            <input type="date" class="form-control" ng-model="procurement.date" />
+                            <input type="date" class="form-control" ng-model="procurement.date" name="date" required/>
+                            <p id="valid" ng-show="onSubmit && (!myForm.date.$valid)">Date is required</p>
                         </div>
                         <div class="form-group">
                             <label>Document</label>
-                            <input type="text" class="form-control" ng-model="procurement.document" />
+                            <input type="text" class="form-control" ng-model="procurement.document" name="document" required/>
+                            <p id="valid" ng-show="onSubmit && (!myForm.document.$valid)">Document is required</p>
                         </div>
                         <div class="form-group">
                             <label>Quantity</label>
-                            <input type="text" class="form-control" ng-model="procurement.quantity" />
+                            <input type="text" class="form-control" ng-model="procurement.quantity" name="quantity" required ng-pattern="/^[0-9\s]*$/" />
+                            <p id="valid" ng-show="onSubmit && (!myForm.quantity.$valid)">Required !</p>
+                            <p id="valid" ng-show="myForm.quantity.$error.pattern">
+                                Please input numbers only.
+                            </p>
                         </div>
                         <div class="form-group">
                             <label>Price</label>
-                            <input type="text" class="form-control" ng-model="procurement.price" />
+                            <input type="text" class="form-control" ng-model="procurement.price" name="price" required ng-pattern="/^[0-9\s]*$/" />
+                            <p id="valid" ng-show="onSubmit && (!myForm.price.$valid)">Required !</p>
+                            <p id="valid" ng-show="myForm.price.$error.pattern">
+                                Please input numbers only.
+                            </p>
                         </div>
                         <div class="form-group">
                             <label>Supplier</label>
                             <div>
-                                <input type="text" class="form-control" ng-model="procurement.supplier" ng-change="autocomplete(procurement.supplier)" ng-keyup="textUp($event)">
+                                <input type="text" class="form-control" ng-model="procurement.supplier" ng-change="autocomplete(procurement.supplier)" ng-keyup="textUp($event)" />
                             </div>
-                            <select class="form-control" id="suppliersel" data-style="btn-primary" ng-model="procurement.supplierId" ng-options="supplier.id as supplier.name for supplier in suppliers" ng-keypress="supplierSelected($event)"></select>
+                            <select class="form-control" id="suppliersel" data-style="btn-primary" ng-model="procurement.supplierId" ng-options="supplier.id as supplier.name for supplier in suppliers" ng-keypress="supplierSelected($event)" name="supplier" required></select>
+                            <p id="valid" ng-show="onSubmit && (!myForm.supplier.$valid)">Supplier is required</p>
                         </div>
                         <div class="form-group">
                             <label>Product</label>
                             <div>
                                 <input type="text" class="form-control" ng-model="procurement.product" ng-change="autocomplete2(procurement.product)" ng-keyup="textUp2($event)">
                             </div>
-                            <select class="form-control" id="productsel" data-style="btn-primary" ng-model="procurement.productId" ng-options="product.id as product.name for product in products" ng-keypress="productSelected($event)"></select>
+                            <select class="form-control" id="productsel" data-style="btn-primary" ng-model="procurement.productId" ng-options="product.id as product.name for product in products" ng-keypress="productSelected($event)" name="product" required></select>
+                            <p id="valid" ng-show="onSubmit && (!myForm.product.$valid)">Product is required</p>
                         </div>
                     </form>
                 </div>
 
                 <!-- Modal Footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="hideval()">
                             Close
                 </button>
-                    <button type="button" onclick="$('.modal').modal('hide')" class="btn btn-primary" ng-click="save()">
+                    <button type="button" class="btn btn-primary" ng-click="save()">
                     Create
                 </button>
                 </div>
