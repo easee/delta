@@ -14,7 +14,7 @@ namespace Billing.Repository
         private IBillingRepository<Event> _history;
         private IBillingRepository<ApiUser>   _apiUsers;
         private IBillingRepository<AuthToken> _tokens;
-        private IBillingRepository<Agent>     _agents;
+        private AgentsRepository              _agents;
         private IBillingRepository<Category>  _categories;
         private InvoicesRepository            _invoices;
         private ItemsRepository               _items;
@@ -28,27 +28,28 @@ namespace Billing.Repository
 
         public BillingContext Context { get { return _context; } }
 
-        public IBillingRepository<Agent> Agents
-        {
-            get
-            { 
-                return _agents ?? (_agents = new BillingRepository<Agent>(_context));//ako su null napravi ih i vrati ih
-            }
-            #region Zakomentiran drugi način kako se ovo može uraditi.
-            //Ovo gore se isto može napisati i:
-            //get
-            //{
-            //    if (_agents == null)
-            //    {
-            //        _agents = new BillingRepository<Agent>(_context);
-            //    }
-            //    return _agents;
-            //}
-            #endregion
-        }
+        //public IBillingRepository<Agent> Agents
+        //{
+        //    get
+        //    { 
+        //        return _agents ?? (_agents = new BillingRepository<Agent>(_context));//ako su null napravi ih i vrati ih
+        //    }
+        //    #region Zakomentiran drugi način kako se ovo može uraditi.
+        //    //Ovo gore se isto može napisati i:
+        //    //get
+        //    //{
+        //    //    if (_agents == null)
+        //    //    {
+        //    //        _agents = new BillingRepository<Agent>(_context);
+        //    //    }
+        //    //    return _agents;
+        //    //}
+        //    #endregion
+        //}
         public IBillingRepository<Event> History       { get { return _history ??      (_history =      new BillingRepository<Event>(_context)); } }
         public IBillingRepository<ApiUser> ApiUsers    { get { return _apiUsers ??     (_apiUsers =     new BillingRepository<ApiUser>(_context)); } }
         public IBillingRepository<AuthToken> Tokens    { get { return _tokens ??       (_tokens =       new BillingRepository<AuthToken>(_context)); } }
+        public AgentsRepository Agents                 { get { return _agents ??       (_agents =       new AgentsRepository(_context)); } }
         public IBillingRepository<Stock> Stocks        { get { return _stocks ??       (_stocks =       new BillingRepository<Stock>(_context)); } }
         public IBillingRepository<Category> Categories { get { return _categories ??   (_categories =   new BillingRepository<Category>(_context)); } }
         public InvoicesRepository Invoices             { get { return _invoices ??     (_invoices =     new InvoicesRepository(_context)); } }

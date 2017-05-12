@@ -40,16 +40,16 @@
                             <input type="text" ng-model="selectedTown" placeholder="Enter town" uib-typeahead="town as town.name for town in getTowns($viewValue)" 
                                                 typeahead-loading="loadingLocations" typeahead-no-results="noResults"
                             class="form-control">
-                            <div class="form-group col-md-10"><button type="button" class="btn btn btn-success" 
+                            <div class="form-group col-md-10"><button type="button" class="btn btn btn-success" ng-click="add(selectedTown)" 
                                 ng-click="add(selectedTown)"><i class="fa fa-plus"></i></button></div>
                         </div>
                         
                         </div>
                         <div class="form-group">
                             <label>Currenty assigned towns:</label>
-                            <div ng-repeat="town in agent.towns">
+                            <div ng-repeat="town in agent.towns" class="col-md-3" data-toggle="tooltip" title="{{town.zip}} {{town.name}}">
                             <div class="form-control col-md-3">
-                            {{ town.zip }} {{ town.name }}&nbsp;&nbsp;<button class="btn btn-link" 
+                            {{ town.name }}&nbsp;&nbsp;<button class="btn btn-link" 
                                 ng-click="remove(town)"><i class="fa fa-close"></i></button>
                             </div>
                         </div>

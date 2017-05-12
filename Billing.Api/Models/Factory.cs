@@ -38,14 +38,15 @@ namespace Billing.Api.Models
 
         public Agent Create(AgentModel model)
         {
-            return new Agent()
+            Agent agent = new Agent()
             {
                 Id = model.Id,
                 Name = model.Name,
                 Username = model.Username,
                 Email = model.Email,
-                Towns= model.Towns.Select(x => _unitOfWork.Towns.Get(x.Id)).ToList()
         };
+            agent.Towns = model.Towns.Select(x => _unitOfWork.Towns.Get(x.Id)).ToList();
+            return agent;
         }
 
         //All together
@@ -144,8 +145,7 @@ namespace Billing.Api.Models
                 Name = town.Name,
                 Region = town.Region.ToString(),
                 Zip = town.Zip,
-                Customers = town.Customers.Select(x => x.Name).ToList(),
-                Agents = town.Agents.Select(x => x.Name).ToList()
+                RegionId = (int)town.Region
             };
         }
 
@@ -156,7 +156,8 @@ namespace Billing.Api.Models
             {
                 Id = model.Id,
                 Name = model.Name,
-                Zip = model.Zip
+                Zip = model.Zip,
+                Region = (Region)model.RegionId
             };
         }
  

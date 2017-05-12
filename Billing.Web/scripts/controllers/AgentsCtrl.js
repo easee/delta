@@ -9,7 +9,7 @@
             $scope.agent.towns.push(town);
         };
 
-        $scope.remove = function(town){
+        $scope.remove = function(town, towns){
             var i = $scope.agent.towns.indexOf(town);
             $scope.agent.towns.splice(i, 1);
         };
