@@ -110,14 +110,22 @@
                 console.log($scope.currentPage);
             });
         };
+        $scope.checkPage = 1;
+        $scope.checkFirst = 0;
+        $scope.checkLast = 0;
+        $scope.total = 0;
         //PAGINATION
         function ListProcurements(page) {
             DataService.list("procurements?page=" + page, function(data) {
-
+                $scope.checkFirst = 0;
+                $scope.checkLast = 0;
                 $scope.searchPage = false;
                 $scope.procurements = data.procurementsList;
                 $scope.totalPages = data.totalPages;
                 $scope.currentPage = data.currentPage + 1;
+                if($scope.currentPage>1 )
+                     $scope.checkPage = 0;             
+
                 if ($scope.totalPages < 11)
                     $scope.pages = new Array($scope.totalPages);
                 else
@@ -129,9 +137,11 @@
                 if ($scope.currentPage == $scope.totalPages) {
                     document.getElementById("next").disabled = true;
                     document.getElementById("previous").disabled = false;
+                     $scope.checkLast = 1;
                 } else if ($scope.currentPage == 1) {
                     document.getElementById("previous").disabled = true;
                     document.getElementById("next").disabled = false;
+                     $scope.checkFirst = 1;
                 } else {
                     document.getElementById("next").disabled = false;
                     document.getElementById("previous").disabled = false;
@@ -169,17 +179,33 @@
                 console.log($scope.currentPage);
             });
         }
-        //GO TO
+           //GO TO
         $scope.goto = function(page, direction) {
-            if (direction == -1) {
-                ListProcurements(page - 2);
-                document.getElementById(page - 1).focus();
-            } else if (direction == 1) {
-                ListProcurements(page);
-                document.getElementById(page + 1).focus();
-            } else
-                ListProcurements(page - 1);
-        }
+            
+            var check=0;
+                if (direction == -1) {
+                    ListProcurements(page - 2);
+                    document.getElementById(page - 1).focus();
+                    if(page-1==1)
+                        check==1;
+                } else if (direction == 1) {
+                    ListProcurements(page);
+                    document.getElementById(page + 1).focus();
+                } else
+                    ListProcurements(page - 1);
+            
+                if(page!=0 && checkPage==1)
+                    {
+                      document.getElementById(1).style.color="#333";
+                      document.getElementById(1).style.backgroundColor="#fff";
+                      document.getElementById(1).style.borderColor="#ccc";
+                      document.getElementById(1).style.boxShadow="none";
+                    }
+            
+            if(check==1)
+                 document.getElementById(page - 1).focus();
+            
+            }
 
         //DELETE PROCUREMENTS
         $scope.delete = function(procurement) {

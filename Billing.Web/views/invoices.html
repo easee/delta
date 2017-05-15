@@ -472,7 +472,7 @@
             <td>{{item.invoiceNo}}</td>
             <td>{{item.date | date:'dd-MM-yyyy'}}</td>
             <td>{{item.shippedOn | date:'dd-MM-yyyy'}}</td>
-            <td><button ng-class="{'btn btn-danger': item.statusId == -1, 'btn btn-warning': (item.statusId == 0 || item.statusId == 1), 'btn btn-primary': (item.statusId < 5 && item.statusId > 1), 'btn btn-success': item.statusId > 4}">
+            <td><button ng-class="{'btn btn-danger btn-block': item.statusId == -1, 'btn btn-warning btn-block': (item.statusId == 0 || item.statusId == 1), 'btn btn-primary btn-block': (item.statusId < 5 && item.statusId > 1), 'btn btn-success btn-block': item.statusId > 4}">
                        {{ states[item.statusId+1]}}
                    </button></td>
             <td>{{item.shipper}}</td>
@@ -497,7 +497,7 @@
         <div class="text-center" ng-show="pagination">
             <button id="first" class="btn btn" ng-click="goto(1,0)">First</button>
             <button id="previous" class="btn btn" ng-click="goto(currentPage,-1)">Previous</button>
-            <ul class="pagination" ng-repeat="page in pages"><button id="{{page}}" class="btn btn-default" ng-click="goto(page,0)">{{page}}</button></ul>
+            <ul class="pagination" ng-repeat="page in pages"><button ng-class="{active : (page==1 && checkPage==1) || (page==totalPages && checkLast==1) || (page==1 && checkFirst==1)}" id="{{page}}" class="btn btn-default" ng-click="goto(page,0)">{{page}}</button></ul>
             <button id="next" class="btn btn" ng-click="goto(currentPage,1)">Next</button>
             <button id="last" class="btn btn" ng-click="goto(totalPages,0)">Last</button>
         </div>

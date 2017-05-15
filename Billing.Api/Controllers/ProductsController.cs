@@ -139,7 +139,14 @@ namespace Billing.Api.Controllers
         {
             try
             {
+
                 if (UnitOfWork.Products.Get(id) == null) return NotFound();
+                var items = UnitOfWork.Items.Get().Where(x => x.Product.Id == id).ToList();
+                var procurements = UnitOfWork.Procurements.Get().Where(x => x.Product.Id == id).ToList();
+                foreach (var item in items)
+                    UnitOfWork.Items.Delete(item.Id);
+                foreach (var procurement in procurements)
+                    UnitOfWork.Procurements.Delete(procurement.Id);
                 UnitOfWork.Stocks.Delete(id);
                 UnitOfWork.Products.Delete(id);
                 UnitOfWork.Commit();

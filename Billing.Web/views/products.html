@@ -191,7 +191,7 @@
         <div class="text-center" ng-show="pagination">
             <button id="first" class="btn btn" ng-click="goto(1,0)">First</button>
             <button id="previous" class="btn btn" ng-click="goto(currentPage,-1)">Previous</button>
-            <ul class="pagination" ng-repeat="page in pages"><button id="{{page}}" class="btn btn-default" ng-click="goto(page,0)">{{page}}</button></ul>
+            <ul class="pagination" ng-repeat="page in pages"><button ng-class="{active : (page==1 && checkPage==1) || (page==totalPages && checkLast==1) || (page==1 && checkFirst==1)}" id="{{page}}" class="btn btn-default" ng-click="goto(page,0)">{{page}}</button></ul>
             <button id="next" class="btn btn" ng-click="goto(currentPage,1)">Next</button>
             <button id="last" class="btn btn" ng-click="goto(totalPages,0)">Last</button>
         </div>
