@@ -20,7 +20,7 @@
         $scope.save = function() {
             if (!$scope.myForm.$valid) {
                 $scope.onSubmit = true;
-                $scope.modal('show');
+                // $scope.modal('show');Izbačeno jer ne radi s ovim
             }
             if ($scope.product.id == 0) {
                 DataService.insert("products", $scope.product, function(data) { ListProducts($scope.currentPage - 1); });

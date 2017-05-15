@@ -72,7 +72,7 @@
         $scope.save = function() {
             if (!$scope.myForm.$valid) {
                 $scope.onSubmit = true;
-                $scope.modal('show');
+                // $scope.modal('show');Izbačeno jer ne radi s ovim
             }
             console.log($scope.selectedCustomer);
             $scope.invoice.customerId = $scope.selectedCustomer.id;
