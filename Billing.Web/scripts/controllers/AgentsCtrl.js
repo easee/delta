@@ -55,7 +55,7 @@
         $scope.save = function() {
             if (!$scope.myForm.$valid) {
                 $scope.onSubmit = true;
-                $scope.modal('show');
+                // $scope.modal('show'); Izbačeno jer ne radi s ovim uopšte ne prođe funkcija .save
             }
             if ($scope.agent.id == 0) {
                 DataService.insert("agents", $scope.agent, function(data) { ListAgents(); });
