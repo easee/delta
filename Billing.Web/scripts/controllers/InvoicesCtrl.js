@@ -173,17 +173,22 @@
             });
         };
 
-
+        $scope.checkPage = 1;
+        $scope.checkFirst = 0;
+        $scope.checkLast = 0;
+        $scope.total = 0;
         //PAGINATION
         function ListInvoices(page) {
             DataService.list("invoices?page=" + page, function(data) {
 
-
+                $scope.checkFirst = 0;
+                $scope.checkLast = 0;
                 $scope.searchPage = false;
                 $scope.invoices = data.invoicesList;
                 $scope.totalPages = data.totalPages;
                 $scope.currentPage = data.currentPage + 1;
-
+                if($scope.currentPage>1)
+                     $scope.checkPage = 0;
                 if ($scope.totalPages < 11)
                     $scope.pages = new Array($scope.totalPages);
                 else
@@ -194,9 +199,11 @@
                 if ($scope.currentPage == $scope.totalPages && $scope.totalPages > 1) {
                     document.getElementById("next").disabled = true;
                     document.getElementById("previous").disabled = false;
+                    $scope.checkLast = 1;
                 } else if ($scope.currentPage == 1 && $scope.totalPages == 1) {
                     document.getElementById("previous").disabled = true;
                     document.getElementById("next").disabled = true;
+                    $scope.checkFirst = 1;
                 } else if ($scope.currentPage == 1) {
                     document.getElementById("previous").disabled = true;
                     document.getElementById("next").disabled = false;
@@ -239,15 +246,32 @@
         }
 
         //GO TO
+          //GO TO
         $scope.goto = function(page, direction) {
+            
+            var check=0;
                 if (direction == -1) {
                     ListInvoices(page - 2);
                     document.getElementById(page - 1).focus();
+                    if(page-1==1)
+                        check==1;
                 } else if (direction == 1) {
                     ListInvoices(page);
                     document.getElementById(page + 1).focus();
                 } else
                     ListInvoices(page - 1);
+            
+                if(page!=0 && checkPage==1)
+                    {
+                      document.getElementById(1).style.color="#333";
+                      document.getElementById(1).style.backgroundColor="#fff";
+                      document.getElementById(1).style.borderColor="#ccc";
+                      document.getElementById(1).style.boxShadow="none";
+                    }
+            
+            if(check==1)
+                 document.getElementById(page - 1).focus();
+            
             }
             //END OF ITEM SECTION IN MODAL
 

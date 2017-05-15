@@ -73,9 +73,16 @@ namespace Billing.Api.Controllers
         public IHttpActionResult Delete(int id) {
             try
             {
+                var items = UnitOfWork.Items.Get().Where(x => x.Product.Category.Id == id).ToList();
+                var procurements = UnitOfWork.Procurements.Get().Where(x => x.Product.Category.Id==id).ToList();
                 var products = UnitOfWork.Products.Get().Where(x => x.Category.Id == id).ToList();
-                foreach(var item in products)
-                    UnitOfWork.Products.Delete(item.Id);
+                foreach (var item in items)
+                    UnitOfWork.Items.Delete(item.Id);
+                foreach (var procurement in procurements)
+                    UnitOfWork.Procurements.Delete(procurement.Id);
+                foreach (var product in products)
+                    UnitOfWork.Products.Delete(product.Id);
+                UnitOfWork.Stocks.Delete(id);
                 UnitOfWork.Categories.Delete(id);
                 UnitOfWork.Commit();
                 return Ok();

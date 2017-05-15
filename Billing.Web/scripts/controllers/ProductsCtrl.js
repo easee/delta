@@ -7,6 +7,7 @@
         ListCategories('');
         ListProducts(0);
         $scope.selectSearch = "";
+        
         //READ AND EDIT PRODUCT
         $scope.edit = function(currentProduct) {
             $scope.product = currentProduct;
@@ -48,7 +49,7 @@
                 $scope.products = data.productsList;
                 $scope.totalPages = data.totalPages;
                 $scope.currentPage = data.currentPage + 1;
-
+                
                 if ($scope.totalPages < 11)
                     $scope.pages = new Array($scope.totalPages);
                 else
@@ -90,6 +91,7 @@
                         }
                     }
                 }
+                 
                 if ($scope.totalPages > 0) {
                     $scope.searchPage = true;
                     $scope.number = true;
@@ -101,14 +103,26 @@
                 console.log($scope.currentPage);
             });
         };
+        
+        $scope.checkPage = 1;
+        $scope.checkFirst = 0;
+        $scope.checkLast = 0;
+        $scope.total = 0;
         //PAGINATION
         function ListProducts(page) {
             DataService.list("products?page=" + page, function(data) {
-
+                
+                $scope.checkFirst = 0;
+                $scope.checkLast = 0;
                 $scope.searchPage = false;
                 $scope.products = data.productsList;
                 $scope.totalPages = data.totalPages;
                 $scope.currentPage = data.currentPage + 1;
+                $scope.total = data.totalPages;
+                if($scope.currentPage>1 && $scope.totalPages>10 )
+                     $scope.checkPage = 0;
+                
+                
                 if ($scope.totalPages < 11)
                     $scope.pages = new Array($scope.totalPages);
                 else
@@ -120,9 +134,11 @@
                 if ($scope.currentPage == $scope.totalPages) {
                     document.getElementById("next").disabled = true;
                     document.getElementById("previous").disabled = false;
+                    $scope.checkLast = 1;
                 } else if ($scope.currentPage == 1) {
                     document.getElementById("previous").disabled = true;
                     document.getElementById("next").disabled = false;
+                    $scope.checkFirst = 1;
                 } else {
                     document.getElementById("next").disabled = false;
                     document.getElementById("previous").disabled = false;
@@ -149,7 +165,7 @@
                             d++;
                         }
                     }
-                }
+                }    
                 if ($scope.totalPages > 0) {
                     $scope.pagination = true;
                     $scope.number = true;
@@ -162,14 +178,30 @@
         }
         //GO TO
         $scope.goto = function(page, direction) {
+            
+            var check=0;
                 if (direction == -1) {
                     ListProducts(page - 2);
                     document.getElementById(page - 1).focus();
+                    if(page-1==1)
+                        check==1;
                 } else if (direction == 1) {
                     ListProducts(page);
                     document.getElementById(page + 1).focus();
                 } else
                     ListProducts(page - 1);
+            
+                if(page!=0 && checkPage==1)
+                    {
+                      document.getElementById(1).style.color="#333";
+                      document.getElementById(1).style.backgroundColor="#fff";
+                      document.getElementById(1).style.borderColor="#ccc";
+                      document.getElementById(1).style.boxShadow="none";
+                    }
+            
+            if(check==1)
+                 document.getElementById(page - 1).focus();
+            
             }
             //DELETE PRODUCT
         $scope.delete = function(product) {
