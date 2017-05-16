@@ -47,9 +47,9 @@
             $scope.showCustomers = true;
         };
         $scope.page = 0;
-        $scope.search = function(page = 0, direction = 0) {
+        $scope.search = function(page, direction) {
             DataService.list("customers/pagination?item=" + $scope.selectSearch + "&page=" + page, function(data) {
-
+                
                 $scope.pagination = false;
                 $scope.customers = data.customersList;
                 $scope.totalPages = data.totalPages;
