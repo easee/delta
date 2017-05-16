@@ -74,9 +74,7 @@
                 $scope.onSubmit = true;
                 // $scope.modal('show');Izbačeno jer ne radi s ovim
             }
-            console.log($scope.selectedCustomer);
             $scope.invoice.customerId = $scope.selectedCustomer.id;
-            console.log($scope.invoice);
             if ($scope.invoice.id == 0) {
                 DataService.insert("invoices", $scope.invoice, function(data) { ListInvoices($scope.currentPage - 1); });
                 $('.modal').modal('hide');
@@ -169,7 +167,6 @@
                     $scope.searchPage = false;
                 }
 
-                console.log($scope.currentPage);
             });
         };
 
@@ -241,7 +238,6 @@
                     $scope.number = false;
                     $scope.pagination = false;
                 }
-                console.log($scope.currentPage);
             });
         }
 

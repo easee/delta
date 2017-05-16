@@ -32,7 +32,6 @@
                         swal.showInputError("You need to write something!");
                         return false
                     }
-                    console.log(inputValue);
                     $scope.category = {
                         id: 0,
                         name: inputValue
