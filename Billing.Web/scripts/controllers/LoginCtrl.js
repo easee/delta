@@ -29,12 +29,12 @@
                                 $rootScope.showDash = false;
                             },
                             function(reason) {
-                                console.log(reason);
+                                // console.log(reason);
                             })
                     }
                 },
                 function(reason) {
-                    console.log(reason);
+                    // console.log(reason);
                 });
 
             $scope.loginAs = function(username) {
