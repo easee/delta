@@ -100,7 +100,6 @@
                     $scope.searchPage = false;
                 }
 
-                console.log($scope.currentPage);
             });
         };
         
@@ -173,7 +172,6 @@
                     $scope.number = false;
                     $scope.pagination = false;
                 }
-                console.log($scope.currentPage);
             });
         }
         //GO TO

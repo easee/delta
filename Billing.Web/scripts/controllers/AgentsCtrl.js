@@ -46,7 +46,6 @@
         $scope.edit = function(currentAgent) {
             $scope.agent = currentAgent;
             $scope.showAgents = true;
-            console.log(currentAgent);
         };
         $scope.hideval = function() {
             $scope.onSubmit = false;

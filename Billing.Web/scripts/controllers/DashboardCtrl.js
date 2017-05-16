@@ -5,7 +5,6 @@
         function ListDashboard() {
             DataService.list("dashboard", function(data) { 
             $scope.dashData = data;
-            console.log($scope.dashData);
         
             });
         };

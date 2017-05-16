@@ -4,7 +4,6 @@
         $scope.showHeader = false;
         $scope.showPrint = false;
         $scope.save = function() {
-            console.log("listing" + $scope.requestModel);
             DataService.insert("CrossAgentRegion", $scope.requestData, function(data) {
                 $scope.salesByAgentRegiondata = data;
                 $scope.showAgentRegion = true;

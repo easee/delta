@@ -4,7 +4,6 @@
         $scope.showPrint = false;
         $scope.showHeader = false;
         $scope.save = function() {
-            console.log("listing" + $scope.requestModel);
             DataService.insert("SalesByCustomer", $scope.requestData, function(data) {
                 $scope.salesByCustomerdata = data;
                 $scope.showCustomer = true;
