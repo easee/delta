@@ -192,7 +192,7 @@
                 } else
                     ListProcurements(page - 1);
             
-                if(page!=0 && checkPage==1)
+                if(page!=0 && $scope.checkPage==1)
                     {
                       document.getElementById(1).style.color="#333";
                       document.getElementById(1).style.backgroundColor="#fff";

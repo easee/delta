@@ -38,7 +38,6 @@
                     }
                     $scope.save();
                     swal("Nice!", "You added a new category", "success");
-                    s
                 });
             //DataService.insert("categories", $scope.category, function(data){ ListCategories();} );
             $scope.showCategories = true;
