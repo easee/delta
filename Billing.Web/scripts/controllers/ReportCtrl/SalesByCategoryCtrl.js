@@ -15,7 +15,8 @@
                 
             };
        
-        $scope.printDiv = function (divName,data=0) {
+        $scope.printDiv = function (divName,data) {
+            if (data == undefined) data = 0;
         if(data!=0){
            document.getElementById("hide").style.visibility="hidden";
            for(var i=0;i<data.length;i++)

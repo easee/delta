@@ -4,17 +4,17 @@ var concat = require('gulp-concat');
 var minify = require('gulp-minify');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
-var source = ['scripts/*.js', 'scripts/*/*.js'];
+var source = ['scripts/app.js', 'scripts/controllers/*.js', 'scripts/controllers/ReportCtrl/*.js', 'scripts/directives/*.js', 'scripts/services/*.js'];
 var library = ['library/*.js'];
 var style = 'styles/*.css';
-var gutil = require('gulp-util');
 var jshint = require('gulp-jshint');
+var ngAnnotate = require('gulp-ng-annotate');
 
 gulp.task('default', function() {
     return gulp.src(source)
         .pipe(concat('app.js'))
+        .pipe(ngAnnotate())
         .pipe(uglify())
-        .on('error', function (err) { gutil.log(gutil.colors.red('[Error]'), err.toString()); })
         .pipe(rename('app.min.js'))
         .pipe(gulp.dest('build'));
 });
