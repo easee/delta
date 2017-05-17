@@ -31,8 +31,11 @@
                         </div>
                         <div class="form-group">
                             <label>Town</label>
-                            <div><input type="text" class="form-control" placeholder="See suggestions as you type" ng-model="customer.town" ng-change="autocomplete(customer.town)" ng-keyup="textUp($event)"></div>
-                            <select class="form-control" id="townsel" data-style="btn-primary" ng-model="customer.townId" ng-options="town.id as town.name for town in towns" ng-keypress="townSelected($event)"></select>
+                            <div>
+                            <input type="text" ng-model="selectedTown" placeholder="Enter town" uib-typeahead="town as town.name for town in getTowns($viewValue)" 
+                                                typeahead-loading="loadingLocations" typeahead-no-results="noResults"
+                            class="form-control">
+                        </div>
                         </div>
 
                     </form>
@@ -92,10 +95,19 @@
                             </div>
                             <div class="form-group">
                                 <label>Town</label>
-                                <div><input type="text" class="form-control" placeholder="See suggestions as you type" ng-model="customer.town" ng-change="autocomplete(customer.town)" ng-keyup="textUp($event)"></div>
-                                <select class="form-control" id="townsel" data-style="btn-primary" ng-model="customer.townId" ng-options="town.id as town.name for town in towns" ng-keypress="townSelected($event)" name="town" required></select>
-                                <p id="valid" ng-show="onSubmit && (!myForm.town.$valid)">Town is required !</p>
+                            <div>
+                            <input type="text" ng-model="selectedTown" placeholder="Enter town" uib-typeahead="town as town.name for town in getTowns($viewValue)" 
+                                                typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control" required>
+                                                <p id="valid" ng-show="onSubmit && (!myForm.town.$valid)">Town is required !</p>
+                                </div>
                             </div>
+
+                            <!--<div class="form-group">
+                                <label>Town</label>
+                                <div><input type="text" class="form-control" placeholder="See suggestions as you type" ng-model="customer.town" ng-change="autocomplete(customer.town)" ng-keyup="textUp($event)"></div>
+                                <select class="form-control" id="townsel" data-style="btn-primary" ng-model="customer.townId" ng-options="town.id as town.name for town in towns" name="town" required></select>
+                                <p id="valid" ng-show="onSubmit && (!myForm.town.$valid)">Town is required !</p>
+                            </div>-->
                         </div>
                     </form>
                 </div>
