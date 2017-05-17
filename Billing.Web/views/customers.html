@@ -169,12 +169,12 @@
     </div>
     <div>
         <!--PAGINATION-->
-            <div class="text-center" ng-show="searchPage">
-                <button id="firstSearch" class="btn btn" ng-click="search(0,0)">First</button>
-                <button id="previousSearch" class="btn btn" ng-click="search(currentPage-2,-1)">Previous</button>
-                <ul class="pagination" ng-repeat="page in pages"><button id="{{page}}Search" class="btn btn-default" ng-click="search(page-1,0)">{{page}}</button></ul>
-                <button id="nextSearch" class="btn btn" ng-click="search(currentPage,1)">Next</button>
-                <button id="lastSearch" class="btn btn" ng-click="search(totalPages-1,0)">Last</button>
+             <div class="text-center" ng-show="searchPage">
+                <button id="firstSearch" class="btn btn" ng-click="search2(0,0)">First</button>
+                <button id="previousSearch" class="btn btn" ng-click="search2(currentPage-2,-1)">Previous</button>
+                <ul class="pagination" ng-repeat="page in pages"><button ng-class="{active : (page==1 && checkPage2==1) || (page==totalPages && checkLast2==1) || (page==1 && checkFirst2==1)}" id="{{page}}Search" class="btn btn-default" ng-click="search2(page-1,0)">{{page}}</button></ul>
+                <button id="nextSearch" class="btn btn" ng-click="search2(currentPage,1)">Next</button>
+                <button id="lastSearch" class="btn btn" ng-click="search2(totalPages-1,0)">Last</button>
             </div>
         <!--PAGINATION-->
         <div class="text-center" ng-show="pagination">
