@@ -21,6 +21,7 @@
                 
             };
         $scope.printDiv = function (divName,data) {
+            if (data == undefined) data = 0;
           for(var i=0;i<data.length;i++)
                {
                     var obj=data[i];
