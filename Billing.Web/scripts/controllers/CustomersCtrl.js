@@ -1,18 +1,19 @@
 (function() {
-    app.controller("CustomersCtrl", ['$scope', 'DataService', function($scope, DataService) {
+    app.controller("CustomersCtrl", ['$scope', 'DataService', '$http', function($scope, DataService, $http) {
         $scope.showCustomer = false;
         $scope.searchPage = false;
         $scope.pagination = false;
         $scope.number = false;
         $scope.onSubmit = false;
         ListCustomers(0);
-        ListTowns('');
         $scope.selectSearch = "";
-
+        $scope.selectedTown = { id: 0, name: '' };
 
         //READ AND EDIT CUSTOMERS
         $scope.edit = function(currentCustomer) {
             $scope.customer = currentCustomer;
+            $scope.selectedTown = { id: currentCustomer.townId, name: currentCustomer.town };
+            console.log(currentCustomer);
             $scope.showCustomer = true;
         };
 
@@ -26,6 +27,7 @@
                 $scope.onSubmit = true;
                 // $scope.modal('show'); Izbačeno jer pravi problem i ne radi save
             }
+            $scope.customer.townId = $scope.selectedTown.id
             if ($scope.customer.id == 0) {
                 DataService.insert("customers", $scope.customer, function(data) { ListCustomers(); });
                 $('.modal').modal('hide');
@@ -37,13 +39,13 @@
 
         //CREATE NEW CUSTOMER
         $scope.new = function() {
+            $scope.selectedTown = { id: 0, name: '' };
             $scope.customer = {
                 id: 0,
                 name: "",
                 address: "",
                 towns: []
             };
-            document.getElementById('townsel').style.visibility = 'hidden'; //sakrivamo combobox na otvaranju modala
             $scope.showCustomers = true;
         };
         $scope.search2 = function(page, direction) {
@@ -237,43 +239,37 @@
             });
             $scope.showCustomers = false;
         };
-        //LIST ALL CUSTOMERS
-        /*function ListCustomers(){
-            DataService.list("customers", function(data){ $scope.customers = data});
-        };*/
 
-        //LIST/GET ALL TOWNS
-        function ListTowns(name) {
-            DataService.list("towns/" + name, function(data) { $scope.towns = data });
+        //TYPEAHEAD TOWNS
+        var _selected;
+        $scope.selected = (undefined);
+
+        $scope.selectedTown = { id: 0, name: '', zip: 0, region: '' };
+        $scope.getTowns = function(name) {
+            return $http.get('http://api-delta.gigischool.com/api/towns/' + name).then(function(response) {
+                return response.data;
+            });
         };
 
-        //ARROW DOWN EVENT SO IT COULD FOCUS ON DROPDOWN
-        $scope.textUp = function(keyEvent) {
-            if (keyEvent.key == "ArrowDown") document.getElementById('townsel').focus();
-        };
 
-        $scope.townSelected = function(keyEvent) {
-            if (keyEvent.key == "Enter") {
-                for (var i = 0; i < $scope.towns.length; i++) {
-                    if ($scope.towns[i].id === $scope.customer.townId) { //Onaj ID koji ima istu vrijednost kao
-                        $scope.customer.town = $scope.towns[i].name;
-                        document.getElementById('townsel').style.visibility = 'hidden';
-                        break;
-                    }
-                }
-            }
-        };
-
-        //AUTOCOMPLETE in BOX
-        $scope.autocomplete = function(autoStr) {
-            if (autoStr.length >= 3) { //reaguje samo kada ima 3 ili više slova uneseno
-                ListTowns(autoStr);
-                document.getElementById('townsel').style.visibility = 'visible'; //Otkrivamo combobox
-                document.getElementById('townsel').size = 8;
+        $scope.ngModelOptionsSelected = function(value) {
+            if (arguments.length) {
+                _selected = value;
             } else {
-                document.getElementById('townsel').style.visibility = 'hidden';
+                return _selected;
             }
         };
+
+        $scope.modelOptions = {
+            debounce: {
+                default: 500,
+                blur: 250
+            },
+            getterSetter: true
+        };
+        //End of typeahead
+        //End of towns
+
     }]);
 
 }());
