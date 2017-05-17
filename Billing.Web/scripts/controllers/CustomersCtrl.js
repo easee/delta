@@ -13,7 +13,6 @@
         $scope.edit = function(currentCustomer) {
             $scope.customer = currentCustomer;
             $scope.selectedTown = { id: currentCustomer.townId, name: currentCustomer.town };
-            console.log(currentCustomer);
             $scope.showCustomer = true;
         };
 

@@ -14,20 +14,20 @@
   [68,83](W033) Missing semicolon.
 15 lint errors found in scripts\controllers\CustomersCtrl.js
   [21,10](W033) Missing semicolon.
-  [29,36](W041) Use '===' to compare with '0'.
-  [83,34](W004) 'i' is already defined.
-  [88,34](W004) 'i' is already defined.
-  [91,29](W004) 'd' is already defined.
-  [93,34](W004) 'i' is already defined.
-  [152,34](W004) 'i' is already defined.
-  [157,34](W004) 'i' is already defined.
-  [160,29](W004) 'd' is already defined.
-  [162,34](W004) 'i' is already defined.
-  [185,32](W030) Expected an assignment or function call and instead saw an expression.
-  [192,24](W041) Use '!==' to compare with '0'.
-  [203,14](W033) Missing semicolon.
-  [231,83](W033) Missing semicolon.
-  [232,10](W032) Unnecessary semicolon.
+  [29,60](W033) Missing semicolon.
+  [30,36](W041) Use '===' to compare with '0'.
+  [60,27](W004) 'i' is already defined.
+  [66,11](W033) Missing semicolon.
+  [108,34](W004) 'i' is already defined.
+  [113,34](W004) 'i' is already defined.
+  [116,29](W004) 'd' is already defined.
+  [118,34](W004) 'i' is already defined.
+  [177,34](W004) 'i' is already defined.
+  [182,34](W004) 'i' is already defined.
+  [185,29](W004) 'd' is already defined.
+  [187,34](W004) 'i' is already defined.
+  [210,32](W030) Expected an assignment or function call and instead saw an expression.
+  [220,14](W033) Missing semicolon.
 18 lint errors found in scripts\controllers\DashboardCtrl.js
   [18,35](W009) The array literal notation [] is preferable.
   [19,36](W009) The array literal notation [] is preferable.
@@ -47,7 +47,7 @@
   [202,38](W033) Missing semicolon.
   [211,38](W033) Missing semicolon.
   [270,11](W033) Missing semicolon.
-27 lint errors found in scripts\controllers\InvoicesCtrl.js
+28 lint errors found in scripts\controllers\InvoicesCtrl.js
   [20,28](W041) Use '===' to compare with '0'.
   [29,102](W033) Missing semicolon.
   [51,88](W033) Missing semicolon.
@@ -55,62 +55,65 @@
   [78,35](W041) Use '===' to compare with '0'.
   [106,19](W033) Missing semicolon.
   [108,14](W033) Missing semicolon.
-  [146,34](W004) 'i' is already defined.
-  [151,34](W004) 'i' is already defined.
-  [154,29](W004) 'd' is already defined.
-  [156,34](W004) 'i' is already defined.
-  [218,34](W004) 'i' is already defined.
-  [223,34](W004) 'i' is already defined.
-  [226,29](W004) 'd' is already defined.
-  [228,34](W004) 'i' is already defined.
-  [253,32](W030) Expected an assignment or function call and instead saw an expression.
-  [260,24](W041) Use '!==' to compare with '0'.
-  [271,14](W033) Missing semicolon.
-  [348,10](W033) Missing semicolon.
-  [353,25](W041) Use '===' to compare with 'undefined'.
-  [361,23](W033) Missing semicolon.
-  [370,107](W033) Missing semicolon.
-  [372,10](W033) Missing semicolon.
-  [376,89](W033) Missing semicolon.
-  [377,10](W032) Unnecessary semicolon.
-  [381,77](W033) Missing semicolon.
-  [382,10](W032) Unnecessary semicolon.
+  [121,27](W004) 'i' is already defined.
+  [127,11](W033) Missing semicolon.
+  [169,34](W004) 'i' is already defined.
+  [174,34](W004) 'i' is already defined.
+  [177,29](W004) 'd' is already defined.
+  [179,34](W004) 'i' is already defined.
+  [240,34](W004) 'i' is already defined.
+  [245,34](W004) 'i' is already defined.
+  [248,29](W004) 'd' is already defined.
+  [250,34](W004) 'i' is already defined.
+  [275,32](W030) Expected an assignment or function call and instead saw an expression.
+  [285,14](W033) Missing semicolon.
+  [362,10](W033) Missing semicolon.
+  [367,25](W041) Use '===' to compare with 'undefined'.
+  [375,23](W033) Missing semicolon.
+  [384,107](W033) Missing semicolon.
+  [386,10](W033) Missing semicolon.
+  [390,89](W033) Missing semicolon.
+  [391,10](W032) Unnecessary semicolon.
+  [395,77](W033) Missing semicolon.
+  [396,10](W032) Unnecessary semicolon.
 3 lint errors found in scripts\controllers\LoginCtrl.js
   [11,34](W041) Use '!==' to compare with 'null'.
   [33,31](W033) Missing semicolon.
   [50,14](W033) Missing semicolon.
-16 lint errors found in scripts\controllers\ProcurementsCtrl.js
+17 lint errors found in scripts\controllers\ProcurementsCtrl.js
   [25,39](W041) Use '===' to compare with '0'.
-  [86,34](W004) 'i' is already defined.
-  [91,34](W004) 'i' is already defined.
-  [94,29](W004) 'd' is already defined.
-  [96,34](W004) 'i' is already defined.
-  [155,34](W004) 'i' is already defined.
-  [160,34](W004) 'i' is already defined.
-  [163,29](W004) 'd' is already defined.
-  [165,34](W004) 'i' is already defined.
-  [188,32](W030) Expected an assignment or function call and instead saw an expression.
-  [195,24](W041) Use '!==' to compare with '0'.
-  [206,14](W033) Missing semicolon.
-  [232,91](W033) Missing semicolon.
-  [233,10](W032) Unnecessary semicolon.
-  [236,89](W033) Missing semicolon.
-  [237,10](W032) Unnecessary semicolon.
-14 lint errors found in scripts\controllers\ProductsCtrl.js
+  [62,27](W004) 'i' is already defined.
+  [68,11](W033) Missing semicolon.
+  [110,34](W004) 'i' is already defined.
+  [115,34](W004) 'i' is already defined.
+  [118,29](W004) 'd' is already defined.
+  [120,34](W004) 'i' is already defined.
+  [179,34](W004) 'i' is already defined.
+  [184,34](W004) 'i' is already defined.
+  [187,29](W004) 'd' is already defined.
+  [189,34](W004) 'i' is already defined.
+  [212,32](W030) Expected an assignment or function call and instead saw an expression.
+  [222,14](W033) Missing semicolon.
+  [248,91](W033) Missing semicolon.
+  [249,10](W032) Unnecessary semicolon.
+  [252,89](W033) Missing semicolon.
+  [253,10](W032) Unnecessary semicolon.
+15 lint errors found in scripts\controllers\ProductsCtrl.js
   [25,35](W041) Use '===' to compare with '0'.
-  [78,34](W004) 'i' is already defined.
-  [83,34](W004) 'i' is already defined.
-  [86,29](W004) 'd' is already defined.
-  [88,34](W004) 'i' is already defined.
-  [152,34](W004) 'i' is already defined.
-  [157,34](W004) 'i' is already defined.
-  [160,29](W004) 'd' is already defined.
-  [162,34](W004) 'i' is already defined.
-  [185,32](W030) Expected an assignment or function call and instead saw an expression.
-  [192,24](W041) Use '!==' to compare with '0'.
-  [203,14](W033) Missing semicolon.
-  [230,85](W033) Missing semicolon.
-  [232,10](W032) Unnecessary semicolon.
+  [54,27](W004) 'i' is already defined.
+  [60,11](W033) Missing semicolon.
+  [108,34](W004) 'i' is already defined.
+  [113,34](W004) 'i' is already defined.
+  [116,29](W004) 'd' is already defined.
+  [118,34](W004) 'i' is already defined.
+  [182,34](W004) 'i' is already defined.
+  [187,34](W004) 'i' is already defined.
+  [190,29](W004) 'd' is already defined.
+  [192,34](W004) 'i' is already defined.
+  [215,32](W030) Expected an assignment or function call and instead saw an expression.
+  [225,14](W033) Missing semicolon.
+  [252,85](W033) Missing semicolon.
+  [254,10](W032) Unnecessary semicolon.
 6 lint errors found in scripts\controllers\ShippersCtrl.js
   [15,14](W033) Missing semicolon.
   [23,35](W041) Use '===' to compare with '0'.
@@ -118,21 +121,22 @@
   [69,10](W032) Unnecessary semicolon.
   [74,83](W033) Missing semicolon.
   [75,10](W032) Unnecessary semicolon.
-15 lint errors found in scripts\controllers\SuppliersCtrl.js
+16 lint errors found in scripts\controllers\SuppliersCtrl.js
   [23,36](W041) Use '===' to compare with '0'.
   [36,10](W033) Missing semicolon.
-  [102,34](W004) 'i' is already defined.
-  [107,34](W004) 'i' is already defined.
-  [110,29](W004) 'd' is already defined.
-  [112,34](W004) 'i' is already defined.
-  [173,34](W004) 'i' is already defined.
-  [178,34](W004) 'i' is already defined.
-  [181,29](W004) 'd' is already defined.
-  [183,34](W004) 'i' is already defined.
-  [206,32](W030) Expected an assignment or function call and instead saw an expression.
-  [213,24](W041) Use '!==' to compare with '0'.
-  [224,14](W033) Missing semicolon.
-  [229,83](W033) Missing semicolon.
-  [230,10](W032) Unnecessary semicolon.
+  [78,27](W004) 'i' is already defined.
+  [84,11](W033) Missing semicolon.
+  [129,34](W004) 'i' is already defined.
+  [134,34](W004) 'i' is already defined.
+  [137,29](W004) 'd' is already defined.
+  [139,34](W004) 'i' is already defined.
+  [202,34](W004) 'i' is already defined.
+  [207,34](W004) 'i' is already defined.
+  [210,29](W004) 'd' is already defined.
+  [212,34](W004) 'i' is already defined.
+  [235,32](W030) Expected an assignment or function call and instead saw an expression.
+  [244,14](W033) Missing semicolon.
+  [249,83](W033) Missing semicolon.
+  [250,10](W032) Unnecessary semicolon.
 1 lint errors found in scripts\services\LoginService.js
   [82,10](W033) Missing semicolon.
