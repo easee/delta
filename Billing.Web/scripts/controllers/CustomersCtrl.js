@@ -24,7 +24,7 @@
         $scope.save = function() {
             if (!$scope.myForm.$valid) {
                 $scope.onSubmit = true;
-                $scope.modal('show');
+                // $scope.modal('show'); Izbačeno jer pravi problem i ne radi save
             }
             if ($scope.customer.id == 0) {
                 DataService.insert("customers", $scope.customer, function(data) { ListCustomers(); });
@@ -47,9 +47,9 @@
             $scope.showCustomers = true;
         };
         $scope.page = 0;
-        $scope.search = function(page = 0, direction = 0) {
+        $scope.search = function(page, direction) {
             DataService.list("customers/pagination?item=" + $scope.selectSearch + "&page=" + page, function(data) {
-
+                
                 $scope.pagination = false;
                 $scope.customers = data.customersList;
                 $scope.totalPages = data.totalPages;
@@ -104,7 +104,6 @@
                     $scope.searchPage = false;
                 }
 
-                console.log($scope.currentPage);
             });
         };
         $scope.checkPage = 1;
@@ -173,7 +172,6 @@
                     $scope.number = false;
                     $scope.pagination = false;
                 }
-                console.log($scope.currentPage);
             });
         }
           //GO TO

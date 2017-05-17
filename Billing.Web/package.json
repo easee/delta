@@ -1,0 +1,27 @@
+{
+  "name": "deltaprojekat",
+  "version": "1.0.0",
+  "description": "Delta projekat",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Billing",
+    "delta"
+  ],
+  "author": "Josip, Anur, Denis",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.2.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-jshint": "^2.0.4",
+    "gulp-jshint-file-reporter": "0.0.2",
+    "gulp-minify": "^1.0.0",
+    "gulp-ng-annotate": "^2.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^2.1.2",
+    "jshint": "^2.9.4"
+  }
+}

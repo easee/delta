@@ -10,6 +10,7 @@
         function ListDashboard() {
             DataService.list("dashboard", function(data) { 
             $scope.dashData = data;
+
            $scope.name = $scope.selectedSale;
            $scope.showAgent = true;
            
@@ -44,7 +45,7 @@
                 agentSales2.push(key.sales);
                 agentLabels2.push(key.label);
             });
-        
+
                 maxv = 100000 * Math.ceil(maxv / 100000);
                 var step = maxv / 5;
            var ctx = document.getElementById("burningItems");

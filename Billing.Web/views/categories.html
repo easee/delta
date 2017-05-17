@@ -19,7 +19,7 @@
                     <form role="form">
                         <!-- EDIT DIO !!!!! -->
                         <div class="form-group">
-                            <label classe="hidden">ID</label>
+                            <label class="hidden">ID</label>
                             <input type="text" class="hidden" ng-model="category.id" ng-disabled="category.id" />
                         </div>
                         <div class="form-group">
@@ -104,8 +104,8 @@
                     <tr>
                         <th class="hidden">ID</th>
                         <th><i class="fa fa-user-circle-o" aria-hidden="true"></i> Name</th>
-                        <th admin-view>Edit</th>
-                        <th admin-view>Delete</th>
+                        <th class="col-md-1" admin-view>Edit</th>
+                        <th class="col-md-1" admin-view>Delete</th>
                     </tr>
                 </thead>
                 <tr ng-repeat="item in category | filter:select | orderBy:sort ">

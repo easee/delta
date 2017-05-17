@@ -17,7 +17,7 @@
         $scope.save = function() {
             if (!$scope.myForm.$valid) {
                 $scope.onSubmit = true;
-                $scope.modal('show');
+                // $scope.modal('show');Izbačeno jer ne radi s ovim
             }
 
             if ($scope.shipper.id == 0) {

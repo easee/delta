@@ -20,7 +20,7 @@
         $scope.save = function() {
             if (!$scope.myForm.$valid) {
                 $scope.onSubmit = true;
-                $scope.modal('show');
+                // $scope.modal('show');Izbačeno jer ne radi s ovim
             }
             if ($scope.procurement.id == 0) {
                 DataService.insert("procurements", $scope.procurement, function(data) { ListProcurements(); });
@@ -50,7 +50,7 @@
         };
 
         $scope.page = 0;
-        $scope.search = function(page = 0, direction = 0) {
+        $scope.search = function(page, direction) {
             DataService.list("procurements/pagination?item=" + $scope.selectSearch + "&page=" + page, function(data) {
 
                 $scope.pagination = false;
@@ -107,7 +107,6 @@
                     $scope.searchPage = false;
                 }
 
-                console.log($scope.currentPage);
             });
         };
         $scope.checkPage = 1;
@@ -176,7 +175,6 @@
                     $scope.number = false;
                     $scope.pagination = false;
                 }
-                console.log($scope.currentPage);
             });
         }
            //GO TO
