@@ -41,6 +41,23 @@
             };
             $scope.showProducts = true;
         };
+        $scope.search2 = function(page, direction) {
+             if(direction==1)
+                 {
+                      $scope.search(page, direction);
+                      var i=(page+1)+"Search";
+                      document.getElementById(i).focus();
+                 }
+             else if(direction==-1)
+                 {
+                      $scope.search(page, direction);
+                      var i=(page+1)+"Search";
+                      document.getElementById(i).focus();
+                 }
+             else
+                 $scope.search(page, direction);
+                
+         }
         $scope.page = 0;
         $scope.search = function(page, direction) {
             DataService.list("products/pagination?item=" + $scope.selectSearch + "&page=" + page, function(data) {
@@ -49,6 +66,17 @@
                 $scope.products = data.productsList;
                 $scope.totalPages = data.totalPages;
                 $scope.currentPage = data.currentPage + 1;
+                $scope.checkPage2 = 1;
+                $scope.checkFirst2 = 0;
+                $scope.checkLast2 = 0;
+                $scope.checkPage2 = 1;
+                $scope.checkFirst2 = 0;
+                $scope.checkLast2 = 0;
+
+                if($scope.currentPage>1)
+                     $scope.checkPage2 = 0;
+                if($scope.currentPage>1)
+                     $scope.checkPage2 = 0;
                 
                 if ($scope.totalPages < 11)
                     $scope.pages = new Array($scope.totalPages);
@@ -58,9 +86,11 @@
                 if ($scope.currentPage == $scope.totalPages && $scope.totalPages > 1) {
                     document.getElementById("nextSearch").disabled = true;
                     document.getElementById("previousSearch").disabled = false;
+                    $scope.checkLast2 = 1;
                 } else if ($scope.currentPage == 1 && $scope.totalPages == 1) {
                     document.getElementById("previousSearch").disabled = true;
                     document.getElementById("nextSearch").disabled = true;
+                    $scope.checkFirst2 = 1;
                 } else if ($scope.currentPage == 1) {
                     document.getElementById("previousSearch").disabled = true;
                     document.getElementById("nextSearch").disabled = false;
@@ -188,14 +218,6 @@
                     document.getElementById(page + 1).focus();
                 } else
                     ListProducts(page - 1);
-            
-                if(page!=0 && $scope.checkPage==1)
-                    {
-                      document.getElementById(1).style.color="#333";
-                      document.getElementById(1).style.backgroundColor="#fff";
-                      document.getElementById(1).style.borderColor="#ccc";
-                      document.getElementById(1).style.boxShadow="none";
-                    }
             
             if(check==1)
                  document.getElementById(page - 1).focus();
