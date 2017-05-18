@@ -130,6 +130,17 @@ namespace Billing.Api.Controllers
                 if (BillingIdentity.CurrentUser.Username == currentAgent || BillingIdentity.CurrentUser.Roles.Contains("admin"))
                 {
                     Invoice invoice = Factory.Create(model);
+                    if(invoice.Status.ToString()=="InvoiceShipped")
+                    {
+                       
+                        foreach(var item in invoice.Items)
+                        {
+                            Stock stock = UnitOfWork.Stocks.Get(item.Product.Id);
+                            stock.Output -= item.Quantity;
+                            UnitOfWork.Stocks.Update(stock,item.Product.Id);
+                        }
+
+                    }
                     UnitOfWork.Invoices.Update(invoice, id);
                     UnitOfWork.Commit();
                     return Ok(Factory.Create(invoice));
