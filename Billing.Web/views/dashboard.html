@@ -3,24 +3,98 @@
 <!--<input type="date" class="datepicker" data-date-format="mm/dd/yyyy" ng-model="requestData.startDate">
 <input class="datepicker" data-date-format="mm/dd/yyyy" ng-model="requestData.endDate">-->
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-xs-3 text-center" style="border:2px solid lightgray; border-radius:5px; margin-bottom:20px">
-            <i class="fa fa-braille fa-5x "></i><h3>Categories</h3>
-            <h3>{{dashData.categoriesCount}}</h3>
-        </div>
-        <div class="col-xs-3 text-center" style="border:2px solid lightgray; border-radius:5px; margin-bottom:20px">
-            <i class="fa fa-shopping-bag fa-5x "></i><h3>Products</h3>
-            <h3>{{dashData.productsCount}}</h3>
-        </div>
-        <div class="col-xs-3 text-center" style="border:2px solid lightgray; border-radius:5px; margin-bottom:20px">
-            <i class="fa fa-address-card-o  fa-5x "></i><h3>Customers</h3>
-            <h3>{{dashData.customersCount}}</h3>
-        </div>
-        <div class="col-xs-3 text-center" style="border:2px solid lightgray; border-radius:5px; margin-bottom:20px">
-            <i class="fa fa-user fa-5x "></i><h3>Agents</h3>
-            <h3>{{dashData.agentsCount}}</h3>
-        </div>
-    </div>
+
+<div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-braille fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">{{dashData.categoriesCount}}</div>
+                                    <div>Categories</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a ng-href="#/categories">
+                            <div class="panel-footer" >
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-shopping-bag fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">{{dashData.productsCount}}</div>
+                                    <div>Products</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a ng-href="#/products">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-address-card-o fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">{{dashData.customersCount}}</div>
+                                    <div>Customers</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a ng-href="#/customers">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-user fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">{{dashData.agentsCount}}</div>
+                                    <div>Agents</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a ng-href="#/agents">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
     <div class="row" style="border:2px solid lightgray; border-radius:5px; margin-bottom:20px">
      <div class="col-xs-7" ng-show="showFirst">           
              <canvas id="sales"></canvas>        
