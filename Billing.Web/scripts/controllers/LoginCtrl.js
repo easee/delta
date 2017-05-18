@@ -37,12 +37,12 @@
                     // console.log(reason);
                 });
 
-            $scope.loginAs = function(username) {
-                $scope.user = { name: username, pass: "billing", remember: true };
-                $scope.login();
-                $rootScope.showDash = false;
-                $rootScope.buttonPressed = true;
-            };
+            // $scope.loginAs = function(username) {
+            //     $scope.user = { name: username, pass: "billing", remember: true };
+            //     $scope.login();
+            //     $rootScope.showDash = false;
+            //     $rootScope.buttonPressed = true;
+            // };
 
             $scope.isDisabled = false;
             $scope.disableLoginButton = function() {
