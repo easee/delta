@@ -123,16 +123,19 @@ input.ng-invaild.ng-dirty {
 
 .panel-green {
 background:#5cb85c;
+color: white;
 }
 
 .panel-yellow {
 background:#f0ad4e;
+color: white;
 }
 
 .panel-red {
 background:#d9534f;
+color: white;
 }
-panel-yellow
+
 
 
 /* table meta */
