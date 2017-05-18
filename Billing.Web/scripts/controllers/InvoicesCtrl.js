@@ -15,7 +15,6 @@
             mailTo: ""
         };
         $scope.selectedCustomer = { id: 0, name: "" };
-
         $scope.edit = function(invoice) {
             if (invoice.id == 0) {
                 $scope.selectedCustomer = { id: 0, name: '' };
@@ -23,8 +22,9 @@
                 $scope.selectedCustomer = { id: invoice.customerId, name: invoice.customer };
             }
             $scope.invoice = invoice;
+            $scope.statusId = invoice.statusId+1;
         };
-
+        
         $scope.info = function(invoice) {
             DataService.read("invoicereport", invoice.id, function(data) { $scope.invoices = data; })
             $scope.showInvoices = true;
@@ -79,6 +79,7 @@
                 DataService.insert("invoices", $scope.invoice, function(data) { ListInvoices($scope.currentPage - 1); });
                 $('.modal').modal('hide');
             } else {
+                 $scope.invoice.statusId = $scope.statusId-1;
                 DataService.update("invoices", $scope.invoice.id, $scope.invoice, function(data) { ListInvoices($scope.currentPage - 1); });
                 $('.modal').modal('hide');
             }
@@ -97,7 +98,7 @@
                 date: new Date(),
                 shippedOn: dateShipped,
                 vat: 17,
-                statusId: 1
+                statusId: null
             };
             $scope.showInvoices = true;
 
