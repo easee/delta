@@ -121,5 +121,18 @@ input.ng-invaild.ng-dirty {
     float: right;
 }
 
+.panel-green {
+background:#5cb85c;
+}
+
+.panel-yellow {
+background:#f0ad4e;
+}
+
+.panel-red {
+background:#d9534f;
+}
+panel-yellow
+
 
 /* table meta */

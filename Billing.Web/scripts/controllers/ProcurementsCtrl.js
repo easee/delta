@@ -12,7 +12,6 @@
 
         $scope.edit = function(currentProcurement) {
             $scope.procurement = currentProcurement;
-            console.log(currentProcurement);
             $scope.showProcurements = true;
         };
         $scope.hideval = function() {
