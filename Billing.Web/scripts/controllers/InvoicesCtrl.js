@@ -86,16 +86,18 @@
 
         //CREATE NEW INVOICE
         var dbase = new Date();
-        var invGenNum = dbase.valueOf(); //Generate invoice number
+        var invGenNum = dbase.valueOf() + '-' + credentials.currentUser.id; //Generate invoice number
         var currentDate = new Date();
         var dateShipped = new Date(new Date(currentDate).setDate(currentDate.getDate() + 5)); // Set default shipping date to current + 5 days.
-        $scope.new = function() {
+        $scope.new = function(states) {
+            console.log($scope.states);
             $scope.invoice = {
                 id: 0,
                 invoiceNo: invGenNum,
                 date: new Date(),
                 shippedOn: dateShipped,
-                vat: 17
+                vat: 17,
+                statusId: 1
             };
             $scope.showInvoices = true;
 
@@ -337,28 +339,13 @@
             });
             $scope.showInvoices = false;
         };
-        //LIST ALL INVOICES
-        /*function ListInvoices() {
-            DataService.list("invoices", function(data) { $scope.invoices = data });
-        };*/
-
-        $scope.statuses = [
-            { "-1": "Canceled" },
-            { "0": "OrderCreated" },
-            { "1": "InvoiceCreated" },
-            { "2": "InvoiceSent" },
-            { "3": "InvoicePaid" },
-            { "4": "InvoiceOnHold" },
-            { "5": "InvoiceReady" },
-            { "6": "InvoiceShipped" }
-        ];
 
         // Ovaj dio sluzi za view onih sarenih buttona na invoice tabeli
         $scope.states = BillingConfig.stat;
         //--------------------------------------------------------------
 
         $scope.getKey = function(status) {
-            return Object.keys(status)[0];
+            return $scope.states.indexOf(status);
         }
 
 
