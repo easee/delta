@@ -114,33 +114,22 @@
             </div>
         </div>
     </div>
+    <!--End of Modal-->
     <div>
         <div class="form-group pull-left">
-            <input type="text" class="form-control" ng-model="selectSearch">
+            <input type="text" class="form-control" ng-model="selectSearch" ng-change="search()" placeholder="Search as you type">
         </div>
-        <div class="form-group pull-left">
+        <!--<div class="form-group pull-left">
             <a href="" ng-click="search()"><button type="submit" class="btn btn-info" type="submit" ><i class="fa fa-search" aria-hidden="true"></i></button></a>
-        </div>
+        </div>-->
     </div>
-    <!--End of Modal-->
+
     <div>
         <div class="form-group pull-right">
             <td> <a href="" ng-click="new()"><button type="submit" class="btn btn-sm btn-primary btn-create" data-toggle="modal" data-target="#myModalNew" type="submit" admin-view><i class="fa fa-plus" aria-hidden="true" ></i> SUPPLIER</button></a></td>
 
         </div>
         <div>
-            <!--<div class="form-group pull-left">
-                <input type="search" class="search form-control" placeholder="Search as you type" ng-model="select">
-            </div>
-            <div class="form-group pull-left">
-                <select class="form-control" ng-model="sort">
-                    <option value="" disabled selected>Sort by</option>
-                    <option value="id" class="hidden">Id</option>
-                    <option value="+name">Name asc</option>
-                    <option value="-name">Name dsc</option>
-                    <option value="town">Town</option>
-                    </select>
-            </div>-->
             <table class="table table-striped table-bordered table-list">
                 <thead>
                     <tr>
