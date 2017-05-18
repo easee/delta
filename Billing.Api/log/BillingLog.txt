@@ -1,0 +1,3 @@
+2017-05-18 17:52:13,922 | ERROR | Object reference not set to an instance of an object.: http://localhost:9000/api/dashboard
+2017-05-18 17:52:34,318 | ERROR | Object reference not set to an instance of an object.: http://localhost:9000/api/dashboard
+2017-05-18 17:52:55,973 | ERROR | Object reference not set to an instance of an object.: http://localhost:9000/api/dashboard
