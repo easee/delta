@@ -109,6 +109,7 @@ namespace Billing.Api.Controllers
             try
             {
                 Invoice invoice = Factory.Create(model);
+                invoice.Status = (Status)model.StatusId-1;
                 UnitOfWork.Invoices.Insert(invoice);
                 UnitOfWork.Commit();
                 return Ok(Factory.Create(invoice));
@@ -124,8 +125,9 @@ namespace Billing.Api.Controllers
         {
             try
             {
-                Agent current = UnitOfWork.Agents.Get(id);
-                if (Thread.CurrentPrincipal.Identity.Name == current.Username || Thread.CurrentPrincipal.IsInRole("admin"))
+                Invoice Invoice = UnitOfWork.Invoices.Get(id);
+                string currentAgent = Invoice.Agent.Username;
+                if (BillingIdentity.CurrentUser.Username == currentAgent || BillingIdentity.CurrentUser.Roles.Contains("admin"))
                 {
                     Invoice invoice = Factory.Create(model);
                     UnitOfWork.Invoices.Update(invoice, id);
