@@ -1,17 +1,18 @@
 (function() {
-    app.controller("ProcurementsCtrl", ['$scope', 'DataService', function($scope, DataService) {
+    app.controller("ProcurementsCtrl", ['$scope', 'DataService', '$http', function($scope, DataService, $http) {
         $scope.showProcurements = false;
         $scope.searchPage = false;
         $scope.pagination = false;
         $scope.number = false;
         $scope.onSubmit = false;
         ListProcurements(0);
-        ListSuppliers('');
-        ListProducts('');
         $scope.selectSearch = "";
+        $scope.selectedProduct = { id: 0, name: ''};
+        $scope.selectedSupplier = { id: 0, name: ''};
 
         $scope.edit = function(currentProcurement) {
             $scope.procurement = currentProcurement;
+            console.log(currentProcurement);
             $scope.showProcurements = true;
         };
         $scope.hideval = function() {
@@ -22,6 +23,8 @@
                 $scope.onSubmit = true;
                 // $scope.modal('show');Izbačeno jer ne radi s ovim
             }
+        $scope.procurement.supplierId = $scope.selectedSupplier.id;
+        $scope.procurement.productId = $scope.selectedProduct.id;
             if ($scope.procurement.id == 0) {
                 DataService.insert("procurements", $scope.procurement, function(data) { ListProcurements(); });
                 $('.modal').modal('hide');
@@ -31,8 +34,11 @@
             }
         };
 
+
         //CREATE NEW PROCUREMENT
         $scope.new = function() {
+        $scope.selectedProduct = { id: 0, name: ''};
+        $scope.selectedSupplier = { id: 0, name: ''};
             $scope.procurement = {
                 id: 0,
                 date: new Date(),
@@ -42,8 +48,6 @@
                 suppliers: [],
                 products: []
             };
-            document.getElementById('suppliersel').style.visibility = 'hidden';
-            document.getElementById('productsel').style.visibility = 'hidden';
             $scope.showProcurements = true;
 
             //DataService.insert("procurements", $scope.procurement, function(data){ ListProcurements();} );
@@ -251,58 +255,38 @@
         function ListProducts(name) {
             DataService.list("products/" + name, function(data) { $scope.products = data });
         };
-        //ARROW DOWN EVENT SO IT COULD FOCUS ON DROPDOWN
-        $scope.textUp = function(keyEvent) {
-            if (keyEvent.key == "ArrowDown") document.getElementById('suppliersel').focus();
+        
+        //TYPEAHEAD Suppliers and Products
+        var _selected;
+        $scope.selected = (undefined);
+
+        $scope.getSuppliers = function(name) {
+            return $http.get('http://api-delta.gigischool.com/api/suppliers/' + name).then(function(response) {
+                return response.data;
+            });
         };
 
-        $scope.textUp2 = function(keyEvent) {
-            if (keyEvent.key == "ArrowDown") document.getElementById('productsel').focus();
+        $scope.getProducts = function(name) {
+            return $http.get('http://api-delta.gigischool.com/api/products/' + name).then(function(response) {
+                return response.data;
+            });
         };
 
-        $scope.supplierSelected = function(keyEvent) {
-            if (keyEvent.key == "Enter") {
-                for (var i = 0; i < $scope.suppliers.length; i++) {
-                    if ($scope.suppliers[i].id === $scope.procurement.supplierId) { //Onaj ID koji ima istu vrijednost kao
-                        $scope.procurement.supplier = $scope.suppliers[i].name;
-                        document.getElementById('suppliersel').style.visibility = 'hidden';
-                        break;
-                    }
-                }
-            }
-        };
 
-        $scope.productSelected = function(keyEvent) {
-            if (keyEvent.key == "Enter") {
-                for (var i = 0; i < $scope.products.length; i++) {
-                    if ($scope.products[i].id === $scope.procurement.productId) { //Onaj ID koji ima istu vrijednost kao
-                        $scope.procurement.product = $scope.products[i].name;
-                        document.getElementById('productsel').style.visibility = 'hidden';
-                        break;
-                    }
-                }
-            }
-        };
-
-        //AUTOCOMPLETE in BOX
-        $scope.autocomplete = function(autoStr) {
-            if (autoStr.length >= 3) {
-                ListSuppliers(autoStr);
-                document.getElementById('suppliersel').style.visibility = 'visible'; //Otkrivamo combobox
-                document.getElementById('suppliersel').size = 8;
+        $scope.ngModelOptionsSelected = function(value) {
+            if (arguments.length) {
+                _selected = value;
             } else {
-                document.getElementById('suppliersel').style.visibility = 'hidden';
+                return _selected;
             }
         };
 
-        $scope.autocomplete2 = function(autoStr) {
-            if (autoStr.length >= 3) {
-                ListProducts(autoStr);
-                document.getElementById('productsel').style.visibility = 'visible'; //Otkrivamo combobox
-                document.getElementById('productsel').size = 8;
-            } else {
-                document.getElementById('productsel').style.visibility = 'hidden';
-            }
+        $scope.modelOptions = {
+            debounce: {
+                default: 500,
+                blur: 250
+            },
+            getterSetter: true
         };
 
     }]);

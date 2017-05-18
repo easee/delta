@@ -114,17 +114,17 @@
                         <div class="form-group">
                             <label>Supplier</label>
                             <div>
-                                <input type="text" class="form-control" ng-model="procurement.supplier" ng-change="autocomplete(procurement.supplier)" ng-keyup="textUp($event)" />
-                            </div>
-                            <select class="form-control" id="suppliersel" data-style="btn-primary" ng-model="procurement.supplierId" ng-options="supplier.id as supplier.name for supplier in suppliers" ng-keypress="supplierSelected($event)" name="supplier" required></select>
+                                <input type="text" ng-model="selectedSupplier" placeholder="Enter supplier" uib-typeahead="supplier as supplier.name for supplier in getSuppliers($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults"
+                                    class="form-control">
+                            </div> 
                             <p id="valid" ng-show="onSubmit && (!myForm.supplier.$valid)">Supplier is required</p>
                         </div>
                         <div class="form-group">
                             <label>Product</label>
                             <div>
-                                <input type="text" class="form-control" ng-model="procurement.product" ng-change="autocomplete2(procurement.product)" ng-keyup="textUp2($event)">
-                            </div>
-                            <select class="form-control" id="productsel" data-style="btn-primary" ng-model="procurement.productId" ng-options="product.id as product.name for product in products" ng-keypress="productSelected($event)" name="product" required></select>
+                                <input type="text" ng-model="selectedProduct" placeholder="Enter product" uib-typeahead="product as product.name for product in getProducts($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults"
+                                    class="form-control">
+                            </div> 
                             <p id="valid" ng-show="onSubmit && (!myForm.product.$valid)">Product is required</p>
                         </div>
                     </form>

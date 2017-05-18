@@ -15,6 +15,7 @@ namespace Billing.Api.Controllers
     [RoutePrefix("api/procurements")]
     public class ProcurementsController : BaseController
     {
+        private int inputStock=0;
         //public IBillingRepository<Procurement> procurements = new BillingRepository<Procurement>(new BillingContext());
         //Factory factory = new Factory();
         [Route("")]
@@ -94,6 +95,10 @@ namespace Billing.Api.Controllers
             try
             {
                 Procurement procurement = Factory.Create(model);
+                inputStock = procurement.Quantity;
+                Stock Stock = UnitOfWork.Stocks.Get(procurement.Product.Id);
+                Stock.Input += inputStock;
+                UnitOfWork.Stocks.Insert(Stock);
                 UnitOfWork.Procurements.Insert(procurement);
                 UnitOfWork.Commit();
                 return Ok(Factory.Create(procurement));
@@ -111,7 +116,12 @@ namespace Billing.Api.Controllers
         {
             try
             {
+                int inputStock2 = 0;
                 Procurement procurement = Factory.Create(model);
+                inputStock2 = procurement.Quantity;
+                Stock Stock = UnitOfWork.Stocks.Get(procurement.Product.Id);
+                Stock.Input += inputStock2-inputStock;
+                UnitOfWork.Stocks.Update(Stock,procurement.Product.Id);
                 UnitOfWork.Procurements.Update(procurement,id);
                 UnitOfWork.Commit();
                 return Ok(Factory.Create(procurement));
